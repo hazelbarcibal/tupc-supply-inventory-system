@@ -1,0 +1,235 @@
+{% extends 'task/home.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<title> Supplies Delivery </title>
+
+
+
+<style type="text/css">
+    
+    img {
+        border: 0;
+    }
+
+    #main {
+        margin: 15px auto;
+        color: rgb(37, 24, 24);
+        overflow: auto;
+        width: 100%;
+    }
+
+    #header {  
+        margin-bottom: 10px;
+    }
+
+    #mainbody {
+        
+        width: 100%;
+        display: none;
+    }
+
+    #v {
+        width: 320px;
+        height: 240px;
+    }
+
+
+    #qr-canvas {
+        display: none;
+    }
+
+    #qrfile {
+        width: 320px;
+        height: 240px;
+    }
+
+    #mp1 {
+        padding-top: 70px;
+        cursor: default;
+        text-align: center;
+        font-size: 35px;
+        font-weight: 700;
+        color: white;
+    }
+
+    #imghelp {
+        position: relative;
+        left: 0px;
+        top: -160px;
+        z-index: 100;
+        font: 18px arial, sans-serif;
+        background: #f0f0f0;
+        margin-left: 35px;
+        margin-right: 35px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-radius: 20px;
+    }
+
+    .selector {
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        margin-bottom: -5px;
+    }
+
+
+    #outdiv {
+        width: 320px;
+        height: 240px;
+        border: solid;
+        border-width: 3px 3px 3px 3px;
+    }
+
+    #result {
+        color: white;
+        background-color: #151617;
+        border: 2px solid #ffbb38;
+        padding: 20px;
+        width: 70%;
+    }
+
+    .navQR{
+        top: 15em;
+        left: 20em;
+        text-align: center;
+        justify-content: center;
+    }
+    
+
+    .navQR ul {
+        margin-bottom: 0;
+        margin-right: 40px;
+    }
+
+    .navQR ul li {
+        display: inline;
+        padding-right: 0.5em;
+        padding-left: 0.5em;
+        justify-items: center;
+        font-weight: bold;
+        border-right: 1px solid white;
+    }
+
+    .navQR li a {
+        text-decoration: none;
+        color: white;
+        text-align: center;
+    }
+
+    .navQR li a:hover {
+        text-decoration: none;
+        color: #ffbb38;
+        text-align: center;
+    }
+
+    
+
+    .tsel {
+        padding: 0;
+    }
+</style>
+
+<script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/webqr.js' %}"></script>
+
+
+
+<div class="home-content">
+    <div style="margin: auto; width: 175px;">
+        <label style="text-align: center;"><h2>Scanning QR</h2></label>
+    </div>
+
+    <!-- QR UI -->
+    <div>
+        <table class="tsel" border="0" width="100%">
+            <tr>
+                <td valign="top" align="center" width="50%">
+                    <table class="tsel" border="0">
+                        <tr>
+                            
+                            <td><img class="selector" id="qrimg" src="{% static 'img/cam.png' %}" onclick="setimg()" align="right" /></td>
+                        </tr>
+
+                        <!-- Where cam will appear-->
+                        <tr>
+                            <td colspan="2" align="center">
+                                <div id="outdiv">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+
+            <!-- Data section where infos will be displayed once scanned -->
+            <tr>
+                <td colspan="3" align="center" style="padding-top: 10px; padding-bottom: 10px;">
+                    <img style="height: 20px; width: 20px;" src="{% static 'img/arrow-down.png' %}" />
+                </td>
+            </tr>
+            <tr>
+                <!-- Where the scanned data will be displayed -->
+                <td colspan="3" align="center" style="padding-top: 10px; padding-bottom: 5px;">
+                    <div id="result" style="height: 9em; width: 45em;"></div></
+                    <span><button type="button" class="btn btn-outline-primary">New Supply Item</button></span>
+                </td>
+            </tr>
+
+
+
+        </table>
+    </div>
+
+</br>
+    <div style="margin: auto; width: 75%;">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Larry the Bird</td>
+                    <td>@twitter</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+</div>
+
+<canvas id="qr-canvas" width="800" height="600"></canvas>
+<script type="text/javascript">
+    load();
+</script>
+
+
+{% endblock %}
