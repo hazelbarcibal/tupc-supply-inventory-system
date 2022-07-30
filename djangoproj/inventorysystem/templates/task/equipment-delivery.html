@@ -43,8 +43,8 @@
     }
 
     #qrfile {
-        width: 320px;
-        height: 240px;
+        width: 230px;
+        height: 170px;
     }
 
     #mp1 {
@@ -74,15 +74,16 @@
         margin: 0;
         padding: 0;
         cursor: pointer;
-        margin-bottom: -5px;
+        margin-bottom: 5px;
     }
 
 
     #outdiv {
-        width: 320px;
-        height: 240px;
+        width: 230px;
+        height: 170px;
         border: solid;
         border-width: 3px 3px 3px 3px;
+        margin: 0 auto;
     }
 
     #result {
@@ -127,15 +128,14 @@
         text-align: center;
     }
 
-    
-
-    .tsel {
-        padding: 0;
-    }
     .content {
         max-width: 500px;
         margin: auto;
     }
+    .tsel {
+        padding: 0;
+    }
+
 </style>
 
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
@@ -145,107 +145,90 @@
 
 
 <div class="container home-content">
-    <div class="position-relative" style="padding-top: 20px; padding-bottom: 10px;">
+    <div class="position-relative" style="padding-top: 30px; padding-bottom: 20px;">
         <div class="position-absolute bottom-0 end-0" >
             <form action="{% url 'inventorysystem-addEquipment'%}">
                 <button type="button" class="btn btn-text-right btn-outline-primary">New Equipment Item</button>
             </form>
         </div>
     </div>
-
-    <div style="margin: auto; width: 175px;">
-        <label style="text-align: center;"><h2>Scanning QR</h2></label>
-    </div>
-
+<div>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div style="margin: 0 auto;" align="center">
+            <label><h3>Scanning QR</h3></label>
+        </div>
+    </div> 
     <!-- QR UI -->
-    <div>
-        <table class="tsel" border="0" width="100%">
-            <tr>
-                <td valign="top" align="center" width="50%">
-                    <table class="tsel" border="0">
-                        <tr>
-                            
-                            <td><img class="selector" id="qrimg" src="{% static 'img/cam.png' %}" onclick="setimg()" align="right" /></td>
-                        </tr>
+    <div class="row" style="width: 40px; margin: 0 auto; padding-bottom: 3px;">
+        <img class="selector" id="qrimg" src="{% static 'img/cam.png' %}" onclick="setimg()" />
+    </div>
+    <!-- Where cam will appear-->
+    <div class="row">
+        <div id="outdiv"></div>
+    </div>
+</div>
 
-                        <!-- Where cam will appear-->
-                        <tr>
-                            <td colspan="2" align="center">
-                                <div id="outdiv">
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-
-
-            <!-- Data section where infos will be displayed once scanned -->
-            <tr>
-                <td colspan="3" align="center" style="padding-top: 10px; padding-bottom: 10px;">
-                    <img style="height: 20px; width: 20px;" src="{% static 'img/arrow-down.png' %}" />
-                </td>
-            </tr>
-            <br>
-            <br>
-            <td colspan="3" align="center" style="padding-top: 10px; padding-bottom: 5px;">
-                   
-            </td>
-            <tr>
-                <!-- Where the scanned data will be displayed -->
-                <td colspan="3" align="center" style="padding-top: 10px; padding-bottom: 5px;">
-                    <div id="result" style="height: 9em; width: 45em;"></div>
-                    <br>
-                    <div class="container content input-group mb-1" style="min-width: 30px;">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Description:</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <div class="container content input-group mb-1" style="min-width: 10px;">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Brand:</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <div class="container content input-group mb-1" style="min-width: 30px;">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Quantity:</span>
-                        <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <br>
-                    <span><button type="button" class="btn btn-outline-primary">Deliver Item</button></span>
-                </td>
-            </tr>
-        </table>
+<div class="container">
+<!-- Data section where infos will be displayed once scanned -->
+    <div class="row" align="center" style="padding-top: 10px; padding-bottom: 10px;">
+        <img style="height: 20px; width: 20px;" src="{% static 'img/arrow-down.png' %}" />
     </div>
 
-</br>
-    <div style="margin: auto; width: 75%;">
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Item Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Brand</th>
-                    <th scope="col">Unit</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Date & Time</th>
-                </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                <tr>
-                    <th scope="row">Bondpaper</th>
-                    <td>Long</td>
-                    <td>One</td>
-                    <td>Ream</td>
-                    <td>10</td>
-                    <td> -- </td>
-                </tr>
-                </tbody>
-            </table>
+    <div class= "row">
+        <div align="center" style="padding-top: 10px; padding-bottom: 5px;">
+            <div id="result" style="height: 7em; width: 30em;"></div>
+            <br>
+            <div class="container content input-group mb-1" style="min-width: 30px;">
+                <span class="input-group-text" id="inputGroup-sizing-default">Description:</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="container content input-group mb-1" style="min-width: 10px;">
+                <span class="input-group-text" id="inputGroup-sizing-default">Brand:</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="container content input-group mb-1" style="min-width: 30px;">
+                <span class="input-group-text" id="inputGroup-sizing-default">Quantity:</span>
+                <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+            <br>
+            <span><button type="button" class="btn btn-outline-primary">Deliver Item</button></span>
         </div>
     </div>
 
-
-
+<br>
+<!--table-->
+    <div style="margin: auto; width: 95%;">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Item Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Brand</th>
+                        <th scope="col">Unit</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Date & Time</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                    <tr>
+                        <th scope="row">Bondpaper</th>
+                        <td>Long</td>
+                        <td>One</td>
+                        <td>Ream</td>
+                        <td>10</td>
+                        <td> -- </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 </div>
+
+
 
 <canvas id="qr-canvas" width="800" height="600"></canvas>
 <script type="text/javascript">
