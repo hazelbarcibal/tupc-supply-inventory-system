@@ -181,21 +181,32 @@
         <div align="center" style="padding-top: 10px; padding-bottom: 5px;">
             <div id="result" style="height: 7em; width: 30em;"></div>
             <br>
-            <div class="container content input-group mb-1" style="min-width: 30px;">
+            <div class="content input-group mb-1" style="min-width: 30px;">
                 <span class="input-group-text" id="inputGroup-sizing-default">Description:</span>
                 <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
             </div>
-            <div class="container content input-group mb-1" style="min-width: 10px;">
+            <div class="content input-group mb-1" style="min-width: 10px;">
                 <span class="input-group-text" id="inputGroup-sizing-default">Brand:</span>
                 <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                <div class="" style="padding-left: 20px;">
+                    <form action="">
+                        <button type="button" class="btn btn-outline-primary">Save Data As PDF</button>
+                    </form>
+                </div>  
             </div>
-            <div class="container content input-group mb-1" style="min-width: 30px;">
+            <div class="content input-group mb-1" style="min-width: 10px;">
                 <span class="input-group-text" id="inputGroup-sizing-default">Quantity:</span>
                 <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                <div class="" style="padding-left: 20px;">
+                    <form action="">
+                        <button type="button" class="btn btn-outline-primary">Export Data to Excel</button>
+                    </form>
+                </div>  
             </div>
             <br>
-            <span><button type="button" class="btn btn-outline-primary">Deliver Item</button></span>
-        </div>
+                <form action="">
+                    <button type="button" class="btn btn-outline-primary">Deliver Item</button>
+                </form>         
     </div>
 
 <br>
@@ -227,7 +238,6 @@
             </div>
         </div>
 </div>
-
 
 
 <canvas id="qr-canvas" width="800" height="600"></canvas>
