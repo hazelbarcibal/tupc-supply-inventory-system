@@ -5,11 +5,29 @@
 
 {% block content %}
 
-<title> Supplies Delivery </title>
+<title> Equipments Delivery </title>
+<style>
+    #result {
+        color: white;
+        background-color: #151617;
+        border: 2px solid #ffbb38;
+        padding: 20px;
+        width: 70%;
+    }
+    .content {
+        max-width: 500px;
+        margin: auto;
+    }
+</style>
 
-<div class="home-content">
+<div class="container home-content content">
+    <div style="margin: auto; width: 175px;">
+        <label style="text-align: center;"><h2>Create QR</h2></label>
+    </div>
+    <br>
+    
     <div class="input-group mb-3" style="min-width: 50px;">
-        <span class="input-group-text" id="inputGroup-sizing-default">Supply name:</span>
+        <span class="input-group-text" id="inputGroup-sizing-default">Item Name:</span>
         <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
 
@@ -17,7 +35,15 @@
         <span class="input-group-text" id="inputGroup-sizing-default">Unit:</span>
         <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
-
+    <form>
+        <button type="button" class="btn btn-outline-primary">Create QR</button>
+    </form>
+    <br>
+    <form>
+        <button type="button" class="btn btn-outline-primary">Save QR</button>
+    </form>
+    <br>
+    <div id="result" style="height: 10em; width: 10em;"></div>
 
 </div>
 
