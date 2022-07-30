@@ -2,11 +2,9 @@
 {% load static %}
 
 
-
 {% block content %}
 
 <title> Equipments Delivery </title>
-
 
 
 <style type="text/css">
@@ -140,11 +138,15 @@
 
 
 
-<div class="home-content">
-    
-    <td style="float: right; padding-top: 10px; padding-bottom: 5px;">
-        <button type="button" class="btn btn-outline-primary">Add Item</button>
-    </td>
+<div class="container home-content">
+    <div class="position-relative" style="padding-top: 20px; padding-bottom: 10px;">
+        <div class="position-absolute bottom-0 end-0" >
+            <form action="{% url 'inventorysystem-addEquipment'%}">
+                <button type="button" class="btn btn-text-right btn-outline-primary">Add Item</button>
+            </form>
+        </div>
+    </div>
+
     <div style="margin: auto; width: 175px;">
         <label style="text-align: center;"><h2>Scanning QR</h2></label>
     </div>
