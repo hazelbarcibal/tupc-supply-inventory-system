@@ -10,3 +10,9 @@ def suppliesDeliver(request):
 
 def addSupply(request):
     return render(request, 'task/add-supply.html')
+
+def equipmentDeliver(request):
+    return render(request, 'task/equipment-delivery.html')
+
+def addEquipment(request):
+    return render(request, 'task/add-equipment.html')
