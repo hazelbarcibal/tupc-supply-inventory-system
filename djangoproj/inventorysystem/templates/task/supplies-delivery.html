@@ -140,7 +140,14 @@
 
 
 
-<div class="home-content">
+<div class="container home-content">
+    <div class="position-relative" style="padding-top: 20px; padding-bottom: 10px;">
+        <div class="position-absolute bottom-0 end-0" >
+            <form action="{% url 'inventorysystem-addEquipment'%}">
+                <button type="button" class="btn btn-text-right btn-outline-primary">Add Item</button>
+            </form>
+        </div>
+    </div>
     <div style="margin: auto; width: 175px;">
         <label style="text-align: center;"><h2>Scanning QR</h2></label>
     </div>
@@ -193,29 +200,22 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Item Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">Unit</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Date & Time</th>
                 </tr>
                 </thead>
                 <tbody class="table-group-divider">
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
+                    <th scope="row">Bondpaper</th>
+                    <td>Long</td>
+                    <td>One</td>
+                    <td>Ream</td>
+                    <td>10</td>
+                    <td> -- </td>
                 </tr>
                 </tbody>
             </table>
