@@ -2,9 +2,11 @@
 {% load static %}
 
 
+
 {% block content %}
 
 <title> Equipments Delivery </title>
+
 
 
 <style type="text/css">
@@ -130,6 +132,10 @@
     .tsel {
         padding: 0;
     }
+    .content {
+        max-width: 500px;
+        margin: auto;
+    }
 </style>
 
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
@@ -142,7 +148,7 @@
     <div class="position-relative" style="padding-top: 20px; padding-bottom: 10px;">
         <div class="position-absolute bottom-0 end-0" >
             <form action="{% url 'inventorysystem-addEquipment'%}">
-                <button type="button" class="btn btn-text-right btn-outline-primary">Add Item</button>
+                <button type="button" class="btn btn-text-right btn-outline-primary">New Equipment Item</button>
             </form>
         </div>
     </div>
@@ -182,16 +188,30 @@
             </tr>
             <br>
             <br>
+            <td colspan="3" align="center" style="padding-top: 10px; padding-bottom: 5px;">
+                   
+            </td>
             <tr>
                 <!-- Where the scanned data will be displayed -->
                 <td colspan="3" align="center" style="padding-top: 10px; padding-bottom: 5px;">
-                    <div id="result" style="height: 9em; width: 45em;"></div></
-                    <span><button type="button" class="btn btn-outline-primary">New Equipment Item</button></span>
+                    <div id="result" style="height: 9em; width: 45em;"></div>
+                    <br>
+                    <div class="container content input-group mb-1" style="min-width: 30px;">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Description:</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="container content input-group mb-1" style="min-width: 10px;">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Brand:</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="container content input-group mb-1" style="min-width: 30px;">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Quantity:</span>
+                        <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <br>
+                    <span><button type="button" class="btn btn-outline-primary">Deliver Item</button></span>
                 </td>
             </tr>
-
-
-
         </table>
     </div>
 
