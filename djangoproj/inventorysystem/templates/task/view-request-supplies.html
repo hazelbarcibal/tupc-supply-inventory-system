@@ -1,0 +1,100 @@
+{% extends 'task/home.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<title> View Request Supply </title>
+<link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<style>
+    .content {
+        max-width: 500px;
+        margin: auto;
+    }
+</style>
+
+<script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/webqr.js' %}"></script>
+
+<section class="home-section">
+    <nav>
+        <div class="sidebar-button">
+        <i class='bx bx-menu sidebarBtn'></i>
+        </div>
+        
+        <div>
+            <label style="padding-top: 10px;"><h2>Request Supplies</h2></label>
+        </div>
+        
+        <div class="profile-details">
+        <!--<img src="images/profile.jpg" alt="">-->
+        <text class="admin_name">Supply Admin</text>
+        <i class='bx bx-chevron-down' ></i>
+        </div>
+    </nav>
+
+<br>
+    <div class="container home-content">
+        <div align="right" style="padding-bottom: 10px; padding-right: 45px; margin: auto;">
+            <span><button type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
+            <span><button type="button" class="btn btn-outline-primary">Export Data To Excel</button></span>
+        </div>
+    </div>
+    <br>
+
+<div style="margin: auto; width: 90%;">
+            
+<!-- Datatable --> 
+    <table id="equipDeliveryTable" class="stripe cell-border hover" style="width:100%">
+        <thead>
+            <tr>
+                <th>Department</th>
+                <th>Item Name</th>
+                <th>Description</th>
+                <th>Brand</th>
+                <th>Unit</th>
+                <th>Quantity</th>
+                <th>Remaining</th>
+                <th>Date & Time</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>OSA</td>
+                <td>Marker</td>
+                <td>Black Whiteboard Marker</td>
+                <td>Artline</td>
+                <td>Box</td>
+                <td>45</td>
+                <td>10</td>
+                <td>08-01-22 12:56:13</td>
+                <td><button type="button" class="btn btn-outline-success" style="margin-bottom: 10px;">ACCEPT</button></td>
+            </tr>
+            <tr>
+                <td>ADAA</td>
+                <td>Marker1</td>
+                <td>Black Whiteboard Marker</td>
+                <td>Artline</td>
+                <td>Box</td>
+                <td>45</td>
+                <td>10</td>
+                <td>08-01-22 12:56:13</td>
+                <td><button type="button" class="btn btn-outline-success" style="margin-bottom: 10px;">ACCEPT</button></td>
+            </tr>
+        </tbody>
+
+    </table>
+    <br><br>
+
+<script>
+        $(document).ready(function () {
+        $('#equipDeliveryTable').DataTable();
+    });
+</script>
+
+{% endblock %}
