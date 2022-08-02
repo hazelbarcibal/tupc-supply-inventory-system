@@ -16,3 +16,9 @@ def equipmentDeliver(request):
 
 def addEquipment(request):
     return render(request, 'task/add-equipment.html')
+
+def suppliesWithdraw(request):
+    return render(request, 'task/supplies-withdraw.html')
+
+def equipmentWithdraw(request):
+    return render(request, 'task/equipment-withdraw.html')
