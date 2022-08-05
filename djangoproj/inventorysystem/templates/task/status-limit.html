@@ -1,0 +1,255 @@
+{% extends 'task/home.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<title> View Request Supply </title>
+<link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<style>
+    .content {
+        max-width: 500px;
+        margin: auto;
+    }
+    .hero{
+        margin: 0; 
+        padding: 0;
+        height: 100%;
+        
+    }
+    .toggle-btn{
+        padding: 10px 30px;
+        cursor: pointer;
+        background: transparent;
+        border: 0;
+        outline: none;
+        position: relative;
+    
+    }
+    .form-box{
+        width: 380px;
+        height: 480px;
+        position: relative;
+        margin: 6% auto;
+        background: #fff;
+        padding: 5px;
+        overflow: hidden;
+    }
+    #btn2 {
+        width: 110px;
+        background: linear-gradient(to left, maroon, #e72619);
+        border-radius: 30px;
+        transition: .5s;
+        
+    }
+    #btn3 {
+
+        width: 160px;
+        background: linear-gradient(to left, maroon, #e72619);
+        border-radius: 30px;
+        transition: .5s;
+    }
+    .input-group{
+        transition: .5s;
+        position: absolute;
+
+    }
+    .input-field{
+        padding: 10px 0;
+        margin: 5px;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+        border-bottom: 1px solid #999;
+        outline: none;
+        background: transparent;
+       
+        
+    }
+    .submit-btn{
+        width: 85%;
+        padding: 10px 30px;
+        cursor: pointer;
+        display: block;
+        margin: auto;
+        background:linear-gradient(to right, maroon, #e72619) ;
+        border: 0;
+        outline: none;
+        
+        
+ 
+    }
+    #exist{
+        left: 50px;
+    }
+    #not-exist{
+        left: 450px;
+    }
+</style>
+
+<script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/webqr.js' %}"></script>
+
+<section class="home-section">
+    <nav>
+        <div class="sidebar-button">
+        <i class='bx bx-menu sidebarBtn'></i>
+        </div>
+        
+        <div>
+            <label style="padding-top: 10px;"><h2>Status Limit</h2></label>
+        </div>
+        
+        <div class="profile-details">
+        <!--<img src="images/profile.jpg" alt="">-->
+        <text class="admin_name">Supply Admin</text>
+        <i class='bx bx-chevron-down' ></i>
+        </div>
+    </nav>
+
+<br>
+    <div class="container home-content">
+        <div align="right" style="padding-bottom: 10px; padding-right: 45px; margin: auto;">
+            <span><button type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
+            <span><button type="button" class="btn btn-outline-primary">Export Data To Excel</button></span>
+        </div>
+    </div>
+    <br>
+
+<div style="margin: auto; width: 90%;">
+            
+<!-- Datatable --> 
+    <table id="equipDeliveryTable" class="stripe cell-border hover" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Item Name</th>
+                <th>Description</th>
+                <th>Brand</th>
+                <th>Unit</th>
+                <th>Quantity</th>
+              
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>OSA</td>
+                <td>Marker</td>
+                <td>Black Whiteboard Marker</td>
+                <td>Artline</td>
+                <td>Box</td>
+                <td>45</td>
+                
+            </tr>
+            <tr>
+                <td>ADAA</td>
+                <td>Marker1</td>
+                <td>Black Whiteboard Marker</td>
+                <td>Artline</td>
+                <td>Box</td>
+                <td>45</td>
+                
+            </tr>
+        </tbody>
+
+    </table>
+    <br><br>
+  
+
+
+<!-- Datatable --> 
+<table id="equipDeliveryTable" class="stripe cell-border hover" style="width:100%">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Item Name</th>
+            <th>Description</th>
+            <th>Brand</th>
+            <th>Unit</th>
+            <th>Quantity</th>
+            <th>Department</th>
+            <th>Date & Time</th>
+          
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>OSA</td>
+            <td>Marker</td>
+            <td>Black Whiteboard Marker</td>
+            <td>Artline</td>
+            <td>Box</td>
+            <td>45</td>
+            <td>OSA</td>
+            <td>01/16/2022</td>
+            
+        </tr>
+        <tr>
+            <td>ADAA</td>
+            <td>Marker1</td>
+            <td>Black Whiteboard Marker</td>
+            <td>Artline</td>
+            <td>Box</td>
+            <td>45</td>
+            <td>OSA</td>
+            <td>01/16/2022</td>
+            
+        </tr>
+    </tbody>
+
+</table>
+<br><br>
+
+<script>
+    $(document).ready(function () {
+    $('#equipDeliveryTable').DataTable();
+});
+
+</script>
+
+<div class="hero" align="center" >
+    <div class="form-box">
+        <div class="button-box">
+            <div id="cmdbtn">
+            <button id="btn2" type="button" class="toggle-btn" onclick="exist()">Existing</button>
+            <button id="btn3" type="button"  class="toggle-btn" onclick="notexist()">Non-Existing</button>
+            </div>
+        </div>
+        <div id="exist" class="input-group">
+            <input type="text" class="input-field" placeholder="ID" required>
+            <input  type="text" class="input-field" placeholder="Quantity" required><span></span>
+            <button  class="submit-btn">Limit</button>
+            
+        </div>
+        <div id="not-exist" class="input-group">
+            <input type="text" class="input-field" placeholder="Item Name" required>
+            <input type="text" class="input-field" placeholder="Unit" required>
+            <input type="text" class="input-field" placeholder="Quantity" required>
+            <input type="text" class="input-field" placeholder="Department" required>
+            <button  class="submit-btn">Limit</button>
+        </div>
+    </div>
+</div>
+<script>
+    var x = document.getElementById("exist");
+    var y = document.getElementById("not-exist");
+    var z = document.getElementById("cmdbtn");
+
+    function notexist(){
+        x.style.left = "-500px";
+        y.style.left = "50px";
+        z.style.left = "110px";
+    }
+    function exist(){
+        x.style.left = "50px";
+        y.style.left = "550px";
+        z.style.left = "0px";
+    }
+
+</script>
+
+{% endblock %}
