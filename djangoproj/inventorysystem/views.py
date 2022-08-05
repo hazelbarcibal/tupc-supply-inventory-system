@@ -22,3 +22,6 @@ def suppliesWithdraw(request):
 
 def equipmentWithdraw(request):
     return render(request, 'task/equipment-withdraw.html')
+
+def statusLimit(request):
+    return render(request, 'task/status-limit.html')
