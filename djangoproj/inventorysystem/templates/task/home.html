@@ -40,7 +40,7 @@
             <li><a class="dropdown-item" href="{% url 'inventorysystem-suppliesDeliver' %}">Delivery</a></li>
             <li><a class="dropdown-item" href="{% url 'inventorysystem-viewRequestSupply' %}">View requested item</a></li>
             <li><a class="dropdown-item" href="{% url 'inventorysystem-suppliesWithdraw' %}">Supply withdraw</a></li>
-            <li><a class="dropdown-item" href="#">Status</a></li>
+            <li><a class="dropdown-item" href="{% url 'inventorysystem-statusLimit' %}">Status</a></li>
           </ul>  
         </li>
 
@@ -54,12 +54,12 @@
             <li><a class="dropdown-item" href="{% url 'inventorysystem-equipmentDeliver' %}">Delivery</a></li>
             <li><a class="dropdown-item" href="{% url 'inventorysystem-viewRequestEquipment' %}">View requested item</a></li>
             <li><a class="dropdown-item" href="{% url 'inventorysystem-equipmentWithdraw' %}">Equipment withdraw</a></li>
-            <li><a class="dropdown-item" href="#">Equipment return</a></li>
+            <li><a class="dropdown-item" href="{% url 'inventorysystem-equipmentReturn' %}">Equipment return</a></li>
           </ul>
         </li>
 
         <li>
-          <a href="" class="" role="button">
+          <a href="{% url 'inventorysystem-storageMapping' %}" class="" role="button">
             <i class='bx bx-map' ></i>
             <span class="links_name">Storage Mapping</span>
           </a>
@@ -162,3 +162,4 @@ sidebarBtn.onclick = function() {
 
 </body>
 </html>
+
