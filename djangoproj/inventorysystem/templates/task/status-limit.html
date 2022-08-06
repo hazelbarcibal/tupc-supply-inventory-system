@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<title> View Request Supply </title>
+<title> Status Limit </title>
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
@@ -30,44 +30,31 @@
     
     }
     .form-box{
-        width: 380px;
-        height: 480px;
+        width: 400px;
+        height: 450px;
         position: relative;
         margin: 6% auto;
-        background: #fff;
-        padding: 5px;
+        background: rgb(248, 247, 247);
+        padding-top: 10px;
         overflow: hidden;
-    }
-    #btn2 {
-        width: 110px;
-        background: linear-gradient(to left, maroon, #e72619);
-        border-radius: 30px;
-        transition: .5s;
-        
-    }
-    #btn3 {
-
-        width: 160px;
-        background: linear-gradient(to left, maroon, #e72619);
-        border-radius: 30px;
-        transition: .5s;
+        border: 1px black solid;
+        border-radius: 5px;
     }
     .input-group{
         transition: .5s;
         position: absolute;
+        padding-right: 35px;
 
     }
     .input-field{
-        padding: 10px 0;
+        padding: 10px ;
         margin: 5px;
         border-left: 0;
         border-right: 0;
         border-top: 0;
         border-bottom: 1px solid #999;
         outline: none;
-        background: transparent;
-       
-        
+        background: transparent;  
     }
     .submit-btn{
         width: 85%;
@@ -75,19 +62,17 @@
         cursor: pointer;
         display: block;
         margin: auto;
-        background:linear-gradient(to right, maroon, #e72619) ;
+        background:linear-gradient(to right, rgb(81, 159, 223), #0292f1) ;
         border: 0;
         outline: none;
-        
-        
- 
     }
     #exist{
-        left: 50px;
+        left: 20px;
     }
     #not-exist{
-        left: 450px;
+        left: 20px;
     }
+
 </style>
 
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
@@ -97,12 +82,12 @@
 <section class="home-section">
     <nav>
         <div class="sidebar-button">
-        <i class='bx bx-menu sidebarBtn'></i>
+            <i class='bx bx-menu sidebarBtn'></i>
+            <div>
+                <label style="padding-top: 10px;"><h2>Status Limit</h2></label>
+            </div>
         </div>
         
-        <div>
-            <label style="padding-top: 10px;"><h2>Status Limit</h2></label>
-        </div>
         
         <div class="profile-details">
         <!--<img src="images/profile.jpg" alt="">-->
@@ -112,18 +97,14 @@
     </nav>
 
 <br>
-    <div class="container home-content">
-        <div align="right" style="padding-bottom: 10px; padding-right: 45px; margin: auto;">
-            <span><button type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
-            <span><button type="button" class="btn btn-outline-primary">Export Data To Excel</button></span>
-        </div>
+  
+<div style="margin: auto; width: 90%; padding-top: 20px">
+    <div>
+        <label style="padding-top: 90px;;" align="center"><h4>Main Storage</h4></label>
     </div>
     <br>
-
-<div style="margin: auto; width: 90%;">
-            
 <!-- Datatable --> 
-    <table id="equipDeliveryTable" class="stripe cell-border hover" style="width:100%">
+    <table id="MainStorage" class="stripe cell-border hover" style="width:100%">
         <thead>
             <tr>
                 <th>ID</th>
@@ -157,12 +138,14 @@
         </tbody>
 
     </table>
-    <br><br>
-  
+    <br>
 
-
+<div>
+    <label style="padding-top: 90px;;" align="center"><h4>Requests</h4></label>
+</div>
+    <br>
 <!-- Datatable --> 
-<table id="equipDeliveryTable" class="stripe cell-border hover" style="width:100%">
+<table id="LimitTable" class="stripe cell-border hover" style="width:100%">
     <thead>
         <tr>
             <th>ID</th>
@@ -206,47 +189,79 @@
 
 <script>
     $(document).ready(function () {
-    $('#equipDeliveryTable').DataTable();
+    $('#MainStorage').DataTable();
+    $('#LimitTable').DataTable();
 });
 
 </script>
 
-<div class="hero" align="center" >
+<div class="" align="center" >
     <div class="form-box">
         <div class="button-box">
             <div id="cmdbtn">
-            <button id="btn2" type="button" class="toggle-btn" onclick="exist()">Existing</button>
-            <button id="btn3" type="button"  class="toggle-btn" onclick="notexist()">Non-Existing</button>
+            <button id="btn1" type="button" class="toggle-btn btn btn-outline-primary" onclick="exist()">Existing</button>
+            <button id="btn1" type="button"  class="toggle-btn btn btn-outline-primary" onclick="notexist()">Non-Existing</button>
             </div>
+            <br>
         </div>
         <div id="exist" class="input-group">
-            <input type="text" class="input-field" placeholder="ID" required>
-            <input  type="text" class="input-field" placeholder="Quantity" required><span></span>
-            <button  class="submit-btn">Limit</button>
-            
+            <div class="content input-group mb-1" style="padding-top: 50px;">
+                <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
+                <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="content input-group mb-1" >
+                <span class="input-group-text" id="inputGroup-sizing-default">ID:</span>
+                <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+            </div>
+            <div style="padding-top: 110px; margin: auto; width: 20%;">
+                <span><button type="button" class="btn btn-outline-primary" >Limit</button></span>  
+            </div>
         </div>
-        <div id="not-exist" class="input-group">
-            <input type="text" class="input-field" placeholder="Item Name" required>
-            <input type="text" class="input-field" placeholder="Unit" required>
-            <input type="text" class="input-field" placeholder="Quantity" required>
-            <input type="text" class="input-field" placeholder="Department" required>
-            <button  class="submit-btn">Limit</button>
+        <div id="not-exist" class="input-group">  
+            <div class="content input-group mb-1" style="padding-top: 250px;">
+                <span class="input-group-text" id="inputGroup-sizing-default">DEPARTMENT:</span>
+                <input type="dropdown" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+            </div>  
+            <div class="content input-group mb-1" style="padding-top: 200px;">
+                <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
+                <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+            </div>     
+            <div class="content input-group mb-1" style="padding-top: 150px;">
+                <span class="input-group-text" id="inputGroup-sizing-default">UNIT:</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+            </div>
+            <div class="content input-group mb-1" style="padding-top: 100px;">
+                    <span class="input-group-text" id="inputGroup-sizing-default">BRAND:</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                </div>
+            <div class="content input-group mb-1" style="padding-top: 50px;">
+                <span class="input-group-text" id="inputGroup-sizing-default">DESCRIPTION:</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="content input-group mb-1" >
+                    <span class="input-group-text" id="inputGroup-sizing-default">ITEM NAME:</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                </div>    
+            <div style="padding-top: 300px; margin: auto; width: 20%;">
+                <span><button type="button" class="btn btn-outline-primary" >Limit</button></span>  
+            </div>
         </div>
     </div>
 </div>
+<br><br>
 <script>
     var x = document.getElementById("exist");
-    var y = document.getElementById("not-exist");
+    var y = document.getElementById("not-exist");  
     var z = document.getElementById("cmdbtn");
 
     function notexist(){
-        x.style.left = "-500px";
-        y.style.left = "50px";
-        z.style.left = "110px";
+        x.style.left = "-400px";
+        y.style.left = "20px";
+        z.style.left = "100px";
     }
     function exist(){
-        x.style.left = "50px";
-        y.style.left = "550px";
+        x.style.left = "20px";
+        y.style.left = "520px";
         z.style.left = "0px";
     }
 
