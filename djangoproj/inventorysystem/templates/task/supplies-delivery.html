@@ -146,12 +146,13 @@
 <section class="home-section">
     <nav>
         <div class="sidebar-button">
-        <i class='bx bx-menu sidebarBtn'></i>
+            <i class='bx bx-menu sidebarBtn'></i>
+            <div>
+                <label style="padding-top: 10px;"><h2>Supplies Delivery</h2></label>
+            </div>
         </div>
 
-        <div>
-            <label style="padding-top: 10px;"><h2>Supplies Delivery</h2></label>
-        </div>
+
         
         <div class="profile-details">
         <!--<img src="images/profile.jpg" alt="">-->
@@ -161,9 +162,13 @@
     </nav>
 
 <div class="container home-content">
-    <div align="right" style="padding-bottom: 10px; margin: auto;">
-        <span><button type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">New Supply Item</button></span><br>
-    </div>
+    <form method="post" action="">
+        <div align="right" style="padding-bottom: 10px; margin: auto;">
+            <span><button  type="button" 
+                class="btn btn-outline-primary" style="margin-bottom: 10px;">New Supply Item</button></span><br>
+        </div>
+    </form>
+  
     <div align="center" style="margin: auto;">
         <label style="text-align: center;"><h2>Scanning QR</h2></label>
     </div>
@@ -234,7 +239,7 @@
     </script>
 
 </br>
-    <div style="margin: auto; width: 80%;">
+    <div style="margin: auto; width: 90%;">
         
        <!-- Datatable --> 
         <table id="supplyDeliveryTable" class="stripe cell-border hover" style="width:100%">
@@ -687,9 +692,8 @@
         });
         </script>
 
-
-
     </div>
+
 </div>
 
 {% endblock %}
