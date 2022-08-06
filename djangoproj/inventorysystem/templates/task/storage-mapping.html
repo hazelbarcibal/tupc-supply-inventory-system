@@ -1,0 +1,80 @@
+{% extends 'task/home.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<title> Storage Mapping </title>
+<link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+<style>
+
+</style>
+<script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/webqr.js' %}"></script>
+
+<section class="home-section">
+    <nav>
+        <div class="sidebar-button">
+            <i class='bx bx-menu sidebarBtn'></i>
+            <div>
+                <label style="padding-top: 10px;"><h2>Storage Mapping</h2></label>
+            </div>
+        </div>
+
+        <div class="profile-details">
+        <!--<img src="images/profile.jpg" alt="">-->
+        <text class="admin_name">Supply Admin</text>
+        <i class='bx bx-chevron-down' ></i>
+        </div>
+    </nav>
+
+<div class="home-content" style="margin: auto; width: 90%;">
+     <!-- Datatable --> 
+     <table id="mappingTable" class="stripe cell-border hover" style="width:100%">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Item Name</th>
+                <th>Location</th>
+                <th>Cabinet No.</th>
+                <th>Shelf No.</th>
+                <th>Layer No.</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Supply</td>
+                <td>Bondpaper</td>
+                <td>Right</td>
+                <td>5</td>
+                <td>1</td>
+                <td>1</td>
+                <td><a href="">Update</a></td>
+            </tr>
+            <tr>
+                <td>Supply</td>
+                <td>Pencil</td>
+                <td>Left</td>
+                <td>6</td>
+                <td>1</td>
+                <td>1</td>
+                <td><a href="">Update</a></td>
+            </tr>
+        </tbody>
+    </table>
+                  
+<br><br><br><br>
+<script>
+        $(document).ready(function () {
+        $('#mappingTable').DataTable();
+    });
+</script>
+    
+</div>
+{% endblock %}
