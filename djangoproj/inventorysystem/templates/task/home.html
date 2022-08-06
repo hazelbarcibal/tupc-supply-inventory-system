@@ -98,47 +98,48 @@
       <div class="overview-boxes">
         <div class="box">
           <div class="right-side">
-            <div class="box-topic">Total Order</div>
-            <div class="number">40,876</div>
-            <div class="indicator">
+            <div class="box-topic">Recent No. of Supplies Requests</div><br>
+            <div class="number">10</div>
+            <div class="indicator" >
               <i class='bx bx-up-arrow-alt'></i>
-              <span class="text">Up from yesterday</span>
+                <span class="text"><a href="{% url 'inventorysystem-viewRequestSupply' %}">See more</a></span>
             </div>
           </div>
-          <i class='bx bx-cart-alt cart'></i>
+            <i class='bx' ></i>
         </div>
         <div class="box">
           <div class="right-side">
-            <div class="box-topic">Total Sales</div>
-            <div class="number">38,876</div>
+            <div class="box-topic">Recent No. of Supplies Withdrawn</div><br>
+            <div class="number">50</div>
             <div class="indicator">
               <i class='bx bx-up-arrow-alt'></i>
-              <span class="text">Up from yesterday</span>
+              <span class="text"><a href="{% url 'inventorysystem-suppliesWithdraw' %}">See more</a></span>
             </div>
           </div>
-          <i class='bx bxs-cart-add cart two' ></i>
+          <i class='bx' ></i>
+        </div>
+
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Recent No. of Equipment Requests</div><br>
+            <div class="number">20</div>
+            <div class="indicator">
+              <i class='bx bx-up-arrow-alt'></i>
+              <span class="text"><a href="{% url 'inventorysystem-viewRequestEquipment' %}">See more</a></span>
+            </div>
+          </div>
+          <i class='bx' ></i>
         </div>
         <div class="box">
           <div class="right-side">
-            <div class="box-topic">Total Profit</div>
-            <div class="number">$12,876</div>
+            <div class="box-topic">Recent No. of Equipment Withdrawn</div><br>
+            <div class="number">100</div>
             <div class="indicator">
               <i class='bx bx-up-arrow-alt'></i>
-              <span class="text">Up from yesterday</span>
+              <span class="text"><a href="{% url 'inventorysystem-equipmentWithdraw' %}">See more</a></span>
             </div>
           </div>
-          <i class='bx bx-cart cart three' ></i>
-        </div>
-        <div class="box">
-          <div class="right-side">
-            <div class="box-topic">Total Return</div>
-            <div class="number">11,086</div>
-            <div class="indicator">
-              <i class='bx bx-down-arrow-alt down'></i>
-              <span class="text">Down From Today</span>
-            </div>
-          </div>
-          <i class='bx bxs-cart-download cart four' ></i>
+          <i class='bx'></i>
         </div>
       </div>
   </nav>
@@ -162,4 +163,3 @@ sidebarBtn.onclick = function() {
 
 </body>
 </html>
-
