@@ -1,0 +1,157 @@
+{% extends 'task/home.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<title> Request Supply </title>
+<link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<style>
+    .content {
+        max-width: 500px;
+        margin: auto;
+    }
+</style>
+
+<script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/webqr.js' %}"></script>
+
+<section class="home-section">
+    <nav>
+        <div class="sidebar-button">
+            <i class='bx bx-menu sidebarBtn'></i>
+            <div>
+                <label style="padding-top: 10px;"><h2>Request Supply</h2></label>
+            </div>
+        </div>
+        
+      
+        
+        <div class="profile-details">
+        <!--<img src="images/profile.jpg" alt="">-->
+        <text class="admin_name">Department</text>
+            <i class='bx bx-chevron-down' ></i>
+        </div>
+    </nav>
+    <br>
+
+<div style="margin: auto; width: 90%; padding-top: 100px;">
+        
+    <!-- Datatable --> 
+    <table id="MainStorage" class="stripe cell-border hover" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Item Name</th>
+                <th>Description</th>
+                <th>Brand</th>
+                <th>Unit</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Marker</td>
+                <td>Black Whiteboard Marker</td>
+                <td>Artline</td>
+                <td>Box</td>
+                <td>45</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Marker1</td>
+                <td>Black Whiteboard Marker</td>
+                <td>Artline</td>
+                <td>Box</td>
+                <td>45</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<div class="container" align="center" style="padding-top: 10px">
+    <table>
+        <tr>
+            <td colspan="3" align="center" style="padding-top: 10px; padding-bottom: 5px;">
+                <div class="container content input-group mb-1" style="min-width: 30px;">
+                    <span class="input-group-text" id="inputGroup-sizing-default">ID:</span>
+                    <input required type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div class="container content input-group mb-1" style="min-width: 30px;">
+                    <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
+                    <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div class="container content input-group mb-1" style="min-width: 30px;">
+                    <span class="input-group-text" id="inputGroup-sizing-default">BRAND:</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <br>
+                    <span><button type="button" class="btn btn-outline-primary">Request Supply</button></span>  
+            </td>
+        </tr>
+    </table>
+</div>
+
+<br>
+
+<div style="margin: auto; width: 90%; padding-top: 40px;">
+        
+    <!-- Datatable --> 
+    <table id="depRequestTable" class="stripe cell-border hover" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Item Name</th>
+                <th>Description</th>
+                <th>Brand</th>
+                <th>Unit</th>
+                <th>Quantity</th>
+                <th>Department</th>
+                <th>Date & Time</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Marker</td>
+                <td>Black Whiteboard Marker</td>
+                <td>Artline</td>
+                <td>Box</td>
+                <td>45</td>
+                <td>ADAA</td>
+                <td>--</td>
+                <td>Pending</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Marker1</td>
+                <td>Black Whiteboard Marker</td>
+                <td>Artline</td>
+                <td>Box</td>
+                <td>45</td>
+                <td>ADAA</td>
+                <td>--</td>
+                <td>Pending</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        
+   
+
+<br><br><br><br>
+<script>
+        $(document).ready(function () {
+        $('#MainStorage').DataTable();
+        $('#depRequestTable').DataTable();
+    });
+</script>
+
+
+    {% endblock %}
