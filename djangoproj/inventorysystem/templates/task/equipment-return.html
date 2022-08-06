@@ -1,0 +1,116 @@
+{% extends 'task/home.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<title> Equipment Return </title>
+<link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+<style>
+    #result {
+        color: white;
+        background-color: #c0d2e4;
+        border: 2px solid #0a0a0a;
+        padding: 20px;
+    }
+</style>
+<script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/webqr.js' %}"></script>
+
+<section class="home-section">
+    <nav>
+        <div class="sidebar-button">
+            <i class='bx bx-menu sidebarBtn'></i>
+            <div>
+                <label style="padding-top: 10px;"><h2>Equipment Return</h2></label>
+            </div>
+        </div>
+
+        <div class="profile-details">
+        <!--<img src="images/profile.jpg" alt="">-->
+        <text class="admin_name">Supply Admin</text>
+        <i class='bx bx-chevron-down' ></i>
+        </div>
+    </nav>
+
+
+<div class="home-content" align="center">
+    <div style="margin: auto;">
+        <label style="text-align: center;"><h2>Scanning QR</h2></label>
+    </div>
+    <div style="margin: auto;">
+        <label style="text-align: center;"><h5>INFO</h5></label>
+    </div>
+    <table class="tsel" border="0" width="100%">
+        <br>
+        <!-- Where cam will appear-->
+        <tr>
+            <div id="result" style="height: 14em; width: 20em;"></div>
+        </tr>
+    </table>
+    <br>
+    <span><button type="button" class="btn btn-outline-primary">Return</button></span>
+</div>
+
+<br><br>
+<div class="home-content" style=" width: 100%; padding-top: 10px; padding-left: 20px;">
+    <!-- Datatable --> 
+    <table id="returnTable" class="stripe cell-border hover" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Property No.</th>
+                <th>Item Name</th>
+                <th>Description</th>
+                <th>Brand</th>
+                <th>Year Acquired</th>
+                <th>Issued To</th>
+                <th>Model No.</th>
+                <th>Serial Number</th>
+                <th>Certified Correct</th>
+                <th>Date Return</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Marker</td>
+                <td>Black Whiteboard Marker</td>
+                <td>Artline</td>
+                <td>Box</td>
+                <td>45</td>
+                <td>ADAA</td>
+                <td>--</td>
+                <td>Pending</td>
+                <td>--</td>
+                <td>Pending</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Marker1</td>
+                <td>Black Whiteboard Marker</td>
+                <td>Artline</td>
+                <td>Box</td>
+                <td>45</td>
+                <td>ADAA</td>
+                <td>--</td>
+                <td>Pending</td>
+                <td>--</td>
+                <td>Pending</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+              
+<br><br><br><br>
+<script>
+        $(document).ready(function () {
+        $('#returnTable').DataTable();
+    });
+</script>
+{% endblock %}
