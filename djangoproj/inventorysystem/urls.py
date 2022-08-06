@@ -14,4 +14,6 @@ urlpatterns = [
     path('dep-request-supply/', views.depRequestSupply, name='inventorysystem-depRequestSupply'),
     path('dep-request-equipment/', views.depRequestEquipment, name='inventorysystem-depRequestEquipment'),
     path('status-limit/', views.statusLimit, name='inventorysystem-statusLimit'),
+    path('equipment-return/', views.equipmentReturn, name='inventorysystem-equipmentReturn'),
+    path('storage-mapping/', views.storageMapping, name='inventorysystem-storageMapping'),
 ]
