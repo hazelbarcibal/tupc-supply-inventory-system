@@ -37,3 +37,9 @@ def depRequestEquipment(request):
 
 def statusLimit(request):
     return render(request, 'task/status-limit.html')
+
+def equipmentReturn(request):
+    return render(request, 'task/equipment-return.html')
+
+def storageMapping(request):
+    return render(request, 'task/storage-mapping.html')
