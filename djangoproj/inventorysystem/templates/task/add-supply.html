@@ -5,7 +5,8 @@
 
 {% block content %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+
 <title> Add New Items </title>
 <style>
     .content {
@@ -56,23 +57,25 @@
             </div>
 
             <!-- Create "button" (basta kung san pipindutin para magcreate ng QR) -->
-            <div class="container" align="center" style="padding-top: 10px; padding-bottom: 10px;">
+            <div class="container" align="center" style="padding-top: 10px; padding-bottom: 10px;" onload="autoClick();">
                 <span><button type="button" class="btn btn-outline-primary" onclick="create();" style="padding-top: 10px; padding-bottom: 10px;">
                     Create</button>
                 </span>
                 
-                <!--
-                <span><button type="button" class="btn btn-outline-primary" id="btn-Convert-Html2Image" style="padding-top: 10px; padding-bottom: 10px;">
-                    Download</button>
-                </span> -->
+                <span><a id="download" href="#" type="button" class="btn btn-outline-primary" style="padding-top: 10px; padding-bottom: 10px;">
+                    Download</a>
+                </span>
             </div>
 
             <!-- Where QR code will appear once it created -->
             <div class="container" id="html-content-holder" align="center" style="padding-top: 10px;">
-                <div id="text" class="container" align="center"></div>
+                <div id="result" class="container" align="center"></div>
             </div>
+
         </div>
     </div>
+
+    
 
     <!--
     <script>
@@ -85,6 +88,7 @@
 
         }
     </script> -->
+</section>
 
 
 
@@ -92,28 +96,29 @@
 
     function create() {
         var x = document.getElementById("itemName").value + '\n' + document.getElementById("unit").value;
-        document.getElementById("text").innerHTML = "<img src='https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=" + encodeURIComponent(x) + "'/>";
+        document.getElementById("result").innerHTML = "<img src='https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=" + encodeURIComponent(x) + "'/>";
     }
 
-    $(document).ready(function () {
-            var element = $("#html-content-holder"); // global variable
-            var getCanvas; //global variable
-            html2canvas(element, {
-                onrendered: function (canvas) {
-                    getCanvas = canvas;
+    
+    $(document).ready(function(){
+        var y = $('#result');
+
+        $('#download').on('click', function(){
+            html2canvas(y, {
+                onrendered: function(canvas){
+                    var imageData = canvas.toDataURL('image/jpg');
+                    var newData = imageData.replace(/^data:image\/jpg/, 'data:application/octet-stream');
+                    $('#download').attr('download', 'image.jpg').attr('href', newData);
                 }
             });
- 
-            $("#btn-Convert-Html2Image").on('click', function () {
-                var imgageData = getCanvas.toDataURL("image/png");
-                //Now browser starts downloading it instead of just showing it
-                var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
-                $("#btn-Convert-Html2Image").attr("download", "your_image.png").attr("href", newData);
-            });
+        });
     });
     
 
 </script>
+
+
+
 
 
 
