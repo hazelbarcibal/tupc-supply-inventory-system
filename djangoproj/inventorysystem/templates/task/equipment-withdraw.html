@@ -10,7 +10,14 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
-
+<style>
+    #outdiv {
+        width: 200px;
+        height: 180px;
+        border: solid;
+        border-width: 3px 3px 3px 3px;
+    }
+</style>
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/webqr.js' %}"></script>
@@ -32,9 +39,47 @@
         <i class='bx bx-chevron-down' ></i>
         </div>
     </nav>
-
-<br>
-<div class="container home-content">
+<div class="home-content" style="margin: auto; width: 90%;">
+    <div>
+        <label style="padding-top: 90px;;" align="center"><h4>Department Requests</h4></label>
+    </div><br>
+    <!-- Datatable --> 
+    <table id="equipRequestTable" class="stripe cell-border hover" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Department</th>
+                <th>Item Name</th>
+                <th>Description</th>
+                <th>Brand</th>
+                <th>Unit</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>OSA</td>
+                <td>Marker</td>
+                <td>Black Whiteboard Marker</td>
+                <td>Artline</td>
+                <td>Box</td>
+                <td>45</td>
+                <td>10</td>
+            </tr>
+                <tr>
+                <td>ADAA</td>
+                <td>Marker1</td>
+                <td>Black Whiteboard Marker</td>
+                <td>Artline</td>
+                <td>Box</td>
+                <td>45</td>
+                <td>10</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br><br>
+<div class="">
     <div align="right" style="padding-bottom: 10px; padding-right: 45px; margin: auto;">
         <span><button type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
         <span><button type="button" class="btn btn-outline-primary">Export Data To Excel</button></span>
@@ -42,35 +87,37 @@
 </div>
 <br>
 <div style="margin: auto; width: 90%;">
-        
-        <!-- Datatable --> 
-         <table id="equipDeliveryTable" class="stripe cell-border hover" style="width:100%">
-             <thead>
-                 <tr>
-                     <th>Department</th>
-                     <th>Item Name</th>
-                     <th>Description</th>
-                     <th>Brand</th>
-                     <th>Unit</th>
-                     <th>Quantity</th>
-                     <th>Remaining</th>
-                     <th>Date & Time</th>
-                     <th>Status</th>
-                 </tr>
-             </thead>
-             <tbody>
-                 <tr>
-                     <td>OSA</td>
-                     <td>Marker</td>
-                     <td>Black Whiteboard Marker</td>
-                     <td>Artline</td>
-                     <td>Box</td>
-                     <td>45</td>
-                     <td>10</td>
-                     <td>08-01-22 12:56:13</td>
-                     <td><button type="button" class="btn btn-outline-success" style="margin-bottom: 10px;">WITHDRAW</button></td>
-                 </tr>
-                 <tr>
+    
+    <!-- Datatable --> 
+        <table id="equipWithdrawTable" class="stripe cell-border hover" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Property No.</th>
+                    <th>Item Name</th>
+                    <th>Description</th>
+                    <th>Brand</th>
+                    <th>Year Acquired</th>
+                    <th>Issued To</th>
+                    <th>Model No.</th>
+                    <th>Serial No.</th>
+                    <th>Certified Correct</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>OSA</td>
+                    <td>Marker</td>
+                    <td>Black Whiteboard Marker</td>
+                    <td>Artline</td>
+                    <td>Box</td>
+                    <td>45</td>
+                    <td>10</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
                     <td>ADAA</td>
                     <td>Marker1</td>
                     <td>Black Whiteboard Marker</td>
@@ -78,16 +125,61 @@
                     <td>Box</td>
                     <td>45</td>
                     <td>10</td>
-                    <td>08-01-22 12:56:13</td>
-                    <td><button type="button" class="btn btn-outline-success" style="margin-bottom: 10px;">WITHDRAW</button></td>
-                 </tr>
-             </tbody>
-    
-         </table>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+</div>
+<br>
+<div class="container" align="center" style="padding-top: 10px">
+        <table>
+            <tr>
+                <td colspan="3" align="center" style="padding-top: 10px; padding-bottom: 5px;">
+                    <div class="container content input-group mb-1" style="min-width: 30px;">
+                        <span class="input-group-text" id="inputGroup-sizing-default">ID:</span>
+                        <input required type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="container content input-group mb-1" style="min-width: 30px;">
+                        <span class="input-group-text" id="inputGroup-sizing-default">PROPERTY NO.:</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="container content input-group mb-1" style="min-width: 30px;">
+                        <span class="input-group-text" id="inputGroup-sizing-default">YEAR ACQUIRED:</span>
+                        <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="container content input-group mb-1" style="min-width: 30px;">
+                        <span class="input-group-text" id="inputGroup-sizing-default">MODEL NO.:</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="container content input-group mb-1" style="min-width: 30px;">
+                        <span class="input-group-text" id="inputGroup-sizing-default">SERIAL NO.:</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="container content input-group mb-1" style="min-width: 30px;">
+                        <span class="input-group-text" id="inputGroup-sizing-default">CERTIFIED CORRECT:</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <br>
+                        <span><button type="button" class="btn btn-outline-primary">Withdraw</button></span>  
+                </td>
+
+                <td style="padding-bottom: 60px;">
+                        <span><button type="button" class="btn btn-outline-primary">Create QR</button></span>  
+                        <span><button type="button" class="btn btn-outline-primary">Save QR</button></span>  
+                    <br><br>
+                    <div id="outdiv">
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
          <br><br>
         <script>
                 $(document).ready(function () {
-                $('#equipDeliveryTable').DataTable();
+                $('#equipRequestTable').DataTable();
+                $('#equipWithdrawTable').DataTable();
             });
         </script>
 {% endblock %}
