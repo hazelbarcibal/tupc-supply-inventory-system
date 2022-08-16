@@ -12,8 +12,8 @@
 
 <style>
     #outdiv {
-        width: 200px;
-        height: 180px;
+        width: 250px;
+        height: 250px;
         border: solid;
         border-width: 3px 3px 3px 3px;
     }
@@ -137,46 +137,66 @@
         <table>
             <tr>
                 <td colspan="3" align="center" style="padding-top: 10px; padding-bottom: 5px;">
-                    <div class="container content input-group mb-1" style="min-width: 30px;">
-                        <span class="input-group-text" id="inputGroup-sizing-default">ID:</span>
-                        <input required type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <div class="container content input-group mb-1" style="min-width: 30px;">
-                        <span class="input-group-text" id="inputGroup-sizing-default">PROPERTY NO.:</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <div class="container content input-group mb-1" style="min-width: 30px;">
-                        <span class="input-group-text" id="inputGroup-sizing-default">YEAR ACQUIRED:</span>
-                        <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <div class="container content input-group mb-1" style="min-width: 30px;">
-                        <span class="input-group-text" id="inputGroup-sizing-default">MODEL NO.:</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <div class="container content input-group mb-1" style="min-width: 30px;">
-                        <span class="input-group-text" id="inputGroup-sizing-default">SERIAL NO.:</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <div class="container content input-group mb-1" style="min-width: 30px;">
-                        <span class="input-group-text" id="inputGroup-sizing-default">CERTIFIED CORRECT:</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <br>
-                        <span><button type="button" class="btn btn-outline-primary">Withdraw</button></span>  
+                    <form method="#">
+                        <div class="container content input-group mb-1" style="min-width: 30px;">
+                            <span class="input-group-text" id="inputGroup-sizing-default">ID:</span>
+                            <input required id="id" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="container content input-group mb-1" style="min-width: 30px;">
+                            <span class="input-group-text" id="inputGroup-sizing-default">PROPERTY NO.:</span>
+                            <input required type="text" id="propertyNo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="container content input-group mb-1" style="min-width: 30px;">
+                            <span class="input-group-text" id="inputGroup-sizing-default">YEAR ACQUIRED:</span>
+                            <input required type="number" id="yrAcquired" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="container content input-group mb-1" style="min-width: 30px;">
+                            <span class="input-group-text" id="inputGroup-sizing-default">MODEL NO.:</span>
+                            <input required type="text" id="modelNo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="container content input-group mb-1" style="min-width: 30px;">
+                            <span class="input-group-text" id="inputGroup-sizing-default">SERIAL NO.:</span>
+                            <input required type="text" id="serialNo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <div class="container content input-group mb-1" style="min-width: 30px;">
+                            <span class="input-group-text" id="inputGroup-sizing-default">CERTIFIED CORRECT:</span>
+                            <input required type="text" id="certCorrect" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                        <br>
+                            <span><button type="button" id="withdrawEquip" class="btn btn-outline-primary">Withdraw</button></span>  
+                            <span><button type="button" id="createQR" onclick="create();" class="btn btn-outline-primary">Create QR</button></span>  
+                            <span><button type="button" id="saveQR" class="btn btn-outline-primary">Save QR</button></span>  
+                    
+                    </form>
+                    
                 </td>
+                  
 
-                <td style="padding-bottom: 60px;">
-                        <span><button type="button" class="btn btn-outline-primary">Create QR</button></span>  
-                        <span><button type="button" class="btn btn-outline-primary">Save QR</button></span>  
+                <td style="padding-bottom: 60px;" align="right">
+                       
                     <br><br>
-                    <div id="outdiv">
+                    <div class="container" align="right" style="padding-top: 10px;">
+                        <div id="result" class="container" align="right"></div>
                     </div>
+                    
+                    
                 </td>
             </tr>
         </table>
     </div>
          <br><br>
-        <script>
+
+        <div class="container" id="html-content-holder" align="center" style="padding-top: 10px;">
+            <div id="result" class="container" align="center"></div>
+        </div>
+         
+        <script type="text/javascript">
+
+            function create() {
+                var x = document.getElementById("id").value + '\n' + document.getElementById("propertyNo").value + '\n' + document.getElementById("yrAcquired").value + '\n' + document.getElementById("modelNo").value + '\n' + document.getElementById("serialNo").value + '\n' + document.getElementById("certCorrect").value;
+                document.getElementById("result").innerHTML = "<img src='https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=" + encodeURIComponent(x) + "'/>";
+            }
+
                 $(document).ready(function () {
                 $('#equipRequestTable').DataTable();
                 $('#equipWithdrawTable').DataTable();
