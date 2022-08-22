@@ -1,0 +1,87 @@
+{% extends 'task/home.html' %}
+{% load static %}
+
+{% block content %}
+<title>Add Department Account</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" href="{% static 'css/dept-register.css' %}">
+
+
+<section class="home-section">
+    <nav>
+        <div class="sidebar-button">
+            <i class='bx bx-menu sidebarBtn'></i>
+            <div>
+                <label style="padding-top: 10px;">
+                    <h3>Add Department Account</h3>
+                </label>
+            </div>
+        </div>
+
+        <div class="">
+            <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="links_name">Supply admin</span>
+            </a>
+
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Add Department Account</a></li>
+                <li><a class="dropdown-item" href="#">Logout</a></li>
+               
+            </ul> 
+        </div>
+    </nav>
+
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="column" style="padding-top: 130px;" align="center">
+                
+                <div class="container" align="center">
+                    <img src="{% static 'img/add-user.svg' %}" alt="add-user" style="height: 25rem; width: 25rem; padding-left: 35px;">
+                </div>
+
+            </div>
+
+            
+            <div class="column" style="padding-top: 130px;" align="'center">
+                <form action="#" method="post" class="" id="">
+                    <h4 class="title">Department User <br>Registration</h4>
+
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="" name="" placeholder="Username" required/>
+                    </div>
+                    <div class="input-field">
+                        <i class="fa-solid fa-building-user"></i>
+                        <input type="text" id="" name="" placeholder="Department" required/>
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="" name="" placeholder="Email" required/>
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="" name="" placeholder="Password" required/>
+                    </div>
+                    <input type="submit" name=""class="btn" value="Sign up" />
+                        
+                </form>
+            </div>
+
+            
+            
+        </div>
+    </div>
+        
+
+
+
+
+
+</section>
+
+
+{% endblock %}

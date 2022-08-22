@@ -7,6 +7,9 @@ def home(request):
 def adminLogin(request):
     return render(request, 'task/login.html')
 
+def deptRegister(request):
+    return render(request, 'task/department-register.html')
+
 def suppliesDeliver(request):
     return render(request, 'task/supplies-delivery.html')
 
