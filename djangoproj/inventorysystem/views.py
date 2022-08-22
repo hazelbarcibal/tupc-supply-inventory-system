@@ -1,9 +1,11 @@
-import re
 from django.shortcuts import render
 
 
 def home(request):
     return render(request, 'task/home.html')
+
+def adminLogin(request):
+    return render(request, 'task/login.html')
 
 def suppliesDeliver(request):
     return render(request, 'task/supplies-delivery.html')

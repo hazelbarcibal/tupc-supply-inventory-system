@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='inventorysystem-home'),
+    path('supply-admin-login/', views.adminLogin, name='inventorysystem-adminLogin'),
     path('supplies-delivery/', views.suppliesDeliver, name='inventorysystem-suppliesDeliver'),
     path('add-supply-item/', views.addSupply, name='inventorysystem-addSupply'),
     path('equipment-delivery/', views.equipmentDeliver, name='inventorysystem-equipmentDeliver'),
