@@ -113,6 +113,9 @@
         h2{
           font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
+        h3{
+          font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+        }
         #label{
           font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
           font-size:22px;
@@ -124,11 +127,21 @@
         }
         #label2{
           font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+          font-size: 17px;
         }
         #label3{
           font-family:cursive
         }
-
+        #label4{
+          color: black;
+        }
+        #btn1{
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        #btn2{
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 20px;
+        }
         @-webkit-keyframes fadein {
           from {
             bottom: 0;
@@ -265,10 +278,10 @@
       <div class="">
         <!--<img src="images/profile.jpg" alt="">-->
           <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span id="label3" class="links_name">Supply admin</span>
+            <span id="label4" class="links_name">Supply admin</span>
           </a>
           <ul class="dropdown-menu">
-            <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-deptRegister' %}">Add Department Account</a></li>
+            <li><a id="label3" class="dropdown-item" href="{% url 'inventorysystem-deptRegister' %}">Add Department Account</a></li>
           </ul> 
       </div>
     </nav>
