@@ -17,36 +17,192 @@
 <body>
   <div class="sidebar">
     <div class="logo-details">
-      <i><img src="{% static 'img/TUP LOGO.png' %}" style="width:50px; height:50px"></img></i>
-      <span class="logo_name">Supply Inventory System</span>
+      <i><img src="{% static 'img/TUP LOGO.png' %}" style="width:60px; height:60px; padding-left: 5px; padding-top:5px"></img></i>
+      <span id="label" class="logo_name">Supply Inventory System</span>
     </div>
 
 
       <ul class="nav-links">
-
+        <div class="profile-pic-wrapper">
+            <div class="pic-holder">
+                <!-- uploaded pic shown here -->
+                <img id="profilePic" class="pic" src="https://source.unsplash.com/random/150x150?person">
+            
+                <input class="uploadProfileInput" type="file" name="profile_pic" id="newProfilePhoto" accept="image/*" style="opacity: 0;" />
+                <label for="newProfilePhoto" class="upload-file-block">
+                <div class="text-center">
+                    <div class="mb-2">
+                    <i class="fa fa-camera fa-2x"></i>
+                    </div>
+                    <div class="text-uppercase">
+                    Update <br /> Profile Photo
+                    </div>
+                </div>
+                </label>
+            </div>
+        </div>
         <li>
           <a class="" href="{% url 'inventorysystem-depRequestSupply' %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class='bx bx-paperclip'></i>
-            <span class="links_name">Request Supply</span>
+            <span id="label2" class="links_name">Request Supply</span>
           </a>
         </li>
 
         <li>
           <a class="" href="{% url 'inventorysystem-depRequestEquipment' %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class='bx bx-devices'></i>
-            <span class="links_name">Request Equipment</span>
+            <span id="label2" class="links_name">Request Equipment</span>
           </a>
   
         </li>
 
         <li class="log_out">
-          <a href="#">
+          <a href="{% url 'inventorysystem-adminLogin' %}">
             <i class='bx bx-log-out'></i>
             <span class="links_name">Log out</span>
           </a>
         </li>
       </ul>
   </div>
+  <style>
+    /** profile pic upload **/
+    .profile-pic-wrapper {
+        display: flex;
+        
+        justify-content: center;
+        align-items: center;
+
+    }
+    .pic-holder {
+        text-align: center;
+        position: relative;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .pic-holder .pic {
+        height: 100%;
+        width: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+        -o-object-position: center;
+        object-position: center;
+    }
+
+    .pic-holder .upload-file-block,
+    .pic-holder .upload-loader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(90, 92, 105, 0.7);
+        color: #f8f9fc;
+        font-size: 12px;
+        font-weight: 600;
+        opacity: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+    }
+
+    .pic-holder .upload-file-block {
+        cursor: pointer;
+    }
+
+    .pic-holder:hover .upload-file-block,
+    .uploadProfileInput:focus ~ .upload-file-block {
+        opacity: 1;
+    }
+
+    .pic-holder.uploadInProgress .upload-file-block {
+        display: none;
+    }
+
+    .pic-holder.uploadInProgress .upload-loader {
+        opacity: 1;
+    }
+
+    h2{
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    #label{
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size:22px;
+        padding-left: 12px;
+        padding-top: 10px;
+    }
+    #label1{
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+    #label2{
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 17px;
+    }
+    #label3{
+        font-family:cursive
+    }
+    #label4{
+        color: black;
+    }
+    #btn1{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    #btn2{
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 20px;
+    }
+    @-webkit-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+        }
+    to {
+        bottom: 30px;
+        opacity: 1;
+        }
+    }
+
+    @keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+        }
+    to {
+        bottom: 30px;
+        opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+        }
+    to {
+        bottom: 0;
+        opacity: 0;
+        }
+    }
+
+    @keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+        }
+    to {
+        bottom: 0;
+        opacity: 0;
+        }
+    }
+  </style>
   {% block content %} 
 <title> Request Supply </title>
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -71,18 +227,10 @@
                 <label style="padding-top: 10px;"><h2>Request Supply</h2></label>
             </div>
         </div>
-        
-      
-        
-        <div class="profile-details">
-        <!--<img src="images/profile.jpg" alt="">-->
-        <text class="admin_name">Department</text>
-            <i class='bx bx-chevron-down' ></i>
-        </div>
     </nav>
     <br>
 
-<div style="margin: auto; width: 90%; padding-top: 100px;">
+<div class="home-content" style="margin: auto; width: 90%;">
         
     <!-- Datatable --> 
     <table id="MainStorage" class="stripe cell-border hover" style="width:100%">
@@ -134,7 +282,7 @@
                     <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                 </div>
                 <br>
-                    <span><button type="button" class="btn btn-outline-primary">Request Supply</button></span>  
+                    <span><button id="btn1" type="button" class="btn btn-outline-primary">Request Supply</button></span>  
             </td>
         </tr>
     </table>
