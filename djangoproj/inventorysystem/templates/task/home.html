@@ -244,10 +244,14 @@
       </div>
       </div>
        
-      <div class="profile-details">
+      <div class="">
         <!--<img src="images/profile.jpg" alt="">-->
-        <text class="admin_name">Supply Admin</text>
-          <i class='bx bx-chevron-down'></i>
+          <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="links_name">Supply admin</span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'inventorysystem-deptRegister' %}">Add Department Account</a></li>
+          </ul> 
       </div>
     </nav>
 
