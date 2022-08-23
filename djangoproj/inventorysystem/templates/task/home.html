@@ -17,8 +17,8 @@
 <body>
   <div class="sidebar">
     <div class="logo-details">
-      <i><img src="{% static 'img/TUP LOGO.png' %}" style="width:50px; height:50px"></img></i>
-      <span class="logo_name">Supply Inventory System</span>
+      <i><img src="{% static 'img/TUP LOGO.png' %}" style="width:60px; height:60px; padding-left: 5px; padding-top:5px" ></img></i>
+      <span id="label" class="logo_name">Supply Inventory System</span>
     </div>
 
 
@@ -113,8 +113,20 @@
         h2{
           font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
+        #label{
+          font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+          font-size:22px;
+          padding-left: 12px;
+          padding-top: 10px;
+        }
         #label1{
           font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        #label2{
+          font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        #label3{
+          font-family:cursive
         }
 
         @-webkit-keyframes fadein {
@@ -191,42 +203,42 @@
         <li>
           <a href="{% url 'inventorysystem-home' %}" class="active">
             <i class='bx bx-grid-alt' ></i>
-            <span class="links_name">Dashboard</span>
+            <span id="label2" class="links_name">Dashboard</span>
           </a>
         </li>
 
         <li>
           <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class='bx bx-paperclip'></i>
-            <span class="links_name">Supplies</span>
+            <span id="label2" class="links_name">Supplies</span>
           </a>
           
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'inventorysystem-suppliesDeliver' %}">Delivery</a></li>
-            <li><a class="dropdown-item" href="{% url 'inventorysystem-viewRequestSupply' %}">View requested item</a></li>
-            <li><a class="dropdown-item" href="{% url 'inventorysystem-suppliesWithdraw' %}">Supply withdraw</a></li>
-            <li><a class="dropdown-item" href="{% url 'inventorysystem-statusLimit' %}">Status</a></li>
+            <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-suppliesDeliver' %}">Delivery</a></li>
+            <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-viewRequestSupply' %}">View requested item</a></li>
+            <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-suppliesWithdraw' %}">Supply withdraw</a></li>
+            <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-statusLimit' %}">Status</a></li>
           </ul>  
         </li>
 
         <li>
           <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class='bx bx-devices'></i>
-            <span class="links_name">Equipments</span>
+            <span id="label2" class="links_name">Equipments</span>
           </a>
           
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'inventorysystem-equipmentDeliver' %}">Delivery</a></li>
-            <li><a class="dropdown-item" href="{% url 'inventorysystem-viewRequestEquipment' %}">View requested item</a></li>
-            <li><a class="dropdown-item" href="{% url 'inventorysystem-equipmentWithdraw' %}">Equipment withdraw</a></li>
-            <li><a class="dropdown-item" href="{% url 'inventorysystem-equipmentReturn' %}">Equipment return</a></li>
+            <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-equipmentDeliver' %}">Delivery</a></li>
+            <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-viewRequestEquipment' %}">View requested item</a></li>
+            <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-equipmentWithdraw' %}">Equipment withdraw</a></li>
+            <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-equipmentReturn' %}">Equipment return</a></li>
           </ul>
         </li>
 
         <li>
           <a href="{% url 'inventorysystem-storageMapping' %}" class="" role="button">
             <i class='bx bx-map' ></i>
-            <span class="links_name">Storage Mapping</span>
+            <span id="label2" class="links_name">Storage Mapping</span>
           </a>
         </li>
           
@@ -253,10 +265,10 @@
       <div class="">
         <!--<img src="images/profile.jpg" alt="">-->
           <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="links_name">Supply admin</span>
+            <span id="label3" class="links_name">Supply admin</span>
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'inventorysystem-deptRegister' %}">Add Department Account</a></li>
+            <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-deptRegister' %}">Add Department Account</a></li>
           </ul> 
       </div>
     </nav>
