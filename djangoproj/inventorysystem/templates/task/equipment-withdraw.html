@@ -30,13 +30,13 @@
                 <label style="padding-top: 10px;"><h2>Equipment Withdraw</h2></label>     
             </div>
         </div>
-
-
-        
         <div class="profile-details">
-        <!--<img src="images/profile.jpg" alt="">-->
-        <text class="admin_name">Supply Admin</text>
-        <i class='bx bx-chevron-down' ></i>
+            <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding-left: 32px">
+                <span id="label3" class="links_name">Supply admin</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-deptRegister' %}">Add Department Account</a></li>
+            </ul> 
         </div>
     </nav>
 <div class="home-content" style="margin: auto; width: 90%;">
@@ -81,8 +81,8 @@
 <br><br>
 <div class="">
     <div align="right" style="padding-bottom: 10px; padding-right: 45px; margin: auto;">
-        <span><button type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
-        <span><button type="button" class="btn btn-outline-primary">Export Data To Excel</button></span>
+        <span><button  id="btn2" type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
+        <span><button  id="btn2" type="button" class="btn btn-outline-primary">Export Data To Excel</button></span>
     </div>
 </div>
 <br>
@@ -143,7 +143,7 @@
                             <input required id="id" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                         <div class="container content input-group mb-1" style="min-width: 30px;">
-                            <span class="input-group-text" id="inputGroup-sizing-default">PROPERTY NO.:</span>
+                            <span class="input-group-text" id="inputGroup-sizing-default">PROPERTY NO. :</span>
                             <input required type="text" id="propertyNo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                         <div class="container content input-group mb-1" style="min-width: 30px;">
@@ -151,11 +151,11 @@
                             <input required type="number" id="yrAcquired" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                         <div class="container content input-group mb-1" style="min-width: 30px;">
-                            <span class="input-group-text" id="inputGroup-sizing-default">MODEL NO.:</span>
+                            <span class="input-group-text" id="inputGroup-sizing-default">MODEL NO. :</span>
                             <input required type="text" id="modelNo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                         <div class="container content input-group mb-1" style="min-width: 30px;">
-                            <span class="input-group-text" id="inputGroup-sizing-default">SERIAL NO.:</span>
+                            <span class="input-group-text" id="inputGroup-sizing-default">SERIAL NO. :</span>
                             <input required type="text" id="serialNo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                         <div class="container content input-group mb-1" style="min-width: 30px;">
@@ -163,9 +163,12 @@
                             <input required type="text" id="certCorrect" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                         <br>
-                            <span><button type="button" id="withdrawEquip" class="btn btn-outline-primary">Withdraw</button></span>  
-                            <span><button type="button" id="createQR" onclick="create();" class="btn btn-outline-primary">Create QR</button></span>  
-                            <span><button type="button" id="saveQR" class="btn btn-outline-primary">Save QR</button></span>  
+                            <span><button type="button" id="withdrawEquip" class="btn btn-outline-primary" 
+                                    style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Withdraw</button></span>  
+                            <span><button type="button" id="createQR" onclick="create();" class="btn btn-outline-primary"  
+                                    style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Create QR</button></span>  
+                            <span><button type="button" id="saveQR" class="btn btn-outline-primary" 
+                                    style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Save QR</button></span>  
                     
                     </form>
                     
