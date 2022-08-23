@@ -1,5 +1,5 @@
 from django.db import models
-# Create your models here.
+
 from django.db.models import Model
 from django.utils import timezone
 from datetime import date
@@ -91,14 +91,14 @@ class withdrawsupply(models.Model):
 
 class withdrawequipment(models.Model):
 
-    withdraw_equipment_property_no. = models.CharField(max_length=50, verbose_name='withdraw_equipment_property_no.')
+    withdraw_equipment_property_no = models.CharField(max_length=50, verbose_name='withdraw_equipment_property_no')
     withdraw_equipment_itemname = models.CharField(max_length=50, verbose_name='withdraw_equipment_itemname')
     withdraw_equipment_description = models.CharField(max_length=100, verbose_name='withdraw_equipment_description')
     withdraw_equipment_brand = models.CharField(max_length=50, verbose_name='withdraw_equipment_brand')
     withdraw_equipment_yearacquired = models.CharField(max_length=50, verbose_name='withdraw_yearacquired')
-    withdraw_equipment_issued_to. = models.CharField(max_length=50, verbose_name='withdraw_equipment_issued_to.')
-    withdraw_equipment_model_no. = models.CharField(max_length=50, verbose_name='withdraw_equipment_model_no.')
-    withdraw_equipment_serial_no. = models.CharField(max_length=50, verbose_name='withdraw_equipment_serial_no.')
+    withdraw_equipment_issued_to = models.CharField(max_length=50, verbose_name='withdraw_equipment_issued_to')
+    withdraw_equipment_model_no = models.CharField(max_length=50, verbose_name='withdraw_equipment_model_no')
+    withdraw_equipment_serial_no = models.CharField(max_length=50, verbose_name='withdraw_equipment_serial_no')
     withdraw_equipment_certifiedcorrect = models.CharField(max_length=50, verbose_name='withdraw_equipment_certifiedcorrect')
     current_date = models.DateField(default=date.today, verbose_name='withdraw_current_date')
     
@@ -108,14 +108,14 @@ class withdrawequipment(models.Model):
 
 class returnequipment(models.Model):
 
-    return_equipment_property_no. = models.CharField(max_length=50, verbose_name='return_equipment_property_no.')
+    return_equipment_property_no = models.CharField(max_length=50, verbose_name='return_equipment_property_no')
     return_equipment_itemname = models.CharField(max_length=50, verbose_name='return_equipment_itemname')
     return_equipment_description = models.CharField(max_length=100, verbose_name='return_equipment_description')
     return_equipment_brand = models.CharField(max_length=50, verbose_name='return_equipment_brand')
     return_equipment_yearacquired = models.CharField(max_length=50, verbose_name='return_yearacquired')
-    return_equipment_issued_to. = models.CharField(max_length=50, verbose_name='return_equipment_issued_to.')
-    return_equipment_model_no. = models.CharField(max_length=50, verbose_name='return_equipment_model_no.')
-    return_equipment_serial_no. = models.CharField(max_length=50, verbose_name='return_equipment_serial_no.')
+    return_equipment_issued_to = models.CharField(max_length=50, verbose_name='return_equipment_issued_to')
+    return_equipment_model_no = models.CharField(max_length=50, verbose_name='return_equipment_model_no')
+    return_equipment_serial_no = models.CharField(max_length=50, verbose_name='return_equipment_serial_no')
     return_equipment_certifiedcorrect = models.CharField(max_length=50, verbose_name='return_equipment_certifiedcorrect')
     return_date = models.DateField(default=date.today, verbose_name='return_date')
     
