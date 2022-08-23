@@ -28,28 +28,28 @@
                 <label style="padding-top: 10px;"><h2>Request Equipment</h2></label>
             </div>
         </div>
-        
-
-        
         <div class="profile-details">
-        <!--<img src="images/profile.jpg" alt="">-->
-        <text class="admin_name">Supply Admin</text>
-        <i class='bx bx-chevron-down' ></i>
+            <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding-left: 32px">
+                <span id="label3" class="links_name">Supply admin</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-deptRegister' %}">Add Department Account</a></li>
+            </ul> 
         </div>
     </nav>
 
 <br>
     <div class="container home-content">
         <div align="right" style="padding-bottom: 10px; padding-right: 45px; margin: auto;">
-            <span><button type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
-            <span><button type="button" class="btn btn-outline-primary">Export Data To Excel</button></span>
+            <span><button id ="btn2" type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
+            <span><button id ="btn2" type="button" class="btn btn-outline-primary">Export Data To Excel</button></span>
         </div>
     </div>
     <br>
 
 <div style="margin: auto; width: 90%;">
     <div align="left" style="padding-bottom: 10px; margin: auto;">
-        <span><button type="button" class="btn btn-outline-primary">Withdraw Request</button></span>
+        <span><button id ="btn1" type="button" class="btn btn-outline-primary">Withdraw Request</button></span>
     </div>
 <br>
 <!-- Datatable --> 
