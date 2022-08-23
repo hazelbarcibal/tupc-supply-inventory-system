@@ -30,18 +30,20 @@
                 <label style="padding-top: 10px;"><h2>Equipment Return</h2></label>
             </div>
         </div>
-
         <div class="profile-details">
-        <!--<img src="images/profile.jpg" alt="">-->
-        <text class="admin_name">Supply Admin</text>
-        <i class='bx bx-chevron-down' ></i>
+            <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding-left: 32px">
+                <span id="label3" class="links_name">Supply admin</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-deptRegister' %}">Add Department Account</a></li>
+            </ul> 
         </div>
     </nav>
 
 
 <div class="home-content" align="center">
     <div style="margin: auto;">
-        <label style="text-align: center;"><h2>Scanning QR</h2></label>
+        <label style="text-align: center;"><h3>Scanning QR</h3></label>
     </div>
     <div style="margin: auto;">
         <label style="text-align: center;"><h5>INFO</h5></label>
@@ -54,7 +56,7 @@
         </tr>
     </table>
     <br>
-    <span><button type="button" class="btn btn-outline-primary">Return</button></span>
+    <span><button id="btn1" type="button" class="btn btn-outline-primary">Return</button></span>
 </div>
 
 <br><br>
