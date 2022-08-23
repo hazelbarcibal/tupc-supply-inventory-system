@@ -88,12 +88,13 @@
                 <label style="padding-top: 10px;"><h2>Status Limit</h2></label>
             </div>
         </div>
-        
-        
         <div class="profile-details">
-        <!--<img src="images/profile.jpg" alt="">-->
-        <text class="admin_name">Supply Admin</text>
-        <i class='bx bx-chevron-down' ></i>
+            <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding-left: 32px">
+                <span id="label3" class="links_name">Supply admin</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-deptRegister' %}">Add Department Account</a></li>
+            </ul> 
         </div>
     </nav>
 
@@ -200,8 +201,8 @@
     <div class="form-box">
         <div class="button-box">
             <div id="cmdbtn">
-            <button id="btn1" type="button" class="toggle-btn btn btn-outline-primary" onclick="exist()">Existing</button>
-            <button id="btn1" type="button"  class="toggle-btn btn btn-outline-primary" onclick="notexist()">Non-Existing</button>
+            <button id="btn2" type="button" class="toggle-btn btn btn-outline-primary" onclick="exist()">Existing</button>
+            <button id="btn2" type="button"  class="toggle-btn btn btn-outline-primary" onclick="notexist()">Non-Existing</button>
             </div>
             <br>
         </div>
@@ -215,7 +216,7 @@
                 <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
             </div>
             <div style="padding-top: 110px; margin: auto; width: 20%;">
-                <span><button type="button" class="btn btn-outline-primary" >Limit</button></span>  
+                <span><button id="btn1" type="button" class="btn btn-outline-primary" >Limit</button></span>  
             </div>
         </div>
         <div id="not-exist" class="input-group">  
@@ -244,7 +245,7 @@
                     <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
                 </div>    
             <div style="padding-top: 300px; margin: auto; width: 20%;">
-                <span><button type="button" class="btn btn-outline-primary" >Limit</button></span>  
+                <span><button id="btn1" type="button" class="btn btn-outline-primary" >Limit</button></span>  
             </div>
         </div>
     </div>
