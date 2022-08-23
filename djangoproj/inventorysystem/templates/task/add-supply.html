@@ -4,8 +4,10 @@
 
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/qr-style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<script type="text/javascript" src="https://unpkg.com/qr-code-styling/lib/qr-code-styling.js"></script>
 
 <title> Add New Items </title>
 <style>
@@ -33,7 +35,7 @@
         </div>
     </nav>
 
-    <div class="container home-content content">
+    <div class="container home-content content"> <br>
         <div align="center" style="margin: auto;">
             <label style="text-align: center;">
                 <h2>Creating QR</h2>
@@ -41,38 +43,54 @@
         </div>
         <br>
 
-        <!-- Area where infos of QR are to be typed -->
-        <div align="center" class="container">
-            <div class='container' align='center'>
+        <div class="container">
+            <div class="row">
                 
-                <div class="container content input-group mb-1" style="min-width: 30px;">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Item name:</span>
-                    <input required type="text" class="form-control" id="itemName" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                </div>
-                <div class="container content input-group mb-1" style="min-width: 30px;">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Unit:</span>
-                    <input type="text" class="form-control" id="unit" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                </div>
-                   
-            </div>
+                <div class="column" style="padding-top: 10px;">
+                    <form id="qrForm" onsubmit="return false;">
+                        <div class="column">
+                            <div class="inputContainer">
+                                <label for="dataInput">Item name:</label>
+                                <input type="text" class="input-field" onchange="updateQrItemName();" name="dataInput" id="itemname" placeholder="e.g. printer" required />
+    
+                                <label for="dataInput">Unit:</label>
+                                <input type="text" class="input-field" onchange="updateQrUnit();" name="dataInput" id="unit" placeholder="e.g. box" required />
+                            </div>
+                            <div class="inputContainer">
+                                <label for="colorInput">Color:</label>
+                                <input type="color" onchange="updateQrColor();" name="colorInput" id="colorInput" />
+                            </div>
+                            <div class="inputContainer">
+                                <label for="typeInput">Type:</label>                    
+                                <select class="input-field" name="typeInput" id="typeInput" onchange="updateQrType();">                   
+                                  <option value="square">Square</option>                   
+                                  <option value="rounded">Rounded</option>                    
+                                  <option value="dots">Dots</option>                   
+                                </select>                   
+                            </div>
+                        
+    
+                        </div>
+                        
+                    </form>
 
-            <!-- Create "button" (basta kung san pipindutin para magcreate ng QR) -->
-            <div class="container" align="center" style="padding-top: 10px; padding-bottom: 10px;" onload="autoClick();">
-                <span><button type="button" class="btn btn-outline-primary" onclick="create();" style="padding-top: 10px; padding-bottom: 10px;">
-                    Create</button>
-                </span>
+                </div>
+
+                <div class="column" align="center" style="padding-top: 25px;">
+                    <div id="canvas"></div>
+                </div>
+
+                <div class="container" align="center"> <br>
+                    <button id="formButton" class="btn" onclick="download();">Download</button>
+                </div>
                 
-                <span><a id="download" href="#" type="button" class="btn btn-outline-primary" style="padding-top: 10px; padding-bottom: 10px;">
-                    Download</a>
-                </span>
+            
             </div>
-
-            <!-- Where QR code will appear once it created -->
-            <div class="container" id="html-content-holder" align="center" style="padding-top: 10px;">
-                <div id="result" class="container" align="center"></div>
-            </div>
-
         </div>
+        
+        
+
+
     </div>
 
     
@@ -92,30 +110,8 @@
 
 
 
-<script type="text/javascript">
+<script type="text/javascript" src="{% static 'js/qr.js' %}"></script>
 
-    function create() {
-        var x = document.getElementById("itemName").value + '\n' + document.getElementById("unit").value;
-        document.getElementById("result").innerHTML = "<img src='https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=" + encodeURIComponent(x) + "'/>";
-    }
-
-    
-    $(document).ready(function(){
-        var y = $('#result');
-
-        $('#download').on('click', function(){
-            html2canvas(y, {
-                onrendered: function(canvas){
-                    var imageData = canvas.toDataURL('image/jpg');
-                    var newData = imageData.replace(/^data:image\/jpg/, 'data:application/octet-stream');
-                    $('#download').attr('download', 'image.jpg').attr('href', newData);
-                }
-            });
-        });
-    });
-    
-
-</script>
 
 
 

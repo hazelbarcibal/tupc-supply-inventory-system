@@ -151,26 +151,25 @@
                 <label style="padding-top: 10px;"><h2>Supplies Delivery</h2></label>
             </div>
         </div>
+
+
+        
         <div class="profile-details">
-            <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding-left: 32px">
-                <span id="label3" class="links_name">Supply admin</span>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-deptRegister' %}">Add Department Account</a></li>
-            </ul> 
+        <!--<img src="images/profile.jpg" alt="">-->
+        <text class="admin_name">Supply Admin</text>
+        <i class='bx bx-chevron-down' ></i>
         </div>
     </nav>
 
 <div class="container home-content">
-    <form method="post" action="">
-        <div align="right" style="padding-bottom: 10px; margin: auto;">
-            <span><button  type="button" 
-                id="btn2" class="btn btn-outline-primary" style="margin-bottom: 10px;">New Supply Item</button></span><br>
-        </div>
-    </form>
+    
+    <div align="right" style="padding-bottom: 10px;">
+        <a type="button" href="{% url 'inventorysystem-addSupply' %}" class="btn btn-outline-primary">New Supply Item</a>
+    </div>
+    
   
     <div align="center" style="margin: auto;">
-        <label style="text-align: center;"><h3>Scanning QR</h3></label>
+        <label style="text-align: center;"><h2>Scanning QR</h2></label>
     </div>
 
         <!-- QR UI -->
@@ -180,7 +179,7 @@
                 <td valign="top" align="center" width="50%">
                     <table class="tsel" border="0">
                         <div align="center" class="container">
-                            <span><button id="btn1" type="button" class="btn btn-outline-primary" onclick="setimg()" style="margin-bottom: 10px; margin-top: 10px;">Upload</button></span>
+                            <span><button type="button" class="btn btn-outline-primary" onclick="setimg()" style="margin-bottom: 10px; margin-top: 10px;">Upload</button></span>
                         </div>
                         <!-- Where cam will appear-->
                         <tr>
@@ -219,7 +218,7 @@
                         <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
                     <br>
-                        <span><button id="btn1" type="button" class="btn btn-outline-primary">Deliver Item</button></span>
+                        <span><button type="button" class="btn btn-outline-primary">Deliver Item</button></span>
                         
                 </td>
             </tr>
@@ -228,8 +227,8 @@
       
     
         <div align="right" style="padding-bottom: 10px; margin: auto;">
-            <span><button id="btn2" type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
-            <span><button id="btn2" type="button" class="btn btn-outline-primary">Export Data To Excel</button></span>
+            <span><button type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
+            <span><button type="button" class="btn btn-outline-primary">Export Data To Excel</button></span>
         </div>
 
 
@@ -244,7 +243,7 @@
     <div style="margin: auto; width: 90%;">
         
        <!-- Datatable --> 
-        <table id="supplyDeliveryTable" class="stripe cell-border hover" style="width:100%;">
+        <table id="supplyDeliveryTable" class="stripe cell-border hover" style="width:100%">
             <thead>
                 <tr>
                     <th>Item Name</th>
@@ -296,6 +295,9 @@
                     <td>2008-11-28</td>
                     <td>$162,700</td>
                 </tr>
+
+
+ 
             </tbody>
    
         </table>

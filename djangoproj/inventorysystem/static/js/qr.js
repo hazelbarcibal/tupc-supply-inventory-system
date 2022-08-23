@@ -1,15 +1,12 @@
-qrData = document.getElementById('dataInput');
-qrLastname = document.getElementById('lastname');
-qrdob = document.getElementById('dob');
-qrnat = document.getElementById('nat');
-qrblank = document.getElementById('blank');
-qrImage = document.getElementById('imageInput');
+qrItemName = document.getElementById('itemname');
+qrUnit = document.getElementById('unit');
 qrColor = document.getElementById('colorInput');
 qrType = document.getElementById('typeInput');
 
+
 const qrCode = new QRCodeStyling({
-  width: 300,
-  height: 300,
+  width: 200,
+  height: 200,
   data: "Please enter the data and then try to scan me.",
   image: "",
   dotsOptions: {
@@ -18,45 +15,20 @@ const qrCode = new QRCodeStyling({
   },
 });
 
-const updateQrData = () => {
-  newQrData = qrData.value;
+const updateQrItemName = () => {
+  newQrData = qrItemName.value;
   qrCode.update({
     data: newQrData
   });
 };
-const updateQrlastname = () => {
-  newQrData = qrData.value+qrLastname.value;
-  qrCode.update({
-    data: newQrData
-  });
-};
-const updateQrdob = () => {
-  newQrData = qrData.value+qrLastname.value+qrdob.value;
-  qrCode.update({
-    data: newQrData
-  });
-};
-const updateQrnat = () => {
-  newQrData = qrData.value+qrLastname.value+qrdob.value+qrnat.value;
-  qrCode.update({
-    data: newQrData
-  });
-};
-const updateQrblank = () => {
-  newQrData = "first name:"+qrData.value+"   "+"last name:"+qrLastname.value+"   "+"date of birth:"+qrdob.value+"   "+"Nationality:"+qrnat.value+"   "+"gender:"+qrblank.value;
+const updateQrUnit = () => {
+  newQrData = "Item name: "+ qrItemName.value + '\n' + "Unit: "+  qrUnit.value;
   qrCode.update({
     data: newQrData
   });
 };
 
 
-const updateQrImg = () => {
-  newQrImage = URL.createObjectURL(qrImage.files[0]);
-  console.log(newQrImage);
-  qrCode.update({
-    image: newQrImage
-  });
-};
 
 const updateQrColor = () => {
   newQrColor = qrColor.value;
