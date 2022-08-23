@@ -2,8 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.home, name='inventorysystem-home'),
-    path('supply-admin-login/', views.adminLogin, name='inventorysystem-adminLogin'),
+    path('', views.adminLogin, name='inventorysystem-adminLogin'),
+    path('home', views.home, name='inventorysystem-home'),
     path('add-department-account/', views.deptRegister, name='inventorysystem-deptRegister'),
     path('supplies-delivery/', views.suppliesDeliver, name='inventorysystem-suppliesDeliver'),
     path('add-supply-item/', views.addSupply, name='inventorysystem-addSupply'),
@@ -19,3 +19,4 @@ urlpatterns = [
     path('equipment-return/', views.equipmentReturn, name='inventorysystem-equipmentReturn'),
     path('storage-mapping/', views.storageMapping, name='inventorysystem-storageMapping'),
 ]
+
