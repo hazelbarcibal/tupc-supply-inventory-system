@@ -21,8 +21,9 @@ const updateQrItemName = () => {
     data: newQrData
   });
 };
+
 const updateQrUnit = () => {
-  newQrData = "Item name: "+ qrItemName.value + '\n' + "Unit: "+  qrUnit.value;
+  newQrData =  "Item name: " + qrItemName.value + '\n' + " Unit: " + qrUnit.value;
   qrCode.update({
     data: newQrData
   });
