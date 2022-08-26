@@ -1,3 +1,4 @@
+//upload qr ui script
 const wrapper = document.querySelector(".wrapper"),
 form = document.querySelector("form"),
 fileInp = form.querySelector("input"),
@@ -32,3 +33,12 @@ copyBtn.addEventListener("click", () => {
 });
 form.addEventListener("click", () => fileInp.click());
 closeBtn.addEventListener("click", () => wrapper.classList.remove("active"));
+
+//form modal script
+function getValue(){
+    var x = document.getElementById('text').value;
+    var word = x.split(' ');
+
+    document.getElementById('itemVal').value = (word[2]);
+    document.getElementById('unitVal').value = (word[4]);
+}

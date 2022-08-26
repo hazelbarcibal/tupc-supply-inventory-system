@@ -13,6 +13,10 @@
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
 
 
 <section class="home-section">
@@ -56,17 +60,62 @@
                   </div>
                 </form>
                 <div class="details">
-                  <textarea spellcheck="false" disabled></textarea>
-                  <div class="buttons">
-                    <button class="close">Close</button>
-                    <button class="copy">Copy Text</button>
-                  </div>
+                    <textarea spellcheck="false" id="text" disabled></textarea>
+                    <div class="buttons">
+                      <button class="close" id="btn">Close</button>
+                      <button class="copy" id="btn">Copy Text</button>
+                        
+                    </div>
+                    <div align="center" style="padding-top: 15px; text-align: center; ">
+                        <a type="button" align="center" id="btn" onclick="getValue();" href="#myModal" class="trigger-btn" data-toggle="modal">Deliver</a>
+                    </div>
                 </div>
-              </div>
+            </div>
               
         </div>
 
-    
+        
+
+        <!-- Modal HTML -->
+        <div id="myModal" class="modal fade">
+            <div class="modal-dialog modal-login">
+                <div class="modal-content">
+                    <form action="#" method="post">
+                        <div class="modal-header">				
+                            <h4 class="modal-title">Deliver Item</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">				
+                            <div class="form-group">
+                                <label>Item name:</label>
+                                <input type="text" id="itemVal" class="form-control" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label>Unit:</label>
+                                <input type="text" id="unitVal" class="form-control" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label>Description:</label>
+                                <input type="text" id="descript" class="form-control" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label>Brand:</label>
+                                <input type="text" id="brand" class="form-control" required="required">
+                            </div>
+                            <div class="form-group">
+                                <label>Quantity:</label>
+                                <input type="number" id="quantity" class="form-control" required="required">
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <input type="submit" class="btn btn-primary" value="OK">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> 
+
+        <br>
         <div align="right" style="padding-bottom: 10px; margin: auto;">
             <span><button type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
             <span><button type="button" class="btn btn-outline-primary">Export Data To Excel</button></span>
