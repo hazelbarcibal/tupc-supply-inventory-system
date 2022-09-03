@@ -17,6 +17,34 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
+<style>
+    .btn{
+    top: 0;
+    left: 50%;
+    color: black;
+    border-radius: 25px;
+    padding: 7px 25px 8px 25px;
+    white-space: nowrap;
+    transition: 0.3s;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    font-weight: bolder;
+    display: inline-block;
+    border: 2px solid #ffc451;
+    background: transparent;
+    
+  }
+  
+  
+  .btn:hover {
+  text-decoration: none;
+  background: #ffbb38;
+  color: white;
+  }
+</style>
 
 
 <section class="home-section">
@@ -40,7 +68,7 @@
 <div class="container home-content">
     
     <div align="right" style="padding-bottom: 10px;">
-        <a type="button" href="{% url 'inventorysystem-addItem' %}" class="btn btn-outline-primary">New Supply Item</a>
+        <a type="button" href="{% url 'inventorysystem-addItem' %}" class="btn">New Supply Item</a>
     </div>
     
   
@@ -117,8 +145,8 @@
 
         <br>
         <div align="right" style="padding-bottom: 10px; margin: auto;">
-            <span><button type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
-            <span><button type="button" class="btn btn-outline-primary">Export Data To Excel</button></span>
+            <span><button type="button" class="btn" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
+            <span><button type="button" class="btn">Export Data To Excel</button></span>
         </div>
 
 
