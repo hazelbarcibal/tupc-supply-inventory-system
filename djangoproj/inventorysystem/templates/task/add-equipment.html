@@ -4,7 +4,11 @@
 
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/qr-style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script type="text/javascript" src="https://unpkg.com/qr-code-styling/lib/qr-code-styling.js"></script>
+
 <title> Add New Items </title>
 <style>
     .content {
@@ -16,14 +20,13 @@
 <section class="home-section">
     <nav>
         <div class="sidebar-button">
-            <i class='bx bx-menu sidebarBtn'></i>
-        </div>
-
-        <div class="profile-details">
-            <!--<img src="images/profile.jpg" alt="">-->
-            <text class="admin_name">Supply Admin</text>
-            <i class='bx bx-chevron-down'></i>
-        </div>
+                <i class='bx bx-menu sidebarBtn'></i>
+                <div>
+                    <label style="padding-top: 10px;">
+                        <h2>Add New Items</h2>
+                    </label>
+                </div>
+            </div>
     </nav>
 
     <div class="container home-content content">
@@ -35,64 +38,66 @@
         <br>
 
 
-        <div align="center" class="container">
-            <div align="center" class="container">
-                <form id="qrForm" onsubmit="return false;">
-                    <div class="input-group mb-3" style="min-width: 50px;">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Item Name:</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input"
-                            aria-describedby="inputGroup-sizing-default" onchange="updateQrItemName();" id="dataInput"
-                            name="dataInput" placeholder="" required>
+      
+        <div class="container">
+                <div class="row">
+                    
+                    <div class="column" style="padding-top: 10px;">
+                        <form id="qrForm" onsubmit="return false;">
+                            <div class="column">
+                                <div class="inputContainer">
+                                    <label for="dataInput">Item name:</label>
+                                    <input type="text" class="input-field" onchange="updateQrItemName();" name="dataInput" id="itemname" placeholder="e.g. printer" required />
+        
+                                    <label for="dataInput">Unit:</label>
+                                    <input type="text" class="input-field" onchange="updateQrUnit();" name="dataInput" id="unit" placeholder="e.g. box" required />
+                                </div>
+                                <div class="inputContainer">
+                                    <label for="colorInput">Color:</label>
+                                    <input type="color" onchange="updateQrColor();" name="colorInput" id="colorInput" />
+                                </div>
+                                <div class="inputContainer">
+                                    <label for="typeInput">Type:</label>                    
+                                    <select class="input-field" name="typeInput" id="typeInput" onchange="updateQrType();">                   
+                                      <option value="square">Square</option>                   
+                                      <option value="rounded">Rounded</option>                    
+                                      <option value="dots">Dots</option>                   
+                                    </select>                   
+                                </div>
+                            
+        
+                            </div>
+                            
+                        </form>
+    
                     </div>
-
-                    <div class="input-group mb-3" style="min-width: 50px;">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Unit:</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input"
-                            aria-describedby="inputGroup-sizing-default" onchange="updateQrUnit();" id="unit"
-                            name="dataInput" placeholder="" required>
+    
+                    <div class="column" align="center" style="padding-top: 25px;">
+                        <div id="canvas"></div>
                     </div>
-                </form>
-
-
-                <div class="continer" align="center">
-                    <button style="margin-bottom: 15px;" id="formButton" class="btn btn-outline-primary"
-                        onclick="downlogo_name;">Download</button>
+    
+                    <div class="container" align="center"> <br>
+                        <button id="formButton" class="btn" onclick="download();">Download</button>
+                    </div>
+                    
+                
                 </div>
-
-                <div class="container" align="center">
-                    <div class="container" align="center" id="canvas"></div>
-                </div>
-
-
             </div>
-
         </div>
-
-
-    </div>
-
-    <script>
-        function validateForm() {
-            let x = document.forms["qrForm"]["dataInput"].value;
-            if (x == "") {
-                alert("Please enter QR code informations.");
-                return false;
+    
+        <!--
+        <script>
+            function validateForm() {
+                let x = document.forms["qrForm"]["dataInput"].value;
+                if (x == "") {
+                    alert("Please enter QR code informations.");
+                    return false;
+                }
+    
             }
-
-        }
-    </script>
-
-    <!--
-<script type="text/javascript">
-
-    function create() {
-        var data = document.getElementById("data").value;
-        document.getElementById("qrimage").innerHTML = "<img src='https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=" + encodeURIComponent(data) + "'/>";
-    }
-
-</script> -->
-
+        </script> -->
+    </section>
+    
     <script type="text/javascript" src="{% static 'js/qr.js' %}"></script>
-
-
+    
     {% endblock %}
