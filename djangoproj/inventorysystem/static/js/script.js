@@ -39,6 +39,32 @@ function getValue(){
     var x = document.getElementById('text').value;
     var word = x.split(' ');
 
-    document.getElementById('itemVal').value = (word[2]);
-    document.getElementById('unitVal').value = (word[4]);
-}
+    let len = word.length;
+
+    if (len == 5){
+        document.getElementById('itemVal').value = (word[2]);
+        document.getElementById('unitVal').value = (word[4]);
+    } else if (len == 6) {
+        document.getElementById('itemVal').value = (word[2] + ' ' + word[3]);
+        document.getElementById('unitVal').value = (word[5]);
+    } else if (len == 7) {
+        document.getElementById('itemVal').value = (word[2] + ' ' + word[3] + ' ' + word[4]);
+        document.getElementById('unitVal').value = (word[6]);
+    } else if (len == 8) {
+        document.getElementById('itemVal').value = (word[2] + ' ' + word[3] + ' ' + word[4] + ' ' + word[5]);
+        document.getElementById('unitVal').value = (word[7]);
+    } else if (len == 9) {
+        document.getElementById('itemVal').value = (word[2] + ' ' + word[3] + ' ' + word[4] + ' ' + word[5] + ' ' + word[6]);
+        document.getElementById('unitVal').value = (word[8]);
+    } else if (len == 10) {
+        document.getElementById('itemVal').value = (word[2] + ' ' + word[3] + ' ' + word[4] + ' ' + word[5] + ' ' + word[6] + ' ' + word[7]);
+        document.getElementById('unitVal').value = (word[9]);
+    } else if (len == 11) {
+        document.getElementById('itemVal').value = (word[2] + ' ' + word[3] + ' ' + word[4] + ' ' + word[5] + ' ' + word[6] + ' ' + word[7] + ' ' + word[8]);
+        document.getElementById('unitVal').value = (word[10]);
+    } else if (len == 12) {
+        document.getElementById('itemVal').value = (word[2] + ' ' + word[3] + ' ' + word[4] + ' ' + word[5] + ' ' + word[6] + ' ' + word[7] + ' ' + word[8] + ' ' + word[9]);
+        document.getElementById('unitVal').value = (word[11]);
+    } 
+    
+} 

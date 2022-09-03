@@ -13,13 +13,13 @@ def deptRegister(request):
 def suppliesDeliver(request):
     return render(request, 'task/supplies-delivery.html')
 
-def addSupply(request):
-    return render(request, 'task/add-supply.html')
+def addItem(request):
+    return render(request, 'task/add-new-item.html')
 
 def equipmentDeliver(request):
     return render(request, 'task/equipment-delivery.html')
 
-def addEquipment(request):
+#def addEquipment(request):
     return render(request, 'task/add-equipment.html')
 
 def suppliesWithdraw(request):
