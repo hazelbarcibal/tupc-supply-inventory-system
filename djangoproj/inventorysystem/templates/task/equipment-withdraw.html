@@ -11,12 +11,56 @@
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
 <style>
-    #outdiv {
-        width: 250px;
-        height: 250px;
-        border: solid;
-        border-width: 3px 3px 3px 3px;
-    }
+  h4{
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .btn{
+    top: 0;
+    left: 50%;
+    color: black;
+    border-radius: 25px;
+    padding: 7px 25px 8px 25px;
+    white-space: nowrap;
+    transition: 0.3s;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    font-weight: bolder;
+    display: inline-block;
+    border: 2px solid #a7241b;
+    background: transparent;
+    
+  }
+  
+  .btn:hover {
+  text-decoration: none;
+  background: #9c2e26;
+  color: white;
+  }
+  .btn1{
+    color: black;
+    border-radius: 10px;
+    padding: 7px 25px 8px 25px;
+    white-space: nowrap;
+    transition: 0.3s;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bolder;
+    display: inline-block;
+    border: 2px solid #a7241b;
+    background: transparent;
+    
+  }
+  
+  .btn1:hover {
+  text-decoration: none;
+  background: #9c2e26;
+  color: white;
+  }
 </style>
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
@@ -30,18 +74,10 @@
                 <label style="padding-top: 10px;"><h2>Equipment Withdraw</h2></label>     
             </div>
         </div>
-        <div class="profile-details">
-            <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding-left: 32px">
-                <span id="label3" class="links_name">Supply admin</span>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-deptRegister' %}">Add Department Account</a></li>
-            </ul> 
-        </div>
     </nav>
 <div class="home-content" style="margin: auto; width: 90%;">
     <div>
-        <label style="padding-top: 90px;;" align="center"><h4>Department Requests</h4></label>
+        <label align="center"><h4>Department Requests</h4></label>
     </div><br>
     <!-- Datatable --> 
     <table id="equipRequestTable" class="stripe cell-border hover" style="width:100%">
@@ -81,8 +117,8 @@
 <br><br>
 <div class="">
     <div align="right" style="padding-bottom: 10px; padding-right: 45px; margin: auto;">
-        <span><button  id="btn2" type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
-        <span><button  id="btn2" type="button" class="btn btn-outline-primary">Export Data To Excel</button></span>
+        <span><button  id="btn2" type="button" class="btn" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
+        <span><button  id="btn2" type="button" class="btn">Export Data To Excel</button></span>
     </div>
 </div>
 <br>
@@ -163,11 +199,11 @@
                             <input required type="text" id="certCorrect" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
                         <br>
-                            <span><button type="button" id="withdrawEquip" class="btn btn-outline-primary" 
+                            <span><button type="button" id="withdrawEquip" class="btn1" 
                                     style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Withdraw</button></span>  
-                            <span><button type="button" id="createQR" onclick="create();" class="btn btn-outline-primary"  
+                            <span><button type="button" id="createQR" onclick="create();" class="btn1"  
                                     style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Create QR</button></span>  
-                            <span><button type="button" id="saveQR" class="btn btn-outline-primary" 
+                            <span><button type="button" id="saveQR" class="btn1" 
                                     style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Save QR</button></span>  
                     
                     </form>

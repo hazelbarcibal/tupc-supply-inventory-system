@@ -14,6 +14,57 @@
         max-width: 500px;
         margin: auto;
     }
+    .btn1{
+        top: 0;
+        left: 50%;
+        color: black;
+        border-radius: 25px;
+        padding: 7px 25px 8px 25px;
+        white-space: nowrap;
+        transition: 0.3s;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        text-decoration: none;
+        font-family: 'Raleway', sans-serif;
+        font-size: 15px;
+        font-weight: bolder;
+        display: inline-block;
+        border: 2px solid #a7241b;
+        background: transparent;
+    
+    }
+  
+    .btn1:hover {
+        text-decoration: none;
+        background: #9c2e26;
+        color: white;
+    }
+
+    .btn{
+        top: 0;
+        left: 50%;
+        color: black;
+        border-radius: 10px;
+        padding: 7px 25px 8px 25px;
+        white-space: nowrap;
+        transition: 0.3s;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        text-decoration: none;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 15px;
+        font-weight: bolder;
+        display: inline-block;
+        border: 2px solid #7a8d10;
+        background: transparent;
+        
+    }
+    
+    .btn:hover {
+        text-decoration: none;
+        background: #7a8d10;
+        color: white;
+    }
 </style>
 
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
@@ -28,28 +79,20 @@
                 <label style="padding-top: 10px;"><h2>Request Equipment</h2></label>
             </div>
         </div>
-        <div class="profile-details">
-            <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding-left: 32px">
-                <span id="label3" class="links_name">Supply admin</span>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-deptRegister' %}">Add Department Account</a></li>
-            </ul> 
-        </div>
     </nav>
 
 <br>
     <div class="container home-content">
         <div align="right" style="padding-bottom: 10px; padding-right: 45px; margin: auto;">
-            <span><button id ="btn2" type="button" class="btn btn-outline-primary" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
-            <span><button id ="btn2" type="button" class="btn btn-outline-primary">Export Data To Excel</button></span>
+            <span><button id ="btn2" type="button" class="btn1" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
+            <span><button id ="btn2" type="button" class="btn1">Export Data To Excel</button></span>
         </div>
     </div>
     <br>
 
 <div style="margin: auto; width: 90%;">
     <div align="left" style="padding-bottom: 10px; margin: auto;">
-        <a type="btn1" href="{% url 'inventorysystem-equipmentWithdraw' %}" class="btn btn-outline-primary">Withdraw Request</a>
+        <a type="btn1" href="{% url 'inventorysystem-equipmentWithdraw' %}" class="btn1">Withdraw Request</a>
     </div>
 <br>
 <!-- Datatable --> 
@@ -77,7 +120,7 @@
                 <td>45</td>
                 <td>10</td>
                 <td>08-01-22 12:56:13</td>
-                <td><button type="button" class="btn btn-outline-success" style="margin-bottom: 10px;">ACCEPT</button></td>
+                <td><button type="button" class="btn" style="margin-bottom: 10px;">ACCEPT</button></td>
             </tr>
             <tr>
                 <td>ADAA</td>
@@ -88,7 +131,7 @@
                 <td>45</td>
                 <td>10</td>
                 <td>08-01-22 12:56:13</td>
-                <td><button type="button" class="btn btn-outline-success" style="margin-bottom: 10px;">ACCEPT</button></td>
+                <td><button type="button" class="btn" style="margin-bottom: 10px;">ACCEPT</button></td>
             </tr>
         </tbody>
 
