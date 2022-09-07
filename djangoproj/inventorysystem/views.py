@@ -1,3 +1,6 @@
+
+from .models import *
+
 from django.shortcuts import render
 
 
@@ -23,6 +26,15 @@ def equipmentDeliver(request):
     return render(request, 'task/add-equipment.html')
 
 def suppliesWithdraw(request):
+    if request.method == "POST":
+        if request.post.get('supply_delivery_itemname') and request.POST.get('supply_delivery_unit') and request.POST.get('supply_delivery_quantity'):
+            update_delivery_record = deliverysupply()
+            update_delivery_record.delivery_supply_itemname = request.POST.get('supply_delivery_item_name')
+            update_delivery_record.delivery_supply_description = request.POST.get('supply_delivery_description')
+            update_delivery_record.delivery_supply_unit = request.POST.get('supply_delivery_unit')
+            update_delivery_record.delivery_supply_quantity= request.POST.get('supply_delivery_quantity')
+            update_delivery_record.delivery_supply_brand = request.POST.get('supply_delivery_brand')
+            update_delivery_record.save()
     return render(request, 'task/supplies-withdraw.html')
 
 def equipmentWithdraw(request):
