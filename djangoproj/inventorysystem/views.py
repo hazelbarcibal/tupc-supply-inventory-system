@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-#from .forms import deliverysupply
+from .forms import deliverysupply
 from .forms import deliverySupplyForm
 
 
@@ -13,6 +13,7 @@ def deptRegister(request):
     return render(request, 'task/department-register.html')
 
 def suppliesDeliver(request):
+    info = deliverysupply.objects.all()[:5]
     form = deliverySupplyForm()
     if request.method == 'POST':
         form = deliverySupplyForm(request.POST)
@@ -22,6 +23,7 @@ def suppliesDeliver(request):
     
     context = {
         'form': form,
+        'info': info,
     }
 
     return render(request, 'task/supplies-delivery.html', context)
