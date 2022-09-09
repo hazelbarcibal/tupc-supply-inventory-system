@@ -43,6 +43,31 @@
   background: #9c2e26;
   color: white;
   }
+
+  .updateBtn{
+    top: 0;
+    left: 50%;
+    color: black;
+    border-radius: 25px;
+    padding: 7px 15px;
+    white-space: nowrap;
+    transition: 0.3s;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bolder;
+    display: inline-block;
+    border: 2px solid #7a8d10;
+    background: transparent;
+    
+  }
+  
+  .updateBtn:hover {
+  text-decoration: none;
+  background: #7a8d10;
+  color: white;
+  }
 </style>
 
 
@@ -154,7 +179,7 @@
     <div style="margin: auto; width: 90%;">
         
        <!-- Datatable --> 
-        <table id="supplyDeliveryTable" class="stripe cell-border hover" style="width:100%">
+        <table id="supplyDeliveryTable" class="compact stripe cell-border" style="width:100%">
             <thead>
                 <tr>
                     <th>Item Name</th>
@@ -163,6 +188,7 @@
                     <th>Unit</th>
                     <th>Quantity</th>
                     <th>Date & Time</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -174,6 +200,7 @@
                     <td>{{x.delivery_supply_unit}}</td>
                     <td>{{x.delivery_supply_quantity}}</td>
                     <td>{{x.current_date}}</td>
+                    <td><a href="#" class="updateBtn">Update</a></td>
                 </tr>
                 {% endfor %}
                 
@@ -184,11 +211,27 @@
         </table>
         <br><br>
 
+        {% for message in messages %}
+            {% if message.tags == 'info' %}
+                <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                <script>
+                    var m = "{{ message }}";
+                    swal("Notice: ", m, "info")
+                </script>
+                {% elif message.tags == 'success' %}
+                <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                <script>
+                var m = "{{ message }}";
+                swal("Success! ", m, "success")
+                </script>
+            {% endif %}
+        {% endfor %}
+
 
         <script>
             $(document).ready(function () {
             $('#supplyDeliveryTable').DataTable();
-        });
+            });
         </script>
 
     </div>

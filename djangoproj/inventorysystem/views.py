@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import deliverysupply
 from .forms import deliverySupplyForm
+from django.contrib import messages
 
 
 def home(request):
@@ -17,8 +18,11 @@ def suppliesDeliver(request):
     form = deliverySupplyForm()
     if request.method == 'POST':
         form = deliverySupplyForm(request.POST)
+        itemname = request.POST.get('delivery_supply_itemname')
+        brand = request.POST.get('delivery_supply_brand')
         if form.is_valid():
             form.save()
+            messages.success(request, 'Record created for ' + brand + ' ' + itemname)
             return redirect('inventorysystem-suppliesDeliver')
     
     context = {
