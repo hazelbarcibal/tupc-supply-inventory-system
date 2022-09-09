@@ -1,7 +1,6 @@
-
-from .models import *
-
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+#from .forms import deliverysupply
+from .forms import deliverySupplyForm
 
 
 def home(request):
@@ -14,17 +13,18 @@ def deptRegister(request):
     return render(request, 'task/department-register.html')
 
 def suppliesDeliver(request):
-    if request.method == "POST":
-        if request.POST.get('supply_delivery_quantity'):
-            update_delivery_record = deliverysupply()
-            update_delivery_record.delivery_supply_description = request.POST.get('supply_delivery_description')
-            update_delivery_record.delivery_supply_quantity= request.POST.get('supply_delivery_quantity')
-            update_delivery_record.delivery_supply_brand = request.POST.get('supply_delivery_brand')
-            update_delivery_record.save()
-        else:
-            return render(request, 'task/supplies-delivery.html')
+    form = deliverySupplyForm()
+    if request.method == 'POST':
+        form = deliverySupplyForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('inventorysystem-suppliesDeliver')
+    
+    context = {
+        'form': form,
+    }
 
-    return render(request, 'task/supplies-delivery.html')
+    return render(request, 'task/supplies-delivery.html', context)
 
 def addItem(request):
     return render(request, 'task/add-new-item.html')
