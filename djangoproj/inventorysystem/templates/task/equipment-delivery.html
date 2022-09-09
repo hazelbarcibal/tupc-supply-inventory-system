@@ -43,6 +43,31 @@
   background: #9c2e26;
   color: white;
   }
+
+  .updateBtn{
+    top: 0;
+    left: 50%;
+    color: black;
+    border-radius: 25px;
+    padding: 7px 15px;
+    white-space: nowrap;
+    transition: 0.3s;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bolder;
+    display: inline-block;
+    border: 2px solid #7a8d10;
+    background: transparent;
+    
+  }
+  
+  .updateBtn:hover {
+  text-decoration: none;
+  background: #7a8d10;
+  color: white;
+  }
 </style>
 
 <section class="home-section">
@@ -101,6 +126,7 @@
                 <div class="modal-dialog modal-login">
                     <div class="modal-content">
                         <form action="#" method="post">
+                            {% csrf_token %}
                             <div class="modal-header">				
                                 <h4 class="modal-title">Deliver Item</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -108,23 +134,23 @@
                             <div class="modal-body">				
                                 <div class="form-group">
                                     <label>Item name:</label>
-                                    <input type="text" id="itemVal" class="form-control" required="required">
+                                    {{form.delivery_equipment_itemname}}
                                 </div>
                                 <div class="form-group">
                                     <label>Unit:</label>
-                                    <input type="text" id="unitVal" class="form-control" required="required">
+                                    {{form.delivery_equipment_unit}}
                                 </div>
                                 <div class="form-group">
                                     <label>Description:</label>
-                                    <input type="text" id="descript" class="form-control" required="required">
+                                    {{form.delivery_equipment_description}}
                                 </div>
                                 <div class="form-group">
                                     <label>Brand:</label>
-                                    <input type="text" id="brand" class="form-control" required="required">
+                                    {{form.delivery_equipment_brand}}
                                 </div>
                                 <div class="form-group">
                                     <label>Quantity:</label>
-                                    <input type="number" id="quantity" class="form-control" required="required">
+                                    {{form.delivery_equipment_quantity}}
                                 </div>
                             </div>
                             <div class="modal-footer justify-content-between">
@@ -155,53 +181,43 @@
                         <th>Unit</th>
                         <th>Quantity</th>
                         <th>Date & Time</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
+                
                 <tbody>
+                    {% for x in info %}
                     <tr>
-                        <td>Marker</td>
-                        <td>Black Whiteboard Marker</td>
-                        <td>Artline</td>
-                        <td>Box</td>
-                        <td>45</td>
-                        <td>08-01-22 12:56:13</td>
+                        <td>{{x.delivery_equipment_itemname}}</td>
+                        <td>{{x.delivery_equipment_description}}</td>
+                        <td>{{x.delivery_equipment_brand}}</td>
+                        <td>{{x.delivery_equipment_unit}}</td>
+                        <td>{{x.delivery_equipment_quantity}}</td>
+                        <td>{{x.current_date}}</td>
+                        <td><a href="#" class="updateBtn">Update</a></td>
                     </tr>
-                    <tr>
-                        <td>Ballpen</td>
-                        <td>Black Ballpen</td>
-                        <td>Artline</td>
-                        <td>Box</td>
-                        <td>45</td>
-                        <td>08-01-22 12:56:13</td>
-                    </tr>
-                    <tr>
-                        <td>Ashton Cox</td>
-                        <td>Junior Technical Author</td>
-                        <td>San Francisco</td>
-                        <td>66</td>
-                        <td>2009-01-12</td>
-                        <td>$86,000</td>
-                    </tr>
-                    <tr>
-                        <td>Cedric Kelly</td>
-                        <td>Senior Javascript Developer</td>
-                        <td>Edinburgh</td>
-                        <td>22</td>
-                        <td>2012-03-29</td>
-                        <td>$433,060</td>
-                    </tr>
-                    <tr>
-                        <td>Airi Satou</td>
-                        <td>Accountant</td>
-                        <td>Tokyo</td>
-                        <td>33</td>
-                        <td>2008-11-28</td>
-                        <td>$162,700</td>
-                    </tr>
+                    {% endfor %}
+                    
                 </tbody>
 
             </table>
             <br><br>
+
+            {% for message in messages %}
+                {% if message.tags == 'info' %}
+                    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                    <script>
+                        var m = "{{ message }}";
+                        swal("Notice: ", m, "info")
+                    </script>
+                    {% elif message.tags == 'success' %}
+                    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                    <script>
+                    var m = "{{ message }}";
+                    swal("Success! ", m, "success")
+                    </script>
+                {% endif %}
+            {% endfor %}
 
             <script>
                 $(document).ready(function () {

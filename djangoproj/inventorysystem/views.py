@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import deliverysupply
-from .forms import deliverySupplyForm
+from .forms import deliverysupply, deliveryequipment
+from .forms import deliverySupplyForm, deliveryEquipmentForm
 from django.contrib import messages
 
 
@@ -14,7 +14,7 @@ def deptRegister(request):
     return render(request, 'task/department-register.html')
 
 def suppliesDeliver(request):
-    info = deliverysupply.objects.all()[:5]
+    info = deliverysupply.objects.all()
     form = deliverySupplyForm()
     if request.method == 'POST':
         form = deliverySupplyForm(request.POST)
@@ -36,7 +36,22 @@ def addItem(request):
     return render(request, 'task/add-new-item.html')
 
 def equipmentDeliver(request):
-    return render(request, 'task/equipment-delivery.html')
+    info = deliveryequipment.objects.all()
+    form = deliveryEquipmentForm()
+    if request.method == 'POST':
+        form = deliveryEquipmentForm(request.POST)
+        itemname = request.POST.get('delivery_equipment_itemname')
+        brand = request.POST.get('delivery_equipment_brand')
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Record created for ' + brand + ' ' + itemname)
+            return redirect('inventorysystem-equipmentDeliver')
+    
+    context = {
+        'form': form,
+        'info': info,
+    }
+    return render(request, 'task/equipment-delivery.html', context)
 
 #def addEquipment(request):
     return render(request, 'task/add-equipment.html')
