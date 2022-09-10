@@ -16,66 +16,103 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="icon" href="{% static 'img/TUP LOGO.png'%}" type="image/x-icon">
     
-    
-    
+
     <title>Login</title>
 </head>
 <body>
-    <div class="container h-100">
-		<div class="d-flex justify-content-center h-100">
-			<div class="user_card">
-				<div class="d-flex justify-content-center">
-					<div class="brand_logo_container">
-						<img src="{% static 'img/TUP LOGO.png' %}" class="brand_logo" alt="Logo">
-					</div>
-				</div>
-				<div class="d-flex justify-content-center form_container">
-					<form>
-						<div class="input-group mb-3">
-							<div class="input-group-append">
-								<span class="input-group-text"><i class="fas fa-user"></i></span>
-							</div>
-							<input type="text" name="" class="form-control input_user" value="" placeholder="username">
-						</div>
-						<div class="input-group mb-2">
-							<div class="input-group-append">
-								<span class="input-group-text"><i class="fas fa-key"></i></span>
-							</div>
-							<input type="password" id="myPass" name="" class="form-control input_pass" value="" placeholder="password">
-						</div>
-                        <div class="form-group">
-							<div class="custom-control custom-checkbox">
-								<input type="checkbox" onclick="myFunction()" class="custom-control-input" id="customControlInline">
-								<label class="custom-control-label" for="customControlInline">Show password</label>
-							</div>
-						</div>
-						
-						<div class="d-flex justify-content-center mt-3 login_container">
-				 	        <button type="button" name="button" class="btn login_btn">Login</button>
-				         </div>
-					</form>
-				</div>
-		
-				<div class="mt-4">
-					<div class="d-flex justify-content-center links">
-						<a href="#" style="color: black;">Forgot your password?</a>
-					</div>
-				</div>
+	<div class="section">	
+			<div class="container"> 
+				<div class="row full-height justify-content-center">	
+					<div class="col-12 text-center align-self-center py-5">	
+						<div class="section pb-5 pt-5 pt-sm-2 text-center">	
+							<h6 class="mb-0 pb-3">
+								<span>Admin Login </span>
+								<span>Department Login</span>
+							</h6>
+								<input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+								<label for="reg-log"></label>
+								<br>	
+								<div class="card-3d-wrap mx-auto">	
+									<div class="card-3d-wrapper">	
+										<div class="card-front">	
+										<div class="center-wrap">
+											<div class="d-flex justify-content-center">
+												<div class="brand_logo_container">
+													<img src="{% static 'img/TUP LOGO.png' %}" class="brand_logo" alt="Logo">
+												</div>
+											</div>	
+											<br><br><br>
+											<div class="section text-center">	
+											<h4 class="mb-4 pb-3">Admin Login</h4>	
+											<div class="form-group"> 
+												<input type="text" name="logname" class="form-style" placeholder="Username" id="logname" >	
+												<i class="input-icon fa fa-user"></i>	
+											</div>	
+											<div class="form-group mt-2"> 
+												<input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass" >	
+												<i class="input-icon fa fa-lock"></i>	
+											</div>	
+											<div class="custom-control custom-checkbox">
+												<input type="checkbox" onclick="myFunction()" class="custom-control-input" id="customControlInline">
+												<label class="custom-control-label" for="customControlInline">Show password</label>
+											</div>
+											<a href="#" class="btn mt-4">Login</a>	
+											<p class="mb-0 mt-4 text-center"> 
+												<a href="#0" class="link">Forgot your password?</a> </p>	
+											</div>
+											</div>	
+										</div>	
+										<div class="card-back">	
+											<div class="center-wrap">
+												<div class="d-flex justify-content-center">
+														<div class="brand_logo_container">
+															<img src="{% static 'img/TUP LOGO.png' %}" class="brand_logo" alt="Logo">
+														</div>
+													</div>	
+													<br><br><br>	
+												<div class="section text-center">	
+													<h4 class="mb-4 pb-3">Department Login</h4>	
+													<div class="form-group"> 
+														<input type="text" name="logname" class="form-style" placeholder="Username" id="logname" >	
+														<i class="input-icon fa fa-user"></i>	
+													</div>	
+													<div class="form-group mt-2"> 
+														<input type="text" name="logdept" class="form-style" placeholder="Department" id="logdept" >	
+														<i class="input-icon fa fa-users"></i>	
+													</div>	
+													<div class="form-group mt-2"> 
+														<input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass">	
+														<i class="input-icon fa fa-lock"></i>	
+													</div>	
+													<div class="custom-control custom-checkbox">
+														<input type="checkbox" onclick="myFunction()" class="custom-control-input" id="customControlInline">
+														<label class="custom-control-label" for="customControlInline">Show password</label>
+													</div>
+													<a href="#" class="btn mt-4">Login</a>	
+												</div>	
+											</div>	
+										</div>	
+									</div>	
+								</div>	
+							</div>	
+						</div>	
+					</div> 
+				</div>	
 			</div>
-		</div>
-	</div>
 
-    <script type="text/javascript">
-        function myFunction() {
-            var x = document.getElementById("myPass");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
-        }
-    </script>
 
-    
+
+	<script type="text/javascript">
+		function myFunction() {
+			var x = document.getElementById("logpass");
+			if (x.type === "password") {
+				x.type = "text";
+			} else {
+				x.type = "password";
+			}
+		}
+	</script>
 </body>
 </html>
+
+

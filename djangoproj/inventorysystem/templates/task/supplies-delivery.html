@@ -167,8 +167,12 @@
 
         <br>
         <div align="right" style="padding-bottom: 10px; margin: auto;">
-            <span><button type="button" class="btn" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
-            <span><button type="button" class="btn">Export Data To Excel</button></span>
+            <form action="">
+                <button class="btn" style="margin-bottom: 10px;">Save Data As PDF</button><br>
+            </form>
+            <form action="{% url 'export_excel'%}">
+                <button class="btn">Export Data To Excel</button>
+            </form>
         </div>
 
 
@@ -187,8 +191,8 @@
                     <th>Brand</th>
                     <th>Unit</th>
                     <th>Quantity</th>
+                    <th>Remaining Quantity</th>
                     <th>Date & Time</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -199,13 +203,10 @@
                     <td>{{x.delivery_supply_brand}}</td>
                     <td>{{x.delivery_supply_unit}}</td>
                     <td>{{x.delivery_supply_quantity}}</td>
+                    <td>{{x.delivery_supply_remaining}}</td>
                     <td>{{x.current_date}}</td>
-                    <td><a href="#" class="updateBtn">Update</a></td>
                 </tr>
                 {% endfor %}
-                
-
- 
             </tbody>
    
         </table>

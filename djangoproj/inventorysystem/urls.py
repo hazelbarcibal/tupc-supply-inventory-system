@@ -18,5 +18,6 @@ urlpatterns = [
     path('status-limit/', views.statusLimit, name='inventorysystem-statusLimit'),
     path('equipment-return/', views.equipmentReturn, name='inventorysystem-equipmentReturn'),
     path('storage-mapping/', views.storageMapping, name='inventorysystem-storageMapping'),
+    path('export_excel/', views.export_excel, name='export_excel'),
 ]
 

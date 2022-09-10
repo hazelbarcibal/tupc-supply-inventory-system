@@ -137,7 +137,7 @@
                                     {{form.delivery_equipment_itemname}}
                                 </div>
                                 <div class="form-group">
-                                    <label>Unit:</label>
+                                    <label>Serial No.:</label>
                                     {{form.delivery_equipment_unit}}
                                 </div>
                                 <div class="form-group">
@@ -162,9 +162,12 @@
             </div> 
             <br>
             <div align="right" style="padding-bottom: 10px; margin: auto;">
-                <span><button id ="btn2" type="button" class="btn" style="margin-bottom: 10px;">Save Data As
-                        PDF</button></span><br>
-                <span><button id ="btn2" type="button" class="btn">Export Data To Excel</button></span>
+                <form action="">
+                    <button id ="btn2" class="btn" style="margin-bottom: 10px;">Save Data As PDF</button><br>
+                </form>
+                <form action="{% url 'export_excel'%}">
+                    <span><button id ="btn2" class="btn">Export Data To Excel</button></span>
+                </form>
             </div>
         </div>
 
@@ -178,10 +181,10 @@
                         <th>Item Name</th>
                         <th>Description</th>
                         <th>Brand</th>
-                        <th>Unit</th>
+                        <th>Serial No.</th>
                         <th>Quantity</th>
+                        <th>Remaining Quantity</th>
                         <th>Date & Time</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 
@@ -193,8 +196,8 @@
                         <td>{{x.delivery_equipment_brand}}</td>
                         <td>{{x.delivery_equipment_unit}}</td>
                         <td>{{x.delivery_equipment_quantity}}</td>
+                        <td>{{x.delivery_equipment_remaining}}</td>
                         <td>{{x.current_date}}</td>
-                        <td><a href="#" class="updateBtn">Update</a></td>
                     </tr>
                     {% endfor %}
                     
