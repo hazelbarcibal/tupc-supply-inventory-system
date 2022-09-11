@@ -35,13 +35,14 @@ form{
     grid-template-columns: 15% 85%;
     padding: 0 0.4rem;
     position: relative;
+    border: 2px solid #a7241b;
 
 }
 
 .input-field i{
     text-align: center;
     line-height: 40px;
-    color: #acacac;
+    color: black;
     font-size: 1.2rem;
 }
 
@@ -50,7 +51,6 @@ form{
     outline: none;
     border: none;
     list-style: 1;
-    font-weight: 600;
     font-size: 1.2rem;
     color: #333;
 }
@@ -66,22 +66,27 @@ form{
 }
 
 .btn{
-    width: 150px;
-    height: 49px;
-    border: none;
-    outline: none;
-    border-radius: 48px;
-    background-color: #B5C7CC;
-    color: white;
-    text-transform: uppercase;
-    font-weight: 600;
-    margin: 10px 0;
-    transition: all 0.5s;
+top: 0;
+left: 50%;
+color: black;
+border-radius: 25px;
+padding: 7px 25px 8px 25px;
+white-space: nowrap;
+transition: 0.3s;
+letter-spacing: 1px;
+text-transform: uppercase;
+text-decoration: none;
+font-family: 'Raleway', sans-serif;
+font-size: 15px;
+font-weight: bolder;
+display: inline-block;
+border: 2px solid #a7241b;
+background: transparent;
+
 }
 
-.btn:hover{
-    background-color: #8BA1AD;
+.btn:hover {
+text-decoration: none;
+background: #9c2e26;
+color: white;
 }
-
-
-

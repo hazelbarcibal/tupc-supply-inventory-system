@@ -6,7 +6,7 @@ from datetime import date
 from datetime import time
 
 
-class admin(models.Model):
+class adminAcc(models.Model):
 
     Admin_Username = models.CharField(max_length=50, verbose_name='admin username')
     Admin_Password = models.CharField(max_length=50, verbose_name='admin password')
