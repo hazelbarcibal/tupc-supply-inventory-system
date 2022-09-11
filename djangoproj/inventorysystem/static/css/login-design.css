@@ -1,13 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
 
 body {
-    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    font-family: 'Raleway', sans-serif;
     font-weight: 300;
     font-size: 15px;
-    line-height: 1.7;
     color: #fff;
     background-color: #B9D1D9 !important;
-    overflow-x: hidden
+    overflow-x: hidden;
 }
 .brand_logo_container {
     position: absolute;
@@ -55,7 +55,7 @@ h6 span {
     padding: 0 20px;
     text-transform: uppercase;
     font-weight: 700;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
 }
 
 .section {
@@ -75,11 +75,10 @@ h6 span {
 }
 
 .checkbox:checked+label,
-.checkbox:not(:checked)+label {
+.checkbox:not(:checked)+label{
     position: relative;
-    display: block;
     text-align: center;
-    width: 60px;
+    width: 70px;
     height: 16px;
     border-radius: 2px;
     padding: 0;
@@ -91,7 +90,6 @@ h6 span {
 .checkbox:checked+label:before,
 .checkbox:not(:checked)+label:before {
     position: absolute;
-    display: block;
     width: 36px;
     height: 36px;
     border-radius: 10%;
@@ -109,7 +107,7 @@ h6 span {
 }
 
 .checkbox:checked+label:before {
-    transform: translateX(44px) rotate(-270deg)
+    transform: translateX(65px) rotate(-270deg)
 }
 
 .card-3d-wrap {
