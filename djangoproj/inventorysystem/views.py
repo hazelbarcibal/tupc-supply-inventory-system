@@ -4,8 +4,6 @@ from .forms import deliverySupplyForm, deliveryEquipmentForm
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect, response
 import datetime
-import xlwt
-
 
 def home(request):
     return render(request, 'task/home.html')
@@ -23,9 +21,28 @@ def suppliesDeliver(request):
         form = deliverySupplyForm(request.POST)
         itemname = request.POST.get('delivery_supply_itemname')
         brand = request.POST.get('delivery_supply_brand')
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Record created for ' + brand + ' ' + itemname)
+        description = request.POST.get('delivery_supply_description')
+        unit = request.POST.get('delivery_supply_unit')
+        quantity = request.POST.get('delivery_supply_quantity')
+
+        if  deliverysupply.objects.filter(delivery_supply_itemname = itemname).exists() == False:
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Record created for ' + brand + ' ' + itemname)
+                return redirect('inventorysystem-suppliesDeliver')
+
+        elif deliverysupply.objects.filter(delivery_supply_itemname = itemname).exists() == True:
+            getdata = deliverysupply.objects.get(delivery_supply_itemname = itemname)
+            updating = int(getdata.delivery_supply_quantity) + int(quantity)
+            form2 = deliverysupply()
+            form2.delivery_supply_itemname = itemname
+            form2.delivery_supply_brand = brand
+            form2.delivery_supply_description = description
+            form2.delivery_supply_unit = unit
+            form2.delivery_supply_quantity = quantity
+            form2.delivery_supply_remaining = updating
+            form2.save()
+            messages.success(request, 'Record updated for ' + brand + ' ' + itemname)
             return redirect('inventorysystem-suppliesDeliver')
     
     context = {
@@ -45,10 +62,29 @@ def equipmentDeliver(request):
         form = deliveryEquipmentForm(request.POST)
         itemname = request.POST.get('delivery_equipment_itemname')
         brand = request.POST.get('delivery_equipment_brand')
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Record created for ' + brand + ' ' + itemname)
-            return redirect('inventorysystem-equipmentDeliver')
+        description = request.POST.get('delivery_equipment_description')
+        unit = request.POST.get('delivery_equipment_unit')
+        quantity = request.POST.get('delivery_equipment_quantity')
+
+        if deliveryequipment.objects.filter(delivery_equipment_itemname = itemname).exists() == False:
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Record created for ' + brand + ' ' + itemname)
+                return redirect('inventorysystem-equipmentDeliver')
+
+        elif deliveryequipment.objects.filter(delivery_equipment_itemname = itemname).exists() == True:
+            getdata = deliveryequipment.objects.get(delivery_equipment_itemname = itemname)
+            updating = int(getdata.delivery_equipment_quantity) + int(quantity)
+            form2 = deliveryequipment()
+            form2.delivery_equipment_itemname = itemname
+            form2.delivery_equipment_brand = brand
+            form2.delivery_equipment_description = description
+            form2.delivery_equipment_unit = unit
+            form2.delivery_equipment_quantity = quantity
+            form2.delivery_equipment_remaining = updating
+            form2.save()
+            messages.success(request, 'Record updated for ' + brand + ' ' + itemname)
+            return redirect('inventorysystem-equipmentDeliver')        
     
     context = {
         'form': form,
