@@ -1,6 +1,21 @@
 from django import forms
-from .models import deliverysupply, deliveryequipment
-#from django.contrib.auth.forms import UserCreationForm
+from .models import *
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+
+
+
+class DeptRegisterForm(UserCreationForm):
+    #department = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Department'}))
+    department = forms.CharField(required=True, widget=forms.TextInput(attrs={'list': 'department', 'name': 'department', 'placeholder': 'Department'}))
+    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    password1 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Password', 'id': 'regpass'}))
+    password2 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Retype Password', 'id': 'regpass'}))
+    #email = forms.CharField(required=True, widget=forms.EmailField(attrs={'placeholder': 'Email'}))
+
+    class Meta:
+        model = User
+        fields = ['username', 'department', 'password1', 'password2']
 
 
 class deliverySupplyForm(forms.ModelForm):

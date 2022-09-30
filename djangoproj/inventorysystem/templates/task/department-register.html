@@ -3,9 +3,14 @@
 
 {% block content %}
 <title>Add Department Account</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="{% static 'css/dept-register.css' %}">
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
 
 <style>
     .content {
@@ -55,31 +60,81 @@
 
 
     <div class="container home-content content">
+        {% for message in messages %}
+            {% if message.tags == 'warning' %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="padding-top: 5px;">
+                <strong>{{ form.errors }}</strong>
+            </div>
+            {% elif message.tags == 'success' %}
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                <script>
+                    var m = "{{ message }}";
+                    swal("Account added! ", m, "success")
+                </script>
+            {% endif %}
+        {% endfor %}
 
         <div class="container">
             <div class="row">
+                
                 <div class="column">
-                    <div class="container" align="center">
-                        <img src="{% static 'img/add-user.svg' %}" alt="add-user" >
-                    </div>
-                </div>
-                <div class="column">
-                    <form action="#" method="post" class="" id="">
+                    <form action="" method="post">
+                        {% csrf_token %}
                         <h4 class="title">Department User <br>Registration</h4>
-    
                         <div class="input-field">
                             <i class="fas fa-user"></i>
-                            <input type="text" id="" name="" placeholder="Username" required/>
+                            {{form.username}}
                         </div>
                         <div class="input-field">
                             <i class="input-icon fa fa-users"></i>
-                            <input type="text" id="" name="" placeholder="Department" required/>
+                            {{form.department}}
+                            <datalist id="department">
+                                <option>OCS_CASHIER_SERVICES</option>
+                                <option>OES_EXTENSION_SERVICES</option>
+                                <option>OGS_GUIDANCE_SERVICES</option>
+                                <option>OHR_HUMAN_RESOURCES</option>
+                                <option>OHS_HEALTH_SERVICES</option>
+                                <option>OIT_INFORMATION_TECHNOLOGY</option>
+                                <option>OSP_JOB_PLACEMENT</option>
+                                <option>OPR_PROCUREMENT</option>
+                                <option>ORE_RESEARCH_AND_EXTENSION</option>
+                                <option>ORS_RESEARCH_SERVICES</option>
+                                <option>OSA_STUDENT_AFFAIRS</option>
+                                <option>OSH_SECURITY_HOUSE</option>
+                                <option>DID_INDUSTRIAL_EDUCATION</option>
+                                <option>DES_ENGINEERING_TECHNOLOGY</option>
+                                <option>DLA_LIBERAL_ARTS</option>
+                                <option>DMS_MATH_AND_SCIENCE</option>
+                                <option>DPECS_PHYSICAL_EDUCATION_CULTURAL_SPORTS</option>
+                                <option>BETEEAP_EXPANDED_TERTIARY_EDUCATION_EQUIVALENCY_AND_ACCREDITATION</option>
+                                <option>GAD_GENDER_AND_DEVELOPMENT</option>
+                                <option>IDO_INFRASTRUCTURE_DEVELOPMENT_OFFICE</option>
+                                <option>NSTP_NATIONAL_SERVICE_TRAINING_PROGRAM</option>
+                                <option>OAA_ACADEMIC_AFFAIRS</option>
+                                <option>OAD_ADMISSION</option>
+                                <option>OAL_ALUMNI</option>
+                                <option>OAS_ADMIN_SERVICES</option>
+                                <option>OAX_AUXILIARY</option>
+                                <option>BA_BIDS_AND_AWARDS</option>
+                                <option>OBD_BUDGET_DEVELOPMENT</option>
+                                <option>OCD_CAMPUS_DIRECTOR</option>
+                                <option>OCL_CAMPUS_LIBRARY</option>
+                                <option>OCP_CAMPUS_PLANNING</option>
+                                <option>OCR_CAMPUS_REGISTRAR</option>
+                            </datalist> 
                         </div>
+                        
                         
                         <div class="input-field">
                             <i class="fas fa-lock"></i>
-                            <input type="password" id="regpass" name="" placeholder="Password" required/>
+                            {{form.password1}}
                         </div>
+
+                        <div class="input-field">
+                            <i class="fas fa-lock"></i>
+                            {{form.password2}}
+                        </div>
+
                         <div class="container" id="checkbox">
                             <input type="checkbox" onclick="myFunction()" class="custom-control-input" id="customControlInline">
                             <label class="custom-control-label" for="customControlInline">Show password</label>
@@ -90,21 +145,32 @@
                             
                     </form>
                 </div>
+
+                <div class="column">
+                    <div class="container" align="center">
+                        <img src="{% static 'img/add-user.svg' %}" alt="add-user" >
+                    </div>
+                </div>
+
             </div>
         </div>
+
+        <br><br>
 
 
     </div>
 
+
     <script type="text/javascript">
 		function myFunction() {
-			var x = document.getElementById("regpass");
+			var x = document.getElementById("regpass"); 
 			if (x.type === "password") {
 				x.type = "text";
 			} else {
 				x.type = "password";
 			}
 		}
+
 	</script>
         
 

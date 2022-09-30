@@ -1,9 +1,11 @@
+import imp
 from django.shortcuts import render, redirect, HttpResponse
-from .forms import deliverysupply, deliveryequipment
-from .forms import deliverySupplyForm, deliveryEquipmentForm
+#from django.contrib.auth.forms import UserCreationForm
+from .forms import *
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect, response
 import datetime
+import xlwt
 
 def home(request):
     return render(request, 'task/home.html')
@@ -12,7 +14,22 @@ def adminLogin(request):
     return render(request, 'task/login.html')
 
 def deptRegister(request):
-    return render(request, 'task/department-register.html')
+    form = DeptRegisterForm()
+    
+    if request.method == "POST":
+        form = DeptRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, 'Account was created for ' + username)
+            return redirect('inventorysystem-deptRegister')
+        else:
+            messages.warning(request, form.errors)
+    context = {
+        'form': form,
+        
+    }
+    return render(request, 'task/department-register.html', context)
 
 def suppliesDeliver(request):
     info = deliverysupply.objects.all()
