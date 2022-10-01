@@ -59,7 +59,7 @@
         </li>
 
         <li class="log_out">
-          <a href="{% url 'inventorysystem-adminLogin' %}">
+          <a href="{% url 'inventorysystem-userLogin' %}">
             <i class='bx bx-log-out'></i>
             <span class="links_name">Log out</span>
           </a>
@@ -381,6 +381,22 @@
    sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
  }
   </script>
+
+{% for message in messages %}
+{% if message.tags == 'info' %}
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    var m = "{{ message }}";
+    swal('Notice: ', m,'info')
+  </script>
+  {% elif message.tags == 'success' %}
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    var m = "{{ message }}";
+    swal("Login Complete! ", m, "success")
+  </script>
+{% endif %}
+{% endfor %}
  
 </body>
 </html>

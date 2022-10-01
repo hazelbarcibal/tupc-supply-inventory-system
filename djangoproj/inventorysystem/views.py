@@ -10,9 +10,35 @@ import xlwt
 def home(request):
     return render(request, 'task/home.html')
 
-def userLogin(request):
+def deptLogin(request):
+    if request.method == "POST":
+        deptuser = request.POST.get('logusername')
+        department = request.POST.get('logdept')
+        deptpass = request.POST.get('logpassword')
+        user = authenticate(request, username=deptuser, department=department, password=deptpass)
 
-    return render(request, 'task/login.html')
+        if user is not None and user.is_active and user.is_department:
+            login(request, user)
+            messages.success(request, 'Hello ' + deptuser + '!')
+            return redirect('inventorysystem-depRequestSupply')
+        else:
+            messages.info(request, 'Invalid credentials. Please try again.')
+    return render(request, 'task/department-login.html')
+
+def userLogin(request):
+    if request.method == "POST":
+        adminuser = request.POST.get('logname')
+        adminpass = request.POST.get('logpass')
+        user = authenticate(request, username=adminuser, password=adminpass)
+
+        if user is not None and user.is_superuser:
+            login(request, user)
+            messages.success(request, 'Hello ' + adminuser + '!')
+            return redirect('inventorysystem-home')
+        else:
+            messages.info(request, 'Invalid credentials. Please try again.')
+
+    return render(request, 'task/admin-login.html')
 
 def deptRegister(request):
     form = DeptRegisterForm()

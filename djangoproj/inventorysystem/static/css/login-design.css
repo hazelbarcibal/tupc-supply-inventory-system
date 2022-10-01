@@ -106,6 +106,7 @@ h6 span {
     transition: all 0.5s ease
 }
 
+
 .checkbox:checked+label:before {
     transform: translateX(65px) rotate(-270deg)
 }
@@ -209,53 +210,17 @@ h6 span {
     font-size: 24px;
     line-height: 48px;
     text-align: left;
-    color: rgb(5, 5, 5);
+    color: black;
     transition: all 200ms linear
 }
 
-.form-group input:-ms-input-placeholder {
+.form-group input{
+    opacity: 1;
     color: #0c0c0c;
-    opacity: 0.7;
     transition: all 200ms linear
+    
 }
 
-.form-group input::-moz-placeholder {
-    color: #0c0c0c;
-    opacity: 0.7;
-    transition: all 200ms linear
-}
-
-.form-group input:-moz-placeholder {
-    color: #0c0c0c;
-    opacity: 0.7;
-    transition: all 200ms linear
-}
-
-.form-group input::-webkit-input-placeholder {
-    color: #0c0c0c;
-    opacity: 0.7;
-    transition: all 200ms linear
-}
-
-.form-group input:focus:-ms-input-placeholder {
-    opacity: 0;
-    transition: all 200ms linear
-}
-
-.form-group input:focus::-moz-placeholder {
-    opacity: 0;
-    transition: all 200ms linear
-}
-
-.form-group input:focus:-moz-placeholder {
-    opacity: 0;
-    transition: all 200ms linear
-}
-
-.form-group input:focus::-webkit-input-placeholder {
-    opacity: 0;
-    transition: all 200ms linear
-}
 
 .btn {
     border-radius: 4px;
