@@ -1,30 +1,35 @@
+from random import choices
 from django.db import models
-#from django.contrib.auth.models import AbstractUser
-from django.db.models import Model
+from django.contrib.auth.models import AbstractUser
+#from django.contrib.auth.models import User
+#from django.db.models import Model
 from django.utils import timezone
 from datetime import date
 from datetime import time
 
 
-class adminAcc(models.Model):
+#class adminAcc(models.Model):
 
-    Admin_Username = models.CharField(max_length=50, verbose_name='admin username')
-    Admin_Password = models.CharField(max_length=50, verbose_name='admin password')
+#    Admin_Username = models.CharField(max_length=50, verbose_name='admin username')
+#    Admin_Password = models.CharField(max_length=50, verbose_name='admin password')
 
 
-def __str__(self):
-    return self.Admin_Username
+#def __str__(self):
+#    return self.Admin_Username
 
 # department register
-#class deptUser(AbstractUser):
+class CustomUser(AbstractUser):
+
     username = models.CharField(max_length=30, verbose_name='username', unique=True, default='')
     department = models.CharField(max_length=250, verbose_name='department', default='')
+    is_department = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
     def __str__(self):
         return self.username
+
 
 
 

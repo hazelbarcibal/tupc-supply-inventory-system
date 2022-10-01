@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'djangoproj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'supplydept_inventory_thesis',
+        'NAME': 'supplyinventory_thesis',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '127.0.0.1',
@@ -103,6 +103,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTH_USER_MODEL = 'inventorysystem.CustomUser'
 
 
 # Internationalization
@@ -130,4 +132,4 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#AUTH_USER_MODEL = 'inventorysystem.deptUser'
+

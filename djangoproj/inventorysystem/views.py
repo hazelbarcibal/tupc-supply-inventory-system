@@ -1,16 +1,17 @@
-import imp
-from django.shortcuts import render, redirect, HttpResponse
-#from django.contrib.auth.forms import UserCreationForm
 from .forms import *
+from django.shortcuts import render, redirect, HttpResponse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+#from django.http import HttpResponse, HttpResponseRedirect, response
 from django.contrib import messages
-from django.http import HttpResponse, HttpResponseRedirect, response
 import datetime
 import xlwt
 
 def home(request):
     return render(request, 'task/home.html')
 
-def adminLogin(request):
+def userLogin(request):
+
     return render(request, 'task/login.html')
 
 def deptRegister(request):

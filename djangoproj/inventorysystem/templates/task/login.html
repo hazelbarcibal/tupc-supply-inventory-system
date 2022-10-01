@@ -45,31 +45,35 @@
 								<div class="card-3d-wrap mx-auto">	
 									<div class="card-3d-wrapper">	
 										<div class="card-front">	
-										<div class="center-wrap">
-											<div class="d-flex justify-content-center">
-												<div class="brand_logo_container">
-													<img src="{% static 'img/TUP LOGO.png' %}" class="brand_logo" alt="Logo">
-												</div>
-											</div>	
-											<br><br><br>
-											<div class="section text-center">	
-											<h4 class="mb-0 pb-3">Admin Login</h4>	
-											<div class="form-group"> 
-												<input type="text" name="logname" class="form-style" placeholder="Username" id="logname" >	
-												<i class="input-icon fa fa-user"></i>	
-											</div>	
-											<div class="form-group mt-2"> 
-												<input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass" >	
-												<i class="input-icon fa fa-lock"></i>	
-											</div>	
-											<div class="custom-control custom-checkbox">
-												<input type="checkbox" onclick="myFunction()" class="custom-control-input" id="customControlInline">
-												<label class="custom-control-label" for="customControlInline">Show password</label>
-											</div>
-											<a href="#" class="btn mt-4">Login</a>	
-											<p class="mb-0 mt-4 text-center"> 
-												<a href="#0" class="link">Forgot your password?</a> </p>	
-											</div>
+											<div class="center-wrap">
+												<div class="d-flex justify-content-center">
+													<div class="brand_logo_container">
+														<img src="{% static 'img/TUP LOGO.png' %}" class="brand_logo" alt="Logo">
+													</div>
+												</div>	
+												<br><br><br>
+												<div class="section text-center">	
+												<h4 class="mb-0 pb-3">Admin Login</h4>	
+												<form method="post" action="">
+													{% csrf_token %}
+													<div class="form-group"> 
+														<input type="text" name="logname" class="form-style" placeholder="Username" id="logname" required>	
+														<i class="input-icon fa fa-user"></i>	
+													</div>	
+													<div class="form-group mt-2"> 
+														<input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass" required>	
+														<i class="input-icon fa fa-lock"></i>	
+													</div>	
+													<div class="custom-control custom-checkbox">
+														<input type="checkbox" onclick="myFunction()" class="custom-control-input" id="customControlInline">
+														<label class="custom-control-label" for="customControlInline">Show password</label>
+													</div>
+													<input type="submit" class="btn mt-4" value="LOGIN">	
+													<p class="mb-0 mt-4 text-center"> 
+														<a href="#0" class="link">Forgot your password?</a> </p>	
+													</div>
+												</form>
+												
 											</div>	
 										</div>	
 										<div class="card-back">	
@@ -82,23 +86,27 @@
 													<br><br><br>	
 												<div class="section text-center">	
 													<h4 class="mb-0 pb-3">Department Login</h4>	
-													<div class="form-group"> 
-														<input type="text" name="logname" class="form-style" placeholder="Username" id="logname" >	
-														<i class="input-icon fa fa-user"></i>	
-													</div>	
-													<div class="form-group mt-2"> 
-														<input type="text" name="logdept" class="form-style" placeholder="Department" id="logdept" >	
-														<i class="input-icon fa fa-users"></i>	
-													</div>	
-													<div class="form-group mt-2"> 
-														<input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass">	
-														<i class="input-icon fa fa-lock"></i>	
-													</div>	
-													<div class="custom-control custom-checkbox">
-														<input type="checkbox" onclick="myFunction()" class="custom-control-input" id="customControlInline">
-														<label class="custom-control-label" for="customControlInline">Show password</label>
-													</div>
-													<input type="submit" class="btn mt-4" value="LOGIN">
+													<form method="post" action="">
+														{% csrf_token %}
+														<div class="form-group"> 
+															<input type="text" name="logusername" class="form-style" placeholder="Username" id="logname" required>	
+															<i class="input-icon fa fa-user"></i>	
+														</div>	
+														<div class="form-group mt-2"> 
+															<input type="text" name="logdept" class="form-style" placeholder="Department" id="logdept" required>	
+															<i class="input-icon fa fa-users"></i>	
+														</div>	
+														<div class="form-group mt-2"> 
+															<input type="password" name="logpassword" class="form-style" placeholder="Your Password" id="logpass" required>	
+															<i class="input-icon fa fa-lock"></i>	
+														</div>	
+														<div class="custom-control custom-checkbox">
+															<input type="checkbox" onclick="myFunction()" class="custom-control-input" id="customControlInline">
+															<label class="custom-control-label" for="customControlInline">Show password</label>
+														</div>
+														<input type="submit" class="btn mt-4" value="LOGIN">
+													</form>
+													
 												</div>	
 											</div>	
 										</div>	
@@ -110,6 +118,22 @@
 				</div>	
 			</div>
 
+	
+			{% for message in messages %}
+				{% if message.tags == 'info' %}
+					<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+					<script>
+						var m = "{{ message }}";
+						swal('Notice: ', m,'info')
+					</script>
+					{% elif message.tags == 'success' %}
+					<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+					<script>
+						var m = "{{ message }}";
+						swal("Signup Complete! ", m, "success")
+					</script>
+				{% endif %}
+			{% endfor %}
 
 
 	<script type="text/javascript">
