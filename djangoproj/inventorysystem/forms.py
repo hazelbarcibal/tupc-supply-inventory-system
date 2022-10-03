@@ -67,23 +67,14 @@ class deliverySupplyForm(forms.ModelForm):
                 'class': 'form-control'
             }
         )
-    )
-
-    delivery_supply_remaining = forms.DecimalField(
-        required=True,
-        widget=forms.NumberInput(
-            attrs={
-                'class': 'form-control'
-            }
-        )
-    )
+    )   
 
 
     class Meta:
         model = deliverysupply
         fields = ['delivery_supply_itemname', 'delivery_supply_unit', 'delivery_supply_description', 'delivery_supply_brand', 'delivery_supply_quantity']
 
-    
+
 class deliveryEquipmentForm(forms.ModelForm):
     delivery_equipment_itemname = forms.CharField(
         required=True,
