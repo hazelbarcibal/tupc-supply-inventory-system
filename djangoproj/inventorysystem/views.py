@@ -54,7 +54,6 @@ def deptRegister(request):
             messages.warning(request, form.errors)
     context = {
         'form': form,
-        
     }
     return render(request, 'task/department-register.html', context)
 
@@ -68,7 +67,6 @@ def suppliesDeliver(request):
         description = request.POST.get('delivery_supply_description')
         unit = request.POST.get('delivery_supply_unit')
         quantity = request.POST.get('delivery_supply_quantity')
-
         if  supplymainstorage.objects.filter(ItemName = itemname).exists() == False:
             if form.is_valid():
                 form.save()
@@ -78,7 +76,7 @@ def suppliesDeliver(request):
                 storageupdate.Brand = brand
                 storageupdate.Unit = unit
                 storageupdate.Remaining = quantity
-                storageupdate.save()
+                storageupdate.save()                
                 messages.success(request, 'Record created for ' + brand + ' ' + itemname)
                 return redirect('inventorysystem-suppliesDeliver')
 
@@ -91,6 +89,7 @@ def suppliesDeliver(request):
             storageupdate.Brand = brand
             storageupdate.Unit = unit
             storageupdate.Remaining = updating
+            supplymainstorage.objects.filter(ItemName = itemname).delete()
             storageupdate.save()
             form2 = deliverysupply()
             form2.delivery_supply_itemname = itemname
@@ -124,15 +123,30 @@ def equipmentDeliver(request):
         unit = request.POST.get('delivery_equipment_unit')
         quantity = request.POST.get('delivery_equipment_quantity')
 
-        if deliveryequipment.objects.filter(delivery_equipment_itemname = itemname).exists() == False:
+        if supplymainstorage.objects.filter(ItemName = itemname).exists() == False:
             if form.is_valid():
                 form.save()
+                storageupdate = supplymainstorage()
+                storageupdate.ItemName = itemname
+                storageupdate.Description = description
+                storageupdate.Brand = brand
+                storageupdate.Unit = unit
+                storageupdate.Remaining = quantity
+                storageupdate.save()
                 messages.success(request, 'Record created for ' + brand + ' ' + itemname)
                 return redirect('inventorysystem-equipmentDeliver')
 
-        elif deliveryequipment.objects.filter(delivery_equipment_itemname = itemname).exists() == True:
-            getdata = deliveryequipment.objects.get(delivery_equipment_itemname = itemname)
-            updating = int(getdata.delivery_equipment_quantity) + int(quantity)
+        elif supplymainstorage.objects.filter(ItemName = itemname).exists() == True:
+            getdata = supplymainstorage.objects.get(ItemName = itemname)
+            updating = int(getdata.Remaining) + int(quantity)
+            storageupdate = supplymainstorage()
+            storageupdate.ItemName = itemname
+            storageupdate.Description = description
+            storageupdate.Brand = brand
+            storageupdate.Unit = unit
+            storageupdate.Remaining = updating
+            supplymainstorage.objects.filter(ItemName = itemname).delete()
+            storageupdate.save()
             form2 = deliveryequipment()
             form2.delivery_equipment_itemname = itemname
             form2.delivery_equipment_brand = brand
