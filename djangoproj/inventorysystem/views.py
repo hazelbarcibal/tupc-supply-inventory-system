@@ -69,15 +69,29 @@ def suppliesDeliver(request):
         unit = request.POST.get('delivery_supply_unit')
         quantity = request.POST.get('delivery_supply_quantity')
 
-        if  deliverysupply.objects.filter(delivery_supply_itemname = itemname).exists() == False:
+        if  supplymainstorage.objects.filter(ItemName = itemname).exists() == False:
             if form.is_valid():
                 form.save()
+                storageupdate = supplymainstorage()
+                storageupdate.ItemName = itemname
+                storageupdate.Description = description
+                storageupdate.Brand = brand
+                storageupdate.Unit = unit
+                storageupdate.Remaining = quantity
+                storageupdate.save()
                 messages.success(request, 'Record created for ' + brand + ' ' + itemname)
                 return redirect('inventorysystem-suppliesDeliver')
 
-        elif deliverysupply.objects.filter(delivery_supply_itemname = itemname).exists() == True:
-            getdata = deliverysupply.objects.get(delivery_supply_itemname = itemname)
-            updating = int(getdata.delivery_supply_quantity) + int(quantity)
+        elif supplymainstorage.objects.filter(ItemName = itemname).exists() == True:
+            getdata = supplymainstorage.objects.get(ItemName = itemname)
+            updating = int(getdata.Remaining) + int(quantity)
+            storageupdate = supplymainstorage()
+            storageupdate.ItemName = itemname
+            storageupdate.Description = description
+            storageupdate.Brand = brand
+            storageupdate.Unit = unit
+            storageupdate.Remaining = updating
+            storageupdate.save()
             form2 = deliverysupply()
             form2.delivery_supply_itemname = itemname
             form2.delivery_supply_brand = brand
