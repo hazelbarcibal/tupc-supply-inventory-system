@@ -141,41 +141,31 @@
     <table id="MainStorage" class="stripe cell-border hover" style="width:100%">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Item Name</th>
                 <th>Description</th>
                 <th>Brand</th>
                 <th>Unit</th>
-                <th>Quantity</th>
+                <th>Remaining</th>
               
             </tr>
         </thead>
         <tbody>
+            {% for x in info %}
             <tr>
-                <td>OSA</td>
-                <td>Marker</td>
-                <td>Black Whiteboard Marker</td>
-                <td>Artline</td>
-                <td>Box</td>
-                <td>45</td>
-                
+                <td>{{x.ItemName}}</td>
+                <td>{{x.Description}}</td>
+                <td>{{x.Brand}}</td>
+                <td>{{x.Unit}}</td>
+                <td>{{x.Remaining}}</td>
             </tr>
-            <tr>
-                <td>ADAA</td>
-                <td>Marker1</td>
-                <td>Black Whiteboard Marker</td>
-                <td>Artline</td>
-                <td>Box</td>
-                <td>45</td>
-                
-            </tr>
+            {% endfor %}
         </tbody>
 
     </table>
     <br>
 
 <div>
-    <label style="padding-top: 90px;;" align="center"><h4>Requests</h4></label>
+    <label style="padding-top: 90px;;" align="center"><h4>Limit per Department</h4></label>
 </div>
     <br>
 <!-- Datatable --> 
@@ -189,33 +179,19 @@
             <th>Unit</th>
             <th>Quantity</th>
             <th>Department</th>
-            <th>Date & Time</th>
-          
         </tr>
     </thead>
     <tbody>
+        {% for x in info1 %}
         <tr>
-            <td>OSA</td>
-            <td>Marker</td>
-            <td>Black Whiteboard Marker</td>
-            <td>Artline</td>
-            <td>Box</td>
-            <td>45</td>
-            <td>OSA</td>
-            <td>01/16/2022</td>
-            
+            <td>{{x.limit_item_name}}</td>
+            <td>{{x.limit_description}}</td>
+            <td>{{x.limit_brand}}</td>
+            <td>{{x.limit_unit}}</td>
+            <td>{{x.limit_quantity}}</td>
+            <td>{{x.limit_department}}</td>
         </tr>
-        <tr>
-            <td>ADAA</td>
-            <td>Marker1</td>
-            <td>Black Whiteboard Marker</td>
-            <td>Artline</td>
-            <td>Box</td>
-            <td>45</td>
-            <td>OSA</td>
-            <td>01/16/2022</td>
-            
-        </tr>
+        {% endfor %}
     </tbody>
 
 </table>

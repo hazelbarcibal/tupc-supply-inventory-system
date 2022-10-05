@@ -1,0 +1,98 @@
+{% extends 'task/home.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<script type="text/javascript" src="https://unpkg.com/qr-code-styling/lib/qr-code-styling.js"></script>
+<title> Add New Items </title>
+<style>
+    .content {
+        max-width: 450px;
+        margin: auto;
+    }
+</style>
+
+<section class="home-section">
+    <nav>
+        <div class="sidebar-button">
+            <i class='bx bx-menu sidebarBtn'></i>
+        </div>
+
+        <div class="profile-details">
+            <!--<img src="images/profile.jpg" alt="">-->
+            <text class="admin_name">Supply Admin</text>
+            <i class='bx bx-chevron-down'></i>
+        </div>
+    </nav>
+
+    <div class="container home-content content">
+        <div align="center" style="margin: auto;">
+            <label style="text-align: center;">
+                <h2>Creating QR</h2>
+            </label>
+        </div>
+        <br>
+
+
+        <div align="center" class="container">
+            <div align="center" class="container">
+                <form id="qrForm" onsubmit="return false;">
+                    <div class="input-group mb-3" style="min-width: 50px;">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Item Name:</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" onchange="updateQrItemName();" id="dataInput"
+                            name="dataInput" placeholder="" required>
+                    </div>
+
+                    <div class="input-group mb-3" style="min-width: 50px;">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Unit:</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default" onchange="updateQrUnit();" id="unit"
+                            name="dataInput" placeholder="" required>
+                    </div>
+                </form>
+
+
+                <div class="continer" align="center">
+                    <button style="margin-bottom: 15px;" id="formButton" class="btn btn-outline-primary"
+                        onclick="downlogo_name;">Download</button>
+                </div>
+
+                <div class="container" align="center">
+                    <div class="container" align="center" id="canvas"></div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <script>
+        function validateForm() {
+            let x = document.forms["qrForm"]["dataInput"].value;
+            if (x == "") {
+                alert("Please enter QR code informations.");
+                return false;
+            }
+
+        }
+    </script>
+
+    <!--
+<script type="text/javascript">
+
+    function create() {
+        var data = document.getElementById("data").value;
+        document.getElementById("qrimage").innerHTML = "<img src='https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=" + encodeURIComponent(data) + "'/>";
+    }
+
+</script> -->
+
+    <script type="text/javascript" src="{% static 'js/qr.js' %}"></script>
+
+
+    {% endblock %}

@@ -153,7 +153,7 @@ class limitrecords(models.Model):
     limit_unit = models.CharField(max_length=50, verbose_name='limit_unit')
     limit_quantity = models.CharField(max_length=50, verbose_name='limit_quantity')
     limit_department = models.CharField(max_length=50, verbose_name='limit_department')
-    limit_code = models.CharField(max_length=50, verbose_name='limit_code')
+    #limit_code = models.CharField(max_length=50, verbose_name='limit_code')
     
     #current_time = models.CharField(max_length=50, verbose_name='delivery_current_time')
 
@@ -179,4 +179,15 @@ class equipmentmainstorage(models.Model):
 
     class Meta:
         db_table = "equipmentmainstorage"
+
+class storageMapping(models.Model):
+    Category = models.CharField(max_length=50, verbose_name='Category')
+    ItemName = models.CharField(max_length=50, verbose_name='ItemName')
+    Location = models.CharField(max_length=50, verbose_name='Location')
+    CabinetNo = models.CharField(max_length=50, verbose_name='Cabinet')
+    ShelfNo = models.CharField(max_length=50, verbose_name='Shelf')
+    LayerNo = models.CharField(max_length=50, verbose_name='Layer')
+
+    class Meta:
+        db_table = "storageMapping"
 

@@ -187,7 +187,14 @@ def depRequestEquipment(request):
     return render(request, 'task/dep-request-equipment.html')
 
 def statusLimit(request):
-    return render(request, 'task/status-limit.html')
+    info = supplymainstorage.objects.all()
+    info1 = limitrecords.objects.all()
+        
+    context = {
+        'info': info,
+        'info1': info1,
+    }
+    return render(request, 'task/status-limit.html', context)
 
 def equipmentReturn(request):
     return render(request, 'task/equipment-return.html')
