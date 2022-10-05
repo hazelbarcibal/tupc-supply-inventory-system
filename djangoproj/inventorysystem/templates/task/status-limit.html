@@ -204,60 +204,62 @@
 });
 
 </script>
-
-<div class="" align="center" >
-    <div class="form-box">
-        <div class="button-box">
-            <div id="cmdbtn">
-            <button id="btn2" type="button" class="toggle-btn btn1" onclick="exist()">Existing</button>
-            <button id="btn2" type="button"  class="toggle-btn btn1" onclick="notexist()">Non-Existing</button>
-            </div>
-            <br>
-        </div>
-        <div id="exist" class="input-group">
-            <div class="content input-group mb-1" style="padding-top: 50px;">
-                <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
-                <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            </div>
-            <div class="content input-group mb-1" >
-                <span class="input-group-text" id="inputGroup-sizing-default">ID:</span>
-                <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-            </div>
-            <div style="padding-top: 110px; margin: auto; width: 20%;">
-                <span><button id="btn1" type="button" class="btn" >Limit</button></span>  
-            </div>
-        </div>
-        <div id="not-exist" class="input-group">  
-            <div class="content input-group mb-1" style="padding-top: 250px;">
-                <span class="input-group-text" id="inputGroup-sizing-default">DEPARTMENT:</span>
-                <input type="dropdown" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-            </div>  
-            <div class="content input-group mb-1" style="padding-top: 200px;">
-                <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
-                <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-            </div>     
-            <div class="content input-group mb-1" style="padding-top: 150px;">
-                <span class="input-group-text" id="inputGroup-sizing-default">UNIT:</span>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-            </div>
-            <div class="content input-group mb-1" style="padding-top: 100px;">
-                    <span class="input-group-text" id="inputGroup-sizing-default">BRAND:</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+<form action="" method="POST">
+ {% csrf_token %}
+    <div class="" align="center" >
+        <div class="form-box">
+            <div class="button-box">
+                <div id="cmdbtn">
+                <button id="btn2" type="button"  class="toggle-btn btn1" onclick="exist()">Existing</button>
+                <button id="btn2" type="button"  class="toggle-btn btn1" onclick="notexist()">Non-Existing</button>
                 </div>
-            <div class="content input-group mb-1" style="padding-top: 50px;">
-                <span class="input-group-text" id="inputGroup-sizing-default">DESCRIPTION:</span>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                <br>
             </div>
-            <div class="content input-group mb-1" >
-                    <span class="input-group-text" id="inputGroup-sizing-default">ITEM NAME:</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                </div>    
-            <div style="padding-top: 300px; margin: auto; width: 20%;">
-                <span><button id="btn1" type="button" class="btn btn-outline-primary" >Limit</button></span>  
+            <div id="exist" class="input-group">
+                <div class="content input-group mb-1" style="padding-top: 50px;">
+                    <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
+                    <input type="number" name ="existing_quantity" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div class="content input-group mb-1" >
+                    <span class="input-group-text" id="inputGroup-sizing-default">ID:</span>
+                    <input type="number" name ="existing_ID" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                </div>
+                <div style="padding-top: 110px; margin: auto; width: 20%;">
+                    <span><button id="btn1" type="submit" name ="existing" class="btn" >Limit</button></span>  
+                </div>
+            </div>
+            <div id="not-exist" class="input-group">  
+                <div class="content input-group mb-1" style="padding-top: 250px;">
+                    <span class="input-group-text" id="inputGroup-sizing-default">DEPARTMENT:</span>
+                    <input type="dropdown" name ="non-existing_department" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                </div>  
+                <div class="content input-group mb-1" style="padding-top: 200px;">
+                    <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
+                    <input type="number" name ="non-existing_quantity" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                </div>     
+                <div class="content input-group mb-1" style="padding-top: 150px;">
+                    <span class="input-group-text" id="inputGroup-sizing-default">UNIT:</span>
+                    <input type="text" name ="non-existing_unit" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                </div>
+                <div class="content input-group mb-1" style="padding-top: 100px;">
+                        <span class="input-group-text" id="inputGroup-sizing-default">BRAND:</span>
+                        <input type="text" name ="non-existing_brand" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                    </div>
+                <div class="content input-group mb-1" style="padding-top: 50px;">
+                    <span class="input-group-text" id="inputGroup-sizing-default">DESCRIPTION:</span>
+                    <input type="text" name ="non-existing_description" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div class="content input-group mb-1" >
+                        <span class="input-group-text" id="inputGroup-sizing-default">ITEM NAME:</span>
+                        <input type="text" name ="non-existing_itemname" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                    </div>    
+                <div style="padding-top: 300px; margin: auto; width: 20%;">
+                    <span><button id="btn1" type="submit" name ="non-existing" class="btn btn-outline-primary" >Limit</button></span>  
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 <br><br>
 <script>
     var x = document.getElementById("exist");

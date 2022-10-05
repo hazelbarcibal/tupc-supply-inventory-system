@@ -189,7 +189,34 @@ def depRequestEquipment(request):
 def statusLimit(request):
     info = supplymainstorage.objects.all()
     info1 = limitrecords.objects.all()
-        
+    if request.method == 'POST':   
+        if 'non-existing' in request.POST:
+            itemname = request.POST.get('non-existing_itemname')
+            brand = request.POST.get('non-existing_brand')
+            description = request.POST.get('non-existing_description')
+            unit = request.POST.get('non-existing_unit')
+            quantity = request.POST.get('non-existing_quantity')
+            department = request.POST.get('non-existing_department')
+            
+            limit = limitrecords()
+            limit.limit_item_name = itemname
+            limit.limit_brand = brand
+            limit.limit_description = description
+            limit.limit_unit = unit
+            limit.limit_quantity = quantity
+            limit.limit_department = department
+            limit.save()
+            messages.success(request, 'Record created for ' + brand + ' ' + itemname)
+
+        elif 'existing' in request.POST:
+            existingID = request.POST.get('existing_ID')
+            existingquantity = request.POST.get('existing_quantity')
+
+            limit1 = limitrecords()
+            limit1.limit_id = existingID
+            limit1.limit_quantity = existingquantity
+            limit1.save()
+
     context = {
         'info': info,
         'info1': info1,
