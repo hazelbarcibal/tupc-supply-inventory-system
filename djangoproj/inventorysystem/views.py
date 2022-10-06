@@ -211,12 +211,19 @@ def statusLimit(request):
         elif 'existing' in request.POST:
             existingID = request.POST.get('existing_ID')
             existingquantity = request.POST.get('existing_quantity')
-
+            getdata2 = limitrecords.objects.get(limit_id = existingID)
+            getdata3 = int(getdata2.limit_quantity) + int(existingquantity)
             limit1 = limitrecords()
             limit1.limit_id = existingID
-            limit1.limit_quantity = existingquantity
+            limit1.limit_quantity = getdata3
+            limit1.limit_item_name = getdata2.limit_item_name
+            limit1.limit_brand = getdata2.limit_brand
+            limit1.limit_department = getdata2.limit_department
+            limit1.limit_unit = getdata2.limit_unit
+            limit1.limit_description = getdata2.limit_description
+            limitrecords.objects.filter(limit_id = existingID).delete()
             limit1.save()
-
+            messages.success(request, 'Record created for ' + getdata2.limit_department + ' ' + getdata2.limit_item_name)
     context = {
         'info': info,
         'info1': info1,
