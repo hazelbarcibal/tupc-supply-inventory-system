@@ -40,6 +40,7 @@ def userLogin(request):
 
     return render(request, 'task/admin-login.html')
 
+
 def deptRegister(request):
     form = DeptRegisterForm()
     

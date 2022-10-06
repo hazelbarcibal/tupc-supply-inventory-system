@@ -49,6 +49,15 @@ const updateQrType = () => {
   });
 };
 
-const download = () => qrCode.download("jpeg");
+//const download = () => qrCode.download("jpeg");
+
+const download = () => {
+  let x = document.forms["qrForm"]["dataInput"].value;
+    if (x == "") {
+        alert("Please enter all given QR code informations.");
+        //return false;
+    }
+    else qrCode.download('jpeg');
+}
 
 qrCode.append(document.getElementById('canvas'));
