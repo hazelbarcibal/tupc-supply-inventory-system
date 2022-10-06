@@ -7,7 +7,7 @@ qrType = document.getElementById('typeInput');
 const qrCode = new QRCodeStyling({
   width: 200,
   height: 200,
-  data: "Please enter the data and then try to scan me.",
+  data: "Please enter data and then try to scan me.",
   image: "",
   dotsOptions: {
     color: "#000",
@@ -49,15 +49,26 @@ const updateQrType = () => {
   });
 };
 
-//const download = () => qrCode.download("jpeg");
+const download = () => qrCode.download("jpeg");
 
-const download = () => {
-  let x = document.forms["qrForm"]["dataInput"].value;
-    if (x == "") {
-        alert("Please enter all given QR code informations.");
-        //return false;
-    }
-    else qrCode.download('jpeg');
-}
+//function download(){
+//  x = document.getElementById('itemname').value;
+//  y = document.getElementById('unit').value;
+//  if (x || y == ''){
+//    alert('Please enter QR details.');
+//  } 
+//  else qrCode.download('jpeg');
+
+//}
+
+//function validateForm() {
+   
+//  let x = document.forms["qrForm"]["dataInput"].value;
+//    if (x == "") {
+//        alert("Please enter all given QR code informations.");
+//        return false;
+//    }
+    
+//}
 
 qrCode.append(document.getElementById('canvas'));

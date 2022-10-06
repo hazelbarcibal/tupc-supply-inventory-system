@@ -9,112 +9,7 @@
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<style>
-    .content {
-        max-width: 500px;
-        margin: auto;
-    }
-    .hero{
-        margin: 0; 
-        padding: 0;
-        height: 100%;
-        
-    }
-    .toggle-btn{
-        padding: 10px 30px;
-        cursor: pointer;
-        outline: none;
-        position: relative;
-        top: 0;
-        color: black;
-        border-radius: 10px;
-        padding: 7px 25px 8px 25px;
-        transition: 0.3s;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        font-family: 'Raleway', sans-serif;
-        font-size: 15px;
-        font-weight: bolder;
-        border: 2px solid #a7241b;
-        background: transparent;
-    }
-      
-    .toggle-btn:hover {
-        text-decoration: none;
-        background: #9c2e26;
-        color: white;
-        }
-    .form-box{
-        width: 400px;
-        height: 450px;
-        position: relative;
-        display: block;
-        margin: 6% auto;
-        background: rgb(248, 247, 247);
-        padding-top: 10px;
-        overflow: hidden;
-        border: 1px #a7241b solid;
-        border-radius: 5px;
-    }
-    .input-group{
-        transition: .5s;
-        position: absolute;
-        padding-right: 35px;
-
-    }
-    .input-field{
-        padding: 10px ;
-        margin: 5px;
-        border-left: 0;
-        border-right: 0;
-        border-top: 0;
-        border-bottom: 1px solid #999;
-        outline: none;
-        background: transparent;  
-    }
-    .submit-btn{
-        width: 85%;
-        padding: 10px 30px;
-        cursor: pointer;
-        display: block;
-        margin: auto;
-        background:linear-gradient(to right, rgb(81, 159, 223), #0292f1) ;
-        border: 0;
-        outline: none;
-    }
-    #exist{
-        left: 20px;
-    }
-    #not-exist{
-        left: 450px;
-    }
-
-    .btn{
-        color: black;
-        border-radius: 25px;
-        padding: 7px 25px 8px 25px;
-        white-space: nowrap;
-        transition: 0.3s;
-        text-transform: uppercase;
-        text-decoration: none;
-        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-size: 15px;
-        font-weight: bolder;
-        border: 1px solid #a7241b;
-        background: transparent;
-    
-  }
-  
-    .btn:hover {
-        text-decoration: none;
-        background: #a7241b;
-        color: white;
-  }
-  h4{
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-
-</style>
+<link rel="stylesheet" href="{% static 'css/status-design.css' %}">
 
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
@@ -164,11 +59,202 @@
     </table>
     <br>
 
+    <!-- Existing & Non-Existing Toggle Tab -->
+
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'Existing')" id="defaultOpen">Existing</button>
+        <button class="tablinks" onclick="openTab(event, 'Non-Existing')">Non-Existing</button>
+    </div>
+      
+      <div id="Existing" class="tabcontent">
+        <div class="container" style="padding-top: 5em; padding-left: 6em; padding-right: 6em; overflow: hidden;">
+           <form>
+                <div class="content input-group mb-1" >
+                    <span class="input-group-text" id="inputGroup-sizing-default" align="center">ID:</span>
+                    <input type="number" required name="existing_ID" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                </div>
+
+                <div class="content input-group mb-1" style="padding-top: 50px;" align="center">
+                    <span class="input-group-text" id="inputGroup-sizing-default" >QUANTITY:</span>
+                    <input type="number" required name="existing_quantity" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+                
+                <div style="padding-top: 110px; width: 100%;" align="center">
+                    <span><input id="btn1" type="submit" name ="existing" class="btn" value="Limit"></span>  
+                </div>
+            </form>   
+        </div>
+        
+
+      </div>
+      
+      <div id="Non-Existing" class="tabcontent">
+        <div class="container" style="padding-top: 2em; padding-left: 6em; padding-right: 6em; overflow: hidden;">
+            <form>
+                <div class="content input-group mb-1" >
+                    <span class="input-group-text" id="inputGroup-sizing-default">ITEM NAME:</span>
+                    <input type="text" required name ="non-existing_itemname" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                </div>  
+
+                <div class="content input-group mb-1" style="padding-top: 50px;">
+                    <span class="input-group-text" id="inputGroup-sizing-default">DESCRIPTION:</span>
+                    <input type="text" required name ="non-existing_description" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+
+                <div class="content input-group mb-1" style="padding-top: 100px;">
+                    <span class="input-group-text" id="inputGroup-sizing-default">BRAND:</span>
+                    <input type="text" required name ="non-existing_brand" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                </div>
+
+                <div class="content input-group mb-1" style="padding-top: 150px;">
+                    <span class="input-group-text" id="inputGroup-sizing-default">UNIT:</span>
+                    <input type="text" required name ="non-existing_unit" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                </div>
+
+                <div class="content input-group mb-1" style="padding-top: 200px;">
+                    <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
+                    <input type="number" required name ="non-existing_quantity" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                </div> 
+
+                <div class="content input-group mb-1" style="padding-top: 250px;">
+                    <span class="input-group-text" id="inputGroup-sizing-default" >DEPARTMENT:</span>
+                    <input list="department" required pattern="^[A-Z]+(?:_[A-Z]+)*$" autocomplete="off" type="dropdown" name ="non-existing_department" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                    
+                    <datalist id="department">
+                        <option id="1" value="OCS_CASHIER_SERVICES"></option>
+                        <option id="2" value="OES_EXTENSION_SERVICES"></option>
+                        <option id="3" value="OGS_GUIDANCE_SERVICES"></option>
+                        <option id="4" value="OHR_HUMAN_RESOURCES"></option>
+                        <option id="5" value="OHS_HEALTH_SERVICES"></option>
+                        <option id="6" value="OIT_INFORMATION_TECHNOLOGY"></option>
+                        <option id="7" value="OSP_JOB_PLACEMENT"></option>
+                        <option id="8" value="OPR_PROCUREMENT"></option>
+                        <option id="9" value="ORE_RESEARCH_AND_EXTENSION"></option>
+                        <option id="10" value="ORS_RESEARCH_SERVICES"></option>
+                        <option id="11" value="OSA_STUDENT_AFFAIRS"></option>
+                        <option id="12" value="OSH_SECURITY_HOUSE"></option>
+                        <option id="13" value="DID_INDUSTRIAL_EDUCATION"></option>
+                        <option id="14" value="DES_ENGINEERING_TECHNOLOGY"></option>
+                        <option id="15" value="DLA_LIBERAL_ARTS"></option>
+                        <option id="16" value="DMS_MATH_AND_SCIENCE"></option>
+                        <option id="17" value="DPECS_PHYSICAL_EDUCATION_CULTURAL_SPORTS"></option>
+                        <option id="18" value="BETEEAP_EXPANDED_TERTIARY_EDUCATION_EQUIVALENCY_AND_ACCREDITATION"></option>
+                        <option id="19" value="GAD_GENDER_AND_DEVELOPMENT"></option>
+                        <option id="20" value="IDO_INFRASTRUCTURE_DEVELOPMENT_OFFICE"></option>
+                        <option id="21" value="NSTP_NATIONAL_SERVICE_TRAINING_PROGRAM"></option>
+                        <option id="22" value="OAA_ACADEMIC_AFFAIRS"></option>
+                        <option id="23" value="OAD_ADMISSION"></option>
+                        <option id="24" value="OAL_ALUMNI"></option>
+                        <option id="25" value="OAS_ADMIN_SERVICES"></option>
+                        <option id="26" value="OAX_AUXILIARY"></option>
+                        <option id="27" value="BA_BIDS_AND_AWARDS"></option>
+                        <option id="28" value="OBD_BUDGET_DEVELOPMENT"></option>
+                        <option id="29" value="OCD_CAMPUS_DIRECTOR"></option>
+                        <option id="30" value="OCL_CAMPUS_LIBRARY"></option>
+                        <option id="31" value="OCP_CAMPUS_PLANNING"></option>
+                        <option id="32" value="OCR_CAMPUS_REGISTRAR"></option>
+                    </datalist> 
+                </div>  
+    
+      
+                <div style="padding-top: 300px; width: 100%;" align="center">
+                    <span><input id="btn1" type="submit" name ="non-existing" class="btn btn-outline-primary" value="Limit"></span>  
+                </div>
+            </form>
+        </div>
+        
+
+
+      </div>
+
+      <script>
+        function openTab(evt, tabName) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(tabName).style.display = "block";
+          evt.currentTarget.className += " active";
+        }
+        
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+        </script>
+      
+
+
+
+    <!-- NON EXISTING  & EXISTING TOGGLE TAB 
+    <form action="" method="POST">
+        {% csrf_token %}
+           <div class="" align="center" >
+               <div class="form-box">
+                   <div class="button-box">
+                       <div id="cmdbtn">
+                       <button id="btn2" type="button"  class="toggle-btn btn1" onclick="exist()">Existing</button>
+                       <button id="btn2" type="button"  class="toggle-btn btn1" onclick="notexist()">Non-Existing</button>
+                       </div>
+                       <br>
+                   </div>
+                   <div id="exist" class="input-group">
+                       <div class="content input-group mb-1" style="padding-top: 50px;">
+                           <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
+                           <input type="number" name ="existing_quantity" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                       </div>
+                       <div class="content input-group mb-1" >
+                           <span class="input-group-text" id="inputGroup-sizing-default">ID:</span>
+                           <input type="number" name ="existing_ID" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                       </div>
+                       <div style="padding-top: 110px; margin: auto; width: 20%;">
+                           <span><button id="btn1" type="submit" name ="existing" class="btn" >Limit</button></span>  
+                       </div>
+                   </div>
+                   <div id="not-exist" class="input-group">  
+                       <div class="content input-group mb-1" style="padding-top: 250px;">
+                           <span class="input-group-text" id="inputGroup-sizing-default">DEPARTMENT:</span>
+                           <input type="dropdown" name ="non-existing_department" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                       </div>  
+                       <div class="content input-group mb-1" style="padding-top: 200px;">
+                           <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
+                           <input type="number" name ="non-existing_quantity" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                       </div>     
+                       <div class="content input-group mb-1" style="padding-top: 150px;">
+                           <span class="input-group-text" id="inputGroup-sizing-default">UNIT:</span>
+                           <input type="text" name ="non-existing_unit" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                       </div>
+                       <div class="content input-group mb-1" style="padding-top: 100px;">
+                               <span class="input-group-text" id="inputGroup-sizing-default">BRAND:</span>
+                               <input type="text" name ="non-existing_brand" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                           </div>
+                       <div class="content input-group mb-1" style="padding-top: 50px;">
+                           <span class="input-group-text" id="inputGroup-sizing-default">DESCRIPTION:</span>
+                           <input type="text" name ="non-existing_description" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                       </div>
+                       <div class="content input-group mb-1" >
+                               <span class="input-group-text" id="inputGroup-sizing-default">ITEM NAME:</span>
+                               <input type="text" name ="non-existing_itemname" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                           </div>    
+                       <div style="padding-top: 300px; margin: auto; width: 20%;">
+                           <span><button id="btn1" type="submit" name ="non-existing" class="btn btn-outline-primary" >Limit</button></span>  
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </form>
+       <br><br> -->
+
+
 <div>
     <label style="padding-top: 90px;;" align="center"><h4>Limit per Department</h4></label>
 </div>
     <br>
-<!-- Datatable --> 
+
+<!-- LIMIT PER DEPT DATATABLE --> 
 <table id="LimitTable" class="stripe cell-border hover" style="width:100%">
     <thead>
         <tr>
@@ -205,63 +291,7 @@
 });
 
 </script>
-<form action="" method="POST">
- {% csrf_token %}
-    <div class="" align="center" >
-        <div class="form-box">
-            <div class="button-box">
-                <div id="cmdbtn">
-                <button id="btn2" type="button"  class="toggle-btn btn1" onclick="exist()">Existing</button>
-                <button id="btn2" type="button"  class="toggle-btn btn1" onclick="notexist()">Non-Existing</button>
-                </div>
-                <br>
-            </div>
-            <div id="exist" class="input-group">
-                <div class="content input-group mb-1" style="padding-top: 50px;">
-                    <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
-                    <input type="number" name ="existing_quantity" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                </div>
-                <div class="content input-group mb-1" >
-                    <span class="input-group-text" id="inputGroup-sizing-default">ID:</span>
-                    <input type="number" name ="existing_ID" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                </div>
-                <div style="padding-top: 110px; margin: auto; width: 20%;">
-                    <span><button id="btn1" type="submit" name ="existing" class="btn" >Limit</button></span>  
-                </div>
-            </div>
-            <div id="not-exist" class="input-group">  
-                <div class="content input-group mb-1" style="padding-top: 250px;">
-                    <span class="input-group-text" id="inputGroup-sizing-default">DEPARTMENT:</span>
-                    <input type="dropdown" name ="non-existing_department" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                </div>  
-                <div class="content input-group mb-1" style="padding-top: 200px;">
-                    <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
-                    <input type="number" name ="non-existing_quantity" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                </div>     
-                <div class="content input-group mb-1" style="padding-top: 150px;">
-                    <span class="input-group-text" id="inputGroup-sizing-default">UNIT:</span>
-                    <input type="text" name ="non-existing_unit" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                </div>
-                <div class="content input-group mb-1" style="padding-top: 100px;">
-                        <span class="input-group-text" id="inputGroup-sizing-default">BRAND:</span>
-                        <input type="text" name ="non-existing_brand" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                    </div>
-                <div class="content input-group mb-1" style="padding-top: 50px;">
-                    <span class="input-group-text" id="inputGroup-sizing-default">DESCRIPTION:</span>
-                    <input type="text" name ="non-existing_description" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                </div>
-                <div class="content input-group mb-1" >
-                        <span class="input-group-text" id="inputGroup-sizing-default">ITEM NAME:</span>
-                        <input type="text" name ="non-existing_itemname" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                    </div>    
-                <div style="padding-top: 300px; margin: auto; width: 20%;">
-                    <span><button id="btn1" type="submit" name ="non-existing" class="btn btn-outline-primary" >Limit</button></span>  
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-<br><br>
+
 <script>
     var x = document.getElementById("exist");
     var y = document.getElementById("not-exist");  
@@ -279,5 +309,8 @@
     }
 
 </script>
+
+
+
 
 {% endblock %}
