@@ -182,9 +182,22 @@ def viewRequestEquipment(request):
     return render(request, 'task/view-request-equipment.html')
 
 def depRequestSupply(request):
-    info1 = limitrecords.objects.raw('SELECT limit_id from limitrecords WHERE limit_department = "OSA"')
+    info1 = limitrecords.objects.all()  
     info = requestsupply.objects.all()
-
+    if request.method == 'POST':
+        requestID = request.POST.get('requestID')
+        requestqty = request.POST.get('requestqty')
+        requestbrand = request.POST.get('requestbrand')
+        if limitrecords.objects.filter(limit_id = requestID).exists() == True:
+            getdata3 = limitrecords.objects.get(limit_id = requestID)
+            requesting = requestsupply()
+            requesting.request_supply_itemname = getdata3.limit_item_name
+            requesting.request_supply_description = getdata3.limit_description
+            requesting.request_supply_brand = requestbrand
+            requesting.request_supply_unit = getdata3.limit_unit
+            requesting.request_supply_quantity = requestqty
+            requesting.save()
+            messages.success(request, 'Record created for ' + requestID)
     context = {
         'info1': info1,
         'info': info
