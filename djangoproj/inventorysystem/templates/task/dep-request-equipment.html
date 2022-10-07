@@ -45,25 +45,21 @@
                 <th>Brand</th>
                 <th>Unit</th>
                 <th>Quantity</th>
+                <th>Department</th>
             </tr>
         </thead>
         <tbody>
+            {% for x in info1 %}
             <tr>
-                <td>1</td>
-                <td>Marker</td>
-                <td>Black Whiteboard Marker</td>
-                <td>Artline</td>
-                <td>Box</td>
-                <td>45</td>
+                <td>{{x.limit_id}}</td>
+                <td>{{x.limit_item_name}}</td>
+                <td>{{x.limit_description}}</td>
+                <td>{{x.limit_brand}}</td>
+                <td>{{x.limit_unit}}</td>
+                <td>{{x.limit_quantity}}</td>
+                <td>{{x.limit_department}}</td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>Marker1</td>
-                <td>Black Whiteboard Marker</td>
-                <td>Artline</td>
-                <td>Box</td>
-                <td>45</td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
@@ -99,7 +95,6 @@
     <table id="depRequestTable" class="stripe cell-border hover" style="width:100%">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Item Name</th>
                 <th>Description</th>
                 <th>Brand</th>
@@ -111,28 +106,18 @@
             </tr>
         </thead>
         <tbody>
+            {% for x in info %}
             <tr>
-                <td>1</td>
-                <td>Marker</td>
-                <td>Black Whiteboard Marker</td>
-                <td>Artline</td>
-                <td>Box</td>
-                <td>45</td>
-                <td>ADAA</td>
-                <td>--</td>
-                <td>Pending</td>
+                <td>{{x.request_equipment_itemname}}</td>
+                <td>{{x.request_equipment_description}}</td>
+                <td>{{x.request_equipment_brand}}</td>
+                <td>{{x.request_equipment_unit}}</td>
+                <td>{{x.request_equipment_quantity}}</td>
+                <td>{{x.request_equipment_department}}</td>
+                <td>{{x.request_current_date}}</td>
+                <td>{{x.request_equipment_status}}</td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>Marker1</td>
-                <td>Black Whiteboard Marker</td>
-                <td>Artline</td>
-                <td>Box</td>
-                <td>45</td>
-                <td>ADAA</td>
-                <td>--</td>
-                <td>Pending</td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>

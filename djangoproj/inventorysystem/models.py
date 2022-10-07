@@ -73,7 +73,7 @@ class requestsupply(models.Model):
     request_supply_quantity = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='request_supply_quantity')
     request_supply_department = models.CharField(max_length=50, verbose_name='request_supply_department')
     request_supply_status = models.CharField(max_length=50, verbose_name='request_supply_status')
-    current_date = models.DateField(default=date.today, verbose_name= 'request_current_date')
+    current_date = models.DateTimeField(default=now, editable=False, verbose_name= 'request_current_date')
     #current_time = models.CharField(max_length=50, verbose_name='delivery_current_time')
 
     class Meta:
@@ -180,6 +180,19 @@ class equipmentmainstorage(models.Model):
 
     class Meta:
         db_table = "equipmentmainstorage"
+
+class departmentRequests(models.Model):
+    ItemName = models.CharField(max_length=50, verbose_name='ItemName')
+    Description = models.CharField(max_length=255, verbose_name='Description')
+    Brand = models.CharField(max_length=50, verbose_name='Brand')
+    Unit = models.CharField(max_length=50, verbose_name='Unit')
+    Quantity = models.DecimalField(max_digits=6, decimal_places=0, verbose_name='Unit')
+    Department = models.CharField(max_length=50, verbose_name='Department')
+    Remaining = models.DecimalField(max_digits=6, decimal_places=0, verbose_name='Remaining')
+    request_date = models.DateTimeField(default=now, editable=False, verbose_name='request_date')
+
+    class Meta:
+        db_table = "departmentRequests"
 
 class storageMapping(models.Model):
     Category = models.CharField(max_length=50, verbose_name='Category')

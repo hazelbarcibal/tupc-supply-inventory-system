@@ -182,10 +182,24 @@ def viewRequestEquipment(request):
     return render(request, 'task/view-request-equipment.html')
 
 def depRequestSupply(request):
-    return render(request, 'task/dep-request-supply.html')
+    info1 = limitrecords.objects.raw('SELECT limit_id from limitrecords WHERE limit_department = "OSA"')
+    info = requestsupply.objects.all()
+
+    context = {
+        'info1': info1,
+        'info': info
+    }
+    return render(request, 'task/dep-request-supply.html', context)
 
 def depRequestEquipment(request):
-    return render(request, 'task/dep-request-equipment.html')
+    info1 = limitrecords.objects.raw('SELECT limit_id from limitrecords WHERE limit_department = "OSA"')
+    info = requestequipment.objects.all()
+
+    context = {
+        'info1': info1,
+        'info': info
+    }
+    return render(request, 'task/dep-request-equipment.html', context)
 
 def statusLimit(request):
     info = supplymainstorage.objects.all()
