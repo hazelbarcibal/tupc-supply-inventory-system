@@ -69,15 +69,16 @@
       <div id="Existing" class="tabcontent">
         <div class="container" style="padding-top: 5em; padding-left: 6em; padding-right: 6em; overflow: hidden;">
            <form>
+                <div class="content input-group mb-1" style="padding-top: 50px;" align="center">
+                    <span class="input-group-text" id="inputGroup-sizing-default" >QUANTITY:</span>
+                    <input type="number" required name="existing_quantity" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
                 <div class="content input-group mb-1" >
                     <span class="input-group-text" id="inputGroup-sizing-default" align="center">ID:</span>
                     <input type="number" required name="existing_ID" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
                 </div>
 
-                <div class="content input-group mb-1" style="padding-top: 50px;" align="center">
-                    <span class="input-group-text" id="inputGroup-sizing-default" >QUANTITY:</span>
-                    <input type="number" required name="existing_quantity" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                </div>
+
                 
                 <div style="padding-top: 110px; width: 100%;" align="center">
                     <span><input id="btn1" type="submit" name ="existing" class="btn" value="Limit"></span>  
@@ -91,31 +92,6 @@
       <div id="Non-Existing" class="tabcontent">
         <div class="container" style="padding-top: 2em; padding-left: 6em; padding-right: 6em; overflow: hidden;">
             <form>
-                <div class="content input-group mb-1" >
-                    <span class="input-group-text" id="inputGroup-sizing-default">ITEM NAME:</span>
-                    <input type="text" required name ="non-existing_itemname" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                </div>  
-
-                <div class="content input-group mb-1" style="padding-top: 50px;">
-                    <span class="input-group-text" id="inputGroup-sizing-default">DESCRIPTION:</span>
-                    <input type="text" required name ="non-existing_description" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                </div>
-
-                <div class="content input-group mb-1" style="padding-top: 100px;">
-                    <span class="input-group-text" id="inputGroup-sizing-default">BRAND:</span>
-                    <input type="text" required name ="non-existing_brand" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                </div>
-
-                <div class="content input-group mb-1" style="padding-top: 150px;">
-                    <span class="input-group-text" id="inputGroup-sizing-default">UNIT:</span>
-                    <input type="text" required name ="non-existing_unit" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                </div>
-
-                <div class="content input-group mb-1" style="padding-top: 200px;">
-                    <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
-                    <input type="number" required name ="non-existing_quantity" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                </div> 
-
                 <div class="content input-group mb-1" style="padding-top: 250px;">
                     <span class="input-group-text" id="inputGroup-sizing-default" >DEPARTMENT:</span>
                     <input list="department" required pattern="^[A-Z]+(?:_[A-Z]+)*$" autocomplete="off" type="dropdown" name ="non-existing_department" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
@@ -155,7 +131,31 @@
                         <option id="32" value="OCR_CAMPUS_REGISTRAR"></option>
                     </datalist> 
                 </div>  
-    
+
+                <div class="content input-group mb-1" style="padding-top: 200px;">
+                    <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
+                    <input type="number" required name ="non-existing_quantity" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                </div> 
+
+                <div class="content input-group mb-1" style="padding-top: 150px;">
+                    <span class="input-group-text" id="inputGroup-sizing-default">UNIT:</span>
+                    <input type="text" required name ="non-existing_unit" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                </div>
+
+                <div class="content input-group mb-1" style="padding-top: 100px;">
+                    <span class="input-group-text" id="inputGroup-sizing-default">BRAND:</span>
+                    <input type="text" required name ="non-existing_brand" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                </div>
+
+                <div class="content input-group mb-1" style="padding-top: 50px;">
+                    <span class="input-group-text" id="inputGroup-sizing-default">DESCRIPTION:</span>
+                    <input type="text" required name ="non-existing_description" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+
+                <div class="content input-group mb-1" >
+                    <span class="input-group-text" id="inputGroup-sizing-default">ITEM NAME:</span>
+                    <input type="text" required name ="non-existing_itemname" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
+                </div>  
       
                 <div style="padding-top: 300px; width: 100%;" align="center">
                     <span><input id="btn1" type="submit" name ="non-existing" class="btn btn-outline-primary" value="Limit"></span>  
