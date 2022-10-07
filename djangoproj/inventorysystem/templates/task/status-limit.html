@@ -83,12 +83,11 @@
                 </div>
             </div>   
         </div>
-    </form>   
-    <form action="" method="POST">
-        {% csrf_token %}  
+</form>   
+<form action="" method="POST">
+    {% csrf_token %}  
       <div id="Non-Existing" class="tabcontent">
         <div class="container" style="padding-top: 2em; padding-left: 6em; padding-right: 6em; overflow: hidden;">
-
                 <div class="content input-group mb-1" style="padding-top: 250px;">
                     <span class="input-group-text" id="inputGroup-sizing-default" >DEPARTMENT:</span>
                     <input list="department" required pattern="^[A-Z]+(?:_[A-Z]+)*$" autocomplete="off" type="dropdown" name ="non-existing_department" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
@@ -160,7 +159,7 @@
 
         </div>  
       </div>
-    </form>
+</form>
 
       <script>
         function openTab(evt, tabName) {
