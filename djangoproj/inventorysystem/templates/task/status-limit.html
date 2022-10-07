@@ -60,7 +60,8 @@
     <br>
 
     <!-- Existing & Non-Existing Toggle Tab -->
-
+<form action="" method="POST">
+    {% csrf_token %}
     <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'Existing')" id="defaultOpen">Existing</button>
         <button class="tablinks" onclick="openTab(event, 'Non-Existing')">Non-Existing</button>
@@ -68,7 +69,6 @@
       
       <div id="Existing" class="tabcontent">
         <div class="container" style="padding-top: 5em; padding-left: 6em; padding-right: 6em; overflow: hidden;">
-           <form>
                 <div class="content input-group mb-1" style="padding-top: 50px;" align="center">
                     <span class="input-group-text" id="inputGroup-sizing-default" >QUANTITY:</span>
                     <input type="number" required name="existing_quantity" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
@@ -77,21 +77,18 @@
                     <span class="input-group-text" id="inputGroup-sizing-default" align="center">ID:</span>
                     <input type="number" required name="existing_ID" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
                 </div>
-
-
                 
                 <div style="padding-top: 110px; width: 100%;" align="center">
                     <span><input id="btn1" type="submit" name ="existing" class="btn" value="Limit"></span>  
                 </div>
-            </form>   
+            </div>   
         </div>
-        
-
-      </div>
-      
+    </form>   
+    <form action="" method="POST">
+        {% csrf_token %}  
       <div id="Non-Existing" class="tabcontent">
         <div class="container" style="padding-top: 2em; padding-left: 6em; padding-right: 6em; overflow: hidden;">
-            <form>
+
                 <div class="content input-group mb-1" style="padding-top: 250px;">
                     <span class="input-group-text" id="inputGroup-sizing-default" >DEPARTMENT:</span>
                     <input list="department" required pattern="^[A-Z]+(?:_[A-Z]+)*$" autocomplete="off" type="dropdown" name ="non-existing_department" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
@@ -158,14 +155,12 @@
                 </div>  
       
                 <div style="padding-top: 300px; width: 100%;" align="center">
-                    <span><input id="btn1" type="submit" name ="non-existing" class="btn btn-outline-primary" value="Limit"></span>  
+                    <span><input id="btn1" type="submit" name ="non-existing" class="btn" value="Limit"></span>  
                 </div>
-            </form>
-        </div>
-        
 
-
+        </div>  
       </div>
+    </form>
 
       <script>
         function openTab(evt, tabName) {
