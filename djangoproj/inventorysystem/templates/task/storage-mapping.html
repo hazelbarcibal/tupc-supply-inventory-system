@@ -42,24 +42,17 @@
             </tr>
         </thead>
         <tbody>
+            {% for x in info %}
             <tr>
-                <td>Supply</td>
-                <td>Bondpaper</td>
-                <td>Right</td>
-                <td>5</td>
-                <td>1</td>
-                <td>1</td>
+                <td>{{x.Category}}</td>
+                <td>{{x.ItemName}}</td>
+                <td>{{x.Location}}</td>
+                <td>{{x.CabinetNo}}</td>
+                <td>{{x.ShelfNo}}</td>
+                <td>{{x.LayerNo}}</td>
                 <td><a href="">Update</a></td>
             </tr>
-            <tr>
-                <td>Supply</td>
-                <td>Pencil</td>
-                <td>Left</td>
-                <td>6</td>
-                <td>1</td>
-                <td>1</td>
-                <td><a href="">Update</a></td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
                   

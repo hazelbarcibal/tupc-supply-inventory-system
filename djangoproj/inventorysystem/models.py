@@ -195,7 +195,7 @@ class departmentRequests(models.Model):
     class Meta:
         db_table = "departmentRequests"
 
-class storageMapping(models.Model):
+class storagemapping(models.Model):
     Category = models.CharField(max_length=50, verbose_name='Category')
     ItemName = models.CharField(max_length=50, verbose_name='ItemName')
     Location = models.CharField(max_length=50, verbose_name='Location')

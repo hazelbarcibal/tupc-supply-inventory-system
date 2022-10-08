@@ -79,6 +79,14 @@ def suppliesDeliver(request):
                 storageupdate.Unit = unit
                 storageupdate.Remaining = quantity
                 storageupdate.save()
+                mapping = storagemapping()
+                mapping.Category = "Supply"
+                mapping.ItemName = itemname
+                mapping.CabinetNo = 0
+                mapping.Location = 0
+                mapping.ShelfNo = 0
+                mapping.LayerNo = 0
+                mapping.save()
                 messages.success(request, 'Record created for ' + brand + ' ' + itemname)
                 return redirect('inventorysystem-suppliesDeliver')
 
@@ -135,6 +143,14 @@ def equipmentDeliver(request):
                 storageupdate.Unit = unit
                 storageupdate.Remaining = quantity
                 storageupdate.save()
+                mapping = storagemapping()
+                mapping.Category = "Equipment"
+                mapping.ItemName = itemname
+                mapping.CabinetNo = 0
+                mapping.Location = 0
+                mapping.ShelfNo = 0
+                mapping.LayerNo = 0
+                mapping.save()
                 messages.success(request, 'Record created for ' + brand + ' ' + itemname)
                 return redirect('inventorysystem-equipmentDeliver')
 
@@ -271,7 +287,13 @@ def equipmentReturn(request):
     return render(request, 'task/equipment-return.html')
 
 def storageMapping(request):
-    return render(request, 'task/storage-mapping.html')
+    info = storagemapping.objects.all()
+
+    context = {
+        'info': info
+    }
+
+    return render(request, 'task/storage-mapping.html', context)
 
 def export_excel(request):
     response=HttpResponse(content_type='application/ms-excel')
