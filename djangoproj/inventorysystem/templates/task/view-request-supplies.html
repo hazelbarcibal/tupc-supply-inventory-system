@@ -109,28 +109,19 @@
             </tr>
         </thead>
         <tbody>
+            {% for x in info %}
             <tr>
-                <td>OSA</td>
-                <td>Marker</td>
-                <td>Black Whiteboard Marker</td>
-                <td>Artline</td>
-                <td>Box</td>
-                <td>45</td>
-                <td>10</td>
-                <td>08-01-22 12:56:13</td>
+                <td>{{x.request_supply_department}}</td>
+                <td>{{x.request_supply_itemname}}</td>
+                <td>{{x.request_supply_description}}</td>
+                <td>{{x.request_supply_brand}}</td>
+                <td>{{x.request_supply_unit}}</td>
+                <td>{{x.request_supply_quantity}}</td>
+                <td></td>
+                <td>{{x.current_date}}</td>
                 <td><button type="button" class="btn" style="margin-bottom: 10px;">ACCEPT</button></td>
             </tr>
-            <tr>
-                <td>ADAA</td>
-                <td>Marker1</td>
-                <td>Black Whiteboard Marker</td>
-                <td>Artline</td>
-                <td>Box</td>
-                <td>45</td>
-                <td>10</td>
-                <td>08-01-22 12:56:13</td>
-                <td><button type="button" class="btn" style="margin-bottom: 10px;">ACCEPT</button></td>
-            </tr>
+            {% endfor %}
         </tbody>
 
     </table>

@@ -176,9 +176,14 @@ def equipmentWithdraw(request):
     return render(request, 'task/equipment-withdraw.html')
 
 def viewRequestSupply(request):
-    return render(request, 'task/view-request-supplies.html')
+    info = requestsupply.objects.all()
+    context = {
+        'info': info
+    }
+    return render(request, 'task/view-request-supplies.html', context)
 
 def viewRequestEquipment(request):
+
     return render(request, 'task/view-request-equipment.html')
 
 def depRequestSupply(request):
@@ -196,6 +201,7 @@ def depRequestSupply(request):
             requesting.request_supply_brand = requestbrand
             requesting.request_supply_unit = getdata3.limit_unit
             requesting.request_supply_quantity = requestqty
+            requesting.request_supply_status = "pending"
             requesting.save()
             messages.success(request, 'Record created for ' + requestID)
     context = {
@@ -237,21 +243,22 @@ def statusLimit(request):
             messages.success(request, 'Record created for ' + brand + ' ' + itemname)
 
         elif 'existing' in request.POST:
-            existingID = request.POST.get('existing_ID')
-            existingquantity = request.POST.get('existing_quantity')
-            getdata2 = limitrecords.objects.get(limit_id = existingID)
-            getdata3 = int(getdata2.limit_quantity) + int(existingquantity)
-            limit1 = limitrecords()
-            limit1.limit_id = existingID
-            limit1.limit_quantity = getdata3
-            limit1.limit_item_name = getdata2.limit_item_name
-            limit1.limit_brand = getdata2.limit_brand
-            limit1.limit_department = getdata2.limit_department
-            limit1.limit_unit = getdata2.limit_unit
-            limit1.limit_description = getdata2.limit_description
-            limitrecords.objects.filter(limit_id = existingID).delete()
-            limit1.save()
-            messages.success(request, 'Record created for ' + getdata2.limit_department + ' ' + getdata2.limit_item_name)
+            if limitrecords.objects.filter(limit_id = request.POST.get('existing_ID')).exists() == True:
+                existingID = request.POST.get('existing_ID')
+                existingquantity = request.POST.get('existing_quantity')
+                getdata2 = limitrecords.objects.get(limit_id = existingID)
+                getdata3 = int(getdata2.limit_quantity) + int(existingquantity)
+                limit1 = limitrecords()
+                limit1.limit_id = existingID
+                limit1.limit_quantity = getdata3
+                limit1.limit_item_name = getdata2.limit_item_name
+                limit1.limit_brand = getdata2.limit_brand
+                limit1.limit_department = getdata2.limit_department
+                limit1.limit_unit = getdata2.limit_unit
+                limit1.limit_description = getdata2.limit_description
+                limitrecords.objects.filter(limit_id = existingID).delete()
+                limit1.save()
+                messages.success(request, 'Record created for ' + getdata2.limit_department + ' ' + getdata2.limit_item_name)
     context = {
         'info': info,
         'info1': info1,
