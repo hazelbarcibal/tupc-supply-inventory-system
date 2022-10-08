@@ -1,3 +1,4 @@
+from email.policy import default
 from random import choices
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -41,7 +42,7 @@ class deliverysupply(models.Model):
     delivery_supply_brand = models.CharField(max_length=50, verbose_name='delivery_supply_brand')
     delivery_supply_unit = models.CharField(max_length=50, verbose_name='delivery_supply_unit')
     delivery_supply_quantity = models.DecimalField(max_digits=6, decimal_places= 0, verbose_name='delivery_supply_quantity')
-    delivery_supply_remaining = models.CharField(max_length=50, verbose_name='delivery_supply_remaining')
+    delivery_supply_remaining = models.CharField(max_length=50, verbose_name='delivery_supply_remaining', default=0)
     current_date = models.DateTimeField(default=now, editable=False, verbose_name= 'delivery_current_date')
     #current_time = models.CharField(max_length=50, verbose_name='delivery_current_time')
 
