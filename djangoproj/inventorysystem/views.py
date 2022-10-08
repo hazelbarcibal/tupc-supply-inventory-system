@@ -204,7 +204,7 @@ def viewRequestEquipment(request):
     return render(request, 'task/view-request-equipment.html')
 
 def depRequestSupply(request):
-    info1 = limitrecords.objects.all()  
+    info1 = limitrecords.objects.raw('SELECT limit_id from limitrecords WHERE limit_department = "OGS_GUIDANCE_SERVICES"')  
     info = requestsupply.objects.all()
     if request.method == 'POST':
         requestID = request.POST.get('requestID')
@@ -219,6 +219,7 @@ def depRequestSupply(request):
             requesting.request_supply_unit = getdata3.limit_unit
             requesting.request_supply_quantity = requestqty
             requesting.request_supply_remaining = getdata3.limit_quantity
+            requesting.request_supply_department = getdata3.limit_department
             requesting.request_supply_status = "pending"
             requesting.save()
             messages.success(request, 'Record created for ' + requestID)
@@ -294,6 +295,7 @@ def storageMapping(request):
     }
 
     return render(request, 'task/storage-mapping.html', context)
+
 
 def export_excel(request):
     response=HttpResponse(content_type='application/ms-excel')
