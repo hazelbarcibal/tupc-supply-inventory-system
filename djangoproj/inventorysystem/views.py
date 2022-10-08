@@ -177,6 +177,7 @@ def equipmentWithdraw(request):
 
 def viewRequestSupply(request):
     info = requestsupply.objects.all()
+
     context = {
         'info': info
     }
@@ -201,6 +202,7 @@ def depRequestSupply(request):
             requesting.request_supply_brand = requestbrand
             requesting.request_supply_unit = getdata3.limit_unit
             requesting.request_supply_quantity = requestqty
+            requesting.request_supply_remaining = getdata3.limit_quantity
             requesting.request_supply_status = "pending"
             requesting.save()
             messages.success(request, 'Record created for ' + requestID)

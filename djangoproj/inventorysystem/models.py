@@ -71,6 +71,7 @@ class requestsupply(models.Model):
     request_supply_brand = models.CharField(max_length=50, verbose_name='request_supply_brand')
     request_supply_unit = models.CharField(max_length=50, verbose_name='request_supply_unit')
     request_supply_quantity = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='request_supply_quantity')
+    request_supply_remaining = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='request_supply_remaining')
     request_supply_department = models.CharField(max_length=50, verbose_name='request_supply_department')
     request_supply_status = models.CharField(max_length=50, verbose_name='request_supply_status')
     current_date = models.DateTimeField(default=now, editable=False, verbose_name= 'request_current_date')
