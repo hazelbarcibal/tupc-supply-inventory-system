@@ -6,16 +6,6 @@ from datetime import datetime
 from django.utils.timezone import now
 
 
-#class adminAcc(models.Model):
-
-#    Admin_Username = models.CharField(max_length=50, verbose_name='admin username')
-#    Admin_Password = models.CharField(max_length=50, verbose_name='admin password')
-
-
-#def __str__(self):
-#    return self.Admin_Username
-
-# department register
 class CustomUser(AbstractUser):
 
     username = models.CharField(max_length=30, verbose_name='username', unique=True, default='')
