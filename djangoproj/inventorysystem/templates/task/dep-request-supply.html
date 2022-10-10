@@ -44,10 +44,11 @@
             </div>
         </div>
 
-        <div>
-          <label align="center"><h5 style="color: #fff;">Welcome, <input style="border-color:transparent; 
-          background-color: #a7241b; width: 200px; "></h5>  </label>
-      </div>
+        <form action="" method="POST">
+          {% csrf_token %}
+          <div>
+            <h1>welcome <span name = 'departmentlogin' style="color: #ffc451; margin-right: 5px;">{{request.user}}</span><span>!</span></h1>
+        </div>
 
         <li>
           <a class="" href="{% url 'inventorysystem-depRequestSupply' %}" role="button" data-bs-toggle="dropdown" aria-expanded="false">

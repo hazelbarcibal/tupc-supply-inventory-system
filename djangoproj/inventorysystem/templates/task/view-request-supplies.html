@@ -115,7 +115,9 @@
                 <td>{{x.request_supply_quantity}}</td>
                 <td></td>
                 <td>{{x.current_date}}</td>
-                <td><button type="button" class="btn" style="margin-bottom: 10px;">ACCEPT</button></td>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                        <td><button type="button" class="btn" style="margin-bottom: 10px;">ACCEPT</button></td>
             </tr>
             {% endfor %}
         </tbody>

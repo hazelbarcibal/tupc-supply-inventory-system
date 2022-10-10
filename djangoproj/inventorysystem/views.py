@@ -13,9 +13,9 @@ def home(request):
 def deptLogin(request):
     if request.method == "POST":
         deptuser = request.POST.get('logusername')
-        department = request.POST.get('logdept')
+        department1 = request.POST.get('logdept')
         deptpass = request.POST.get('logpassword')
-        user = authenticate(request, username=deptuser, department=department, password=deptpass)
+        user = authenticate(request, department=department1, username=deptuser,  password=deptpass)
 
         if user is not None and user.is_active and user.is_department:
             login(request, user)
@@ -193,7 +193,10 @@ def equipmentWithdraw(request):
 
 def viewRequestSupply(request):
     info = requestsupply.objects.all()
-
+    if request.method == 'POST':
+        accept = requestsupply.objects.get(id=1)
+        accept.delete()
+        messages.success(request, 'Record updated')
     context = {
         'info': info
     }
@@ -204,7 +207,7 @@ def viewRequestEquipment(request):
     return render(request, 'task/view-request-equipment.html')
 
 def depRequestSupply(request):
-    info1 = limitrecords.objects.raw('SELECT limit_id from limitrecords WHERE limit_department = "OGS_GUIDANCE_SERVICES"')  
+    info1 = limitrecords.objects.all() 
     info = requestsupply.objects.all()
     if request.method == 'POST':
         requestID = request.POST.get('requestID')
