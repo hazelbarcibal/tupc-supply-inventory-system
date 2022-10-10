@@ -2,10 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 #from django.contrib.auth.models import User
 #from django.db.models import Model
-from django.utils import timezone
+from datetime import datetime    
 from django.utils.timezone import now
-from datetime import date
-from datetime import time
 
 
 #class adminAcc(models.Model):
@@ -41,7 +39,7 @@ class deliverysupply(models.Model):
     delivery_supply_unit = models.CharField(max_length=50, verbose_name='delivery_supply_unit')
     delivery_supply_quantity = models.DecimalField(max_digits=6, decimal_places= 0, verbose_name='delivery_supply_quantity')
     delivery_supply_remaining = models.CharField(max_length=50, verbose_name='delivery_supply_remaining', default=0)
-    current_date = models.DateTimeField(default=now, editable=False, verbose_name= 'delivery_current_date')
+    current_date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name= 'delivery_current_date')
     #current_time = models.CharField(max_length=50, verbose_name='delivery_current_time')
 
     class Meta:
