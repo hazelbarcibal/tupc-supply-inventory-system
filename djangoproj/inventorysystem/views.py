@@ -64,7 +64,6 @@ def suppliesDeliver(request):
     if request.method == 'POST':
         form = deliverySupplyForm(request.POST)
         itemname = request.POST.get('delivery_supply_itemname')
-        brand = request.POST.get('delivery_supply_brand')
         description = request.POST.get('delivery_supply_description')
         unit = request.POST.get('delivery_supply_unit')
         quantity = request.POST.get('delivery_supply_quantity')
@@ -75,7 +74,6 @@ def suppliesDeliver(request):
                 storageupdate = supplymainstorage()
                 storageupdate.ItemName = itemname
                 storageupdate.Description = description
-                storageupdate.Brand = brand
                 storageupdate.Unit = unit
                 storageupdate.Remaining = quantity
                 storageupdate.save()
@@ -87,7 +85,7 @@ def suppliesDeliver(request):
                 mapping.ShelfNo = 0
                 mapping.LayerNo = 0
                 mapping.save()
-                messages.success(request, 'Record created for ' + brand + ' ' + itemname)
+                messages.success(request, 'Record created for ' + itemname)
                 return redirect('inventorysystem-suppliesDeliver')
 
         elif supplymainstorage.objects.filter(ItemName = itemname).exists() == True:
@@ -96,20 +94,18 @@ def suppliesDeliver(request):
             storageupdate = supplymainstorage()
             storageupdate.ItemName = itemname
             storageupdate.Description = description
-            storageupdate.Brand = brand
             storageupdate.Unit = unit
             storageupdate.Remaining = updating
             supplymainstorage.objects.filter(ItemName = itemname).delete()
             storageupdate.save()
             form2 = deliverysupply()
             form2.delivery_supply_itemname = itemname
-            form2.delivery_supply_brand = brand
             form2.delivery_supply_description = description
             form2.delivery_supply_unit = unit
             form2.delivery_supply_quantity = quantity
             form2.delivery_supply_remaining = updating
             form2.save()
-            messages.success(request, 'Record updated for ' + brand + ' ' + itemname)
+            messages.success(request, 'Record updated for ' + itemname)
             return redirect('inventorysystem-suppliesDeliver')        
     
     context = {
@@ -128,7 +124,6 @@ def equipmentDeliver(request):
     if request.method == 'POST':
         form = deliveryEquipmentForm(request.POST)
         itemname = request.POST.get('delivery_equipment_itemname')
-        brand = request.POST.get('delivery_equipment_brand')
         description = request.POST.get('delivery_equipment_description')
         unit = request.POST.get('delivery_equipment_unit')
         quantity = request.POST.get('delivery_equipment_quantity')
@@ -139,7 +134,6 @@ def equipmentDeliver(request):
                 storageupdate = equipmentmainstorage()
                 storageupdate.ItemName = itemname
                 storageupdate.Description = description
-                storageupdate.Brand = brand
                 storageupdate.Unit = unit
                 storageupdate.Remaining = quantity
                 storageupdate.save()
@@ -151,7 +145,7 @@ def equipmentDeliver(request):
                 mapping.ShelfNo = 0
                 mapping.LayerNo = 0
                 mapping.save()
-                messages.success(request, 'Record created for ' + brand + ' ' + itemname)
+                messages.success(request, 'Record created for ' + itemname)
                 return redirect('inventorysystem-equipmentDeliver')
 
         elif equipmentmainstorage.objects.filter(ItemName = itemname).exists() == True:
@@ -160,20 +154,18 @@ def equipmentDeliver(request):
             storageupdate = equipmentmainstorage()
             storageupdate.ItemName = itemname
             storageupdate.Description = description
-            storageupdate.Brand = brand
             storageupdate.Unit = unit
             storageupdate.Remaining = updating
             equipmentmainstorage.objects.filter(ItemName = itemname).delete()
             storageupdate.save()
             form2 = deliveryequipment()
             form2.delivery_equipment_itemname = itemname
-            form2.delivery_equipment_brand = brand
             form2.delivery_equipment_description = description
             form2.delivery_equipment_unit = unit
             form2.delivery_equipment_quantity = quantity
             form2.delivery_equipment_remaining = updating
             form2.save()
-            messages.success(request, 'Record updated for ' + brand + ' ' + itemname)
+            messages.success(request, 'Record updated for ' + itemname)
             return redirect('inventorysystem-equipmentDeliver')        
     
     context = {
@@ -212,6 +204,7 @@ def editRequestSupply(request, pk):
             #user = form.cleaned_data.get('request_supply_department')
             #messages.success(request, 'Request supply record was updated for ' + user)
             form.save()
+            requestsupply.objects.filter(id=pk).delete()
             return redirect('inventorysystem-viewRequestSupply')
     context = {
         'data': data,
@@ -225,18 +218,16 @@ def viewRequestEquipment(request):
     return render(request, 'task/view-request-equipment.html')
 
 def depRequestSupply(request):
-    info1 = limitrecords.objects.all() 
-    info = requestsupply.objects.all()
+    info1 = limitrecords.objects.all().filter(limit_department = request.user)
+    info = requestsupply.objects.all().filter(request_supply_department = request.user)
     if request.method == 'POST':
         requestID = request.POST.get('requestID')
         requestqty = request.POST.get('requestqty')
-        requestbrand = request.POST.get('requestbrand')
         if limitrecords.objects.filter(limit_id = requestID).exists() == True:
             getdata3 = limitrecords.objects.get(limit_id = requestID)
             requesting = requestsupply()
             requesting.request_supply_itemname = getdata3.limit_item_name
             requesting.request_supply_description = getdata3.limit_description
-            requesting.request_supply_brand = requestbrand
             requesting.request_supply_unit = getdata3.limit_unit
             requesting.request_supply_quantity = requestqty
             requesting.request_supply_remaining = getdata3.limit_quantity
@@ -266,7 +257,6 @@ def statusLimit(request):
     if request.method == 'POST':   
         if 'non-existing' in request.POST:
             itemname = request.POST.get('non-existing_itemname')
-            brand = request.POST.get('non-existing_brand')
             description = request.POST.get('non-existing_description')
             unit = request.POST.get('non-existing_unit')
             quantity = request.POST.get('non-existing_quantity')
@@ -274,13 +264,12 @@ def statusLimit(request):
             
             limit = limitrecords()
             limit.limit_item_name = itemname
-            limit.limit_brand = brand
             limit.limit_description = description
             limit.limit_unit = unit
             limit.limit_quantity = quantity
             limit.limit_department = department
             limit.save()
-            messages.success(request, 'Record created for ' + brand + ' ' + itemname)
+            messages.success(request, 'Record created for ' + itemname)
 
         elif 'existing' in request.POST:
             if limitrecords.objects.filter(limit_id = request.POST.get('existing_ID')).exists() == True:
@@ -292,7 +281,6 @@ def statusLimit(request):
                 limit1.limit_id = existingID
                 limit1.limit_quantity = getdata3
                 limit1.limit_item_name = getdata2.limit_item_name
-                limit1.limit_brand = getdata2.limit_brand
                 limit1.limit_department = getdata2.limit_department
                 limit1.limit_unit = getdata2.limit_unit
                 limit1.limit_description = getdata2.limit_description
