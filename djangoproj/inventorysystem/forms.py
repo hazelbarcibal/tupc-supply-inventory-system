@@ -51,14 +51,6 @@ class deliverySupplyForm(forms.ModelForm):
         )
     )
 
-    delivery_supply_brand = forms.CharField(
-        required=True,
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control'
-            }
-        )
-    )
 
     delivery_supply_quantity = forms.DecimalField(
         required=True,
@@ -72,7 +64,7 @@ class deliverySupplyForm(forms.ModelForm):
 
     class Meta:
         model = deliverysupply
-        fields = ['delivery_supply_itemname', 'delivery_supply_unit', 'delivery_supply_description', 'delivery_supply_brand', 'delivery_supply_quantity']
+        fields = ['delivery_supply_itemname', 'delivery_supply_unit', 'delivery_supply_description', 'delivery_supply_quantity']
 
 
 class deliveryEquipmentForm(forms.ModelForm):
@@ -133,7 +125,6 @@ class deliveryEquipmentForm(forms.ModelForm):
 request_supply_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
 request_supply_itemname = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item name'}))
 request_supply_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
-request_supply_brand = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brand'}))
 request_supply_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
 request_supply_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
 request_supply_remaining= forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaining'}))
@@ -149,7 +140,6 @@ class requestSupplyForm(forms.ModelForm):
             self.fields['request_supply_department'].widget.attrs['readonly'] = True
             self.fields['request_supply_itemname'].widget.attrs['readonly'] = True
             self.fields['request_supply_description'].widget.attrs['readonly'] = True
-            self.fields['request_supply_brand'].widget.attrs['readonly'] = True
             self.fields['request_supply_unit'].widget.attrs['readonly'] = True
             self.fields['request_supply_quantity'].widget.attrs['readonly'] = True
             self.fields['request_supply_remaining'].widget.attrs['readonly'] = True
@@ -158,5 +148,58 @@ class requestSupplyForm(forms.ModelForm):
 
     class Meta:
         model = requestsupply
-        fields = ['request_supply_department', 'request_supply_itemname', 'request_supply_description', 'request_supply_brand', 'request_supply_unit', 'request_supply_quantity', 'request_supply_remaining',
+        fields = ['request_supply_department', 'request_supply_itemname', 'request_supply_description', 'request_supply_unit', 'request_supply_quantity', 'request_supply_remaining',
         'current_date', 'request_supply_status']
+
+# Request supply - admin window
+arequest_supply_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
+arequest_supply_itemname = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item name'}))
+arequest_supply_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
+arequest_supply_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
+arequest_supply_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
+arequest_supply_remaining= forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaining'}))
+current_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Date & Time'}))
+arequest_supply_status = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
+
+class acceptSupplyRequestsForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super(acceptSupplyRequestsForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            self.fields['request_supply_department'].widget.attrs['readonly'] = True
+            self.fields['request_supply_itemname'].widget.attrs['readonly'] = True
+            self.fields['request_supply_description'].widget.attrs['readonly'] = True
+            self.fields['request_supply_unit'].widget.attrs['readonly'] = True
+            self.fields['request_supply_quantity'].widget.attrs['readonly'] = True
+            self.fields['request_supply_remaining'].widget.attrs['readonly'] = True
+            self.fields['current_date'].widget.attrs['readonly'] = True
+
+
+    class Meta:
+        model = requestsupply
+        fields = ['request_supply_department', 'request_supply_itemname', 'request_supply_description', 'request_supply_unit', 'request_supply_quantity', 'request_supply_remaining',
+        'current_date', 'request_supply_status']
+
+# storage - admin window
+Category = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Category'}))
+ItemName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ItemName'}))
+Location = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Location'}))
+CabinetNo = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'CabinetNo'}))
+ShelfNo = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'ShelfNo'}))
+LayerNo= forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'LayerNo'}))
+
+
+class storageForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super(storageForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            self.fields['Category'].widget.attrs['readonly'] = True
+            self.fields['ItemName'].widget.attrs['readonly'] = True
+
+
+    class Meta:
+        model = storagemapping
+        fields = ['Category', 'ItemName', 'Location', 'CabinetNo', 'ShelfNo', 'LayerNo']

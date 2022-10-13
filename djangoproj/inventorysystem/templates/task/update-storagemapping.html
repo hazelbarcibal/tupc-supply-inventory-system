@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<title> Accept Request Supply </title>
+<title> Update Storage Mapping </title>
 <link rel="stylesheet" href="{% static 'css/edit-request-supply.css' %}">
 
 <style>
@@ -68,7 +68,7 @@
         <div class="sidebar-button">
             <i class='bx bx-menu sidebarBtn'></i>
             <div>
-                <label style="padding-top: 10px;"><h2>Accept Request Supplies</h2></label>
+                <label style="padding-top: 10px;"><h2>Update Storage Mapping</h2></label>
             </div>
         </div>
     </nav>
@@ -78,42 +78,28 @@
         <div class="form-holder">
                 <div class="form-content">
                     <div class="form-items">
-                        <h3>Accept Request Supply</h3>
-                        <p>Update status below.</p>
+                        <h3>Update Storage Mapping</h3>
                         <form action = "" method = "POST">
                             {% csrf_token %}
                             
                             <div class="form-row">
                                 <div class="form-group">
-                                    {{form.request_supply_department}}
+                                    {{form.Category}}
                                 </div>
                                 <div class="form-group">
-                                    {{form.request_supply_itemname}}
+                                    {{form.ItemName}}
                                 </div>
                                 <div class="form-group">
-                                    {{form.request_supply_description}}
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    {{form.request_supply_unit}}
+                                    {{form.Location}}
                                 </div>
                                 <div class="form-group">
-                                    {{form.request_supply_quantity}}
-                                </div>
-                                
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    {{form.request_supply_remaining}}
+                                    {{form.CabinetNo}}
                                 </div>
                                 <div class="form-group">
-                                    {{form.current_date}}
+                                    {{form.ShelfNo}}
                                 </div>
                                 <div class="form-group">
-                                    {{form.request_supply_status}}
+                                    {{form.LayerNo}}
                                 </div>
                             </div>
 
@@ -126,8 +112,6 @@
             </div>
     </div>
     
-
-
 
 
 

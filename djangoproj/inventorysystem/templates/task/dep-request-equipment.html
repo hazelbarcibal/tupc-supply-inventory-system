@@ -45,7 +45,6 @@
                 <th>Brand</th>
                 <th>Unit</th>
                 <th>Quantity</th>
-                <th>Department</th>
             </tr>
         </thead>
         <tbody>
@@ -57,7 +56,6 @@
                 <td>{{x.limit_brand}}</td>
                 <td>{{x.limit_unit}}</td>
                 <td>{{x.limit_quantity}}</td>
-                <td>{{x.limit_department}}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -76,10 +74,7 @@
                     <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
                     <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                 </div>
-                <div class="container content input-group mb-1" style="min-width: 30px;">
-                    <span class="input-group-text" id="inputGroup-sizing-default">BRAND:</span>
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                </div>
+    
                 <br>
                     <span><button id="btn1" type="button" class="btn">Request Supply</button></span>  
             </td>
@@ -100,7 +95,6 @@
                 <th>Brand</th>
                 <th>Unit</th>
                 <th>Quantity</th>
-                <th>Department</th>
                 <th>Date & Time</th>
                 <th>Status</th>
             </tr>
@@ -113,7 +107,6 @@
                 <td>{{x.request_equipment_brand}}</td>
                 <td>{{x.request_equipment_unit}}</td>
                 <td>{{x.request_equipment_quantity}}</td>
-                <td>{{x.request_equipment_department}}</td>
                 <td>{{x.request_current_date}}</td>
                 <td>{{x.request_equipment_status}}</td>
             </tr>

@@ -178,7 +178,11 @@ def equipmentDeliver(request):
     return render(request, 'task/add-equipment.html')
 
 def suppliesWithdraw(request):
-    return render(request, 'task/supplies-withdraw.html')
+    info = acceptSupplyRequests.objects.all()
+    context = {
+        'info': info,
+    }
+    return render(request, 'task/supplies-withdraw.html', context)
 
 def equipmentWithdraw(request):
     return render(request, 'task/equipment-withdraw.html')
@@ -199,16 +203,34 @@ def viewRequestSupply(request):
 def editRequestSupply(request, pk):
     data = requestsupply.objects.get(id=pk)
     form = requestSupplyForm(request.POST or None, instance=data)
+    form2 = acceptSupplyRequestsForm()
     if request.method == 'POST':
+        department = request.POST.get('request_supply_department')
+        itemname = request.POST.get('request_supply_itemname')
+        description = request.POST.get('request_supply_description')
+        unit = request.POST.get('request_supply_unit')
+        quantity = request.POST.get('request_supply_quantity')
+        remaining = request.POST.get('request_supply_remaining')
+        status = request.POST.get('request_supply_status')
         if form.is_valid():
             #user = form.cleaned_data.get('request_supply_department')
             #messages.success(request, 'Request supply record was updated for ' + user)
             form.save()
+            form2 = acceptSupplyRequests()
+            form2.arequest_supply_department = department
+            form2.arequest_supply_itemname = itemname
+            form2.arequest_supply_description = description
+            form2.arequest_supply_unit = unit
+            form2.arequest_supply_quantity = quantity
+            form2.arequest_supply_remaining = remaining
+            form2.arequest_supply_status = status
+            form2.save()
             requestsupply.objects.filter(id=pk).delete()
             return redirect('inventorysystem-viewRequestSupply')
     context = {
         'data': data,
         'form': form,
+        'form2': form2,
     }
 
     return render(request, 'task/edit-request-supplies.html', context)
@@ -305,6 +327,21 @@ def storageMapping(request):
 
     return render(request, 'task/storage-mapping.html', context)
 
+def updateStoragemapping(request, pk):
+    data = storagemapping.objects.get(id=pk)
+    form = storageForm(request.POST or None, instance=data)
+    if request.method == 'POST':
+        if form.is_valid():
+            #user = form.cleaned_data.get('request_supply_department')
+            #messages.success(request, 'Request supply record was updated for ' + user)
+            form.save()
+            return redirect('inventorysystem-storageMapping')
+    context = {
+        'data': data,
+        'form': form,
+    }
+
+    return render(request, 'task/update-storagemapping.html', context)
 
 def export_excel(request):
     response=HttpResponse(content_type='application/ms-excel')

@@ -97,37 +97,24 @@
                      <th>Department</th>
                      <th>Item Name</th>
                      <th>Description</th>
-                     <th>Brand</th>
                      <th>Unit</th>
                      <th>Quantity</th>
                      <th>Remaining</th>
-                     <th>Date & Time</th>
                      <th>Status</th>
                  </tr>
              </thead>
              <tbody>
-                 <tr>
-                     <td>OSA</td>
-                     <td>Marker</td>
-                     <td>Black Whiteboard Marker</td>
-                     <td>Artline</td>
-                     <td>Box</td>
-                     <td>45</td>
-                     <td>10</td>
-                     <td>08-01-22 12:56:13</td>
-                     <td><button type="button" class="btn" style="margin-bottom: 10px;">WITHDRAW</button></td>
-                 </tr>
-                 <tr>
-                    <td>ADAA</td>
-                    <td>Marker1</td>
-                    <td>Black Whiteboard Marker</td>
-                    <td>Artline</td>
-                    <td>Box</td>
-                    <td>45</td>
-                    <td>10</td>
-                    <td>08-01-22 12:56:13</td>
-                    <td><button type="button" class="btn" style="margin-bottom: 10px;">WITHDRAW</button></td>
-                 </tr>
+                {% for x in info %}
+                <tr>
+                    <td>{{x.arequest_supply_department}}</td>
+                    <td>{{x.arequest_supply_itemname}}</td>
+                    <td>{{x.arequest_supply_description}}</td>
+                    <td>{{x.arequest_supply_unit}}</td>
+                    <td>{{x.arequest_supply_quantity}}</td>
+                    <td>{{x.arequest_supply_remaining}}</td>
+                    <td><a class="btn" style="margin-bottom: 10px;" href="">WITHDRAW</a></td>
+                </tr>
+                {% endfor %}
              </tbody>
     
          </table>

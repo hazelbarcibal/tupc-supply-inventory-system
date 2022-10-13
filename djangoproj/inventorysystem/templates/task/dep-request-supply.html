@@ -47,7 +47,8 @@
         <form action="" method="POST">
           {% csrf_token %}
           <div>
-            <h1>welcome <span name = 'departmentlogin' style="color: #ffc451; margin-right: 5px;">{{request.user}}</span><span>!</span></h1>
+            <span style="font-size: 25px; padding-left: 50px; color: #fffefd;">Welcome, <span name = 'departmentlogin' style="color: #ffc451; margin-right: 5px; 
+              font-size: 15px; padding-left: 20px;">{{request.user}} !</span></span>
         </div>
 
         <li>
@@ -275,10 +276,8 @@
                 <th>ID</th>
                 <th>Item Name</th>
                 <th>Description</th>
-                <th>Brand</th>
                 <th>Unit</th>
                 <th>Quantity</th>
-                <th>Department</th>
             </tr>
         </thead>
         <tbody>
@@ -287,10 +286,8 @@
               <td>{{x.limit_id}}</td>
               <td>{{x.limit_item_name}}</td>
               <td>{{x.limit_description}}</td>
-              <td>{{x.limit_brand}}</td>
               <td>{{x.limit_unit}}</td>
               <td>{{x.limit_quantity}}</td>
-              <td>{{x.limit_department}}</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -309,11 +306,6 @@
                 <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
                 <input type="number" name="requestqty" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
             </div>
-            <div class="container content input-group mb-1" style="min-width: 30px;">
-                <span class="input-group-text" id="inputGroup-sizing-default">BRAND:</span>
-                <input type="text" name= "requestbrand" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            </div>
-
             <br>
             <div>
               <span><input id="btn1" type="submit" name ="request" class="btn" value="Request Supply"></span> 
@@ -333,10 +325,8 @@
             <tr>
                 <th>Item Name</th>
                 <th>Description</th>
-                <th>Brand</th>
                 <th>Unit</th>
                 <th>Quantity</th>
-                <th>Department</th>
                 <th>Date & Time</th>
                 <th>Status</th>
             </tr>
@@ -346,10 +336,8 @@
           <tr>
               <td>{{x.request_supply_itemname}}</td>
               <td>{{x.request_supply_description}}</td>
-              <td>{{x.request_supply_brand}}</td>
               <td>{{x.request_supply_unit}}</td>
               <td>{{x.request_supply_quantity}}</td>
-              <td>{{x.request_supply_department}}</td>
               <td>{{x.current_date}}</td>
               <td>{{x.request_supply_status}}</td>
           </tr>
