@@ -126,3 +126,37 @@ class deliveryEquipmentForm(forms.ModelForm):
     class Meta:
         model = deliveryequipment
         fields = ['delivery_equipment_itemname', 'delivery_equipment_unit', 'delivery_equipment_description', 'delivery_equipment_brand', 'delivery_equipment_quantity']
+
+
+
+# Request supply - admin window
+request_supply_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
+request_supply_itemname = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item name'}))
+request_supply_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
+request_supply_brand = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brand'}))
+request_supply_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
+request_supply_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
+request_supply_remaining= forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaining'}))
+current_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Date & Time'}))
+request_supply_status = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
+
+class requestSupplyForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super(requestSupplyForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            self.fields['request_supply_department'].widget.attrs['readonly'] = True
+            self.fields['request_supply_itemname'].widget.attrs['readonly'] = True
+            self.fields['request_supply_description'].widget.attrs['readonly'] = True
+            self.fields['request_supply_brand'].widget.attrs['readonly'] = True
+            self.fields['request_supply_unit'].widget.attrs['readonly'] = True
+            self.fields['request_supply_quantity'].widget.attrs['readonly'] = True
+            self.fields['request_supply_remaining'].widget.attrs['readonly'] = True
+            self.fields['current_date'].widget.attrs['readonly'] = True
+
+
+    class Meta:
+        model = requestsupply
+        fields = ['request_supply_department', 'request_supply_itemname', 'request_supply_description', 'request_supply_brand', 'request_supply_unit', 'request_supply_quantity', 'request_supply_remaining',
+        'current_date', 'request_supply_status']

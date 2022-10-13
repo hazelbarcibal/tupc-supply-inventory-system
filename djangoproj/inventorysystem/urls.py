@@ -13,6 +13,8 @@ urlpatterns = [
     path('supplies-withdraw/', views.suppliesWithdraw, name='inventorysystem-suppliesWithdraw'),
     path('equipment-withdraw/', views.equipmentWithdraw, name='inventorysystem-equipmentWithdraw'),
     path('view-request-supplies/', views.viewRequestSupply, name='inventorysystem-viewRequestSupply'),
+    path('edit-request-supplies/<int:pk>/', views.editRequestSupply, name='inventorysystem-editRequestSupply'),
+    
     path('view-request-equipment/', views.viewRequestEquipment, name='inventorysystem-viewRequestEquipment'),
     path('dep-request-supply/', views.depRequestSupply, name='inventorysystem-depRequestSupply'),
     path('dep-request-equipment/', views.depRequestEquipment, name='inventorysystem-depRequestEquipment'),

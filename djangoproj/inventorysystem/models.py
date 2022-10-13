@@ -51,8 +51,8 @@ class deliveryequipment(models.Model):
         db_table = ('deliveryequipment')
 
 
-class requestsupply(models.Model):
 
+class requestsupply(models.Model):
     request_supply_itemname = models.CharField(max_length=50, verbose_name='request_supply_itemname')
     request_supply_description = models.CharField(max_length=255, verbose_name='request_supply_description')
     request_supply_brand = models.CharField(max_length=50, verbose_name='request_supply_brand')
@@ -61,11 +61,14 @@ class requestsupply(models.Model):
     request_supply_remaining = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='request_supply_remaining')
     request_supply_department = models.CharField(max_length=50, verbose_name='request_supply_department')
     request_supply_status = models.CharField(max_length=50, verbose_name='request_supply_status')
-    current_date = models.DateTimeField(default=now, editable=False, verbose_name= 'request_current_date')
+    current_date = models.DateTimeField(default=now, verbose_name= 'request_current_date')
     #current_time = models.CharField(max_length=50, verbose_name='delivery_current_time')
 
     class Meta:
         db_table = ('requestsupply')
+    
+    #def __str__(self):
+        #return self.request_supply_status
 
 class requestequipment(models.Model):
 

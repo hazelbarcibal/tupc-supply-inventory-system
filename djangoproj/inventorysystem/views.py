@@ -193,14 +193,32 @@ def equipmentWithdraw(request):
 
 def viewRequestSupply(request):
     info = requestsupply.objects.all()
-    if request.method == 'POST':
-        accept = requestsupply.objects.get(id=1)
-        accept.delete()
-        messages.success(request, 'Record updated')
+    status = request.POST.get('request_supply_status')
+    #if request.method == 'POST':
+        #accept = requestsupply.objects.get(id=1)
+        #accept.delete()
+        #messages.success(request, 'Record updated')
     context = {
-        'info': info
+        'info': info,
+        'status': status,
     }
     return render(request, 'task/view-request-supplies.html', context)
+
+def editRequestSupply(request, pk):
+    data = requestsupply.objects.get(id=pk)
+    form = requestSupplyForm(request.POST or None, instance=data)
+    if request.method == 'POST':
+        if form.is_valid():
+            #user = form.cleaned_data.get('request_supply_department')
+            #messages.success(request, 'Request supply record was updated for ' + user)
+            form.save()
+            return redirect('inventorysystem-viewRequestSupply')
+    context = {
+        'data': data,
+        'form': form,
+    }
+
+    return render(request, 'task/edit-request-supplies.html', context)
 
 def viewRequestEquipment(request):
 

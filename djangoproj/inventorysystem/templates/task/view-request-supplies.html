@@ -79,10 +79,9 @@
     </nav>
 
 <br>
-<form action="" method="POST">
-    {% csrf_token %}  
-        <br><br><br><br>
-</form>
+
+<br><br><br><br>
+
 <div style="margin: auto; width: 90%;">
     <div align="left" style="padding-bottom: 10px; margin: auto;">
         <a type="btn1" href="{% url 'inventorysystem-suppliesWithdraw' %}" class="btn1">Withdraw Request</a>
@@ -113,11 +112,9 @@
                 <td>{{x.request_supply_brand}}</td>
                 <td>{{x.request_supply_unit}}</td>
                 <td>{{x.request_supply_quantity}}</td>
-                <td></td>
+                <td>{{x.request_supply_remaining}}</td>
                 <td>{{x.current_date}}</td>
-                <form action="" method="POST">
-                    {% csrf_token %}
-                        <td><button type="button" class="btn" style="margin-bottom: 10px;">ACCEPT</button></td>
+                <td><a class="btn" style="margin-bottom: 10px;" href="{% url 'inventorysystem-editRequestSupply' x.id %}">ACCEPT</a></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -129,5 +126,22 @@
         $('#viewRequestSupplyTable').DataTable();
     });
 </script>
+
+
+{% for message in messages %}
+    {% if message.tags == 'info' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        var m = "{{ message }}";
+        swal("Notice: ", m, "info")
+    </script>
+    {% elif message.tags == 'success' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+    var m = "{{ message }}";
+    swal("Success! ", m, "success")
+    </script>
+    {% endif %}
+{% endfor %}
 
 {% endblock %}
