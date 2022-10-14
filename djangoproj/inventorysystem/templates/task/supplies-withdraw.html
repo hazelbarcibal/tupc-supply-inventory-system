@@ -101,6 +101,7 @@
                      <th>Quantity</th>
                      <th>Remaining</th>
                      <th>Status</th>
+                     <th>Action</th>
                  </tr>
              </thead>
              <tbody>
@@ -112,7 +113,8 @@
                     <td>{{x.arequest_supply_unit}}</td>
                     <td>{{x.arequest_supply_quantity}}</td>
                     <td>{{x.arequest_supply_remaining}}</td>
-                    <td><a class="btn" style="margin-bottom: 10px;" href="">WITHDRAW</a></td>
+                    <td>{{x.arequest_supply_status}}</td>
+                    <td><a class="btn" style="margin-bottom: 10px;" href="{% url 'inventorysystem-suppliesWithdrawStatus' x.id %}">WITHDRAW</a></td>
                 </tr>
                 {% endfor %}
              </tbody>

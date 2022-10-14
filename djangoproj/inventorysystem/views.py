@@ -184,6 +184,20 @@ def suppliesWithdraw(request):
     }
     return render(request, 'task/supplies-withdraw.html', context)
 
+def suppliesWithdrawStatus(request, pk):
+    data = acceptSupplyRequests.objects.get(id=pk)
+    form = withdrawStatusForm(request.POST or None, instance=data)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('inventorysystem-suppliesWithdraw')
+
+    context = {
+        'data': data,
+        'form': form,
+    }
+    return render(request, 'task/supply-withdraw-update.html', context)
+
 def equipmentWithdraw(request):
     return render(request, 'task/equipment-withdraw.html')
 

@@ -94,7 +94,7 @@ class withdrawsupply(models.Model):
     withdraw_supply_unit = models.CharField(max_length=50, verbose_name='withdraw_supply_unit')
     withdraw_supply_quantity = models.DecimalField(max_digits=6, decimal_places=0, verbose_name='withdraw_supply_quantity')
     withdraw_supply_remaining = models.CharField(max_length=50, verbose_name='withdraw_supply_remaining')
-    current_date = models.DateTimeField(default=now, editable=False, verbose_name='withdraw_current_date')
+    current_date = models.DateTimeField(default=now, verbose_name='withdraw_current_date')
     withdraw_supply_status = models.CharField(max_length=50, verbose_name='withdraw_supply_status')
     class Meta:
         db_table = "withdrawsupply"
