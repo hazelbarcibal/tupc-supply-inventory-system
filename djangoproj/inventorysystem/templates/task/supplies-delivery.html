@@ -12,6 +12,13 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/select/1.4.0/css/select.bootstrap5.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css">
+<link rel="stylesheet" href="https://editor.datatables.net/extensions/Editor/css/editor.bootstrap5.min.css">
+
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -44,6 +51,28 @@
   color: white;
   }
 
+  div.card {
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 32px 25px;
+  height: inherit;
+  }
+
+  .box{
+    border: solid black 2px;
+    padding: 5px 5px;
+  }
+  div.box {
+    border: solid black 2px;
+    padding: 25px 25px 25px; 
+  }
+
+  .form-group input{
+    border: solid #3E3E3E 1px;
+  }
+
+
+
 
 </style>
 
@@ -60,134 +89,100 @@
 
 <div class="container home-content">
     
-    <div align="right" style="padding-bottom: 10px;">
-        <a type="button" href="{% url 'inventorysystem-addItem' %}" class="btn">New Supply Item</a>
+    
+    
+    <div class="container">
+
+        <div class="card">
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Item Name:</label>
+                        <input type="text" class="form-control" placeholder="Item Name" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Unit</label>
+                        <input type="text" class="form-control" placeholder="Unit" required>
+                    </div>
+                </div>
+                    <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" class="form-control" placeholder="Description" required>
+                    </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Quantity</label>
+                        <input type='number' class="form-control" placeholder="Quantity" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Remaining</label>
+                        <input type='number' class="form-control" placeholder="Remaining" required>
+                    </div>
+                </div>
+                    
+                
+                <button type="submit" class="btn">Submit</button>
+            </form>   
+        </div>     
+    </div>
+
+<br><br>
+        <div class="container">
+            <h4>Delivery Record</h4>
+        </div>
+        
+          <div class="container">
+            <div class="box">
+                <table id="supplyDeliveryTable" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Unit</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Remaining</th>
+                            <th>Date & Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in info %}
+                        <tr>
+                            <td>{{x.delivery_supply_itemname}}</td>
+                            <td>{{x.delivery_supply_description}}</td>
+                            <td>{{x.delivery_supply_unit}}</td>
+                            <td>{{x.delivery_supply_quantity}}</td>
+                            <td>{{x.delivery_supply_remaining}}</td>
+                            <td>{{x.current_date}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+          </div>
+
+
+    <br><br>
+    <div class="container">
+        <h4>Mainstorage</h4>
     </div>
     
-  
-    <div align="center" style="margin: auto;">
-        <label style="text-align: center;"><h2>Scanning QR</h2></label>
-    </div>
-
-        <!-- QR upload ui -->
-        <div class="container" align="center">
-            <div class="wrapper">
-                <form action="#">
-                  <input type="file" hidden>
-                  <img src="#" alt="qr-code">
-                  <div class="content">
-                    <i class="fas fa-cloud-upload"></i>
-                    <p>Upload QR Code to Read</p>
-                  </div>
-                </form>
-                <div class="details">
-                    <textarea spellcheck="false" id="text" disabled></textarea>
-                    <div class="buttons">
-                      <button class="close" id="btn">Close</button>
-                      <button class="copy" id="btn">Copy Text</button>
-                        
-                    </div>
-                    <div align="center" style="padding-top: 15px; text-align: center; ">
-                        <a type="button" align="center" id="btn" onclick="getValue();" href="#myModal" class="trigger-btn" data-toggle="modal">Deliver</a>
-                    </div>
-                </div>
-            </div>
-              
-        </div>
-
-        
-
-        <!-- Modal HTML -->
-        <div id="myModal" class="modal fade">
-            <div class="modal-dialog modal-login">
-                <div class="modal-content">
-                    <form action="" method="POST">
-                    {% csrf_token %}
-                        <div class="modal-header">				
-                            <h4 class="modal-title">Deliver Item</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">				
-                            <div class="form-group">
-                                
-                                <label>Item name:</label>
-                                {{form.delivery_supply_itemname}}
-                            </div>
-                            <div class="form-group">
-                                
-                                <label>Unit:</label>
-                                {{form.delivery_supply_unit}}
-                            </div>
-                            <div class="form-group">
-                                
-                                <label>Description:</label>
-                                {{form.delivery_supply_description}}
-                            </div>
-                            <div class="form-group">
-                                
-                                <label>Brand:</label>
-                                {{form.delivery_supply_brand}}
-                            </div>
-                            <div class="form-group">
-                                
-                                <label>Quantity:</label>
-                                {{form.delivery_supply_quantity}}
-                            </div>
-                        </div>
-                        <div class="modal-footer justify-content-between">
-                            <input type="submit" class="btn btn-primary" value="OK">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> 
-
-        <br>
-        <div align="right" style="padding-bottom: 10px; margin: auto;">
-            <form action="">
-                <button class="btn" style="margin-bottom: 10px;">Save Data As PDF</button><br>
-            </form>
-            <form action="{% url 'export_excel'%}">
-                <button class="btn">Export Data To Excel</button>
-            </form>
-        </div>
-
-
-    </div>
-
-
-</br>
-    <div style="margin: auto; width: 90%;">
-        
-       <!-- Datatable --> 
-        <table id="supplyDeliveryTable" class="stripe cell-border" style="width:100%">
+    <div class="container">
+        <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th>Item Name</th>
-                    <th>Description</th>
-                    <th>Brand</th>
                     <th>Unit</th>
+                    <th>Description</th>
                     <th>Quantity</th>
-                    <th>Remaining Quantity</th>
+                    <th>Remaining</th>
                     <th>Date & Time</th>
                 </tr>
             </thead>
-            <tbody>
-                {% for x in info %}
-                <tr>
-                    <td>{{x.delivery_supply_itemname}}</td>
-                    <td>{{x.delivery_supply_description}}</td>
-                    <td>{{x.delivery_supply_brand}}</td>
-                    <td>{{x.delivery_supply_unit}}</td>
-                    <td>{{x.delivery_supply_quantity}}</td>
-                    <td>{{x.delivery_supply_remaining}}</td>
-                    <td>{{x.current_date}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-   
         </table>
-        <br><br>
+        
+    </div>
+
+
 
         {% for message in messages %}
             {% if message.tags == 'info' %}
