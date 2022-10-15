@@ -11,6 +11,58 @@
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" href="{% static 'css/status-design.css' %}">
 
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<style>
+    .btn{
+    top: 0;
+    left: 50%;
+    color: black;
+    border-radius: 10px;
+    padding: 7px 25px 8px 25px;
+    white-space: nowrap;
+    transition: 0.3s;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    font-weight: bolder;
+    display: inline-block;
+    border: 2px solid #a7241b;
+    background: transparent;
+    
+  }
+  
+  .btn:hover {
+  text-decoration: none;
+  background: #9c2e26;
+  color: white;
+  }
+
+  div.card {
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 32px 25px;
+  height: inherit;
+  }
+
+  .box{
+    border: solid black 2px;
+    padding: 5px 5px;
+  }
+  div.box {
+    border: solid black 2px;
+    padding: 25px 25px 25px; 
+  }
+
+  .form-group input{
+    border: solid #3E3E3E 1px;
+  }
+
+</style>
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/webqr.js' %}"></script>
@@ -27,248 +79,117 @@
 
 <br>
   
-<div style="margin: auto; width: 90%; padding-top: 20px">
-    <div>
-        <label style="padding-top: 90px;;" align="center"><h4>Main Storage</h4></label>
+<div class="home-content">
+    <div class="container">
+        <h4>Main Storage</h4>
     </div>
-    <br>
+
 <!-- Datatable --> 
-    <table id="MainStorage" class="stripe cell-border hover" style="width:100%">
-        <thead>
-            <tr>
-                <th>Item Name</th>
-                <th>Description</th>
-                <th>Unit</th>
-                <th>Remaining</th>
-              
-            </tr>
-        </thead>
-        <tbody>
-            {% for x in info %}
-            <tr>
-                <td>{{x.ItemName}}</td>
-                <td>{{x.Description}}</td>
-                <td>{{x.Unit}}</td>
-                <td>{{x.Remaining}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
+    <div class="container">
+        <div class="box">
+            <table id="MainStorage" class="stripe cell-border hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Description</th>
+                        <th>Unit</th>
+                        <th>Remaining</th>
+                    
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for x in info %}
+                    <tr>
+                        <td>{{x.ItemName}}</td>
+                        <td>{{x.Description}}</td>
+                        <td>{{x.Unit}}</td>
+                        <td>{{x.Remaining}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
 
-    </table>
+            </table>
+        </div>
+    </div>
     <br>
 
-    <!-- Existing & Non-Existing Toggle Tab -->
-<form action="" method="POST">
-    {% csrf_token %}
-    <div class="tab">
-        <button class="tablinks" onclick="openTab(event, 'Existing')" id="defaultOpen">Existing</button>
-        <button class="tablinks" onclick="openTab(event, 'Non-Existing')">Non-Existing</button>
+    <!-- Non Existing Tab -->
+
+    <div class="container">
+        <div class="card">
+            <form>
+                <div class="container">
+                    <h4>Non-existing Item</h4>
+                </div>
+                <br>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Item Name:</label>
+                        <input type="text" class="form-control" placeholder="Item Name" required>
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" class="form-control" placeholder="Description" required>
+                    </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Unit</label>
+                        <input type='text' class="form-control" placeholder="Unit" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Quantity</label>
+                        <input type='number' class="form-control" placeholder="Quantity" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Remaining</label>
+                        <input type='number' class="form-control" placeholder="Remaining" required>
+                    </div>
+                </div>
+                    
+                <button type="submit" class="btn">Submit</button>
+            </form>   
+        </div>     
     </div>
       
-      <div id="Existing" class="tabcontent">
-        <div class="container" style="padding-top: 5em; padding-left: 6em; padding-right: 6em; overflow: hidden;">
-                <div class="content input-group mb-1" style="padding-top: 50px;" align="center">
-                    <span class="input-group-text" id="inputGroup-sizing-default" >QUANTITY:</span>
-                    <input type="number" required name="existing_quantity" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                </div>
-                <div class="content input-group mb-1" >
-                    <span class="input-group-text" id="inputGroup-sizing-default" align="center">ID:</span>
-                    <input type="number" required name="existing_ID" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                </div>
-                
-                <div style="padding-top: 110px; width: 100%;" align="center">
-                    <span><input id="btn1" type="submit" name ="existing" class="btn" value="Limit"></span>  
-                </div>
-            </div>   
-        </div>
-</form>   
-<form action="" method="POST">
-    {% csrf_token %}  
-      <div id="Non-Existing" class="tabcontent">
-        <div class="container" style="padding-top: 2em; padding-left: 6em; padding-right: 6em; overflow: hidden;">
-                <div class="content input-group mb-1" style="padding-top: 250px;">
-                    <span class="input-group-text" id="inputGroup-sizing-default" >DEPARTMENT:</span>
-                    <input list="department" required pattern="^[A-Z]+(?:_[A-Z]+)*$" autocomplete="off" type="dropdown" name ="non-existing_department" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                    
-                    <datalist id="department">
-                        <option id="1" value="OCS_CASHIER_SERVICES"></option>
-                        <option id="2" value="OES_EXTENSION_SERVICES"></option>
-                        <option id="3" value="OGS_GUIDANCE_SERVICES"></option>
-                        <option id="4" value="OHR_HUMAN_RESOURCES"></option>
-                        <option id="5" value="OHS_HEALTH_SERVICES"></option>
-                        <option id="6" value="OIT_INFORMATION_TECHNOLOGY"></option>
-                        <option id="7" value="OSP_JOB_PLACEMENT"></option>
-                        <option id="8" value="OPR_PROCUREMENT"></option>
-                        <option id="9" value="ORE_RESEARCH_AND_EXTENSION"></option>
-                        <option id="10" value="ORS_RESEARCH_SERVICES"></option>
-                        <option id="11" value="OSA_STUDENT_AFFAIRS"></option>
-                        <option id="12" value="OSH_SECURITY_HOUSE"></option>
-                        <option id="13" value="DID_INDUSTRIAL_EDUCATION"></option>
-                        <option id="14" value="DES_ENGINEERING_TECHNOLOGY"></option>
-                        <option id="15" value="DLA_LIBERAL_ARTS"></option>
-                        <option id="16" value="DMS_MATH_AND_SCIENCE"></option>
-                        <option id="17" value="DPECS_PHYSICAL_EDUCATION_CULTURAL_SPORTS"></option>
-                        <option id="18" value="BETEEAP_EXPANDED_TERTIARY_EDUCATION_EQUIVALENCY_AND_ACCREDITATION"></option>
-                        <option id="19" value="GAD_GENDER_AND_DEVELOPMENT"></option>
-                        <option id="20" value="IDO_INFRASTRUCTURE_DEVELOPMENT_OFFICE"></option>
-                        <option id="21" value="NSTP_NATIONAL_SERVICE_TRAINING_PROGRAM"></option>
-                        <option id="22" value="OAA_ACADEMIC_AFFAIRS"></option>
-                        <option id="23" value="OAD_ADMISSION"></option>
-                        <option id="24" value="OAL_ALUMNI"></option>
-                        <option id="25" value="OAS_ADMIN_SERVICES"></option>
-                        <option id="26" value="OAX_AUXILIARY"></option>
-                        <option id="27" value="BA_BIDS_AND_AWARDS"></option>
-                        <option id="28" value="OBD_BUDGET_DEVELOPMENT"></option>
-                        <option id="29" value="OCD_CAMPUS_DIRECTOR"></option>
-                        <option id="30" value="OCL_CAMPUS_LIBRARY"></option>
-                        <option id="31" value="OCP_CAMPUS_PLANNING"></option>
-                        <option id="32" value="OCR_CAMPUS_REGISTRAR"></option>
-                    </datalist> 
-                </div>  
 
-                <div class="content input-group mb-1" style="padding-top: 200px;">
-                    <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
-                    <input type="number" required name ="non-existing_quantity" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                </div> 
-
-                <div class="content input-group mb-1" style="padding-top: 150px;">
-                    <span class="input-group-text" id="inputGroup-sizing-default">UNIT:</span>
-                    <input type="text" required name ="non-existing_unit" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                </div>
-
-                <div class="content input-group mb-1" style="padding-top: 50px;">
-                    <span class="input-group-text" id="inputGroup-sizing-default">DESCRIPTION:</span>
-                    <input type="text" required name ="non-existing_description" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                </div>
-
-                <div class="content input-group mb-1" >
-                    <span class="input-group-text" id="inputGroup-sizing-default">ITEM NAME:</span>
-                    <input type="text" required name ="non-existing_itemname" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                </div>  
-      
-                <div style="padding-top: 300px; width: 100%;" align="center">
-                    <span><input id="btn1" type="submit" name ="non-existing" class="btn" value="Limit"></span>  
-                </div>
-
-        </div>  
-      </div>
-</form>
-
-      <script>
-        function openTab(evt, tabName) {
-          var i, tabcontent, tablinks;
-          tabcontent = document.getElementsByClassName("tabcontent");
-          for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-          }
-          tablinks = document.getElementsByClassName("tablinks");
-          for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-          }
-          document.getElementById(tabName).style.display = "block";
-          evt.currentTarget.className += " active";
-        }
-        
-        // Get the element with id="defaultOpen" and click on it
-        document.getElementById("defaultOpen").click();
-        </script>
-      
-
-
-
-    <!-- NON EXISTING  & EXISTING TOGGLE TAB 
-    <form action="" method="POST">
-        {% csrf_token %}
-           <div class="" align="center" >
-               <div class="form-box">
-                   <div class="button-box">
-                       <div id="cmdbtn">
-                       <button id="btn2" type="button"  class="toggle-btn btn1" onclick="exist()">Existing</button>
-                       <button id="btn2" type="button"  class="toggle-btn btn1" onclick="notexist()">Non-Existing</button>
-                       </div>
-                       <br>
-                   </div>
-                   <div id="exist" class="input-group">
-                       <div class="content input-group mb-1" style="padding-top: 50px;">
-                           <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
-                           <input type="number" name ="existing_quantity" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                       </div>
-                       <div class="content input-group mb-1" >
-                           <span class="input-group-text" id="inputGroup-sizing-default">ID:</span>
-                           <input type="number" name ="existing_ID" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                       </div>
-                       <div style="padding-top: 110px; margin: auto; width: 20%;">
-                           <span><button id="btn1" type="submit" name ="existing" class="btn" >Limit</button></span>  
-                       </div>
-                   </div>
-                   <div id="not-exist" class="input-group">  
-                       <div class="content input-group mb-1" style="padding-top: 250px;">
-                           <span class="input-group-text" id="inputGroup-sizing-default">DEPARTMENT:</span>
-                           <input type="dropdown" name ="non-existing_department" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                       </div>  
-                       <div class="content input-group mb-1" style="padding-top: 200px;">
-                           <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
-                           <input type="number" name ="non-existing_quantity" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                       </div>     
-                       <div class="content input-group mb-1" style="padding-top: 150px;">
-                           <span class="input-group-text" id="inputGroup-sizing-default">UNIT:</span>
-                           <input type="text" name ="non-existing_unit" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                       </div>
-                       <div class="content input-group mb-1" style="padding-top: 100px;">
-                               <span class="input-group-text" id="inputGroup-sizing-default">BRAND:</span>
-                               <input type="text" name ="non-existing_brand" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                           </div>
-                       <div class="content input-group mb-1" style="padding-top: 50px;">
-                           <span class="input-group-text" id="inputGroup-sizing-default">DESCRIPTION:</span>
-                           <input type="text" name ="non-existing_description" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                       </div>
-                       <div class="content input-group mb-1" >
-                               <span class="input-group-text" id="inputGroup-sizing-default">ITEM NAME:</span>
-                               <input type="text" name ="non-existing_itemname" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> 
-                           </div>    
-                       <div style="padding-top: 300px; margin: auto; width: 20%;">
-                           <span><button id="btn1" type="submit" name ="non-existing" class="btn btn-outline-primary" >Limit</button></span>  
-                       </div>
-                   </div>
-               </div>
-           </div>
-       </form>
-       <br><br> -->
-
-
-<div>
-    <label style="padding-top: 90px;;" align="center"><h4>Limit per Department</h4></label>
-</div>
-    <br>
+<br><br>
+    <div class="container">
+        <h4>Limit Per Department</h4>
+    </div>
 
 <!-- LIMIT PER DEPT DATATABLE --> 
-<table id="LimitTable" class="stripe cell-border hover" style="width:100%">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Item Name</th>
-            <th>Description</th>
-            <th>Brand</th>
-            <th>Unit</th>
-            <th>Quantity</th>
-            <th>Department</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for x in info1 %}
-        <tr>
-            <td>{{x.limit_id}}</td>
-            <td>{{x.limit_item_name}}</td>
-            <td>{{x.limit_description}}</td>
-            <td>{{x.limit_brand}}</td>
-            <td>{{x.limit_unit}}</td>
-            <td>{{x.limit_quantity}}</td>
-            <td>{{x.limit_department}}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-
-</table>
+    <div class="container">
+        <div class="box">
+            <table id="LimitTable" class="stripe cell-border hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Item Name</th>
+                        <th>Description</th>
+                        <th>Brand</th>
+                        <th>Unit</th>
+                        <th>Quantity</th>
+                        <th>Department</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for x in info1 %}
+                    <tr>
+                        <td>{{x.limit_id}}</td>
+                        <td>{{x.limit_item_name}}</td>
+                        <td>{{x.limit_description}}</td>
+                        <td>{{x.limit_brand}}</td>
+                        <td>{{x.limit_unit}}</td>
+                        <td>{{x.limit_quantity}}</td>
+                        <td>{{x.limit_department}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 <br><br>
 
 <script>
@@ -279,23 +200,6 @@
 
 </script>
 
-<script>
-    var x = document.getElementById("exist");
-    var y = document.getElementById("not-exist");  
-    var z = document.getElementById("cmdbtn");
-
-    function notexist(){
-        x.style.left = "-400px";
-        y.style.left = "20px";
-        z.style.left = "100px";
-    }
-    function exist(){
-        x.style.left = "20px";
-        y.style.left = "520px";
-        z.style.left = "0px";
-    }
-
-</script>
 
 
 

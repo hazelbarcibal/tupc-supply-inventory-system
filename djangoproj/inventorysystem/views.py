@@ -60,6 +60,7 @@ def deptRegister(request):
 
 def suppliesDeliver(request):
     info = deliverysupply.objects.all()
+    info1 = deliverysupply.objects.all()
     form = deliverySupplyForm()
     if request.method == 'POST':
         form = deliverySupplyForm(request.POST)
@@ -111,6 +112,7 @@ def suppliesDeliver(request):
     context = {
         'form': form,
         'info': info,
+        'info1': info1,
     }
 
     return render(request, 'task/supplies-delivery.html', context)
@@ -372,7 +374,7 @@ def export_excel(request):
 
 #supply delivery
     supply_font.font.bold = True
-    supplydelivery = ['Itemname', 'Description', 'Brand', 'Unit',
+    supplydelivery = ['Itemname', 'Description', 'Unit',
                 'Quantity', 'Remaining Quantity', 'Date']
 
     for col_num in range(len(supplydelivery)):
@@ -381,7 +383,7 @@ def export_excel(request):
     font_style = xlwt.XFStyle()
 
     rows = deliverysupply.objects.all().values_list(
-        'delivery_supply_itemname', 'delivery_supply_description', 'delivery_supply_brand', 'delivery_supply_unit',
+        'delivery_supply_itemname', 'delivery_supply_description', 'delivery_supply_unit',
                 'delivery_supply_quantity', 'delivery_supply_remaining', 'current_date')
 
     for row in rows:

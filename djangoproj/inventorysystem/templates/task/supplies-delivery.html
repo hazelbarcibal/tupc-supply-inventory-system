@@ -24,6 +24,8 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <style>
     .btn{
     top: 0;
@@ -71,7 +73,31 @@
     border: solid #3E3E3E 1px;
   }
 
+.btn-group button {
+  background-color: #ad413a;
+  border: 1px solid black;
+  color: white;
+  padding: 10px 24px; 
+  cursor: pointer; 
+  float: right; 
+}
 
+
+.btn-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #4d0d09;
+}
 
 
 </style>
@@ -125,6 +151,16 @@
             </form>   
         </div>     
     </div>
+    <div class= "container home-content btn-group" >
+        <form action="">
+            <button class="fa fa-file-pdf-o right" 
+                style="font-size:13px;color:rgb(255, 255, 255)"> Save Data As PDF</button>
+        </form>
+        <form action="{% url 'export_excel'%}">
+            <button class="fa fa-file-excel-o right" 
+                style="font-size:13px;color:rgb(255, 255, 255)"> Export Data To Excel</button>
+        </form>
+    </div>
 
 <br><br>
         <div class="container">
@@ -165,7 +201,7 @@
     <div class="container">
         <h4>Mainstorage</h4>
     </div>
-    
+    {% block bodydata %}
     <div class="container">
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
@@ -178,10 +214,22 @@
                     <th>Date & Time</th>
                 </tr>
             </thead>
+            <tbody>
+            {% for x in info1 %}
+                <tr>
+                    <td>{{x.delivery_supply_itemname}}</td>
+                    <td>{{x.delivery_supply_description}}</td>
+                    <td>{{x.delivery_supply_unit}}</td>
+                    <td class="editable" data-id="{{ deliverysupply.id }}">{{x.delivery_supply_quantity}}</td>
+                    <td>{{x.delivery_supply_remaining}}</td>
+                    <td>{{x.current_date}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
         </table>
         
     </div>
-
+    {% endblock bodydata %}
 
 
         {% for message in messages %}
@@ -220,7 +268,67 @@
 
 </div>
 
+{% block custom_js %}
+    <script>
+        $(document).ready(function(){
+            $(document).on("dblclick",".editable",function(){
+                var value=$(this).text();
+                var data_type=$(this).data("type");
+                var input_type="text";
+                if(data_type=="created_at")
+                {
+                    input_type="datetime-local";
+                }
+                var input="<input type='"+input_type+"' class='input-data' value='"+value+"' class='form-control'>";
+                $(this).html(input);
+                $(this).removeClass("editable")
+            });
+
+            $(document).on("blur",".input-data",function(){
+                var value=$(this).val();
+                var td=$(this).parent("td");
+                $(this).remove();
+                td.html(value);
+                td.addClass("editable");
+                var type=td.data("type");
+                sendToServer(td.data("id"),value,type);
+            });
+            $(document).on("keypress",".input-data",function(e){
+                var key=e.which;
+                if(key==13){
+                    var value=$(this).val();
+                    var td=$(this).parent("td");
+                    $(this).remove();
+                    td.html(value);
+                    td.addClass("editable");
+                   var type=td.data("type");
+                   sendToServer(td.data("id"),value,type);
+                }
+            });
+
+            function sendToServer(id,value,type){
+                console.log(id);
+                console.log(value);
+                console.log(type);
+                $.ajax({
+                    url:"http://127.0.0.1:8000/",
+                    type:"POST",
+                    data:{id:id,type:type,value:value},
+                })
+                .done(function(response){
+                    console.log(response);
+                })
+                .fail(function(){
+                   console.log("Error Occured");
+                });
+
+            }
+        });
+    </script>
+{% endblock custom_js %}
+
 <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 
+<br>
 
 {% endblock %}
