@@ -92,23 +92,7 @@ def suppliesDeliver(request):
                 return redirect('inventorysystem-suppliesDeliver')
 
         elif supplymainstorage.objects.filter(ItemName = itemname).exists() == True:
-            getdata = supplymainstorage.objects.get(ItemName = itemname)
-            updating = int(getdata.Remaining) + int(quantity)
-            storageupdate = supplymainstorage()
-            storageupdate.ItemName = itemname
-            storageupdate.Description = description
-            storageupdate.Unit = unit
-            storageupdate.Remaining = updating
-            supplymainstorage.objects.filter(ItemName = itemname).delete()
-            storageupdate.save()
-            form2 = deliverysupply()
-            form2.delivery_supply_itemname = itemname
-            form2.delivery_supply_description = description
-            form2.delivery_supply_unit = unit
-            form2.delivery_supply_quantity = quantity
-            form2.delivery_supply_remaining = updating
-            form2.save()
-            messages.success(request, 'Record updated for ' + itemname)
+            messages.info(request, 'Itemname: '  + itemname + ' already exist ')
             return redirect('inventorysystem-suppliesDeliver')        
     
     context = {
@@ -123,8 +107,32 @@ def updateSuppliesDeliver(request, pk):
     data = supplymainstorage.objects.get(supplymainstorage_id=pk)
     form = updateDeliverySupplyForm(request.POST or None, instance=data)
     if request.method == 'POST':
-        if form.is_valid():
-            form.save()
+        itemname = request.POST.get('ItemName')
+        update_record = deliverysupply()
+        update_record.delivery_supply_itemname = request.POST.get('ItemName')
+        update_record.delivery_supply_unit = request.POST.get('Unit')
+        update_record.delivery_supply_description = request.POST.get('Description')
+        getdata = supplymainstorage.objects.get(ItemName = itemname)
+        adding = int(getdata.Quantity) + int(request.POST.get('Remaining'))
+        update_record.delivery_supply_remaining = adding
+        update_record.delivery_supply_quantity = request.POST.get('Remaining')
+        update_record.save()
+
+        update_delivery = supplymainstorage()
+        update_delivery.supplymainstorage_id = supplymainstorage.objects.get(ItemName = itemname).supplymainstorage_id
+        update_delivery.ItemName = request.POST.get('ItemName')
+        update_delivery.Unit = request.POST.get('Unit')
+        update_delivery.Description = request.POST.get('Description')
+        getdata = supplymainstorage.objects.get(ItemName = itemname)
+        adding = int(getdata.Quantity) + int(request.POST.get('Remaining'))
+        update_delivery.Remaining = 0
+        update_delivery.Quantity = adding
+        supplymainstorage.objects.filter(ItemName = itemname).delete()
+        update_delivery.save()
+
+
+        messages.success(request, 'Record updated for: ' + itemname)
+        return redirect('inventorysystem-suppliesDeliver')  
     context = {
         'data': data,
         'form': form,
@@ -256,7 +264,7 @@ def editRequestSupply(request, pk):
             form2.arequest_supply_remaining = remaining
             form2.arequest_supply_status = status
             form2.save()
-            requestsupply.objects.filter(id=pk).delete()
+            requestsupply.objects.filter(acceptSupplyRequests=pk).delete()
             return redirect('inventorysystem-viewRequestSupply')
     context = {
         'data': data,
@@ -308,7 +316,6 @@ def statusLimit(request):
     info = supplymainstorage.objects.all()
     info1 = limitrecords.objects.all()
     if request.method == 'POST':   
-        if 'non-existing' in request.POST:
             itemname = request.POST.get('non-existing_itemname')
             description = request.POST.get('non-existing_description')
             unit = request.POST.get('non-existing_unit')
@@ -324,22 +331,6 @@ def statusLimit(request):
             limit.save()
             messages.success(request, 'Record created for ' + itemname)
 
-        elif 'existing' in request.POST:
-            if limitrecords.objects.filter(limit_id = request.POST.get('existing_ID')).exists() == True:
-                existingID = request.POST.get('existing_ID')
-                existingquantity = request.POST.get('existing_quantity')
-                getdata2 = limitrecords.objects.get(limit_id = existingID)
-                getdata3 = int(getdata2.limit_quantity) + int(existingquantity)
-                limit1 = limitrecords()
-                limit1.limit_id = existingID
-                limit1.limit_quantity = getdata3
-                limit1.limit_item_name = getdata2.limit_item_name
-                limit1.limit_department = getdata2.limit_department
-                limit1.limit_unit = getdata2.limit_unit
-                limit1.limit_description = getdata2.limit_description
-                limitrecords.objects.filter(limit_id = existingID).delete()
-                limit1.save()
-                messages.success(request, 'Record created for ' + getdata2.limit_department + ' ' + getdata2.limit_item_name)
     context = {
         'info': info,
         'info1': info1,
