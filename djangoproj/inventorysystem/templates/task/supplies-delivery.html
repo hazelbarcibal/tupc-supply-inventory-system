@@ -9,42 +9,27 @@
 <link rel="stylesheet" href="{% static 'css/qr-reader.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+<link rel="stylesheet" href=https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css"">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
+
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/select/1.4.0/css/select.bootstrap5.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css">
-<link rel="stylesheet" href="https://editor.datatables.net/extensions/Editor/css/editor.bootstrap5.min.css">
-
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
 
 
 <style>
-    .btn{
-    top: 0;
-    left: 50%;
-    color: black;
-    border-radius: 10px;
-    padding: 7px 25px 8px 25px;
-    white-space: nowrap;
-    transition: 0.3s;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-family: 'Raleway', sans-serif;
-    font-size: 10px;
-    font-weight: bolder;
-    display: inline-block;
-    border: 2px solid #a7241b;
-    background: transparent;
-    
-  }
+.btn{
+    background-color: #ad413a;
+    border: 1px solid black;
+    color: white;
+    padding: 10px 24px; 
+    cursor: pointer; 
+    float: left; 
+
+}
   
   .btn:hover {
   text-decoration: none;
@@ -68,7 +53,7 @@
     padding: 25px 25px 25px; 
   }
 
-  .form-group input{
+  .col-md-6 input{
     border: solid #3E3E3E 1px;
   }
 
@@ -130,18 +115,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for x in info1 %}
-                <form action="" method="post">
-                    {% csrf_token %}
+                    {% for x in info1 %}
                     <tr>
                         <td>{{x.ItemName}}</td>
                         <td>{{x.Unit}}</td>
                         <td>{{x.Description}}</td>
                         <td>{{x.Quantity}}</td>
                         <td><a class="btn" style="margin-bottom: 10px;" href="{% url 'inventorysystem-updateSuppliesDeliver' x.supplymainstorage_id %}">UPDATE</a></td>
-                    </tr>
-                </form>
-                    
+                    </tr>  
                 {% endfor %}
                 </tbody>
             </table>
@@ -153,46 +134,42 @@
         <div class="card">
             <h4>New item</h4>
             <br>
-            <form action="" method="post">
+            <form class="row g-3" action="" method="post">
                 {% csrf_token %}
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Item Name:</label>
-                        {{form.delivery_supply_itemname}}
-                        <datalist id="deliveryItemname">
-                            <option id="1" value="Bondpaper"></option>
-                            <option id="2" value="Pencil"></option>
-                            <option id="3" value="Ballpen"></option>
-                            <option id="4" value="Scotch Tape"></option>
-                        </datalist> 
-                    </div>
-                    <div class="input-field form-group col-md-6 ">
-                        <label>Unit</label>
-                        {{form.delivery_supply_unit}}
-                        <datalist id="deliveryUnit">
-                            <option id="1" value="Box"></option>
-                            <option id="2" value="Bundle"></option>
-                            <option id="3" value="Ream"></option>
-                            <option id="4" value="Pcs"></option>
-                        </datalist> 
-                    </div>
+                <div class="col-md-6">
+                    <label class="form-label">Item Name</label>
+                    {{form.delivery_supply_itemname}}
+                    <datalist id="deliveryItemname">
+                        <option id="1" value="Bondpaper"></option>
+                        <option id="2" value="Pencil"></option>
+                        <option id="3" value="Ballpen"></option>
+                        <option id="4" value="Scotch Tape"></option>
+                    </datalist> 
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Unit</label>
+                    {{form.delivery_supply_unit}}
+                    <datalist id="deliveryUnit">
+                        <option id="1" value="Box"></option>
+                        <option id="2" value="Bundle"></option>
+                        <option id="3" value="Ream"></option>
+                        <option id="4" value="Pcs"></option>
+                    </datalist> 
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Description</label>
+                    {{form.delivery_supply_description}}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Quantity</label>
+                    {{form.delivery_supply_quantity}}
                 </div>
                 
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Description</label>
-                        {{form.delivery_supply_description}}
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Quantity</label>
-                        {{form.delivery_supply_quantity}}
-                    </div>
-                    
+                <div class="col-12">
+                    <input type="submit" class="btn" value="Submit">
                 </div>
-                    
-                <input type="submit" class="btn" value="Submit">
-               
-            </form>   
+            </form>
+            
         </div>     
     </div>
     <div class= "container home-content btn-group" >
@@ -261,10 +238,25 @@
 
 
         <script>
-            $(document).ready(function () {
-            $('#supplyDeliveryTable').DataTable();
-            $('#mainstorage').DataTable();
-            });
+            $(document).ready(function() {
+                var table = $('#supplyDeliveryTable').DataTable( {
+                    rowReorder: {
+                        selector: 'td:nth-child(2)'
+                    },
+                    responsive: true
+                } );
+            } );
+
+            $(document).ready(function() {
+                var table = $('#mainstorage').DataTable( {
+                    rowReorder: {
+                        selector: 'td:nth-child(2)'
+                    },
+                    responsive: true
+                } );
+            } );
+
+
         </script>
     </div>
 

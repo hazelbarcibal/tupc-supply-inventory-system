@@ -153,6 +153,7 @@ def addItem(request):
 
 def equipmentDeliver(request):
     info = deliveryequipment.objects.all()
+    info1 = equipmentmainstorage.objects.all()
     form = deliveryEquipmentForm()
     if request.method == 'POST':
         form = deliveryEquipmentForm(request.POST)
@@ -204,6 +205,7 @@ def equipmentDeliver(request):
     context = {
         'form': form,
         'info': info,
+        'info1': info1,
     }
     return render(request, 'task/equipment-delivery.html', context)
 

@@ -52,6 +52,7 @@ class deliverySupplyForm(forms.ModelForm):
         fields = ['delivery_supply_itemname', 'delivery_supply_unit', 'delivery_supply_description', 'delivery_supply_quantity']
 
 
+# Equipment Delivery Form
 class deliveryEquipmentForm(forms.ModelForm):
     delivery_equipment_itemname = forms.CharField(required=True, widget=forms.TextInput(
             attrs={
@@ -120,6 +121,7 @@ class updateDeliverySupplyForm(forms.ModelForm):
     class Meta:
         model = supplymainstorage
         fields = ['ItemName', 'Unit', 'Description', 'Quantity', 'Remaining']
+
 
 # Request supply - admin window
 request_supply_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
