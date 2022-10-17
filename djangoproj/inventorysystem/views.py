@@ -71,25 +71,29 @@ def suppliesDeliver(request):
         quantity = request.POST.get('delivery_supply_quantity')
 
         if supplymainstorage.objects.filter(ItemName = itemname).exists() == False:
-            if form.is_valid():
-                form.save()
-                storageupdate = supplymainstorage()
-                storageupdate.ItemName = itemname
-                storageupdate.Description = description
-                storageupdate.Unit = unit
-                storageupdate.Remaining = 0
-                storageupdate.Quantity = quantity
-                storageupdate.save()
-                mapping = storagemapping()
-                mapping.Category = "Supply"
-                mapping.ItemName = itemname
-                mapping.CabinetNo = 0
-                mapping.Location = 0
-                mapping.ShelfNo = 0
-                mapping.LayerNo = 0
-                mapping.save()
-                messages.success(request, 'Record created for ' + itemname)
-                return redirect('inventorysystem-suppliesDeliver')
+            if int(quantity) > 0:
+                if form.is_valid():
+                    form.save()
+                    storageupdate = supplymainstorage()
+                    storageupdate.ItemName = itemname
+                    storageupdate.Description = description
+                    storageupdate.Unit = unit
+                    storageupdate.Remaining = 0
+                    storageupdate.Quantity = quantity
+                    storageupdate.save()
+                    mapping = storagemapping()
+                    mapping.Category = "Supply"
+                    mapping.ItemName = itemname
+                    mapping.CabinetNo = 0
+                    mapping.Location = 0
+                    mapping.ShelfNo = 0
+                    mapping.LayerNo = 0
+                    mapping.save()
+                    messages.success(request, 'Record created for ' + itemname)
+                    return redirect('inventorysystem-suppliesDeliver')
+            else:
+                    messages.info(request, "invalid quantity")
+                    return redirect('inventorysystem-suppliesDeliver')
 
         elif supplymainstorage.objects.filter(ItemName = itemname).exists() == True:
             messages.info(request, 'Itemname: '  + itemname + ' already exist ')
@@ -107,32 +111,36 @@ def updateSuppliesDeliver(request, pk):
     data = supplymainstorage.objects.get(supplymainstorage_id=pk)
     form = updateDeliverySupplyForm(request.POST or None, instance=data)
     if request.method == 'POST':
-        itemname = request.POST.get('ItemName')
-        update_record = deliverysupply()
-        update_record.delivery_supply_itemname = request.POST.get('ItemName')
-        update_record.delivery_supply_unit = request.POST.get('Unit')
-        update_record.delivery_supply_description = request.POST.get('Description')
-        getdata = supplymainstorage.objects.get(ItemName = itemname)
-        adding = int(getdata.Quantity) + int(request.POST.get('Remaining'))
-        update_record.delivery_supply_remaining = adding
-        update_record.delivery_supply_quantity = request.POST.get('Remaining')
-        update_record.save()
+        if int(request.POST.get('Remaining')) > 0:
+            itemname = request.POST.get('ItemName')
+            update_record = deliverysupply()
+            update_record.delivery_supply_itemname = request.POST.get('ItemName')
+            update_record.delivery_supply_unit = request.POST.get('Unit')
+            update_record.delivery_supply_description = request.POST.get('Description')
+            getdata = supplymainstorage.objects.get(ItemName = itemname)
+            adding = int(getdata.Quantity) + int(request.POST.get('Remaining'))
+            update_record.delivery_supply_remaining = adding
+            update_record.delivery_supply_quantity = request.POST.get('Remaining')
+            update_record.save()
 
-        update_delivery = supplymainstorage()
-        update_delivery.supplymainstorage_id = supplymainstorage.objects.get(ItemName = itemname).supplymainstorage_id
-        update_delivery.ItemName = request.POST.get('ItemName')
-        update_delivery.Unit = request.POST.get('Unit')
-        update_delivery.Description = request.POST.get('Description')
-        getdata = supplymainstorage.objects.get(ItemName = itemname)
-        adding = int(getdata.Quantity) + int(request.POST.get('Remaining'))
-        update_delivery.Remaining = 0
-        update_delivery.Quantity = adding
-        supplymainstorage.objects.filter(ItemName = itemname).delete()
-        update_delivery.save()
+            update_delivery = supplymainstorage()
+            update_delivery.supplymainstorage_id = supplymainstorage.objects.get(ItemName = itemname).supplymainstorage_id
+            update_delivery.ItemName = request.POST.get('ItemName')
+            update_delivery.Unit = request.POST.get('Unit')
+            update_delivery.Description = request.POST.get('Description')
+            getdata = supplymainstorage.objects.get(ItemName = itemname)
+            adding = int(getdata.Quantity) + int(request.POST.get('Remaining'))
+            update_delivery.Remaining = 0
+            update_delivery.Quantity = adding
+            supplymainstorage.objects.filter(ItemName = itemname).delete()
+            update_delivery.save()
 
 
-        messages.success(request, 'Record updated for: ' + itemname)
-        return redirect('inventorysystem-suppliesDeliver')  
+            messages.success(request, 'Record updated for: ' + itemname)
+            return redirect('inventorysystem-suppliesDeliver')
+        else:
+            messages.info(request, "invalid quantity")
+
     context = {
         'data': data,
         'form': form,
