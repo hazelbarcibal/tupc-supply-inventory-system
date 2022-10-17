@@ -13,6 +13,8 @@ urlpatterns = [
     #path('add-equipment-item/', views.addEquipment, name='inventorysystem-addEquipment'),
     path('supplies-withdraw/', views.suppliesWithdraw, name='inventorysystem-suppliesWithdraw'),
     path('equipment-withdraw/', views.equipmentWithdraw, name='inventorysystem-equipmentWithdraw'),
+    path('createqr-equipment-withdraw/', views.createqrequipmentWithdraw, name='inventorysystem-createqrequipmentWith'),
+
     path('view-request-supplies/', views.viewRequestSupply, name='inventorysystem-viewRequestSupply'),
     path('edit-request-supplies/<int:pk>/', views.editRequestSupply, name='inventorysystem-editRequestSupply'),
 

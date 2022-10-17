@@ -22,49 +22,30 @@ class DeptRegisterForm(UserCreationForm):
 
 
 class deliverySupplyForm(forms.ModelForm):
-    delivery_supply_itemname = forms.CharField(
-        required=True,
-        widget=forms.TextInput(
+    delivery_supply_itemname = forms.CharField(required=True, widget=forms.TextInput(
             attrs={
                 'id': 'deliveryItemname',
+                'list': 'deliveryItemname',
                 'class': 'form-control',
-                'placeholder': 'Itemname',
-            }
-        )
-    )
+                'placeholder': 'Itemname'}))
 
-    delivery_supply_unit = forms.CharField(
-        required=True,
-        widget=forms.TextInput(
+    delivery_supply_unit = forms.CharField(required=True, widget=forms.TextInput(
             attrs={
                 'list': 'deliveryUnit',
                  'class': 'form-control',
-                 'placeholder': 'Unit', 'autocomplete': 'on'
-            }
-        )
-    )
+                 'placeholder': 'Unit', 
+                 'autocomplete': 'on'}))
 
-    delivery_supply_description = forms.CharField(
-        required=True,
-        widget=forms.TextInput(
+    delivery_supply_description = forms.CharField(required=True, widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Description',
-            }
-        )
-    )
+                'placeholder': 'Description',}))
 
 
-    delivery_supply_quantity = forms.DecimalField(
-        required=True,
-        widget=forms.NumberInput(
+    delivery_supply_quantity = forms.DecimalField(required=True,  widget=forms.NumberInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Quantity',
-            }
-        )
-    )   
-
+                'placeholder': 'Quantity',}))   
 
     class Meta:
         model = deliverysupply
@@ -72,111 +53,69 @@ class deliverySupplyForm(forms.ModelForm):
 
 
 class deliveryEquipmentForm(forms.ModelForm):
-    delivery_equipment_itemname = forms.CharField(
-        required=True,
-        widget=forms.TextInput(
+    delivery_equipment_itemname = forms.CharField(required=True, widget=forms.TextInput(
             attrs={
                 'id': 'itemVal',
-                'class': 'form-control'
-            }
-        )
-    )
+                'class': 'form-control'}))
 
-    delivery_equipment_unit = forms.CharField(
-        required=True,
-        widget=forms.TextInput(
+    delivery_equipment_unit = forms.CharField(required=True, widget=forms.TextInput(
             attrs={
                 'id': 'unitVal',
-                'class': 'form-control'
-            }
-        )
-    )
+                'class': 'form-control'}))
 
-    delivery_equipment_description = forms.CharField(
-        required=True,
-        widget=forms.TextInput(
+    delivery_equipment_description = forms.CharField(required=True, widget=forms.TextInput(
             attrs={
-                'class': 'form-control'
-            }
-        )
-    )
+                'class': 'form-control'}))
 
-    delivery_equipment_brand = forms.CharField(
-        required=True,
-        widget=forms.TextInput(
+    delivery_equipment_brand = forms.CharField(required=True, widget=forms.TextInput(
             attrs={
-                'class': 'form-control'
-            }
-        )
-    )
+                'class': 'form-control'}))
 
-    delivery_equipment_quantity = forms.DecimalField(
-        required=True,
-        widget=forms.NumberInput(
+    delivery_equipment_quantity = forms.DecimalField(required=True, widget=forms.NumberInput(
             attrs={
-                'class': 'form-control'
-            }
-        )
-    )
+                'class': 'form-control'}))
 
     class Meta:
         model = deliveryequipment
         fields = ['delivery_equipment_itemname', 'delivery_equipment_unit', 'delivery_equipment_description', 'delivery_equipment_brand', 'delivery_equipment_quantity']
 
 class updateDeliverySupplyForm(forms.ModelForm):
-    ItemName = forms.CharField(
-        required=True,
-        widget=forms.TextInput(
+    ItemName = forms.CharField(required=True, widget=forms.TextInput(
             attrs={
                 'id': 'deliveryItemname',
                 'class': 'form-control',
-                'placeholder': 'Itemname',
-            }
-        )
-    )
+                'placeholder': 'Itemname',}))
 
-    Description = forms.CharField(
-        required=True,
-        widget=forms.TextInput(
+    Description = forms.CharField(required=True, widget=forms.TextInput(
             attrs={
                 'list': 'deliveryUnit',
-                 'class': 'form-control',
-                 'placeholder': 'Unit', 'autocomplete': 'on'
-            }
-        )
-    )
+                'class': 'form-control',
+                'placeholder': 'Unit', 'autocomplete': 'on'}))
 
-    Unit = forms.CharField(
-        required=True,
-        widget=forms.TextInput(
+    Unit = forms.CharField(required=True, widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Description',
-            }
-        )
-    )
+                'placeholder': 'Description',}))
 
 
-    Quantity = forms.DecimalField(
-        required=True,
-        widget=forms.NumberInput(
+    Quantity = forms.DecimalField(required=True, widget=forms.NumberInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Quantity',
-            }
-        )
-    )  
+                'placeholder': 'Quantity',}))  
 
-    AddQuantity = forms.DecimalField(
-        required=True,
-        widget=forms.NumberInput(
+    AddQuantity = forms.DecimalField(required=True, widget=forms.NumberInput(
             attrs={
                 'class': 'form-control',
-                'placeholder': 'Quantity',
-            }
-        )
-    )  
+                'placeholder': 'Quantity',}))  
 
+    def __init__(self, *args, **kwargs):
+        super(updateDeliverySupplyForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            self.fields['ItemName'].widget.attrs['readonly'] = True
+            self.fields['Description'].widget.attrs['readonly'] = True
+            self.fields['Unit'].widget.attrs['readonly'] = True
+            self.fields['Quantity'].widget.attrs['readonly'] = True
 
     class Meta:
         model = supplymainstorage
@@ -272,6 +211,28 @@ class withdrawStatusForm(forms.ModelForm):
         'current_date', 'arequest_supply_status']
 
 
+# withdraw equipment - admin view
+request_equipment_itemname = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item name'}))
+request_equipment_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
+request_equipment_brand = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brand'}))
+request_equipment_department = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Issued To'}))
+
+class equipmentwithdrawStatusForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super(equipmentwithdrawStatusForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            self.fields['request_equipment_itemname'].widget.attrs['readonly'] = True
+            self.fields['request_equipment_description'].widget.attrs['readonly'] = True
+            self.fields['request_equipment_brand'].widget.attrs['readonly'] = True
+            self.fields['request_equipment_department'].widget.attrs['readonly'] = True
+
+
+    class Meta:
+        model = requestequipment
+        fields = ['request_equipment_itemname', 'request_equipment_description', 'request_equipment_brand', 'request_equipment_unit', 
+                    'request_equipment_quantity', 'request_equipment_department', 'request_equipment_status', 'current_date']
 
 # storage - admin window
 Category = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Category'}))

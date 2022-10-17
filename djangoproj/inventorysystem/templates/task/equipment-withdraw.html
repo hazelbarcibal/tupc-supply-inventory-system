@@ -120,34 +120,26 @@
         <table id="equipRequestTable" class="stripe cell-border hover" style="width:100%">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Department</th>
                     <th>Item Name</th>
                     <th>Description</th>
                     <th>Brand</th>
                     <th>Unit</th>
                     <th>Quantity</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
+                {% for x in info %}
                 <tr>
-                    <td>OSA</td>
-                    <td>Marker</td>
-                    <td>Black Whiteboard Marker</td>
-                    <td>Artline</td>
-                    <td>Box</td>
-                    <td>45</td>
-                    <td>10</td>
+                    <td>{{x.request_equipment_itemname}}</td>
+                    <td>{{x.request_equipment_unit}}</td>
+                    <td>{{x.request_equipment_description}}</td>
+                    <td>{{x.request_equipment_quantity}}</td>
+                    <td>{{x.request_equipment_remaining}}</td>
+                    <td><a class="btn" style="margin-bottom: 10px;" href="">WITHDRAW</a></td>
                 </tr>
-                    <tr>
-                    <td>ADAA</td>
-                    <td>Marker1</td>
-                    <td>Black Whiteboard Marker</td>
-                    <td>Artline</td>
-                    <td>Box</td>
-                    <td>45</td>
-                    <td>10</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
         </div>
@@ -156,53 +148,6 @@
 
 <br>
 
-<div class="container" align="center" style="padding-top: 10px">
-    <table>
-        <tr>
-            <td colspan="3" align="center" style="padding-top: 10px; padding-bottom: 5px;">
-                <form method="#">
-                    <div class="container content input-group mb-1" style="min-width: 30px;">
-                        <span class="input-group-text" id="inputGroup-sizing-default">ID:</span>
-                        <input required id="id" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <div class="container content input-group mb-1" style="min-width: 30px;">
-                        <span class="input-group-text" id="inputGroup-sizing-default">PROPERTY NO. :</span>
-                        <input required type="text" id="propertyNo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <div class="container content input-group mb-1" style="min-width: 30px;">
-                        <span class="input-group-text" id="inputGroup-sizing-default">YEAR ACQUIRED:</span>
-                        <input required type="number" id="yrAcquired" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <div class="container content input-group mb-1" style="min-width: 30px;">
-                        <span class="input-group-text" id="inputGroup-sizing-default">MODEL NO. :</span>
-                        <input required type="text" id="modelNo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <div class="container content input-group mb-1" style="min-width: 30px;">
-                        <span class="input-group-text" id="inputGroup-sizing-default">SERIAL NO. :</span>
-                        <input required type="text" id="serialNo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <div class="container content input-group mb-1" style="min-width: 30px;">
-                        <span class="input-group-text" id="inputGroup-sizing-default">CERTIFIED CORRECT:</span>
-                        <input required type="text" id="certCorrect" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                    </div>
-                    <br>
-                        <span><button type="button" id="withdrawEquip" class="btn1" 
-                                style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Withdraw</button></span>  
-                        <span><button type="button" id="createQR" onclick="create();" class="btn1"  
-                                style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Create QR</button></span>  
-                        <span><button type="button" id="saveQR" class="btn1" 
-                                style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Save QR</button></span>  
-                </form>
-            </td>
-            <td style="padding-bottom: 60px;" align="right">
-                <br><br>
-                <div class="container" align="right" style="padding-top: 10px;">
-                    <div id="result" class="container" align="right"></div>
-                </div> 
-            </td>
-        </tr>
-    </table>
-</div>
 
 <div class= "container home-content btn-group" >
     <form action="">
@@ -225,7 +170,6 @@
         <table id="equipWithdrawTable" class="stripe cell-border hover" style="width:100%">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Property No.</th>
                     <th>Item Name</th>
                     <th>Description</th>
@@ -238,30 +182,19 @@
                 </tr>
             </thead>
             <tbody>
+                {% for x in info %}
                 <tr>
-                    <td>OSA</td>
-                    <td>Marker</td>
-                    <td>Black Whiteboard Marker</td>
-                    <td>Artline</td>
-                    <td>Box</td>
-                    <td>45</td>
-                    <td>10</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
+                    <td>{{x.withdraw_equipment_property_no}}</td>
+                    <td>{{x.withdraw_equipment_itemname}}</td>
+                    <td>{{x.withdraw_equipment_description}}</td>
+                    <td>{{x.withdraw_equipment_brand}}</td>
+                    <td>{{x.withdraw_equipment_yearacquired}}</td>
+                    <td>{{x.withdraw_equipment_issued_to}}</td>
+                    <td>{{x.withdraw_equipment_model_no}}</td>
+                    <td>{{x.withdraw_equipment_serial_no}}</td>
+                    <td>{{x.withdraw_equipment_certifiedcorrect}}</td>
                 </tr>
-                <tr>
-                    <td>ADAA</td>
-                    <td>Marker1</td>
-                    <td>Black Whiteboard Marker</td>
-                    <td>Artline</td>
-                    <td>Box</td>
-                    <td>45</td>
-                    <td>10</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
         </div>

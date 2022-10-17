@@ -5,10 +5,14 @@
 
 {% block content %}
 
-<title> Update Supply Delivery </title>
+<title> Withdraw Equipment </title>
 <link rel="stylesheet" href="{% static 'css/edit-request-supply.css' %}">
 
 <style>
+    .content {
+        max-width: 300px;
+        margin: auto;
+    }
     .btn1{
         top: 0;
         left: 50%;
@@ -57,12 +61,6 @@
         background: #a7241b;
         color: white;
     }
-    .form-holder{
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        padding: 32px 25px;
-        height: inherit;
-    }
-
 </style>
 
 <section class="home-section">
@@ -70,53 +68,67 @@
         <div class="sidebar-button">
             <i class='bx bx-menu sidebarBtn'></i>
             <div>
-                <label style="padding-top: 10px;"><h2>Supply Delivery</h2></label>
+                <label style="padding-top: 10px;"><h2>Withdraw Equipment</h2></label>
             </div>
         </div>
     </nav>
 
-    <div class="home-content container">
+    <br><br><br><br><br>
+    <div class="container">
         <div class="form-holder">
                 <div class="form-content">
                     <div class="form-items">
-                        <h5>Add Quantity for Existing Item</h5>
+                        <h3>Withdraw Equipment</h3>
                         <form action = "" method = "POST">
                             {% csrf_token %}
+                            
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Itemname: </label>
-                                    {{form.ItemName}}
+                                    {{form.}}
                                 </div>
                                 <div class="form-group">
-                                    <label>Unit: </label>
-                                    {{form.Unit}}
+                                    {{form.}}
                                 </div>
                                 <div class="form-group">
-                                    <label>Quantity: </label>
-                                    {{form.Quantity}}
+                                    {{form.}}
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Description: </label>
-                                    {{form.Description}}
-                                </div>
-                                <div class="form-group">
-                                    <label>Add Quantity: </label>
-                                    {{form.Remaining}}
-                                </div>  
-                            </div>
-                            <br>
 
-                            <div class="form-button">
-                                <label></label>
-                                <button style="float: right;" id="submit" type="submit" id="btn1" class="btn">ADD</button>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    {{form.}}
+                                </div>
+                                <div class="form-group">
+                                    {{form.}}
+                                </div>
+                                
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    {{form.}}
+                                </div>
+                                <div class="form-group">
+                                    {{form.current_date}}
+                                </div>
+                                <div class="form-group">
+                                    {{form.}}
+                                </div>
+                            </div>
+
+
+                            <div class="form-button mt-3">
+                                <button id="submit" type="submit" id="btn1" class="btn">CREATE QR</button>
+                            </div>
+                            <div class="form-button mt-3">
+                                <button id="submit" type="submit" id="btn1" class="btn">WITHDRAW</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
     </div>
+    
 </section>
 
 

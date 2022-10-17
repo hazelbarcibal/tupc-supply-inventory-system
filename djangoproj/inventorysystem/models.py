@@ -84,7 +84,7 @@ class requestequipment(models.Model):
     request_equipment_quantity = models.DecimalField(max_digits=6, decimal_places=0, verbose_name='request_equipment_quantity')
     request_equipment_department = models.CharField(max_length=50, verbose_name='request_equipment_department')
     request_equipment_status = models.CharField(max_length=50, verbose_name='request_equipment_status')
-    current_date = models.DateTimeField(default=now, editable=False, verbose_name= 'request_current_date')
+    current_date = models.DateTimeField(default=now, verbose_name= 'request_current_date')
     #current_time = models.CharField(max_length=50, verbose_name='delivery_current_time')
 
     class Meta:

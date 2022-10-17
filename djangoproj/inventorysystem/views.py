@@ -232,7 +232,14 @@ def suppliesWithdrawStatus(request, pk):
     return render(request, 'task/supply-withdraw-update.html', context)
 
 def equipmentWithdraw(request):
-    return render(request, 'task/equipment-withdraw.html')
+    info = requestequipment.objects.all()
+    context = {
+        'info': info,
+    }
+    return render(request, 'task/equipment-withdraw.html', context)
+
+def createqrequipmentWithdraw(request):
+    return render(request, 'task/createqr-equipment-withdraw.html')
 
 def viewRequestSupply(request):
     info = requestsupply.objects.all()

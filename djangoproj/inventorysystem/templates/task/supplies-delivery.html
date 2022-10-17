@@ -38,7 +38,7 @@
     text-transform: uppercase;
     text-decoration: none;
     font-family: 'Raleway', sans-serif;
-    font-size: 15px;
+    font-size: 10px;
     font-weight: bolder;
     display: inline-block;
     border: 2px solid #a7241b;
@@ -119,7 +119,7 @@
 
     <div class="container">
         <div class="box">
-            <table id="example" class="table table-striped" style="width:100%">
+            <table id="mainstorage" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
                         <th>Item Name</th>
@@ -228,8 +228,8 @@
                         {% for x in info %}
                         <tr>
                             <td>{{x.delivery_supply_itemname}}</td>
-                            <td>{{x.delivery_supply_description}}</td>
                             <td>{{x.delivery_supply_unit}}</td>
+                            <td>{{x.delivery_supply_description}}</td>
                             <td>{{x.delivery_supply_quantity}}</td>
                             <td>{{x.delivery_supply_remaining}}</td>
                             <td>{{x.current_date}}</td>
@@ -263,6 +263,7 @@
         <script>
             $(document).ready(function () {
             $('#supplyDeliveryTable').DataTable();
+            $('#mainstorage').DataTable();
             });
         </script>
     </div>
