@@ -71,7 +71,7 @@
                 <td>{{x.CabinetNo}}</td>
                 <td>{{x.ShelfNo}}</td>
                 <td>{{x.LayerNo}}</td>
-                <td><a href="{% url 'inventorysystem-updateStoragemapping' x.id %}">Update</a></td>
+                <td><a href="{% url 'inventorysystem-updateStoragemapping' x.storagemapping_id%}">Update</a></td>
             </tr>
             {% endfor %}
         </tbody>

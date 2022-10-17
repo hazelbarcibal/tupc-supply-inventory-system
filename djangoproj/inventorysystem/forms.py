@@ -26,8 +26,9 @@ class deliverySupplyForm(forms.ModelForm):
         required=True,
         widget=forms.TextInput(
             attrs={
-                'id': 'itemVal',
-                'class': 'form-control'
+                'id': 'deliveryItemname',
+                'class': 'form-control',
+                'placeholder': 'Itemname',
             }
         )
     )
@@ -36,8 +37,9 @@ class deliverySupplyForm(forms.ModelForm):
         required=True,
         widget=forms.TextInput(
             attrs={
-                'id': 'unitVal',
-                'class': 'form-control'
+                'list': 'deliveryUnit',
+                 'class': 'form-control',
+                 'placeholder': 'Unit', 'autocomplete': 'on'
             }
         )
     )
@@ -46,7 +48,8 @@ class deliverySupplyForm(forms.ModelForm):
         required=True,
         widget=forms.TextInput(
             attrs={
-                'class': 'form-control'
+                'class': 'form-control',
+                'placeholder': 'Description',
             }
         )
     )
@@ -56,7 +59,8 @@ class deliverySupplyForm(forms.ModelForm):
         required=True,
         widget=forms.NumberInput(
             attrs={
-                'class': 'form-control'
+                'class': 'form-control',
+                'placeholder': 'Quantity',
             }
         )
     )   
@@ -119,7 +123,64 @@ class deliveryEquipmentForm(forms.ModelForm):
         model = deliveryequipment
         fields = ['delivery_equipment_itemname', 'delivery_equipment_unit', 'delivery_equipment_description', 'delivery_equipment_brand', 'delivery_equipment_quantity']
 
+class updateDeliverySupplyForm(forms.ModelForm):
+    ItemName = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'id': 'deliveryItemname',
+                'class': 'form-control',
+                'placeholder': 'Itemname',
+            }
+        )
+    )
 
+    Description = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'list': 'deliveryUnit',
+                 'class': 'form-control',
+                 'placeholder': 'Unit', 'autocomplete': 'on'
+            }
+        )
+    )
+
+    Unit = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Description',
+            }
+        )
+    )
+
+
+    Quantity = forms.DecimalField(
+        required=True,
+        widget=forms.NumberInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Quantity',
+            }
+        )
+    )  
+
+    AddQuantity = forms.DecimalField(
+        required=True,
+        widget=forms.NumberInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Quantity',
+            }
+        )
+    )  
+
+
+    class Meta:
+        model = supplymainstorage
+        fields = ['ItemName', 'Unit', 'Description', 'Quantity', 'Remaining']
 
 # Request supply - admin window
 request_supply_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))

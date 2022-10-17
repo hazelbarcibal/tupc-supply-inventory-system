@@ -24,7 +24,6 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
     .btn{
@@ -114,22 +113,68 @@
     </nav>
 
 <div class="container home-content">
-    
-    
+    <div class="container">
+        <h4>Mainstorage</h4>
+    </div>
+
+    <div class="container">
+        <div class="box">
+            <table id="example" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Unit</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for x in info1 %}
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <tr>
+                        <td>{{x.ItemName}}</td>
+                        <td>{{x.Unit}}</td>
+                        <td>{{x.Description}}</td>
+                        <td>{{x.Quantity}}</td>
+                        <td><a class="btn" style="margin-bottom: 10px;" href="{% url 'inventorysystem-updateSuppliesDeliver' x.supplymainstorage_id %}">UPDATE</a></td>
+                    </tr>
+                </form>
+                    
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br><br>
     
     <div class="container">
-
         <div class="card">
+            <h4>New item</h4>
+            <br>
             <form action="" method="post">
                 {% csrf_token %}
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>Item Name:</label>
                         {{form.delivery_supply_itemname}}
+                        <datalist id="deliveryItemname">
+                            <option id="1" value="Bondpaper"></option>
+                            <option id="2" value="Pencil"></option>
+                            <option id="3" value="Ballpen"></option>
+                            <option id="4" value="Scotch Tape"></option>
+                        </datalist> 
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="input-field form-group col-md-6 ">
                         <label>Unit</label>
                         {{form.delivery_supply_unit}}
+                        <datalist id="deliveryUnit">
+                            <option id="1" value="Box"></option>
+                            <option id="2" value="Bundle"></option>
+                            <option id="3" value="Ream"></option>
+                            <option id="4" value="Pcs"></option>
+                        </datalist> 
                     </div>
                 </div>
                 
@@ -197,44 +242,7 @@
 
 
     <br><br>
-    <div class="container">
-        <h4>Mainstorage</h4>
-    </div>
-    {% block bodydata %}
-    <div class="container">
-        <table id="example" class="table table-striped" style="width:100%">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Item Name</th>
-                    <th>Unit</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
-                    <th>Remaining</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for x in info1 %}
-            <form action="" method="post">
-                {% csrf_token %}
-                <tr>
-                    <td>{{x.id}}</td>
-                    <td>{{x.ItemName}}</td>
-                    <td>{{x.Unit}}</td>
-                    <td>{{x.Description}}</td>
-                    <td class="editable" data-id="{{ supplymainstorage.id }}">{{x.Quantity}}</td>
-                    <td>{{x.Remaining}}</td>
-                </tr>
-            </form>
-                
-            {% endfor %}
-            </tbody>
-        </table>
-        
-    </div>
-    {% endblock bodydata %}
-
-
+   
         {% for message in messages %}
             {% if message.tags == 'info' %}
                 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -257,75 +265,10 @@
             $('#supplyDeliveryTable').DataTable();
             });
         </script>
-
-        <!--
-        <script type="text/javascript">
-            function setZero() {
-                    var td = document.getElementById('quantity');
-                    var num = document.createTextNode('0');
-                    td.appendChild(num);
-                }
-        </script> -->
-
     </div>
 
 </div>
 
-{% block custom_js %}
-    <script>
-        $(document).ready(function(){
-            $(document).on("dblclick",".editable",function(){
-                var value=$(this).text();
-                var data_type=$(this).data("type");
-                var input_type="number";
-                
-                var input="<input type='"+input_type+"' class='input-data' value='"+value+"' class='form-control'>";
-                $(this).html(input);
-                $(this).removeClass("editable")
-            });
-
-            $(document).on("blur",".input-data",function(){
-                var value=$(this).val();
-                var td=$(this).parent("td");
-                $(this).remove();
-                td.html(value);
-                td.addClass("editable");
-                var type=td.data("type");
-                sendToServer(td.data("id"),value,type);
-            });
-            $(document).on("keypress",".input-data",function(e){
-                var key=e.which;
-                if(key==13){
-                    var value=$(this).val();
-                    var td=$(this).parent("td");
-                    $(this).remove();
-                    td.html(value);
-                    td.addClass("editable");
-                   var type=td.data("type");
-                   sendToServer(td.data("id"),value,type);
-                }
-            });
-
-            function sendToServer(id,value,type){
-                console.log(id);
-                console.log(value);
-                console.log(type);
-                $.ajax({
-                    url:"http://127.0.0.1:8000/",
-                    type:"POST",
-                    data:{id:id,type:type,value:value},
-                })
-                .done(function(response){
-                    console.log(response);
-                })
-                .fail(function(){
-                   console.log("Error Occured");
-                });
-
-            }
-        });
-    </script>
-{% endblock custom_js %}
 
 <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
 

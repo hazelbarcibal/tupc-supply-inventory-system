@@ -7,6 +7,7 @@ urlpatterns = [
     path('home', views.home, name='inventorysystem-home'),
     path('add-department-account/', views.deptRegister, name='inventorysystem-deptRegister'),
     path('supplies-delivery/', views.suppliesDeliver, name='inventorysystem-suppliesDeliver'),
+    path('update-supplies-delivery/<int:pk>/', views.updateSuppliesDeliver, name='inventorysystem-updateSuppliesDeliver'),
     path('add-new-items/', views.addItem, name='inventorysystem-addItem'),
     path('equipment-delivery/', views.equipmentDeliver, name='inventorysystem-equipmentDeliver'),
     #path('add-equipment-item/', views.addEquipment, name='inventorysystem-addEquipment'),

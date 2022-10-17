@@ -61,6 +61,41 @@
   background: #9c2e26;
   color: white;
   }
+  .box{
+    border: solid black 2px;
+    padding: 5px 5px;
+  }
+  div.box {
+    border: solid black 2px;
+    padding: 25px 25px 25px; 
+  }
+
+  .btn-group button {
+  background-color: #ad413a;
+  border: 1px solid black;
+  color: white;
+  padding: 10px 24px; 
+  cursor: pointer; 
+  float: right; 
+}
+
+
+.btn-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #4d0d09;
+}
+
 </style>
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
@@ -75,58 +110,118 @@
             </div>
         </div>
     </nav>
-<div class="home-content" style="margin: auto; width: 90%;">
-    <div>
+<div class="home-content">
+    <div class="container">
         <label align="center"><h4>Requests</h4></label>
     </div><br>
     <!-- Datatable --> 
-    <table id="equipRequestTable" class="stripe cell-border hover" style="width:100%">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Department</th>
-                <th>Item Name</th>
-                <th>Description</th>
-                <th>Brand</th>
-                <th>Unit</th>
-                <th>Quantity</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>OSA</td>
-                <td>Marker</td>
-                <td>Black Whiteboard Marker</td>
-                <td>Artline</td>
-                <td>Box</td>
-                <td>45</td>
-                <td>10</td>
-            </tr>
+    <div class="container">
+        <div class="box">
+        <table id="equipRequestTable" class="stripe cell-border hover" style="width:100%">
+            <thead>
                 <tr>
-                <td>ADAA</td>
-                <td>Marker1</td>
-                <td>Black Whiteboard Marker</td>
-                <td>Artline</td>
-                <td>Box</td>
-                <td>45</td>
-                <td>10</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<br><br>
-<div class="">
-    <div align="right" style="padding-bottom: 10px; padding-right: 45px; margin: auto;">
-        <span><button  id="btn2" type="button" class="btn" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
-        <span><button  id="btn2" type="button" class="btn">Export Data To Excel</button></span>
+                    <th>ID</th>
+                    <th>Department</th>
+                    <th>Item Name</th>
+                    <th>Description</th>
+                    <th>Brand</th>
+                    <th>Unit</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>OSA</td>
+                    <td>Marker</td>
+                    <td>Black Whiteboard Marker</td>
+                    <td>Artline</td>
+                    <td>Box</td>
+                    <td>45</td>
+                    <td>10</td>
+                </tr>
+                    <tr>
+                    <td>ADAA</td>
+                    <td>Marker1</td>
+                    <td>Black Whiteboard Marker</td>
+                    <td>Artline</td>
+                    <td>Box</td>
+                    <td>45</td>
+                    <td>10</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
     </div>
 </div>
+
 <br>
-<div style="margin: auto; width: 90%;">
-    <div>
+
+<div class="container" align="center" style="padding-top: 10px">
+    <table>
+        <tr>
+            <td colspan="3" align="center" style="padding-top: 10px; padding-bottom: 5px;">
+                <form method="#">
+                    <div class="container content input-group mb-1" style="min-width: 30px;">
+                        <span class="input-group-text" id="inputGroup-sizing-default">ID:</span>
+                        <input required id="id" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="container content input-group mb-1" style="min-width: 30px;">
+                        <span class="input-group-text" id="inputGroup-sizing-default">PROPERTY NO. :</span>
+                        <input required type="text" id="propertyNo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="container content input-group mb-1" style="min-width: 30px;">
+                        <span class="input-group-text" id="inputGroup-sizing-default">YEAR ACQUIRED:</span>
+                        <input required type="number" id="yrAcquired" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="container content input-group mb-1" style="min-width: 30px;">
+                        <span class="input-group-text" id="inputGroup-sizing-default">MODEL NO. :</span>
+                        <input required type="text" id="modelNo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="container content input-group mb-1" style="min-width: 30px;">
+                        <span class="input-group-text" id="inputGroup-sizing-default">SERIAL NO. :</span>
+                        <input required type="text" id="serialNo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <div class="container content input-group mb-1" style="min-width: 30px;">
+                        <span class="input-group-text" id="inputGroup-sizing-default">CERTIFIED CORRECT:</span>
+                        <input required type="text" id="certCorrect" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <br>
+                        <span><button type="button" id="withdrawEquip" class="btn1" 
+                                style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Withdraw</button></span>  
+                        <span><button type="button" id="createQR" onclick="create();" class="btn1"  
+                                style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Create QR</button></span>  
+                        <span><button type="button" id="saveQR" class="btn1" 
+                                style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Save QR</button></span>  
+                </form>
+            </td>
+            <td style="padding-bottom: 60px;" align="right">
+                <br><br>
+                <div class="container" align="right" style="padding-top: 10px;">
+                    <div id="result" class="container" align="right"></div>
+                </div> 
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class= "container home-content btn-group" >
+    <form action="">
+        <button class="fa fa-file-pdf-o right" 
+            style="font-size:13px;color:rgb(255, 255, 255)"> Save Data As PDF</button>
+    </form>
+    <form action="{% url 'export_excel'%}">
+        <button class="fa fa-file-excel-o right" 
+            style="font-size:13px;color:rgb(255, 255, 255)"> Export Data To Excel</button>
+    </form>
+</div>
+<br><br>
+<div class="container">
+    <div class="container">
         <label align="center"><h4>Withdraw Record</h4></label>
     </div><br>
     <!-- Datatable --> 
+    <div class="container">
+        <div class="box">
         <table id="equipWithdrawTable" class="stripe cell-border hover" style="width:100%">
             <thead>
                 <tr>
@@ -169,62 +264,11 @@
                 </tr>
             </tbody>
         </table>
+        </div>
+    </div>
 </div>
 <br>
-<div class="container" align="center" style="padding-top: 10px">
-        <table>
-            <tr>
-                <td colspan="3" align="center" style="padding-top: 10px; padding-bottom: 5px;">
-                    <form method="#">
-                        <div class="container content input-group mb-1" style="min-width: 30px;">
-                            <span class="input-group-text" id="inputGroup-sizing-default">ID:</span>
-                            <input required id="id" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                        </div>
-                        <div class="container content input-group mb-1" style="min-width: 30px;">
-                            <span class="input-group-text" id="inputGroup-sizing-default">PROPERTY NO. :</span>
-                            <input required type="text" id="propertyNo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                        </div>
-                        <div class="container content input-group mb-1" style="min-width: 30px;">
-                            <span class="input-group-text" id="inputGroup-sizing-default">YEAR ACQUIRED:</span>
-                            <input required type="number" id="yrAcquired" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                        </div>
-                        <div class="container content input-group mb-1" style="min-width: 30px;">
-                            <span class="input-group-text" id="inputGroup-sizing-default">MODEL NO. :</span>
-                            <input required type="text" id="modelNo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                        </div>
-                        <div class="container content input-group mb-1" style="min-width: 30px;">
-                            <span class="input-group-text" id="inputGroup-sizing-default">SERIAL NO. :</span>
-                            <input required type="text" id="serialNo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                        </div>
-                        <div class="container content input-group mb-1" style="min-width: 30px;">
-                            <span class="input-group-text" id="inputGroup-sizing-default">CERTIFIED CORRECT:</span>
-                            <input required type="text" id="certCorrect" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                        </div>
-                        <br>
-                            <span><button type="button" id="withdrawEquip" class="btn1" 
-                                    style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Withdraw</button></span>  
-                            <span><button type="button" id="createQR" onclick="create();" class="btn1"  
-                                    style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Create QR</button></span>  
-                            <span><button type="button" id="saveQR" class="btn1" 
-                                    style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Save QR</button></span>  
-                    
-                    </form>
-                    
-                </td>
-                  
 
-                <td style="padding-bottom: 60px;" align="right">
-                       
-                    <br><br>
-                    <div class="container" align="right" style="padding-top: 10px;">
-                        <div id="result" class="container" align="right"></div>
-                    </div>
-                    
-                    
-                </td>
-            </tr>
-        </table>
-    </div>
          <br><br>
 
         <div class="container" id="html-content-holder" align="center" style="padding-top: 10px;">

@@ -23,6 +23,7 @@ class CustomUser(AbstractUser):
 
 class deliverysupply(models.Model):
 
+    deliverysupply_id = models.AutoField(primary_key=True)
     delivery_supply_itemname = models.CharField(max_length=50, verbose_name='delivery_supply_itemname')
     delivery_supply_description = models.CharField(max_length=255, verbose_name='delivery_supply_description')
     #delivery_supply_brand = models.CharField(max_length=50, verbose_name='delivery_supply_brand')
@@ -38,6 +39,7 @@ class deliverysupply(models.Model):
 
 class deliveryequipment(models.Model):
 
+    deliveryequipment_id = models.AutoField(primary_key=True)
     delivery_equipment_itemname = models.CharField(max_length=50, verbose_name='delivery_equipment_itemname')
     delivery_equipment_description = models.CharField(max_length=255, verbose_name='delivery_equipment_description')
     delivery_equipment_brand = models.CharField(max_length=50, verbose_name='delivery_equipment_brand')
@@ -53,6 +55,8 @@ class deliveryequipment(models.Model):
 
 
 class requestsupply(models.Model):
+
+    requestsupply_id = models.AutoField(primary_key=True)
     request_supply_itemname = models.CharField(max_length=50, verbose_name='request_supply_itemname')
     request_supply_description = models.CharField(max_length=255, verbose_name='request_supply_description')
     #request_supply_brand = models.CharField(max_length=50, verbose_name='request_supply_brand')
@@ -72,6 +76,7 @@ class requestsupply(models.Model):
 
 class requestequipment(models.Model):
 
+    requestequipment_id = models.AutoField(primary_key=True)
     request_equipment_itemname = models.CharField(max_length=50, verbose_name='request_equipment_itemname')
     request_equipment_description = models.CharField(max_length=255, verbose_name='request_equipment_description')
     request_equipment_brand = models.CharField(max_length=50, verbose_name='request_equipment_brand')
@@ -87,6 +92,7 @@ class requestequipment(models.Model):
 
 class withdrawsupply(models.Model):
 
+    withdrawsupply_id = models.AutoField(primary_key=True)
     withdraw_supply_department = models.CharField(max_length=50, verbose_name='withdraw_supply_department')
     withdraw_supply_itemname = models.CharField(max_length=50, verbose_name='withdraw_supply_itemname')
     withdraw_supply_description = models.CharField(max_length=255, verbose_name='withdraw_supply_description')
@@ -102,6 +108,7 @@ class withdrawsupply(models.Model):
 
 class withdrawequipment(models.Model):
 
+    withdrawequipment_id = models.AutoField(primary_key=True)
     withdraw_equipment_property_no = models.CharField(max_length=50, verbose_name='withdraw_equipment_property_no')
     withdraw_equipment_itemname = models.CharField(max_length=50, verbose_name='withdraw_equipment_itemname')
     withdraw_equipment_description = models.CharField(max_length=255, verbose_name='withdraw_equipment_description')
@@ -119,6 +126,7 @@ class withdrawequipment(models.Model):
 
 class returnequipment(models.Model):
 
+    returnequipment_id = models.AutoField(primary_key=True)
     return_equipment_property_no = models.CharField(max_length=50, verbose_name='return_equipment_property_no')
     return_equipment_itemname = models.CharField(max_length=50, verbose_name='return_equipment_itemname')
     return_equipment_description = models.CharField(max_length=255, verbose_name='return_equipment_description')
@@ -155,6 +163,8 @@ class limitrecords(models.Model):
 
 # nag dagdag ng quantity na decimalField
 class supplymainstorage(models.Model):
+
+    supplymainstorage_id = models.AutoField(primary_key=True)
     ItemName = models.CharField(max_length=50, verbose_name='ItemName')
     Description = models.CharField(max_length=255, verbose_name='Description')
     Unit = models.CharField(max_length=50, verbose_name='Unit')
@@ -166,6 +176,8 @@ class supplymainstorage(models.Model):
 
 
 class equipmentmainstorage(models.Model):
+
+    equipmentmainstorage_id = models.AutoField(primary_key=True)
     ItemName = models.CharField(max_length=50, verbose_name='ItemName')
     Description = models.CharField(max_length=255, verbose_name='Description')
     Brand = models.CharField(max_length=50, verbose_name='Brand')
@@ -176,6 +188,8 @@ class equipmentmainstorage(models.Model):
         db_table = "equipmentmainstorage"
 
 class acceptSupplyRequests(models.Model):
+
+    acceptSupplyRequests_id = models.AutoField(primary_key=True)
     arequest_supply_department = models.CharField(max_length=50, verbose_name='arequest_supply_department')
     arequest_supply_itemname = models.CharField(max_length=50, verbose_name='arequest_supply_itemname')
     arequest_supply_description = models.CharField(max_length=255, verbose_name='arequest_supply_description')
@@ -191,6 +205,8 @@ class acceptSupplyRequests(models.Model):
         db_table = ('acceptSupplyRequests')
 
 class storagemapping(models.Model):
+
+    storagemapping_id = models.AutoField(primary_key=True)
     Category = models.CharField(max_length=50, verbose_name='Category')
     ItemName = models.CharField(max_length=50, verbose_name='ItemName')
     Location = models.CharField(max_length=50, verbose_name='Location')

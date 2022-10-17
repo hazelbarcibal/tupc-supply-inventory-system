@@ -77,7 +77,7 @@ def suppliesDeliver(request):
                 storageupdate.ItemName = itemname
                 storageupdate.Description = description
                 storageupdate.Unit = unit
-                storageupdate.Remaining = quantity
+                storageupdate.Remaining = 0
                 storageupdate.Quantity = quantity
                 storageupdate.save()
                 mapping = storagemapping()
@@ -118,6 +118,19 @@ def suppliesDeliver(request):
     }
 
     return render(request, 'task/supplies-delivery.html', context)
+
+def updateSuppliesDeliver(request, pk):
+    data = supplymainstorage.objects.get(supplymainstorage_id=pk)
+    form = updateDeliverySupplyForm(request.POST or None, instance=data)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+    context = {
+        'data': data,
+        'form': form,
+    }
+
+    return render(request, 'task/update-supply-delivery.html', context)
 
 def addItem(request):
     return render(request, 'task/add-new-item.html')
@@ -219,7 +232,7 @@ def viewRequestSupply(request):
     return render(request, 'task/view-request-supplies.html', context)
 
 def editRequestSupply(request, pk):
-    data = requestsupply.objects.get(id=pk)
+    data = requestsupply.objects.get(acceptSupplyRequests_id=pk)
     form = requestSupplyForm(request.POST or None, instance=data)
     form2 = acceptSupplyRequestsForm()
     if request.method == 'POST':
@@ -346,7 +359,7 @@ def storageMapping(request):
     return render(request, 'task/storage-mapping.html', context)
 
 def updateStoragemapping(request, pk):
-    data = storagemapping.objects.get(id=pk)
+    data = storagemapping.objects.get(storagemapping_id=pk)
     form = storageForm(request.POST or None, instance=data)
     if request.method == 'POST':
         if form.is_valid():
