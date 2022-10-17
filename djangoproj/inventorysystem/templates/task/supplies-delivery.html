@@ -120,34 +120,33 @@
     <div class="container">
 
         <div class="card">
-            <form>
+            <form action="" method="post">
+                {% csrf_token %}
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>Item Name:</label>
-                        <input type="text" class="form-control" placeholder="Item Name" required>
+                        {{form.delivery_supply_itemname}}
                     </div>
                     <div class="form-group col-md-6">
                         <label>Unit</label>
-                        <input type="text" class="form-control" placeholder="Unit" required>
+                        {{form.delivery_supply_unit}}
                     </div>
                 </div>
-                    <div class="form-group">
-                    <label>Description</label>
-                    <input type="text" class="form-control" placeholder="Description" required>
-                    </div>
+                
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label>Quantity</label>
-                        <input type='number' class="form-control" placeholder="Quantity" required>
+                        <label>Description</label>
+                        {{form.delivery_supply_description}}
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Remaining</label>
-                        <input type='number' class="form-control" placeholder="Remaining" required>
+                        <label>Quantity</label>
+                        {{form.delivery_supply_quantity}}
                     </div>
+                    
                 </div>
                     
-                
-                <button type="submit" class="btn">Submit</button>
+                <input type="submit" class="btn" value="Submit">
+               
             </form>   
         </div>     
     </div>
@@ -206,24 +205,28 @@
         <table id="example" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Item Name</th>
                     <th>Unit</th>
                     <th>Description</th>
                     <th>Quantity</th>
                     <th>Remaining</th>
-                    <th>Date & Time</th>
                 </tr>
             </thead>
             <tbody>
             {% for x in info1 %}
+            <form action="" method="post">
+                {% csrf_token %}
                 <tr>
-                    <td>{{x.delivery_supply_itemname}}</td>
-                    <td>{{x.delivery_supply_description}}</td>
-                    <td>{{x.delivery_supply_unit}}</td>
-                    <td class="editable" data-id="{{ deliverysupply.id }}">{{x.delivery_supply_quantity}}</td>
-                    <td>{{x.delivery_supply_remaining}}</td>
-                    <td>{{x.current_date}}</td>
+                    <td>{{x.id}}</td>
+                    <td>{{x.ItemName}}</td>
+                    <td>{{x.Unit}}</td>
+                    <td>{{x.Description}}</td>
+                    <td class="editable" data-id="{{ supplymainstorage.id }}">{{x.Quantity}}</td>
+                    <td>{{x.Remaining}}</td>
                 </tr>
+            </form>
+                
             {% endfor %}
             </tbody>
         </table>
@@ -274,11 +277,8 @@
             $(document).on("dblclick",".editable",function(){
                 var value=$(this).text();
                 var data_type=$(this).data("type");
-                var input_type="text";
-                if(data_type=="created_at")
-                {
-                    input_type="datetime-local";
-                }
+                var input_type="number";
+                
                 var input="<input type='"+input_type+"' class='input-data' value='"+value+"' class='form-control'>";
                 $(this).html(input);
                 $(this).removeClass("editable")

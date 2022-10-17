@@ -1,4 +1,5 @@
 from .forms import *
+from .models import *
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -60,7 +61,7 @@ def deptRegister(request):
 
 def suppliesDeliver(request):
     info = deliverysupply.objects.all()
-    info1 = deliverysupply.objects.all()
+    info1 = supplymainstorage.objects.all()
     form = deliverySupplyForm()
     if request.method == 'POST':
         form = deliverySupplyForm(request.POST)
@@ -77,6 +78,7 @@ def suppliesDeliver(request):
                 storageupdate.Description = description
                 storageupdate.Unit = unit
                 storageupdate.Remaining = quantity
+                storageupdate.Quantity = quantity
                 storageupdate.save()
                 mapping = storagemapping()
                 mapping.Category = "Supply"

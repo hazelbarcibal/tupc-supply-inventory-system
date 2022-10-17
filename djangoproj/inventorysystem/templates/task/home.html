@@ -5,7 +5,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/template.css' %}">
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <!-- Bootstrap cdn -->
@@ -35,12 +35,12 @@
         </li>
 
         <li>
-          <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="dropdown-toggle" href="#" role="button" id="drop" data-bs-toggle="dropdown" aria-expanded="false">
             <i class='bx bx-paperclip'></i>
             <span id="label2" class="links_name">Supplies</span>
           </a>
           
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="drop">
             <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-suppliesDeliver' %}">Delivery</a></li>
             <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-viewRequestSupply' %}">View requested item</a></li>
             <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-suppliesWithdraw' %}">Supply withdraw</a></li>
@@ -49,12 +49,12 @@
         </li>
 
         <li>
-          <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="dropdown-toggle" href="#" role="button" id='dropdown' data-bs-toggle="dropdown" aria-expanded="false">
             <i class='bx bx-devices'></i>
             <span id="label2" class="links_name">Equipments</span>
           </a>
           
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdown">
             <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-equipmentDeliver' %}">Delivery</a></li>
             <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-viewRequestEquipment' %}">View requested item</a></li>
             <li><a id="label2" class="dropdown-item" href="{% url 'inventorysystem-equipmentWithdraw' %}">Equipment withdraw</a></li>
@@ -71,7 +71,7 @@
 
         <li>
           <a href="{% url 'inventorysystem-deptRegister' %}" class="" role="button">
-            <i class="input-icon fa fa-users" ></i>
+            <i class='bx bx-buildings'></i>
             <span id="label2" class="links_name">Add Department <br>Account</span>
           </a>
         </li>
@@ -104,15 +104,109 @@
     <div class="home-content" >
 
       <div class="container">
+
         <div class="row">
-        <!-- Weather api -->
+          <div class="col-8">
+            
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+           
+          </div>
+
+          <div class="col-4">
+            <div class="container">
+              <div class="">
+                <a class="weatherwidget-io" href="https://forecast7.com/en/12d88121d77/philippines/" data-label_1="PHILIPPINES" data-label_2="WEATHER" data-theme="fall-leaves" >PHILIPPINES WEATHER</a>
+              <script>
+                !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+              </script>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-8">
+            
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+           
+          </div>
+
+          <div class="col-4">
+            <div class="container">
+              <br>
+              <div class="">
+                <div class="datetime">
+                  <div class="date">
+                    <span id="dayname">Day</span>,
+                    <span id="month">Month</span>
+                    <span id="daynum">00</span>,
+                    <span id="year">Year</span>
+                  </div>
+                  <div class="time">
+                    <span id="hour">00</span>:
+                    <span id="minutes">00</span>:
+                    <span id="seconds">00</span>
+                    <span id="period">AM</span>
+                  </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <!--
+      <div class="container">
+        <div class="row">
+       
         <div class="col-8">
           <a class="weatherwidget-io" href="https://forecast7.com/en/12d88121d77/philippines/" data-label_1="PHILIPPINES" data-label_2="WEATHER" data-theme="fall-leaves" >PHILIPPINES WEATHER</a>
           <script>
             !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
           </script>
         </div>
-        <!-- Date & time -->
+     
         <div class="col-4">
           <div class="datetime">
           <div class="date">
@@ -185,7 +279,7 @@
       </div>
   </nav>
 
-  
+-->
 
 
   <script type="text/javascript">

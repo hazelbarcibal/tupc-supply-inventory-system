@@ -152,15 +152,18 @@ class limitrecords(models.Model):
     class Meta:
         db_table = ('limitrecords')
 
+
+# nag dagdag ng quantity na decimalField
 class supplymainstorage(models.Model):
     ItemName = models.CharField(max_length=50, verbose_name='ItemName')
     Description = models.CharField(max_length=255, verbose_name='Description')
-    #Brand = models.CharField(max_length=50, verbose_name='Brand')
     Unit = models.CharField(max_length=50, verbose_name='Unit')
+    Quantity = models.DecimalField(max_digits=50, decimal_places=0, verbose_name='Quantity')
     Remaining = models.DecimalField(max_digits=50, decimal_places=0, verbose_name='Remaining')
-
+    
     class Meta:
         db_table = "supplymainstorage"
+
 
 class equipmentmainstorage(models.Model):
     ItemName = models.CharField(max_length=50, verbose_name='ItemName')
