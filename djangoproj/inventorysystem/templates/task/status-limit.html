@@ -17,50 +17,39 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <style>
     .btn{
-    top: 0;
-    left: 50%;
-    color: black;
-    border-radius: 10px;
-    padding: 7px 25px 8px 25px;
-    white-space: nowrap;
-    transition: 0.3s;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-family: 'Raleway', sans-serif;
-    font-size: 15px;
-    font-weight: bolder;
-    display: inline-block;
-    border: 2px solid #a7241b;
-    background: transparent;
+        background-color: #ad413a;
+        border: 1px solid black;
+        color: white;
+        padding: 10px 24px; 
+        cursor: pointer; 
+        float: left; 
+    }
     
-  }
-  
-  .btn:hover {
-  text-decoration: none;
-  background: #9c2e26;
-  color: white;
-  }
+    .btn:hover {
+        text-decoration: none;
+        background: #9c2e26;
+        color: white;
+    }
 
-  div.card {
+    div.card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        padding: 32px 25px;
+        height: inherit;
+    }
 
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  padding: 32px 25px;
-  height: inherit;
-  }
+    .box{
+        border: solid black 2px;
+        padding: 5px 5px;
+    }
+    
+    div.box {
+        border: solid black 2px;
+        padding: 25px 25px 25px; 
+    }
 
-  .box{
-    border: solid black 2px;
-    padding: 5px 5px;
-  }
-  div.box {
-    border: solid black 2px;
-    padding: 25px 25px 25px; 
-  }
-
-  .form-group input{
-    border: solid #3E3E3E 1px;
-  }
+    .form-group input{
+        border: solid #3E3E3E 1px;
+    }
 
 </style>
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
@@ -136,7 +125,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label>Unit</label>
-                        <input type='text' list="statusItemname" autocomplete="on" name = "non-existing_unit" class="form-control" placeholder="Unit" required>
+                        <input type='text' list="statusUnit" autocomplete="on" name = "non-existing_unit" class="form-control" placeholder="Unit" required>
                         <datalist id="statusUnit">
                             <option id="1" value="Box"></option>
                             <option id="2" value="Bundle"></option>
@@ -211,10 +200,8 @@
             <table id="LimitTable" class="stripe cell-border hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Item Name</th>
                         <th>Description</th>
-                        <th>Brand</th>
                         <th>Unit</th>
                         <th>Quantity</th>
                         <th>Department</th>
@@ -224,14 +211,12 @@
                 <tbody>
                     {% for x in info1 %}
                     <tr>
-                        <td>{{x.limit_id}}</td>
                         <td>{{x.limit_item_name}}</td>
                         <td>{{x.limit_description}}</td>
-                        <td>{{x.limit_brand}}</td>
                         <td>{{x.limit_unit}}</td>
                         <td>{{x.limit_quantity}}</td>
                         <td>{{x.limit_department}}</td>
-                        <td><a class="btn" style="margin-bottom: 10px;" href="">UPDATE</a></td>
+                        <td><a class="btn" style="margin-bottom: 10px;" href="{% url 'inventorysystem-updateStatus' x.limit_id %}">UPDATE</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

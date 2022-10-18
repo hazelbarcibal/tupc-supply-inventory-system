@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<title> Accept Request Supply </title>
+<title> Update Status Supply </title>
 <link rel="stylesheet" href="{% static 'css/edit-request-supply.css' %}">
 
 <style>
@@ -17,7 +17,7 @@
         cursor: pointer; 
         float: left; 
     }
-  
+    
     .btn:hover {
         text-decoration: none;
         background: #9c2e26;
@@ -30,7 +30,7 @@
         <div class="sidebar-button">
             <i class='bx bx-menu sidebarBtn'></i>
             <div>
-                <label style="padding-top: 10px;"><h2>Accept Request Supplies</h2></label>
+                <label style="padding-top: 10px;"><h2>Update Status Supply</h2></label>
             </div>
         </div>
     </nav>
@@ -40,50 +40,37 @@
         <div class="form-holder">
                 <div class="form-content">
                     <div class="form-items">
-                        <h3>Accept Request Supply</h3>
-                        <p>Update status below.</p>
+                        <h3>Update Status Supply</h3>
                         <form action = "" method = "POST">
                             {% csrf_token %}
-                            
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Department: </label>
-                                    {{form.request_supply_department}}
-                                </div>
-                                <div class="form-group">
                                     <label>Item Name: </label>
-                                    {{form.request_supply_itemname}}
+                                    {{form.limit_item_name}}
                                 </div>
                                 <div class="form-group">
                                     <label>Description: </label>
-                                    {{form.request_supply_description}}
+                                    {{form.limit_description}}
                                 </div>
                             </div>
-
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Unit: </label>
-                                    {{form.request_supply_unit}}
+                                    {{form.limit_unit}}
                                 </div>
                                 <div class="form-group">
                                     <label>Quantity: </label>
-                                    {{form.request_supply_quantity}}
+                                    {{form.limit_quantity}}
                                 </div>
-                                
                             </div>
-
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Remaining: </label>
-                                    {{form.request_supply_remaining}}
+                                    <label>Department: </label>
+                                    {{form.limit_department}}
                                 </div>
                                 <div class="form-group">
-                                    <label>Date and Time: </label>
-                                    {{form.current_date}}
-                                </div>
-                                <div class="form-group">
-                                    <label>Status: </label>
-                                    {{form.request_supply_status}}
+                                    <label>Add Quantity: </label>
+                                    {{form.limit_addquantity}}
                                 </div>
                             </div>
 
@@ -96,8 +83,6 @@
             </div>
     </div>
     
-
-
 
 
 

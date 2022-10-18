@@ -10,57 +10,29 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <style>
-    .content {
-        max-width: 500px;
-        margin: auto;
+    .btn{
+        background-color: #ad413a;
+        border: 1px solid black;
+        color: white;
+        padding: 10px 24px; 
+        cursor: pointer; 
+        float: left; 
     }
-    .btn1{
-        top: 0;
-        left: 50%;
-        color: black;
-        border-radius: 10px;
-        padding: 7px 25px 8px 25px;
-        white-space: nowrap;
-        transition: 0.3s;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        text-decoration: none;
-        font-family: 'Raleway', sans-serif;
-        font-size: 15px;
-        font-weight: bolder;
-        display: inline-block;
-        border: 2px solid #a7241b;
-        background: transparent;
     
-     }
-  
-  .btn1:hover {
+    .btn:hover {
         text-decoration: none;
         background: #9c2e26;
         color: white;
     }
-  .btn{
-        top: 0;
-        left: 50%;
-        color: black;
-        border-radius: 15px;
-        padding: 7px 15px;
-        white-space: nowrap;
-        transition: 0.3s;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: bolder;
-        display: inline-block;
-        border: 2px solid #7a8d10;
-        background: transparent;
+        
+    .box{
+        border: solid black 2px;
+        padding: 5px 5px;
     }
-  
-  .btn:hover {
-        text-decoration: none;
-        background: #7a8d10;
-        color: white;
+    
+    div.box {
+        border: solid black 2px;
+        padding: 25px 25px 25px; 
     }
 </style>
 
@@ -83,40 +55,45 @@
 <br><br><br><br>
 
 <div style="margin: auto; width: 90%;">
-    <div align="left" style="padding-bottom: 10px; margin: auto;">
-        <a type="btn1" href="{% url 'inventorysystem-suppliesWithdraw' %}" class="btn1">Withdraw Request</a>
+    <div align="left" style="padding-bottom: 10px; margin: auto; float: right;">
+        <a type="btn1" href="{% url 'inventorysystem-suppliesWithdraw' %}" class="btn">Withdraw Request</a>
     </div>
-<br>
+</div>
+<br><br><br>
             
 <!-- Datatable --> 
-    <table id="viewRequestSupplyTable" class="stripe cell-border hover" style="width:100%;">
-        <thead>
-            <tr>
-                <th>Department</th>
-                <th>Item Name</th>
-                <th>Description</th>
-                <th>Unit</th>
-                <th>Quantity</th>
-                <th>Remaining</th>
-                <th>Date & Time</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for x in info %}
-            <tr>
-                <td>{{x.request_supply_department}}</td>
-                <td>{{x.request_supply_itemname}}</td>
-                <td>{{x.request_supply_description}}</td>
-                <td>{{x.request_supply_unit}}</td>
-                <td>{{x.request_supply_quantity}}</td>
-                <td>{{x.request_supply_remaining}}</td>
-                <td>{{x.current_date}}</td>
-                <td><a class="btn" style="margin-bottom: 10px;" href="{% url 'inventorysystem-updateSuppliesDeliver' x.acceptSupplyRequests_id %}">ACCEPT</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="container">
+    <div class="box">
+        <table id="viewRequestSupplyTable" class="stripe cell-border hover" style="width:100%;">
+            <thead>
+                <tr>
+                    <th>Department</th>
+                    <th>Item Name</th>
+                    <th>Description</th>
+                    <th>Unit</th>
+                    <th>Quantity</th>
+                    <th>Remaining</th>
+                    <th>Date & Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in info %}
+                <tr>
+                    <td>{{x.request_supply_department}}</td>
+                    <td>{{x.request_supply_itemname}}</td>
+                    <td>{{x.request_supply_description}}</td>
+                    <td>{{x.request_supply_unit}}</td>
+                    <td>{{x.request_supply_quantity}}</td>
+                    <td>{{x.request_supply_remaining}}</td>
+                    <td>{{x.current_date}}</td>
+                    <td><a class="btn" style="margin-bottom: 10px;" href="{% url 'inventorysystem-updateSuppliesDeliver' x.acceptSupplyRequests_id %}">ACCEPT</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
     <br><br>
 
 <script>

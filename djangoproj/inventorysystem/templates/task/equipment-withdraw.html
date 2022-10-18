@@ -11,90 +11,90 @@
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
 <style>
-  h4{
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  .btn{
-    top: 0;
-    left: 50%;
-    color: black;
-    border-radius: 10px;
-    padding: 7px 25px 8px 25px;
-    white-space: nowrap;
-    transition: 0.3s;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-family: 'Raleway', sans-serif;
-    font-size: 15px;
-    font-weight: bolder;
-    display: inline-block;
-    border: 2px solid #a7241b;
-    background: transparent;
+    h4 {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .btn {
+        top: 0;
+        left: 50%;
+        color: black;
+        border-radius: 10px;
+        padding: 7px 25px 8px 25px;
+        white-space: nowrap;
+        transition: 0.3s;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        text-decoration: none;
+        font-family: 'Raleway', sans-serif;
+        font-size: 15px;
+        font-weight: bolder;
+        display: inline-block;
+        border: 2px solid #a7241b;
+        background: transparent;
+    }
     
-  }
+    .btn:hover {
+        text-decoration: none;
+        background: #9c2e26;
+        color: white;
+    }
+
+    .btn1{
+        color: black;
+        border-radius: 10px;
+        padding: 7px 25px 8px 25px;
+        white-space: nowrap;
+        transition: 0.3s;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: bolder;
+        display: inline-block;
+        border: 2px solid #a7241b;
+        background: transparent;
+    }
   
-  .btn:hover {
-  text-decoration: none;
-  background: #9c2e26;
-  color: white;
-  }
-  .btn1{
-    color: black;
-    border-radius: 10px;
-    padding: 7px 25px 8px 25px;
-    white-space: nowrap;
-    transition: 0.3s;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: bolder;
-    display: inline-block;
-    border: 2px solid #a7241b;
-    background: transparent;
-    
-  }
-  
-  .btn1:hover {
-  text-decoration: none;
-  background: #9c2e26;
-  color: white;
-  }
-  .box{
-    border: solid black 2px;
-    padding: 5px 5px;
-  }
-  div.box {
-    border: solid black 2px;
-    padding: 25px 25px 25px; 
-  }
+    .btn1:hover {
+        text-decoration: none;
+        background: #9c2e26;
+        color: white;
+    }
 
-  .btn-group button {
-  background-color: #ad413a;
-  border: 1px solid black;
-  color: white;
-  padding: 10px 24px; 
-  cursor: pointer; 
-  float: right; 
-}
+    .box{
+        border: solid black 2px;
+        padding: 5px 5px;
+    }
 
+    div.box {
+        border: solid black 2px;
+        padding: 25px 25px 25px; 
+    }
 
-.btn-group button:not(:last-child) {
-  border-right: none; /* Prevent double borders */
-}
+    .btn-group button {
+        background-color: #ad413a;
+        border: 1px solid black;
+        color: white;
+        padding: 10px 24px; 
+        cursor: pointer; 
+        float: right; 
+    }
 
-/* Clear floats (clearfix hack) */
-.btn-group:after {
-  content: "";
-  clear: both;
-  display: table;
-}
+    .btn-group button:not(:last-child) {
+        border-right: none; /* Prevent double borders */
+    }
 
-/* Add a background color on hover */
-.btn-group button:hover {
-  background-color: #4d0d09;
-}
+    /* Clear floats (clearfix hack) */
+    .btn-group:after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    /* Add a background color on hover */
+    .btn-group button:hover {
+        background-color: #4d0d09;
+    }
 
 </style>
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>

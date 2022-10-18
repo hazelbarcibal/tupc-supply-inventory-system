@@ -152,65 +152,94 @@ def addItem(request):
     return render(request, 'task/add-new-item.html')
 
 def equipmentDeliver(request):
-    info = deliveryequipment.objects.all()
-    info1 = equipmentmainstorage.objects.all()
+    info = equipmentmainstorage.objects.all()
+    info1 = deliveryequipment.objects.all()
     form = deliveryEquipmentForm()
     if request.method == 'POST':
         form = deliveryEquipmentForm(request.POST)
         itemname = request.POST.get('delivery_equipment_itemname')
         description = request.POST.get('delivery_equipment_description')
-        unit = request.POST.get('delivery_equipment_unit')
+        brand = request.POST.get('delivery_equipment_brand')
         quantity = request.POST.get('delivery_equipment_quantity')
 
         if equipmentmainstorage.objects.filter(ItemName = itemname).exists() == False:
-            if form.is_valid():
-                form.save()
-                storageupdate = equipmentmainstorage()
-                storageupdate.ItemName = itemname
-                storageupdate.Description = description
-                storageupdate.Unit = unit
-                storageupdate.Remaining = quantity
-                storageupdate.save()
-                mapping = storagemapping()
-                mapping.Category = "Equipment"
-                mapping.ItemName = itemname
-                mapping.CabinetNo = 0
-                mapping.Location = 0
-                mapping.ShelfNo = 0
-                mapping.LayerNo = 0
-                mapping.save()
-                messages.success(request, 'Record created for ' + itemname)
-                return redirect('inventorysystem-equipmentDeliver')
+            if int(quantity) > 0:
+                if form.is_valid():
+                    form.save()
+                    storageupdate = equipmentmainstorage()
+                    storageupdate.ItemName = itemname
+                    storageupdate.Description = description
+                    storageupdate.Brand = brand
+                    storageupdate.Remaining = 0
+                    storageupdate.Quantity = quantity
+                    storageupdate.save()
+                    mapping = storagemapping()
+                    mapping.Category = "Equipment"
+                    mapping.ItemName = itemname
+                    mapping.CabinetNo = 0
+                    mapping.Location = 0
+                    mapping.ShelfNo = 0
+                    mapping.LayerNo = 0
+                    mapping.save()
+                    messages.success(request, 'Record created for ' + itemname)
+                    return redirect('inventorysystem-suppliesDeliver')
+            else:
+                    messages.info(request, "invalid quantity")
+                    return redirect('inventorysystem-suppliesDeliver')
 
         elif equipmentmainstorage.objects.filter(ItemName = itemname).exists() == True:
-            getdata = equipmentmainstorage.objects.get(ItemName = itemname)
-            updating = int(getdata.Remaining) + int(quantity)
-            storageupdate = equipmentmainstorage()
-            storageupdate.ItemName = itemname
-            storageupdate.Description = description
-            storageupdate.Unit = unit
-            storageupdate.Remaining = updating
-            equipmentmainstorage.objects.filter(ItemName = itemname).delete()
-            storageupdate.save()
-            form2 = deliveryequipment()
-            form2.delivery_equipment_itemname = itemname
-            form2.delivery_equipment_description = description
-            form2.delivery_equipment_unit = unit
-            form2.delivery_equipment_quantity = quantity
-            form2.delivery_equipment_remaining = updating
-            form2.save()
-            messages.success(request, 'Record updated for ' + itemname)
-            return redirect('inventorysystem-equipmentDeliver')        
-    
+            messages.info(request, 'Itemname: '  + itemname + ' already exist ')
+            return redirect('inventorysystem-equipmentDeliver')     
     context = {
         'form': form,
         'info': info,
         'info1': info1,
+
     }
     return render(request, 'task/equipment-delivery.html', context)
 
-#def addEquipment(request):
-    return render(request, 'task/add-equipment.html')
+
+def updateEquipmentDeliver(request, pk):
+    data = equipmentmainstorage.objects.get(equipmentmainstorage_id=pk)
+    form = updateEquipmentSupplyForm(request.POST or None, instance=data)
+    if request.method == 'POST':
+        if int(request.POST.get('Remaining')) > 0:
+            itemname = request.POST.get('ItemName')
+            update_record = deliveryequipment()
+            update_record.delivery_equipment_itemname = request.POST.get('ItemName')
+            update_record.delivery_equipment_brand = request.POST.get('Brand')
+            update_record.delivery_equipment_description = request.POST.get('Description')
+            getdata = equipmentmainstorage.objects.get(ItemName = itemname)
+            adding = int(getdata.Quantity) + int(request.POST.get('Remaining'))
+            update_record.delivery_equipment_remaining = adding
+            update_record.delivery_equipment_quantity = request.POST.get('Remaining')
+            update_record.save()
+
+            update_delivery = equipmentmainstorage()
+            update_delivery.equipmentmainstorage_id = equipmentmainstorage.objects.get(ItemName = itemname).equipmentmainstorage_id
+            update_delivery.ItemName = request.POST.get('ItemName')
+            update_delivery.Brand = request.POST.get('Brand')
+            update_delivery.Description = request.POST.get('Description')
+            getdata = equipmentmainstorage.objects.get(ItemName = itemname)
+            adding = int(getdata.Quantity) + int(request.POST.get('Remaining'))
+            update_delivery.Remaining = 0
+            update_delivery.Quantity = adding
+            equipmentmainstorage.objects.filter(ItemName = itemname).delete()
+            update_delivery.save()
+
+
+            messages.success(request, 'Record updated for: ' + itemname)
+            return redirect('inventorysystem-equipmentDeliver')
+        else:
+            messages.info(request, "invalid quantity")
+
+    context = {
+            'data': data,
+            'form': form,
+        }
+
+    return render(request, 'task/update-equipment-delivery.html', context)
+
 
 def suppliesWithdraw(request):
     info = acceptSupplyRequests.objects.all()
@@ -320,7 +349,7 @@ def depRequestSupply(request):
     return render(request, 'task/dep-request-supply.html', context)
 
 def depRequestEquipment(request):
-    info1 = limitrecords.objects.raw('SELECT limit_id from limitrecords WHERE limit_department = "OSA"')
+    info1 = limitrecords.objects.all()
     info = requestequipment.objects.all()
 
     context = {
@@ -345,6 +374,7 @@ def statusLimit(request):
             limit.limit_unit = unit
             limit.limit_quantity = quantity
             limit.limit_department = department
+            limit.limit_addquantity = 0
             limit.save()
             messages.success(request, 'Record created for ' + itemname)
 
@@ -353,6 +383,51 @@ def statusLimit(request):
         'info1': info1,
     }
     return render(request, 'task/status-limit.html', context)
+
+def updateStatus(request, pk):
+    data = limitrecords.objects.get(limit_id=pk)
+    form = statusForm(request.POST or None, instance=data)
+    if request.method == 'POST':
+        if int(request.POST.get('limit_addquantity')) > 0:
+            itemname = request.POST.get('limit_item_name')
+            update_record = limitrecords()
+            update_record.limit_item_name = request.POST.get('limit_item_name')
+            update_record.limit_description = request.POST.get('limit_description')
+            update_record.limit_unit = request.POST.get('limit_unit')
+            update_record.limit_quantity = request.POST.get('limit_quantity')
+            update_record.limit_department = request.POST.get('limit_department')
+            getdata = limitrecords.objects.get(limit_item_name = itemname)
+            adding = int(getdata.limit_quantity) + int(request.POST.get('limit_addquantity'))
+            update_record.limit_addquantity = adding
+            update_record.limit_quantity = request.POST.get('limit_addquantity')
+            update_record.save()
+
+
+            update_status = limitrecords()
+            update_status.limit_id = limitrecords.objects.get(limit_item_name = itemname).limit_id
+            update_status.limit_item_name = request.POST.get('limit_item_name')
+            update_status.limit_description = request.POST.get('limit_description')
+            update_status.limit_unit = request.POST.get('limit_unit')
+            update_status.limit_quantity = request.POST.get('limit_quantity')
+            update_status.limit_department = request.POST.get('limit_department')
+            getdata = limitrecords.objects.get(limit_item_name = itemname)
+            adding = int(getdata.limit_quantity) + int(request.POST.get('limit_addquantity'))
+            update_status.limit_addquantity = 0
+            update_status.limit_quantity = adding
+            limitrecords.objects.filter(limit_item_name = itemname).delete()
+            update_status.save()
+
+        messages.success(request, 'Record updated for: ' + itemname)
+        return redirect('inventorysystem-updateStatus')
+    else:
+        messages.info(request, "invalid quantity")
+
+    context = {
+            'data': data,
+            'form': form,
+        }
+
+    return render(request, 'task/update-status.html', context)
 
 def equipmentReturn(request):
     return render(request, 'task/equipment-return.html')

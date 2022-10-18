@@ -44,7 +44,6 @@ class deliveryequipment(models.Model):
     delivery_equipment_itemname = models.CharField(max_length=50, verbose_name='delivery_equipment_itemname')
     delivery_equipment_description = models.CharField(max_length=255, verbose_name='delivery_equipment_description')
     delivery_equipment_brand = models.CharField(max_length=50, verbose_name='delivery_equipment_brand')
-    delivery_equipment_unit = models.CharField(max_length=50, verbose_name='delivery_equipment_unit')
     delivery_equipment_quantity = models.DecimalField(max_digits=6, decimal_places= 0, verbose_name='delivery_equipment_quantity')
     delivery_equipment_remaining = models.CharField(max_length=50, verbose_name='delivery_equipment_remaining')
     current_date = models.DateTimeField(default=now, editable=False, verbose_name= 'delivery_current_date')
@@ -150,13 +149,11 @@ class limitrecords(models.Model):
     limit_id = models.AutoField(primary_key=True)
     limit_item_name = models.CharField(max_length=50, verbose_name='limit_item_name')
     limit_description = models.CharField(max_length=255, verbose_name='limit_description')
-    #limit_brand = models.CharField(max_length=50, verbose_name='limit_brand')
     limit_unit = models.CharField(max_length=50, verbose_name='limit_unit')
     limit_quantity = models.DecimalField(max_digits=6, decimal_places=0, verbose_name='limit_quantity')
     limit_department = models.CharField(max_length=50, verbose_name='limit_department')
-    #limit_code = models.CharField(max_length=50, verbose_name='limit_code')
+    limit_addquantity = models.CharField(max_length=50, verbose_name='limit_addquantity')
     
-    #current_time = models.CharField(max_length=50, verbose_name='delivery_current_time')
 
     class Meta:
         db_table = ('limitrecords')
@@ -181,8 +178,7 @@ class equipmentmainstorage(models.Model):
     equipmentmainstorage_id = models.AutoField(primary_key=True)
     ItemName = models.CharField(max_length=50, verbose_name='ItemName')
     Description = models.CharField(max_length=255, verbose_name='Description')
-    #Brand = models.CharField(max_length=50, verbose_name='Brand')
-    Unit = models.CharField(max_length=50, verbose_name='Unit')
+    Brand = models.CharField(max_length=50, verbose_name='Brand')
     Quantity = models.DecimalField(max_digits=50, decimal_places=0, verbose_name='Quantity')
     Remaining = models.DecimalField(max_digits=6, decimal_places=0, verbose_name='Remaining')
 

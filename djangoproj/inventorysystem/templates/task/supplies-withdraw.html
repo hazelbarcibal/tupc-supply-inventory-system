@@ -16,57 +16,54 @@
 <script type="text/javascript" src="{% static 'js/webqr.js' %}"></script>
 
 <style>
-    .content {
-        max-width: 500px;
-        margin: auto;
-    }
-    .btn1{
-    top: 0;
-    left: 50%;
-    color: black;
-    border-radius: 10px;
-    padding: 7px 25px 8px 25px;
-    white-space: nowrap;
-    transition: 0.3s;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-family: 'Raleway', sans-serif;
-    font-size: 15px;
-    font-weight: bolder;
-    display: inline-block;
-    border: 2px solid #a7241b;
-    background: transparent;
-    
+  .btn{
+    background-color: #ad413a;
+    border: 1px solid black;
+    color: white;
+    padding: 10px 24px; 
+    cursor: pointer; 
+    float: left; 
   }
-  
-  .btn1:hover {
+    
+  .btn:hover {
     text-decoration: none;
     background: #9c2e26;
     color: white;
   }
-  .btn{
-    top: 0;
-    left: 50%;
-    color: black;
-    border-radius: 15px;
-    padding: 7px 15px;
-    white-space: nowrap;
-    transition: 0.3s;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: bolder;
-    display: inline-block;
-    border: 2px solid #7a8d10;
-    background: transparent;
+
+  .btn-group button {
+    background-color: #ad413a;
+    border: 1px solid black;
+    color: white;
+    padding: 10px 24px; 
+    cursor: pointer; 
+    float: right; 
+  }
+
+  .btn-group button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+  }
+
+  /* Clear floats (clearfix hack) */
+  .btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  /* Add a background color on hover */
+  .btn-group button:hover {
+    background-color: #4d0d09;
+  }
+
+  .box{
+    border: solid black 2px;
+    padding: 5px 5px;
   }
   
-  .btn:hover {
-    text-decoration: none;
-    background: #7a8d10;
-    color: white;
+  div.box {
+    border: solid black 2px;
+    padding: 25px 25px 25px; 
   }
 </style>
 
@@ -81,45 +78,51 @@
     </nav>
 
 <br>
-<div class="container home-content">
-    <div align="right" style="padding-bottom: 10px; padding-right: 45px; margin: auto;">
-        <span><button id="btn2" type="button" class="btn1" style="margin-bottom: 10px;">Save Data As PDF</button></span><br>
-        <span><button id="btn2" type="button" class="btn1">Export Data To Excel</button></span>
-    </div>
+<div class= "container home-content btn-group" >
+    <form action="">
+        <button class="fa fa-file-pdf-o" 
+            style="font-size:13px; color:rgb(255, 255, 255); float:right"> Save Data As PDF</button>
+    </form>
+    <form action="{% url 'export_excel'%}">
+        <button class="fa fa-file-excel-o" 
+            style="font-size:13px;color:rgb(255, 255, 255); float:right "> Export Data To Excel</button>
+    </form>
 </div>
-<br>
-<div style="margin: auto; width: 90%;">
+<br><br><br>
         
         <!-- Datatable --> 
-         <table id="supplyWithdrawTable" class="stripe cell-border hover" style="width:100%">
-             <thead>
-                 <tr>
-                     <th>Department</th>
-                     <th>Item Name</th>
-                     <th>Description</th>
-                     <th>Unit</th>
-                     <th>Quantity</th>
-                     <th>Remaining</th>
-                     <th>Status</th>
-                     <th>Action</th>
-                 </tr>
-             </thead>
-             <tbody>
-                {% for x in info %}
-                <tr>
-                    <td>{{x.arequest_supply_department}}</td>
-                    <td>{{x.arequest_supply_itemname}}</td>
-                    <td>{{x.arequest_supply_description}}</td>
-                    <td>{{x.arequest_supply_unit}}</td>
-                    <td>{{x.arequest_supply_quantity}}</td>
-                    <td>{{x.arequest_supply_remaining}}</td>
-                    <td>{{x.arequest_supply_status}}</td>
-                    <td><a class="btn" style="margin-bottom: 10px;" href="{% url 'inventorysystem-suppliesWithdrawStatus' x.id %}">WITHDRAW</a></td>
-                </tr>
-                {% endfor %}
-             </tbody>
-    
-         </table>
+    <div class="container">
+        <div class="box">
+            <table id="supplyWithdrawTable" class="stripe cell-border hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Department</th>
+                        <th>Item Name</th>
+                        <th>Description</th>
+                        <th>Unit</th>
+                        <th>Quantity</th>
+                        <th>Remaining</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for x in info %}
+                    <tr>
+                        <td>{{x.arequest_supply_department}}</td>
+                        <td>{{x.arequest_supply_itemname}}</td>
+                        <td>{{x.arequest_supply_description}}</td>
+                        <td>{{x.arequest_supply_unit}}</td>
+                        <td>{{x.arequest_supply_quantity}}</td>
+                        <td>{{x.arequest_supply_remaining}}</td>
+                        <td>{{x.arequest_supply_status}}</td>
+                        <td><a class="btn" style="margin-bottom: 10px;" href="{% url 'inventorysystem-suppliesWithdrawStatus' x.id %}">WITHDRAW</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
          <br><br>
         <script>
                 $(document).ready(function () {

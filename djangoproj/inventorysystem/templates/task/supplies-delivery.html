@@ -7,7 +7,6 @@
 
 <title> Supplies Delivery </title>
 <link rel="stylesheet" href="{% static 'css/qr-reader.css' %}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href=https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css"">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
@@ -21,68 +20,66 @@
 
 
 <style>
-.btn{
-    background-color: #ad413a;
-    border: 1px solid black;
-    color: white;
-    padding: 10px 24px; 
-    cursor: pointer; 
-    float: left; 
+    .btn{
+        background-color: #ad413a;
+        border: 1px solid black;
+        color: white;
+        padding: 10px 24px; 
+        cursor: pointer; 
+        float: left; 
+    }
+    
+    .btn:hover {
+        text-decoration: none;
+        background: #9c2e26;
+        color: white;
+    }
 
-}
-  
-  .btn:hover {
-  text-decoration: none;
-  background: #9c2e26;
-  color: white;
-  }
+    div.card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        padding: 32px 25px;
+        height: inherit;
+    }
 
-  div.card {
+    .box{
+        border: solid black 2px;
+        padding: 5px 5px;
+    }
 
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  padding: 32px 25px;
-  height: inherit;
-  }
+    div.box {
+        border: solid black 2px;
+        padding: 25px 25px 25px; 
+    }
 
-  .box{
-    border: solid black 2px;
-    padding: 5px 5px;
-  }
-  div.box {
-    border: solid black 2px;
-    padding: 25px 25px 25px; 
-  }
+    .col-md-6 input{
+        border: solid #3E3E3E 1px;
+    }
 
-  .col-md-6 input{
-    border: solid #3E3E3E 1px;
-  }
-
-.btn-group button {
-  background-color: #ad413a;
-  border: 1px solid black;
-  color: white;
-  padding: 10px 24px; 
-  cursor: pointer; 
-  float: right; 
-}
+    .btn-group button {
+        background-color: #ad413a;
+        border: 1px solid black;
+        color: white;
+        padding: 10px 24px; 
+        cursor: pointer; 
+        float: right; 
+    }
 
 
-.btn-group button:not(:last-child) {
-  border-right: none; /* Prevent double borders */
-}
+    .btn-group button:not(:last-child) {
+        border-right: none; /* Prevent double borders */
+    }
 
-/* Clear floats (clearfix hack) */
-.btn-group:after {
-  content: "";
-  clear: both;
-  display: table;
-}
+    /* Clear floats (clearfix hack) */
+    .btn-group:after {
+        content: "";
+        clear: both;
+        display: table;
+    }
 
-/* Add a background color on hover */
-.btn-group button:hover {
-  background-color: #4d0d09;
-}
-
+    /* Add a background color on hover */
+    .btn-group button:hover {
+        background-color: #4d0d09;
+    }
 
 </style>
 

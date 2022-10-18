@@ -10,59 +10,29 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <style>
-    .content {
-        max-width: 500px;
-        margin: auto;
-    }
-    .btn1{
-        top: 0;
-        left: 50%;
-        color: black;
-        border-radius: 10px;
-        padding: 7px 25px 8px 25px;
-        white-space: nowrap;
-        transition: 0.3s;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        text-decoration: none;
-        font-family: 'Raleway', sans-serif;
-        font-size: 15px;
-        font-weight: bolder;
-        display: inline-block;
-        border: 2px solid #a7241b;
-        background: transparent;
-    
-    }
-  
-    .btn1:hover {
-        text-decoration: none;
-        background: #9c2e26;
-        color: white;
-    }
-
     .btn{
-        top: 0;
-        left: 50%;
-        color: black;
-        border-radius: 15px;
-        padding: 7px 15px;
-        white-space: nowrap;
-        transition: 0.3s;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: bolder;
-        display: inline-block;
-        border: 2px solid #7a8d10;
-        background: transparent;
-        
+        background-color: #ad413a;
+        border: 1px solid black;
+        color: white;
+        padding: 10px 24px; 
+        cursor: pointer; 
+        float: left; 
     }
     
     .btn:hover {
         text-decoration: none;
-        background: #7a8d10;
+        background: #9c2e26;
         color: white;
+    }
+        
+    .box{
+        border: solid black 2px;
+        padding: 5px 5px;
+    }
+    
+    div.box {
+        border: solid black 2px;
+        padding: 25px 25px 25px; 
     }
 </style>
 
@@ -83,51 +53,45 @@
 <br><br><br><br><br>
 
 <div style="margin: auto; width: 90%;">
-    <div align="left" style="padding-bottom: 10px; margin: auto;">
-        <a type="btn1" href="{% url 'inventorysystem-equipmentWithdraw' %}" class="btn1">Withdraw Request</a>
+    <div align="left" style="padding-bottom: 10px; margin: auto; float: right;">
+        <a type="btn1" href="{% url 'inventorysystem-equipmentWithdraw' %}" class="btn">Withdraw Request</a>
     </div>
-<br>
+</div>
+<br><br><br>
 <!-- Datatable --> 
-    <table id="equipDeliveryTable" class="stripe cell-border hover" style="width:100%">
-        <thead>
-            <tr>
-                <th>Department</th>
-                <th>Item Name</th>
-                <th>Description</th>
-                <th>Brand</th>
-                <th>Unit</th>
-                <th>Quantity</th>
-                <th>Remaining</th>
-                <th>Date & Time</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>OSA</td>
-                <td>Marker</td>
-                <td>Black Whiteboard Marker</td>
-                <td>Artline</td>
-                <td>Box</td>
-                <td>45</td>
-                <td>10</td>
-                <td>08-01-22 12:56:13</td>
-                <td><button type="button" class="btn" style="margin-bottom: 10px;">ACCEPT</button></td>
-            </tr>
-            <tr>
-                <td>ADAA</td>
-                <td>Marker1</td>
-                <td>Black Whiteboard Marker</td>
-                <td>Artline</td>
-                <td>Box</td>
-                <td>45</td>
-                <td>10</td>
-                <td>08-01-22 12:56:13</td>
-                <td><button type="button" class="btn" style="margin-bottom: 10px;">ACCEPT</button></td>
-            </tr>
-        </tbody>
+<div class="container">
+    <div class="box">
+        <table id="equipDeliveryTable" class="stripe cell-border hover" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Department</th>
+                    <th>Item Name</th>
+                    <th>Description</th>
+                    <th>Brand</th>
+                    <th>Quantity</th>
+                    <th>Remaining</th>
+                    <th>Date & Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in info %}
+                <tr>
+                    <td>{{x.request_equipment_department}}</td>
+                    <td>{{x.request_equipment_itemname}}</td>
+                    <td>{{x.request_equipment_description}}</td>
+                    <td>{{x.request_equipment_brand}}</td>
+                    <td>{{x.request_equipment_quantity}}</td>
+                    <td>{{x.request_equipment_remaining}}</td>
+                    <td>{{x.current_date}}</td>
+                    <td><a class="btn" style="margin-bottom: 10px;" href="">ACCEPT</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
 
-    </table>
+        </table>
+    </div>
+</div>
     <br><br>
 
 <script>
