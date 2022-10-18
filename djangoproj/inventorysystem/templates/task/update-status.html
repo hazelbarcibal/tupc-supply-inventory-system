@@ -45,6 +45,11 @@
                             {% csrf_token %}
                             <div class="form-row">
                                 <div class="form-group">
+                                    <label>ID</label>
+                                    {{form.limit_id}}
+                                </div>
+                            <div class="form-row">
+                                <div class="form-group">
                                     <label>Item Name: </label>
                                     {{form.limit_item_name}}
                                 </div>

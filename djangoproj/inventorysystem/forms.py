@@ -276,6 +276,7 @@ class equipmentwithdrawStatusForm(forms.ModelForm):
                     'request_equipment_quantity', 'request_equipment_department', 'request_equipment_status', 'current_date']
 
 # statuslimit - admin window
+limit_id = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Id'}))
 limit_item_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Itemname'}))
 limit_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
 limit_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
@@ -289,6 +290,7 @@ class statusForm(forms.ModelForm):
         super(statusForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
+            self.fields['limit_id'].widget.attrs['readonly'] = True            
             self.fields['limit_item_name'].widget.attrs['readonly'] = True
             self.fields['limit_description'].widget.attrs['readonly'] = True
             self.fields['limit_unit'].widget.attrs['readonly'] = True
@@ -298,7 +300,7 @@ class statusForm(forms.ModelForm):
 
     class Meta:
         model = limitrecords
-        fields = ['limit_item_name', 'limit_description', 'limit_unit', 'limit_quantity', 'limit_department', 'limit_addquantity']
+        fields = ['limit_id', 'limit_item_name', 'limit_description', 'limit_unit', 'limit_quantity', 'limit_department', 'limit_addquantity']
 
 
 # storage - admin window

@@ -361,22 +361,27 @@ def depRequestEquipment(request):
 def statusLimit(request):
     info = supplymainstorage.objects.all()
     info1 = limitrecords.objects.all()
-    if request.method == 'POST':   
-            itemname = request.POST.get('non-existing_itemname')
-            description = request.POST.get('non-existing_description')
-            unit = request.POST.get('non-existing_unit')
-            quantity = request.POST.get('non-existing_quantity')
-            department = request.POST.get('non-existing_department')
-            
-            limit = limitrecords()
-            limit.limit_item_name = itemname
-            limit.limit_description = description
-            limit.limit_unit = unit
-            limit.limit_quantity = quantity
-            limit.limit_department = department
-            limit.limit_addquantity = 0
-            limit.save()
-            messages.success(request, 'Record created for ' + itemname)
+    if request.method == 'POST':
+        itemname = request.POST.get('non-existing_itemname')
+        description = request.POST.get('non-existing_description')
+        unit = request.POST.get('non-existing_unit')
+        quantity = request.POST.get('non-existing_quantity')
+        department = request.POST.get('non-existing_department')
+
+        if limitrecords.objects.filter(limit_item_name = itemname).filter(limit_department = department).exists() == False:
+                limit = limitrecords()
+                limit.limit_item_name = itemname
+                limit.limit_description = description
+                limit.limit_unit = unit
+                limit.limit_quantity = quantity
+                limit.limit_department = department
+                limit.limit_addquantity = 0
+                limit.save()        
+                messages.success(request, 'Record created for ' + itemname)
+
+        elif limitrecords.objects.filter(limit_item_name = itemname).filter(limit_department = department).exists() == True:
+                messages.info(request, "existing")
+
 
     context = {
         'info': info,
@@ -389,14 +394,14 @@ def updateStatus(request, pk):
     form = statusForm(request.POST or None, instance=data)
     if request.method == 'POST':
         if int(request.POST.get('limit_addquantity')) > 0:
-            itemname = request.POST.get('limit_item_name')
+            limit = request.POST.get('limit_id')
             update_record = limitrecords()
             update_record.limit_item_name = request.POST.get('limit_item_name')
             update_record.limit_description = request.POST.get('limit_description')
             update_record.limit_unit = request.POST.get('limit_unit')
             update_record.limit_quantity = request.POST.get('limit_quantity')
             update_record.limit_department = request.POST.get('limit_department')
-            getdata = limitrecords.objects.get(limit_item_name = itemname)
+            getdata = limitrecords.objects.get(limit_id=pk)
             adding = int(getdata.limit_quantity) + int(request.POST.get('limit_addquantity'))
             update_record.limit_addquantity = adding
             update_record.limit_quantity = request.POST.get('limit_addquantity')
@@ -404,20 +409,20 @@ def updateStatus(request, pk):
 
 
             update_status = limitrecords()
-            update_status.limit_id = limitrecords.objects.get(limit_item_name = itemname).limit_id
+            update_status.limit_id = limitrecords.objects.get(limit_id=pk)
             update_status.limit_item_name = request.POST.get('limit_item_name')
             update_status.limit_description = request.POST.get('limit_description')
             update_status.limit_unit = request.POST.get('limit_unit')
             update_status.limit_quantity = request.POST.get('limit_quantity')
             update_status.limit_department = request.POST.get('limit_department')
-            getdata = limitrecords.objects.get(limit_item_name = itemname)
+            getdata = limitrecords.objects.get(limit_id=pk)
             adding = int(getdata.limit_quantity) + int(request.POST.get('limit_addquantity'))
             update_status.limit_addquantity = 0
             update_status.limit_quantity = adding
-            limitrecords.objects.filter(limit_item_name = itemname).delete()
+            limitrecords.objects.filter(limit_id = limit).delete()
             update_status.save()
 
-        messages.success(request, 'Record updated for: ' + itemname)
+        messages.success(request, 'Record updated for: ')
         return redirect('inventorysystem-updateStatus')
     else:
         messages.info(request, "invalid quantity")
