@@ -274,51 +274,14 @@ def createqrequipmentWithdraw(request):
 
 def viewRequestSupply(request):
     info = requestsupply.objects.all()
-    status = request.POST.get('request_supply_status')
-    #if request.method == 'POST':
-        #accept = requestsupply.objects.get(id=1)
-        #accept.delete()
-        #messages.success(request, 'Record updated')
+
     context = {
         'info': info,
-        'status': status,
     }
     return render(request, 'task/view-request-supplies.html', context)
 
-def editRequestSupply(request, pk):
-    data = requestsupply.objects.get(acceptSupplyRequests_id=pk)
-    form = requestSupplyForm(request.POST or None, instance=data)
-    form2 = acceptSupplyRequestsForm()
-    if request.method == 'POST':
-        department = request.POST.get('request_supply_department')
-        itemname = request.POST.get('request_supply_itemname')
-        description = request.POST.get('request_supply_description')
-        unit = request.POST.get('request_supply_unit')
-        quantity = request.POST.get('request_supply_quantity')
-        remaining = request.POST.get('request_supply_remaining')
-        status = request.POST.get('request_supply_status')
-        if form.is_valid():
-            #user = form.cleaned_data.get('request_supply_department')
-            #messages.success(request, 'Request supply record was updated for ' + user)
-            form.save()
-            form2 = acceptSupplyRequests()
-            form2.arequest_supply_department = department
-            form2.arequest_supply_itemname = itemname
-            form2.arequest_supply_description = description
-            form2.arequest_supply_unit = unit
-            form2.arequest_supply_quantity = quantity
-            form2.arequest_supply_remaining = remaining
-            form2.arequest_supply_status = status
-            form2.save()
-            requestsupply.objects.filter(acceptSupplyRequests=pk).delete()
-            return redirect('inventorysystem-viewRequestSupply')
-    context = {
-        'data': data,
-        'form': form,
-        'form2': form2,
-    }
-
-    return render(request, 'task/edit-request-supplies.html', context)
+def editRequestSupply(request):
+    return render(request, 'task/edit-request-supplies.html')
 
 def viewRequestEquipment(request):
 
@@ -368,19 +331,22 @@ def statusLimit(request):
         quantity = request.POST.get('non-existing_quantity')
         department = request.POST.get('non-existing_department')
 
-        if limitrecords.objects.filter(limit_item_name = itemname).filter(limit_department = department).exists() == False:
-                limit = limitrecords()
-                limit.limit_item_name = itemname
-                limit.limit_description = description
-                limit.limit_unit = unit
-                limit.limit_quantity = quantity
-                limit.limit_department = department
-                limit.limit_addquantity = 0
-                limit.save()        
-                messages.success(request, 'Record created for ' + itemname)
+        if int(request.POST.get('non-existing_quantity')) > 0:
+            if limitrecords.objects.filter(limit_item_name = itemname).filter(limit_department = department).exists() == False:
+                    limit = limitrecords()
+                    limit.limit_item_name = itemname
+                    limit.limit_description = description
+                    limit.limit_unit = unit
+                    limit.limit_quantity = quantity
+                    limit.limit_department = department
+                    limit.limit_addquantity = 0
+                    limit.save()        
+                    messages.success(request, 'Record created for ' + itemname)
 
-        elif limitrecords.objects.filter(limit_item_name = itemname).filter(limit_department = department).exists() == True:
-                messages.info(request, "existing")
+            elif limitrecords.objects.filter(limit_item_name = itemname).filter(limit_department = department).exists() == True:
+                    messages.info(request, "existing")
+        else:
+            messages.info(request, "invalid quantity")
 
 
     context = {
@@ -394,38 +360,25 @@ def updateStatus(request, pk):
     form = statusForm(request.POST or None, instance=data)
     if request.method == 'POST':
         if int(request.POST.get('limit_addquantity')) > 0:
-            limit = request.POST.get('limit_id')
             update_record = limitrecords()
             update_record.limit_item_name = request.POST.get('limit_item_name')
             update_record.limit_description = request.POST.get('limit_description')
             update_record.limit_unit = request.POST.get('limit_unit')
-            update_record.limit_quantity = request.POST.get('limit_quantity')
             update_record.limit_department = request.POST.get('limit_department')
-            getdata = limitrecords.objects.get(limit_id=pk)
-            adding = int(getdata.limit_quantity) + int(request.POST.get('limit_addquantity'))
-            update_record.limit_addquantity = adding
-            update_record.limit_quantity = request.POST.get('limit_addquantity')
+            getdata = limitrecords.objects.get(limit_id=pk).limit_id
+            getdata1 = limitrecords.objects.get(limit_id=getdata)
+            adding = int(getdata1.limit_quantity) + int(request.POST.get('limit_addquantity'))
+            update_record.limit_addquantity = 0
+            update_record.limit_quantity = adding
+            getdata2 = limitrecords.objects.get(limit_id=pk).limit_id
+            limitrecords.objects.filter(limit_id = getdata2).delete()
             update_record.save()
 
 
-            update_status = limitrecords()
-            update_status.limit_id = limitrecords.objects.get(limit_id=pk)
-            update_status.limit_item_name = request.POST.get('limit_item_name')
-            update_status.limit_description = request.POST.get('limit_description')
-            update_status.limit_unit = request.POST.get('limit_unit')
-            update_status.limit_quantity = request.POST.get('limit_quantity')
-            update_status.limit_department = request.POST.get('limit_department')
-            getdata = limitrecords.objects.get(limit_id=pk)
-            adding = int(getdata.limit_quantity) + int(request.POST.get('limit_addquantity'))
-            update_status.limit_addquantity = 0
-            update_status.limit_quantity = adding
-            limitrecords.objects.filter(limit_id = limit).delete()
-            update_status.save()
-
-        messages.success(request, 'Record updated for: ')
-        return redirect('inventorysystem-updateStatus')
-    else:
-        messages.info(request, "invalid quantity")
+            messages.success(request, 'Record updated for: ')
+            return redirect('inventorysystem-statusLimit')
+        else:
+            messages.info(request, "invalid quantity")
 
     context = {
             'data': data,

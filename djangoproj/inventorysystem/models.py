@@ -118,7 +118,7 @@ class withdrawequipment(models.Model):
     withdraw_equipment_model_no = models.CharField(max_length=50, verbose_name='withdraw_equipment_model_no')
     withdraw_equipment_serial_no = models.CharField(max_length=50, verbose_name='withdraw_equipment_serial_no')
     withdraw_equipment_certifiedcorrect = models.CharField(max_length=50, verbose_name='withdraw_equipment_certifiedcorrect')
-    current_date = models.DateTimeField(default=now, editable=False, verbose_name='withdraw_current_date')
+    current_date = models.DateTimeField(default=now, verbose_name='withdraw_current_date')
     
     class Meta:
         db_table = "withdrawequipment"
@@ -136,7 +136,7 @@ class returnequipment(models.Model):
     return_equipment_model_no = models.CharField(max_length=50, verbose_name='return_equipment_model_no')
     return_equipment_serial_no = models.CharField(max_length=50, verbose_name='return_equipment_serial_no')
     return_equipment_certifiedcorrect = models.CharField(max_length=50, verbose_name='return_equipment_certifiedcorrect')
-    return_date = models.DateTimeField(default=now, editable=False, verbose_name='return_date')
+    return_date = models.DateTimeField(default=now, verbose_name='return_date')
     
     class Meta:
         db_table = "returnequipment"

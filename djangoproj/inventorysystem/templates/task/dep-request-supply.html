@@ -5,7 +5,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/template.css' %}">
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <!-- Bootstrap cdn -->
@@ -209,20 +209,12 @@
         }
 
     .btn{
-        color: black;
-        border-radius: 10px;
-        padding: 7px 25px 8px 25px;
-        white-space: nowrap;
-        transition: 0.3s;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        text-decoration: none;
-        font-size: 13px;
-        font-weight: bolder;
-        display: inline-block;
-        border: 2px solid #a7241b;
-        background: transparent;
-        
+        background-color: #ad413a;
+        border: 1px solid black;
+        color: white;
+        padding: 10px 24px; 
+        cursor: pointer; 
+        float: left; 
     }
     
     .btn:hover {
@@ -230,8 +222,15 @@
         background: #9c2e26;
         color: white;
     }
-    h4{
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    .box{
+        border: solid black 2px;
+        padding: 5px 5px;
+    }
+
+    div.box {
+        border: solid black 2px;
+        padding: 25px 25px 25px; 
     }
   </style>
   {% block content %} 
@@ -262,88 +261,76 @@
     <br>
 
 
-<div class="home-content" style="margin: auto; width: 90%;">
-   
-
-    <div>
-      <label align="center"><h4>Main Storage</h4></label>
-  </div><br>
-
-    <!-- Datatable --> 
-    <table id="MainStorage" class="stripe cell-border hover" style="width:100%">
-        <thead>
+<div class="container home-content">
+    <div class="container">
+        <h4>Mainstorage</h4>
+    </div>
+    <div class="container">
+      <div class="box">
+      <!-- Datatable --> 
+      <table id="MainStorage" class="stripe cell-border hover" style="width:100%">
+          <thead>
+              <tr>
+                  <th>Item Name</th>
+                  <th>Description</th>
+                  <th>Unit</th>
+                  <th>Quantity</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% for x in info1 %}
             <tr>
-                <th>ID</th>
-                <th>Item Name</th>
-                <th>Description</th>
-                <th>Unit</th>
-                <th>Quantity</th>
+                <td>{{x.limit_item_name}}</td>
+                <td>{{x.limit_description}}</td>
+                <td>{{x.limit_unit}}</td>
+                <td>{{x.limit_quantity}}</td>
+                <td><a class="btn" style="margin-bottom: 10px;" href="">REQUEST</a></td>
             </tr>
-        </thead>
-        <tbody>
-          {% for x in info1 %}
-          <tr>
-              <td>{{x.limit_id}}</td>
-              <td>{{x.limit_item_name}}</td>
-              <td>{{x.limit_description}}</td>
-              <td>{{x.limit_unit}}</td>
-              <td>{{x.limit_quantity}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-    </table>
+            {% endfor %}
+          </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 <br>
-<form action = "" method = "POST">
-  {% csrf_token %}
-  <div class="container" align="center" style="padding-top: 10px">
-      <div colspan="3" align="center" style="padding-top: 10px; padding-bottom: 5px;">
-            <div class="container content input-group mb-1" style="min-width: 30px;">
-                <span class="input-group-text" id="inputGroup-sizing-default">ID:</span>
-                <input required type="number" name="requestID" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            </div>
-            <div class="container content input-group mb-1" style="min-width: 30px;">
-                <span class="input-group-text" id="inputGroup-sizing-default">QUANTITY:</span>
-                <input type="number" name="requestqty" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            </div>
-            <br>
-            <div>
-              <span><input id="btn1" type="submit" name ="request" class="btn" value="Request Supply"></span> 
-            </div>
-                 
-      </div>
-  </div>
-</form>
+
 
 <br>
 
-<div style="margin: auto; width: 90%; padding-top: 40px;">
-        
+<div class="container home-content">
+    <div class="container">
+      <h4>Request Supply</h4>
+    </div>
     <!-- Datatable --> 
-    <table id="depRequestTable" class="stripe cell-border hover" style="width:100%">
-        <thead>
-            <tr>
-                <th>Item Name</th>
-                <th>Description</th>
-                <th>Unit</th>
-                <th>Quantity</th>
-                <th>Date & Time</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-          {% for x in info %}
-          <tr>
-              <td>{{x.request_supply_itemname}}</td>
-              <td>{{x.request_supply_description}}</td>
-              <td>{{x.request_supply_unit}}</td>
-              <td>{{x.request_supply_quantity}}</td>
-              <td>{{x.current_date}}</td>
-              <td>{{x.request_supply_status}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-    </table>
+    <div class="container">
+      <div class="box">
+        <table id="depRequestTable" class="stripe cell-border hover" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Description</th>
+                    <th>Unit</th>
+                    <th>Quantity</th>
+                    <th>Date & Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for x in info %}
+              <tr>
+                  <td>{{x.request_supply_itemname}}</td>
+                  <td>{{x.request_supply_description}}</td>
+                  <td>{{x.request_supply_unit}}</td>
+                  <td>{{x.request_supply_quantity}}</td>
+                  <td>{{x.current_date}}</td>
+                  <td>{{x.request_supply_status}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+      </div>
+    </div>
 </div>
         
 

@@ -10,10 +10,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <style>
-    .content {
-        max-width: 500px;
-        margin: auto;
-    }
+
 </style>
 
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
@@ -31,35 +28,39 @@
     </nav>
 <br>
 
-<div style="margin: auto; width: 90%; padding-top: 100px;">
-    <div>
-        <label align="center"><h4>Main Storage</h4></label>
-    </div><br> 
+<div class="container home-content">
+    <div class="container">
+        <h4>Mainstorage</h4>
+    </div>
+    <div class="container">
+      <div class="box">
     <!-- Datatable --> 
-    <table id="MainStorage" class="stripe cell-border hover" style="width:100%">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Item Name</th>
-                <th>Description</th>
-                <th>Brand</th>
-                <th>Unit</th>
-                <th>Quantity</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for x in info1 %}
-            <tr>
-                <td>{{x.limit_id}}</td>
-                <td>{{x.limit_item_name}}</td>
-                <td>{{x.limit_description}}</td>
-                <td>{{x.limit_brand}}</td>
-                <td>{{x.limit_unit}}</td>
-                <td>{{x.limit_quantity}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <table id="MainStorage" class="stripe cell-border hover" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Item Name</th>
+                    <th>Description</th>
+                    <th>Brand</th>
+                    <th>Unit</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in info1 %}
+                <tr>
+                    <td>{{x.limit_id}}</td>
+                    <td>{{x.limit_item_name}}</td>
+                    <td>{{x.limit_description}}</td>
+                    <td>{{x.limit_brand}}</td>
+                    <td>{{x.limit_unit}}</td>
+                    <td>{{x.limit_quantity}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      </div>
+    </div>
 </div>
 <br>
 <div class="container" align="center" style="padding-top: 10px">
@@ -82,37 +83,41 @@
     </table>
 </div>
 
-<br>
-
-<div style="margin: auto; width: 90%; padding-top: 40px;">
-        
-    <!-- Datatable --> 
-    <table id="depRequestTable" class="stripe cell-border hover" style="width:100%">
-        <thead>
-            <tr>
-                <th>Item Name</th>
-                <th>Description</th>
-                <th>Brand</th>
-                <th>Unit</th>
-                <th>Quantity</th>
-                <th>Date & Time</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for x in info %}
-            <tr>
-                <td>{{x.request_equipment_itemname}}</td>
-                <td>{{x.request_equipment_description}}</td>
-                <td>{{x.request_equipment_brand}}</td>
-                <td>{{x.request_equipment_unit}}</td>
-                <td>{{x.request_equipment_quantity}}</td>
-                <td>{{x.request_current_date}}</td>
-                <td>{{x.request_equipment_status}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="container home-content">
+    <div class="container">
+        <h4>Request Equipment</h4>
+    </div>
+    <div class="container">
+      <div class="box">
+        <!-- Datatable --> 
+        <table id="depRequestTable" class="stripe cell-border hover" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Description</th>
+                    <th>Brand</th>
+                    <th>Unit</th>
+                    <th>Quantity</th>
+                    <th>Date & Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in info %}
+                <tr>
+                    <td>{{x.request_equipment_itemname}}</td>
+                    <td>{{x.request_equipment_description}}</td>
+                    <td>{{x.request_equipment_brand}}</td>
+                    <td>{{x.request_equipment_unit}}</td>
+                    <td>{{x.request_equipment_quantity}}</td>
+                    <td>{{x.request_current_date}}</td>
+                    <td>{{x.request_equipment_status}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      </div>
+    </div>
 </div>
         
     
