@@ -393,11 +393,9 @@ def viewRequestEquipment(request):
 
 def depRequestSupply(request):
     info1 = limitrecords.objects.all().filter(limit_department = request.user)
-    info2 = statusSupplyRequest.objects.all()
 
     context = {
         'info1': info1,
-        'info2': info2,
     }
     return render(request, 'task/dep-request-supply.html', context)
 
