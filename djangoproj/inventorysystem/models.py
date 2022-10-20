@@ -181,6 +181,7 @@ class equipmentmainstorage(models.Model):
     class Meta:
         db_table = "equipmentmainstorage"
 
+
 class acceptSupplyRequests(models.Model):
 
     acceptSupplyRequests_id = models.AutoField(primary_key=True)

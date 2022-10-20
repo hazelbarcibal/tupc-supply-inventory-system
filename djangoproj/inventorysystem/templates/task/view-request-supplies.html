@@ -87,7 +87,7 @@
                     <td>{{x.request_supply_quantity}}</td>
                     <td>{{x.request_supply_remaining}}</td>
                     <td>{{x.current_date}}</td>
-                    <td><a class="btn" style="margin-bottom: 10px;" href="{% url 'inventorysystem-editRequestSupply' x.acceptSupplyRequests_id %}">ACCEPT</a></td>
+                    <td><a class="btn" style="margin-bottom: 10px;" href="{% url 'inventorysystem-editRequestSupply' x.requestsupply_id %}">ACCEPT</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

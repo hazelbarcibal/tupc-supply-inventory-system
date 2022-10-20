@@ -248,6 +248,21 @@ def suppliesWithdraw(request):
     }
     return render(request, 'task/supplies-withdraw.html', context)
 
+
+def updateSupplyWithdraw(request, pk):
+    data = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk)
+    form = withdrawStatusForm(request.POST or None, instance=data)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('inventorysystem-suppliesWithdraw')
+
+    context = {
+        'data': data,
+        'form': form,
+    }
+    return render(request, 'task/update-supply-withdraw.html', context)
+
 def suppliesWithdrawStatus(request, pk):
     data = acceptSupplyRequests.objects.get(withdrawsupply_id=pk)
     form = withdrawStatusForm(request.POST or None, instance=data)
@@ -274,14 +289,24 @@ def createqrequipmentWithdraw(request):
 
 def viewRequestSupply(request):
     info = requestsupply.objects.all()
-
     context = {
         'info': info,
     }
     return render(request, 'task/view-request-supplies.html', context)
 
-def editRequestSupply(request):
-    return render(request, 'task/edit-request-supplies.html')
+def editRequestSupply(request, pk):
+    data = requestsupply.objects.get(requestsupply_id=pk)
+    form = requestSupplyForm(request.POST or None, instance=data)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('inventorysystem-viewRequestSupply')
+
+    context = {
+        'data': data,
+        'form': form,
+    }
+    return render(request, 'task/edit-request-supplies.html', context)
 
 def viewRequestEquipment(request):
 
@@ -314,6 +339,7 @@ def editdepRequestSupply(request, pk):
             requesting.request_supply_status = "pending"
             requesting.save()
             messages.success(request, 'Record created for ')
+            return redirect('inventorysystem-depRequestSupply')
     context = {
         'info1': info1,
         'form': form,

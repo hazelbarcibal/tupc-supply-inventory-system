@@ -1,0 +1,96 @@
+{% extends 'task/home.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<title> Update Supply Delivery </title>
+<link rel="stylesheet" href="{% static 'css/edit-request-supply.css' %}">
+
+<style>
+    .btn{
+        background-color: #ad413a;
+        border: 1px solid black;
+        color: white;
+        padding: 10px 24px; 
+        cursor: pointer; 
+        float: left; 
+    }
+    
+    .btn:hover {
+        text-decoration: none;
+        background: #9c2e26;
+        color: white;
+    }
+
+    .form-holder{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        padding: 32px 25px;
+        height: inherit;
+        
+    }
+
+</style>
+
+<section class="home-section">
+    <nav>
+        <div class="sidebar-button">
+            <i class='bx bx-menu sidebarBtn'></i>
+            <div>
+                <label style="padding-top: 10px;"><h2>Update Supply Withdraw</h2></label>
+            </div>
+        </div>
+    </nav>
+
+    <div class="home-content container">
+        <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h5>Add Quantity for Existing Item</h5>
+                        <form action = "" method = "POST">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Itemname: </label>
+                                    {{form.arequest_supply_itemname}}
+                                </div>
+                                <div class="form-group">
+                                    <label>Unit: </label>
+                                    {{form.arequest_supply_unit}}
+                                </div>
+                                <div class="form-group">
+                                    <label>Quantity: </label>
+                                    {{form.arequest_supply_quantity}}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Description: </label>
+                                    {{form.arequest_supply_description}}
+                                </div>
+                                <div class="form-group">
+                                    <label>Add Quantity: </label>
+                                    {{form.arequest_supply_remaining}}
+                                </div>  
+                                <div class="form-group">
+                                    <label>Status: </label>
+                                    {{form.arequest_supply_status}}
+                                </div> 
+                            </div>
+                            <br>
+
+                            <div class="form-button">
+                                <label></label>
+                                <button style="float: right;" id="submit" type="submit" id="btn" class="btn">ADD</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

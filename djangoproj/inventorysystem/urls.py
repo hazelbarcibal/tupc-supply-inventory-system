@@ -12,7 +12,9 @@ urlpatterns = [
     path('equipment-delivery/', views.equipmentDeliver, name='inventorysystem-equipmentDeliver'),
     path('update-equipment-delivery/<int:pk>/', views.updateEquipmentDeliver, name='inventorysystem-updateEquipmentDeliver'),
     #path('add-equipment-item/', views.addEquipment, name='inventorysystem-addEquipment'),
+    
     path('supplies-withdraw/', views.suppliesWithdraw, name='inventorysystem-suppliesWithdraw'),
+    path('update-supply-withdraw/<int:pk>/', views.updateSupplyWithdraw, name='inventorysystem-updateSupplyWithdraw'),
     path('equipment-withdraw/', views.equipmentWithdraw, name='inventorysystem-equipmentWithdraw'),
     path('createqr-equipment-withdraw/', views.createqrequipmentWithdraw, name='inventorysystem-createqrequipmentWith'),
 
