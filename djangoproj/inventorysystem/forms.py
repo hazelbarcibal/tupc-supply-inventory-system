@@ -192,34 +192,6 @@ class requestSupplyForm(forms.ModelForm):
         fields = ['request_supply_department', 'request_supply_itemname', 'request_supply_description', 'request_supply_unit', 'request_supply_quantity', 'request_supply_remaining',
         'current_date', 'request_supply_status']
 
-# Accept Request supply - admin window
-request_supply_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
-request_supply_itemname = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item name'}))
-request_supply_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
-request_supply_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
-request_supply_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
-request_supply_remaining = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaining'}))
-current_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Date & Time'}))
-request_supply_status = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
-
-class acceptSupplyRequestsForm(forms.ModelForm):
-    
-    def __init__(self, *args, **kwargs):
-        super(acceptSupplyRequestsForm, self).__init__(*args, **kwargs)
-        instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
-            self.fields['request_supply_department'].widget.attrs['readonly'] = True
-            self.fields['request_supply_itemname'].widget.attrs['readonly'] = True
-            self.fields['request_supply_description'].widget.attrs['readonly'] = True
-            self.fields['request_supply_unit'].widget.attrs['readonly'] = True
-            self.fields['request_supply_quantity'].widget.attrs['readonly'] = True
-            self.fields['request_supply_remaining'].widget.attrs['readonly'] = True
-            self.fields['current_date'].widget.attrs['readonly'] = True
-
-    class Meta:
-        model = requestsupply
-        fields = ['request_supply_department', 'request_supply_itemname', 'request_supply_description', 'request_supply_unit', 'request_supply_quantity', 'request_supply_remaining',
-        'current_date', 'request_supply_status']
 
 
 # withdraw supply - admin view
@@ -272,10 +244,10 @@ class equipmentwithdrawStatusForm(forms.ModelForm):
 
     class Meta:
         model = requestequipment
-        fields = ['request_equipment_itemname', 'request_equipment_description', 'request_equipment_brand', 'request_equipment_unit', 
+        fields = ['request_equipment_itemname', 'request_equipment_description', 'request_equipment_brand', 
                     'request_equipment_quantity', 'request_equipment_department', 'request_equipment_status', 'current_date']
 
-# statuslimit - admin window
+# updatestatuslimit - admin window - limitrecord models
 limit_item_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Itemname'}))
 limit_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
 limit_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
@@ -301,7 +273,32 @@ class statusForm(forms.ModelForm):
         fields = ['limit_item_name', 'limit_description', 'limit_unit', 'limit_quantity', 'limit_department', 'limit_addquantity']
 
 
-# storage - admin window
+
+
+class depRequestSupplyForm(forms.ModelForm):
+    # supply request - admin window - mainstorage models
+    limit_item_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Itemname'}))
+    limit_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
+    limit_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
+    limit_quantity = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
+    limit_addquantity= forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Add Quantity'}))
+   
+    
+    def __init__(self, *args, **kwargs):
+        super(depRequestSupplyForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:           
+            self.fields['limit_item_name'].widget.attrs['readonly'] = True
+            self.fields['limit_description'].widget.attrs['readonly'] = True
+            self.fields['limit_unit'].widget.attrs['readonly'] = True
+            self.fields['limit_quantity'].widget.attrs['readonly'] = True
+
+
+    class Meta:
+        model = limitrecords
+        fields = ['limit_item_name', 'limit_description', 'limit_unit','limit_quantity', 'limit_addquantity']
+
+# updatestorage - admin window - storagemapping models
 Category = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Category'}))
 ItemName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ItemName'}))
 Location = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Location'}))

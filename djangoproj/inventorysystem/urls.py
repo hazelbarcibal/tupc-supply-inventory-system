@@ -22,6 +22,8 @@ urlpatterns = [
     path('supplies-withdraw-status/<int:pk>/', views.suppliesWithdrawStatus, name='inventorysystem-suppliesWithdrawStatus'),
     path('view-request-equipment/', views.viewRequestEquipment, name='inventorysystem-viewRequestEquipment'),
     path('dep-request-supply/', views.depRequestSupply, name='inventorysystem-depRequestSupply'),
+    path('edit-dep-request-supply/<int:pk>/', views.editdepRequestSupply, name='inventorysystem-editdepRequestSupply'),
+
     path('dep-request-equipment/', views.depRequestEquipment, name='inventorysystem-depRequestEquipment'),
     path('status-limit/', views.statusLimit, name='inventorysystem-statusLimit'),
     path('update-status/<int:pk>/', views.updateStatus, name='inventorysystem-updateStatus'),

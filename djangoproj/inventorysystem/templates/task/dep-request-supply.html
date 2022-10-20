@@ -238,12 +238,6 @@
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<style>
-    .content {
-        max-width: 500px;
-        margin: auto;
-    }
-</style>
 
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
@@ -285,7 +279,7 @@
                 <td>{{x.limit_description}}</td>
                 <td>{{x.limit_unit}}</td>
                 <td>{{x.limit_quantity}}</td>
-                <td><a class="btn" style="margin-bottom: 10px;" href="">REQUEST</a></td>
+                <td><a class="btn" style="margin-bottom: 10px;" href="{% url 'inventorysystem-editdepRequestSupply' x.limit_id %}">REQUEST</a></td>
             </tr>
             {% endfor %}
           </tbody>

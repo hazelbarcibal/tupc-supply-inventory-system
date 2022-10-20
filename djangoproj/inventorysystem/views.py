@@ -249,7 +249,7 @@ def suppliesWithdraw(request):
     return render(request, 'task/supplies-withdraw.html', context)
 
 def suppliesWithdrawStatus(request, pk):
-    data = acceptSupplyRequests.objects.get(id=pk)
+    data = acceptSupplyRequests.objects.get(withdrawsupply_id=pk)
     form = withdrawStatusForm(request.POST or None, instance=data)
     if request.method == 'POST':
         if form.is_valid():
@@ -289,10 +289,19 @@ def viewRequestEquipment(request):
 
 def depRequestSupply(request):
     info1 = limitrecords.objects.all().filter(limit_department = request.user)
+
+    context = {
+        'info1': info1,
+    }
+    return render(request, 'task/dep-request-supply.html', context)
+
+def editdepRequestSupply(request, pk):
+    info1 = limitrecords.objects.get(limit_id=pk)
+    form = depRequestSupplyForm(request.POST or None, instance=info1)
     info = requestsupply.objects.all().filter(request_supply_department = request.user)
     if request.method == 'POST':
-        requestID = request.POST.get('requestID')
-        requestqty = request.POST.get('requestqty')
+        requestID = limitrecords.objects.get(limit_id=pk).limit_id
+        requestqty = request.POST.get('limit_addquantity')
         if limitrecords.objects.filter(limit_id = requestID).exists() == True:
             getdata3 = limitrecords.objects.get(limit_id = requestID)
             requesting = requestsupply()
@@ -304,12 +313,12 @@ def depRequestSupply(request):
             requesting.request_supply_department = getdata3.limit_department
             requesting.request_supply_status = "pending"
             requesting.save()
-            messages.success(request, 'Record created for ' + requestID)
+            messages.success(request, 'Record created for ')
     context = {
         'info1': info1,
-        'info': info
+        'form': form,
     }
-    return render(request, 'task/dep-request-supply.html', context)
+    return render(request, 'task/edit-dep-request-supply.html', context)
 
 def depRequestEquipment(request):
     info1 = limitrecords.objects.all()
