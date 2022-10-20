@@ -197,6 +197,20 @@ class acceptSupplyRequests(models.Model):
     class Meta:
         db_table = ('acceptSupplyRequests')
 
+class statusSupplyRequest(models.Model):
+
+    statusSupplyRequests_id = models.AutoField(primary_key=True)
+    status_supply_department = models.CharField(max_length=50, verbose_name='status_supply_department')
+    status_supply_itemname = models.CharField(max_length=50, verbose_name='status_supply_itemname')
+    status_supply_description = models.CharField(max_length=255, verbose_name='status_supply_description')
+    status_supply_unit = models.CharField(max_length=50, verbose_name='status_supply_unit')
+    status_supply_quantity = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='status_supply_quantity')
+    status_supply_remaining = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='status_supply_remaining')
+    status_supply_status = models.CharField(max_length=50, verbose_name='status_supply_status')
+
+    class Meta:
+        db_table = ('statusSupplyRequest')
+
 class storagemapping(models.Model):
 
     storagemapping_id = models.AutoField(primary_key=True)

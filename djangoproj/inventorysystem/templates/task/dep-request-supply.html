@@ -306,19 +306,19 @@
                     <th>Description</th>
                     <th>Unit</th>
                     <th>Quantity</th>
-                    <th>Date & Time</th>
+                    <th>Remaining</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
               {% for x in info %}
               <tr>
-                  <td>{{x.request_supply_itemname}}</td>
-                  <td>{{x.request_supply_description}}</td>
-                  <td>{{x.request_supply_unit}}</td>
-                  <td>{{x.request_supply_quantity}}</td>
-                  <td>{{x.current_date}}</td>
-                  <td>{{x.request_supply_status}}</td>
+                  <td>{{x.status_supply_itemname}}</td>
+                  <td>{{x.status_supply_description}}</td>
+                  <td>{{x.status_supply_unit}}</td>
+                  <td>{{x.status_supply_quantity}}</td>
+                  <td>{{x.status_supply_remaining}}</td>
+                  <td>{{x.status_supply_status}}</td>
               </tr>
               {% endfor %}
             </tbody>

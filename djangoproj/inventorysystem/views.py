@@ -296,7 +296,18 @@ def updateSupplyWithdraw(request, pk):
         accept.withdraw_supply_status = "successfully withdraw"
         data1 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
         acceptSupplyRequests.objects.filter(acceptSupplyRequests_id = data1).delete()
+        status = statusSupplyRequest()
+        status.statusSupplyRequests_id = getdata2
+        status.status_supply_itemname = getdata5.arequest_supply_itemname
+        status.status_supply_description = getdata5.arequest_supply_description
+        status.status_supply_unit = getdata5.arequest_supply_unit
+        status.status_supply_quantity = getdata5.arequest_supply_quantity
+        status.status_supply_remaining = limitrecords.objects.get(limit_id = getdata2).limit_quantity
+        status.status_supply_department = getdata5.arequest_supply_department
+        status.status_supply_status = "successfully withdraw"
+        statusSupplyRequest.objects.filter(statusSupplyRequests_id = getdata1).delete()         
         accept.save()
+        status.save()
 
         messages.success(request, 'successfully withdraw')
         return redirect('inventorysystem-suppliesWithdraw')
@@ -354,8 +365,19 @@ def editRequestSupply(request, pk):
         accept.arequest_supply_remaining = supplymainstorage.objects.get(ItemName = getdata1.request_supply_itemname).Quantity
         accept.arequest_supply_status = "Ready for pick-up"
         data1 = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
-        requestsupply.objects.filter(requestsupply_id = data1).delete()
+        requestsupply.objects.filter(requestsupply_id = data1).delete()       
+        status = statusSupplyRequest()
+        status.statusSupplyRequests_id = getdata
+        status.status_supply_itemname = getdata1.request_supply_itemname
+        status.status_supply_description = getdata1.request_supply_description
+        status.status_supply_unit = getdata1.request_supply_unit
+        status.status_supply_quantity = getdata1.request_supply_quantity
+        status.status_supply_remaining = limitrecords.objects.get(limit_id = getdata).limit_quantity
+        status.status_supply_department = getdata1.request_supply_department
+        status.status_supply_status = "Ready for pick-up"  
+        statusSupplyRequest.objects.filter(statusSupplyRequests_id = getdata).delete()  
         accept.save()
+        status.save()
         messages.success(request, 'request accepted')
         return redirect('inventorysystem-viewRequestSupply')
 
@@ -371,16 +393,17 @@ def viewRequestEquipment(request):
 
 def depRequestSupply(request):
     info1 = limitrecords.objects.all().filter(limit_department = request.user)
+    info2 = statusSupplyRequest.objects.all()
 
     context = {
         'info1': info1,
+        'info2': info2,
     }
     return render(request, 'task/dep-request-supply.html', context)
 
 def editdepRequestSupply(request, pk):
     info1 = limitrecords.objects.get(limit_id=pk)
     form = depRequestSupplyForm(request.POST or None, instance=info1)
-    info = requestsupply.objects.all().filter(request_supply_department = request.user)
     if request.method == 'POST':
         requestID = limitrecords.objects.get(limit_id=pk).limit_id
         requestqty = request.POST.get('limit_addquantity')
@@ -395,7 +418,19 @@ def editdepRequestSupply(request, pk):
             requesting.request_supply_remaining = getdata3.limit_quantity
             requesting.request_supply_department = getdata3.limit_department
             requesting.request_supply_status = "pending"
+            status = statusSupplyRequest()
+            status.statusSupplyRequests_id = requestID
+            status.status_supply_itemname = getdata3.limit_item_name
+            status.status_supply_description = getdata3.limit_description
+            status.status_supply_unit = getdata3.limit_unit
+            status.status_supply_quantity = requestqty
+            status.status_supply_remaining = getdata3.limit_quantity
+            status.status_supply_department = getdata3.limit_department
+            status.status_supply_status = "pending"
             requesting.save()
+            status.save()
+
+
             messages.success(request, 'Record created for ')
             return redirect('inventorysystem-depRequestSupply')
     context = {
