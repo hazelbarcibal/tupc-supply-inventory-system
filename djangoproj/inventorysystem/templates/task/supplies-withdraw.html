@@ -129,4 +129,21 @@
                 $('#supplyWithdrawTable').DataTable();
             });
         </script>
+
+{% for message in messages %}
+{% if message.tags == 'info' %}
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    var m = "{{ message }}";
+    swal('Notice: ', m,'info')
+  </script>
+  {% elif message.tags == 'success' %}
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    var m = "{{ message }}";
+    swal("Transaction Complete! ", m, "success")
+  </script>
+{% endif %}
+{% endfor %}
+
 {% endblock %}

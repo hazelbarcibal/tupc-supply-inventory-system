@@ -253,9 +253,53 @@ def updateSupplyWithdraw(request, pk):
     data = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk)
     form = withdrawStatusForm(request.POST or None, instance=data)
     if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            return redirect('inventorysystem-suppliesWithdraw')
+        getdata4 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+        getdata5 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata4)
+
+        update_storage = supplymainstorage()
+        getdata = supplymainstorage.objects.get(ItemName = getdata5.arequest_supply_itemname)
+        update_storage.ItemName = getdata5.arequest_supply_itemname
+        update_storage.Unit = getdata5.arequest_supply_unit
+        update_storage.Description = getdata5.arequest_supply_description
+        update_storage.supplymainstorage_id = getdata.supplymainstorage_id
+        update_storage.Quantity = int(getdata.Quantity) - int(getdata5.arequest_supply_quantity)
+        getdata6 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+        getdata7 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata6).arequest_supply_itemname
+        supplymainstorage.objects.filter(ItemName = getdata7).delete()
+        update_storage.save()
+
+        update_limit = limitrecords()
+        getdata3 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+        update_limit.limit_id = getdata3
+        update_limit.limit_item_name = getdata5.arequest_supply_itemname
+        update_limit.limit_unit = getdata5.arequest_supply_unit
+        update_limit.limit_description = getdata5.arequest_supply_description
+        update_limit.limit_department = getdata5.arequest_supply_department
+        getdata1 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+        limitqty = limitrecords.objects.get(limit_id = getdata1).limit_quantity      
+        update_limit.limit_quantity = int(limitqty) - int(getdata5.arequest_supply_quantity)
+        getdata8 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+        getdata9 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata8).arequest_supply_itemname
+        getdata10 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata8).arequest_supply_itemname
+        limitrecords.objects.filter(limit_item_name = getdata9).filter(limit_department = getdata10).delete()
+        update_limit.save()
+
+        accept = withdrawsupply()
+        getdata2 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+        accept.withdrawsupply_id = getdata2
+        accept.withdraw_supply_department = getdata5.arequest_supply_department
+        accept.withdraw_supply_itemname = getdata5.arequest_supply_itemname
+        accept.withdraw_supply_description = getdata5.arequest_supply_description
+        accept.withdraw_supply_unit = getdata5.arequest_supply_unit
+        accept.withdraw_supply_quantity = getdata5.arequest_supply_quantity
+        accept.withdraw_supply_remaining = supplymainstorage.objects.get(ItemName = getdata5.arequest_supply_itemname).Quantity
+        accept.withdraw_supply_status = "successfully withdraw"
+        data1 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+        acceptSupplyRequests.objects.filter(acceptSupplyRequests_id = data1).delete()
+        accept.save()
+
+        messages.success(request, 'successfully withdraw')
+        return redirect('inventorysystem-suppliesWithdraw')
 
     context = {
         'data': data,
@@ -298,9 +342,22 @@ def editRequestSupply(request, pk):
     data = requestsupply.objects.get(requestsupply_id=pk)
     form = requestSupplyForm(request.POST or None, instance=data)
     if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            return redirect('inventorysystem-viewRequestSupply')
+        accept = acceptSupplyRequests()
+        getdata = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
+        getdata1 = requestsupply.objects.get(requestsupply_id = getdata)
+        accept.acceptSupplyRequests_id = getdata
+        accept.arequest_supply_department = getdata1.request_supply_department
+        accept.arequest_supply_itemname = getdata1.request_supply_itemname
+        accept.arequest_supply_description = getdata1.request_supply_description
+        accept.arequest_supply_unit = getdata1.request_supply_unit
+        accept.arequest_supply_quantity = getdata1.request_supply_quantity
+        accept.arequest_supply_remaining = supplymainstorage.objects.get(ItemName = getdata1.request_supply_itemname).Quantity
+        accept.arequest_supply_status = "Ready for pick-up"
+        data1 = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
+        requestsupply.objects.filter(requestsupply_id = data1).delete()
+        accept.save()
+        messages.success(request, 'request accepted')
+        return redirect('inventorysystem-viewRequestSupply')
 
     context = {
         'data': data,
@@ -330,6 +387,7 @@ def editdepRequestSupply(request, pk):
         if limitrecords.objects.filter(limit_id = requestID).exists() == True:
             getdata3 = limitrecords.objects.get(limit_id = requestID)
             requesting = requestsupply()
+            requesting.requestsupply_id = requestID
             requesting.request_supply_itemname = getdata3.limit_item_name
             requesting.request_supply_description = getdata3.limit_description
             requesting.request_supply_unit = getdata3.limit_unit
@@ -393,6 +451,7 @@ def statusLimit(request):
 def updateStatus(request, pk):
     data = limitrecords.objects.get(limit_id=pk)
     form = statusForm(request.POST or None, instance=data)
+    global getdatalimit
     if request.method == 'POST':
         if int(request.POST.get('limit_addquantity')) > 0:
             update_record = limitrecords()
@@ -405,8 +464,8 @@ def updateStatus(request, pk):
             adding = int(getdata1.limit_quantity) + int(request.POST.get('limit_addquantity'))
             update_record.limit_addquantity = 0
             update_record.limit_quantity = adding
-            getdata2 = limitrecords.objects.get(limit_id=pk).limit_id
-            limitrecords.objects.filter(limit_id = getdata2).delete()
+            getdatalimit = limitrecords.objects.get(limit_id=pk).limit_id
+            limitrecords.objects.filter(limit_id = getdatalimit).delete()
             update_record.save()
 
 
