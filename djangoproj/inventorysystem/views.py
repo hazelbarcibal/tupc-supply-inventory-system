@@ -403,34 +403,42 @@ def editdepRequestSupply(request, pk):
     info1 = limitrecords.objects.get(limit_id=pk)
     form = depRequestSupplyForm(request.POST or None, instance=info1)
     if request.method == 'POST':
-        requestID = limitrecords.objects.get(limit_id=pk).limit_id
-        requestqty = request.POST.get('limit_addquantity')
-        if limitrecords.objects.filter(limit_id = requestID).exists() == True:
-            getdata3 = limitrecords.objects.get(limit_id = requestID)
-            requesting = requestsupply()
-            requesting.requestsupply_id = requestID
-            requesting.request_supply_itemname = getdata3.limit_item_name
-            requesting.request_supply_description = getdata3.limit_description
-            requesting.request_supply_unit = getdata3.limit_unit
-            requesting.request_supply_quantity = requestqty
-            requesting.request_supply_remaining = getdata3.limit_quantity
-            requesting.request_supply_department = getdata3.limit_department
-            requesting.request_supply_status = "pending"
-            status = statusSupplyRequest()
-            status.statusSupplyRequests_id = requestID
-            status.status_supply_itemname = getdata3.limit_item_name
-            status.status_supply_description = getdata3.limit_description
-            status.status_supply_unit = getdata3.limit_unit
-            status.status_supply_quantity = requestqty
-            status.status_supply_remaining = getdata3.limit_quantity
-            status.status_supply_department = getdata3.limit_department
-            status.status_supply_status = "pending"
-            requesting.save()
-            status.save()
-
-
-            messages.success(request, 'Record created for ')
-            return redirect('inventorysystem-depRequestSupply')
+        requestingID = limitrecords.objects.get(limit_id=pk).limit_id
+        if statusSupplyRequest.objects.filter(statusSupplyRequests_id = requestingID).exists() == True:
+            requestingstatus = statusSupplyRequest.objects.get(statusSupplyRequests_id = requestingID).status_supply_status
+            if requestingstatus != "pending" and requestingstatus != "Ready for pick-up":
+                requestID = limitrecords.objects.get(limit_id=pk).limit_id
+                requestqty = request.POST.get('limit_addquantity')
+                if limitrecords.objects.filter(limit_id = requestID).exists() == True:
+                    getdata3 = limitrecords.objects.get(limit_id = requestID)
+                    requesting = requestsupply()
+                    requesting.requestsupply_id = requestID
+                    requesting.request_supply_itemname = getdata3.limit_item_name
+                    requesting.request_supply_description = getdata3.limit_description
+                    requesting.request_supply_unit = getdata3.limit_unit
+                    requesting.request_supply_quantity = requestqty
+                    requesting.request_supply_remaining = getdata3.limit_quantity
+                    requesting.request_supply_department = getdata3.limit_department
+                    requesting.request_supply_status = "pending"
+                    status = statusSupplyRequest()
+                    status.statusSupplyRequests_id = requestID
+                    status.status_supply_itemname = getdata3.limit_item_name
+                    status.status_supply_description = getdata3.limit_description
+                    status.status_supply_unit = getdata3.limit_unit
+                    status.status_supply_quantity = requestqty
+                    status.status_supply_remaining = getdata3.limit_quantity
+                    status.status_supply_department = getdata3.limit_department
+                    status.status_supply_status = "pending"
+                    requesting.save()
+                    status.save()
+                    messages.success(request, 'Record created for ')
+                    return redirect('inventorysystem-depRequestSupply')
+            else:
+                    messages.info(request, 'You already have a request for this item.')
+                    return redirect('inventorysystem-depRequestSupply')
+        else:
+                messages.info(request, 'You already have a request for this item.')
+                return redirect('inventorysystem-depRequestSupply')
     context = {
         'info1': info1,
         'form': form,
