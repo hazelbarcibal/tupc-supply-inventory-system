@@ -1,0 +1,93 @@
+{% extends 'task/home.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<title> Accept Request Equipment </title>
+<link rel="stylesheet" href="{% static 'css/edit-request-supply.css' %}">
+
+<style>
+    .btn{
+        background-color: #ad413a;
+        border: 1px solid black;
+        color: white;
+        padding: 10px 24px; 
+        cursor: pointer; 
+        float: left; 
+    }
+  
+    .btn:hover {
+        text-decoration: none;
+        background: #9c2e26;
+        color: white;
+    }
+</style>
+
+<section class="home-section">
+    <nav>
+        <div class="sidebar-button">
+            <i class='bx bx-menu sidebarBtn'></i>
+            <div>
+                <label style="padding-top: 10px;"><h2>Accept Request Equipment</h2></label>
+            </div>
+        </div>
+    </nav>
+
+    <br><br><br><br><br>
+    <div class="container">
+        <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h3>Accept Request Equipment</h3>
+                        <p>Update status below.</p>
+                        <form action = "" method = "POST">
+                            {% csrf_token %}
+                            
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Item Name: </label>
+                                        {{form.ItemName}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Description: </label>
+                                        {{form.Description}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Brand: </label>
+                                        {{form.Brand}}
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Quantity: </label>
+                                        {{form.Quantity}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Remaining/label>
+                                        {{form.Remaining}}
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Request Quantity: </label>
+                                        {{form.RequestQuantity}}
+                                    </div>
+                                </div>
+
+                            <div class="form-button mt-3">
+                                <button style="float: right;" id="submit" type="submit" id="btn1" class="btn">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

@@ -12,24 +12,25 @@ urlpatterns = [
     #path('add-new-items/', views.addItem, name='inventorysystem-addItem'),
     path('status-limit/', views.statusLimit, name='inventorysystem-statusLimit'),
     path('update-status/<int:pk>/', views.updateStatus, name='inventorysystem-updateStatus'),
-    path('supplies-withdraw/', views.suppliesWithdraw, name='inventorysystem-suppliesWithdraw'),
-    path('update-supply-withdraw/<int:pk>/', views.updateSupplyWithdraw, name='inventorysystem-updateSupplyWithdraw'),
-    path('supplies-withdraw-status/<int:pk>/', views.suppliesWithdrawStatus, name='inventorysystem-suppliesWithdrawStatus'),
     path('view-request-supplies/', views.viewRequestSupply, name='inventorysystem-viewRequestSupply'),
     path('edit-request-supplies/<int:pk>/', views.editRequestSupply, name='inventorysystem-editRequestSupply'),
     path('dep-request-supply/', views.depRequestSupply, name='inventorysystem-depRequestSupply'),
     path('edit-dep-request-supply/<int:pk>/', views.editdepRequestSupply, name='inventorysystem-editdepRequestSupply'),  
+    path('supplies-withdraw/', views.suppliesWithdraw, name='inventorysystem-suppliesWithdraw'),
+    path('update-supply-withdraw/<int:pk>/', views.updateSupplyWithdraw, name='inventorysystem-updateSupplyWithdraw'),
+    path('supplies-withdraw-status/<int:pk>/', views.suppliesWithdrawStatus, name='inventorysystem-suppliesWithdrawStatus'),
 #---------- PATH FOR EQUIPMENT ----------------------
     path('equipment-delivery/', views.equipmentDeliver, name='inventorysystem-equipmentDeliver'),
     path('update-equipment-delivery/<int:pk>/', views.updateEquipmentDeliver, name='inventorysystem-updateEquipmentDeliver'),
-    path('equipment-withdraw/', views.equipmentWithdraw, name='inventorysystem-equipmentWithdraw'),
-    #PK FOR EQUIPMENT WITHDRAW, sa next line
-    path('createqr-equipment-withdraw/', views.createqrequipmentWithdraw, name='inventorysystem-createqrequipmentWith'),
     path('view-request-equipment/', views.viewRequestEquipment, name='inventorysystem-viewRequestEquipment'),
-    #PK FOR VIEW REQUEST, sa next line
+    #PK FOR VIEW REQUEST, sa next line lalagyan ng pk
     path('edit-request-equipment/', views.editRequestEquipment, name='inventorysystem-editRequestEquipment'),
     path('dep-request-equipment/', views.depRequestEquipment, name='inventorysystem-depRequestEquipment'),
-    #norem pa dapat edit-request-equip dto sa line na to!
+    #PK FOR DEP REQUEST, sa next line lalagyan ng pk
+    path('edit-dep-request-equipment/', views.editdepRequestEquipment, name='inventorysystem-editdepRequestEquipment'),
+    path('equipment-withdraw/', views.equipmentWithdraw, name='inventorysystem-equipmentWithdraw'),
+    #PK FOR EQUIPMENT WITHDRAW, sa next line lalagyan ng pk
+    path('createqr-equipment-withdraw/', views.createqrequipmentWithdraw, name='inventorysystem-createqrequipmentWith'),
     path('equipment-return/', views.equipmentReturn, name='inventorysystem-equipmentReturn'),
 #------------ MAPPING x EXPORT ----------------------
     path('storage-mapping/', views.storageMapping, name='inventorysystem-storageMapping'),

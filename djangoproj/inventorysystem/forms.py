@@ -6,21 +6,16 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class DeptRegisterForm(UserCreationForm):
-    #department = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Department'}))
-    #department = forms.CharField(required=True, widget=forms.TextInput(attrs={'name': 'department', 'placeholder': 'Department'}))
-    
-
     username = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Username'}))
     password1 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Password', 'id': 'regpass'}))
     password2 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Retype Password', 'id': 'regpass'}))
-    #department = forms.ChoiceField(required=True, choices=dept_office)
     department = forms.CharField(required=True, widget=forms.TextInput(attrs={'list': 'department', 'placeholder': 'Department', 'pattern': '^[A-Z]+(?:_[A-Z]+)*$', 'autocomplete': 'off'}))
     
     class Meta:
         model = CustomUser
         fields = ['username', 'department', 'password1', 'password2']
 
-
+#-------------- DELIVERY SUPPLIES ---------------
 class deliverySupplyForm(forms.ModelForm):
     delivery_supply_description = forms.CharField(required=True, widget=forms.TextInput(
             attrs={
@@ -80,7 +75,107 @@ class updateDeliverySupplyForm(forms.ModelForm):
         model = supplymainstorage
         fields = ['Description', 'Unit', 'Quantity', 'Remaining']
 
-# Equipment Delivery Form
+# updatestatuslimit - admin window - limitrecord models
+limit_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
+limit_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
+limit_quantity = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
+limit_department = forms.DecimalField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
+limit_addquantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Add Quantity'}))
+
+class statusForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super(statusForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:           
+            self.fields['limit_description'].widget.attrs['readonly'] = True
+            self.fields['limit_unit'].widget.attrs['readonly'] = True
+            self.fields['limit_quantity'].widget.attrs['readonly'] = True
+            self.fields['limit_department'].widget.attrs['readonly'] = True
+
+
+    class Meta:
+        model = limitrecords
+        fields = ['limit_description', 'limit_unit', 'limit_quantity', 'limit_department', 'limit_addquantity']
+
+
+
+# supply request - admin window - mainstorage models
+limit_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
+limit_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
+limit_quantity = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
+limit_addquantity= forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Add Quantity'}))
+class depRequestSupplyForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(depRequestSupplyForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:           
+            self.fields['limit_description'].widget.attrs['readonly'] = True
+            self.fields['limit_unit'].widget.attrs['readonly'] = True
+            self.fields['limit_quantity'].widget.attrs['readonly'] = True
+
+
+    class Meta:
+        model = limitrecords
+        fields = ['limit_description', 'limit_unit','limit_quantity', 'limit_addquantity']
+
+#------ Request supply - admin window ------------
+request_supply_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
+request_supply_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
+request_supply_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
+request_supply_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
+request_supply_remaining= forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaining'}))
+current_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Date & Time'}))
+request_supply_status = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
+
+class requestSupplyForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super(requestSupplyForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            self.fields['request_supply_department'].widget.attrs['readonly'] = True
+            self.fields['request_supply_description'].widget.attrs['readonly'] = True
+            self.fields['request_supply_unit'].widget.attrs['readonly'] = True
+            self.fields['request_supply_quantity'].widget.attrs['readonly'] = True
+            self.fields['request_supply_remaining'].widget.attrs['readonly'] = True
+            self.fields['current_date'].widget.attrs['readonly'] = True
+
+
+    class Meta:
+        model = requestsupply
+        fields = ['request_supply_department', 'request_supply_description', 'request_supply_unit', 'request_supply_quantity', 'request_supply_remaining',
+        'current_date', 'request_supply_status']
+
+#---------- withdraw supply - admin view ------------
+arequest_supply_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
+arequest_supply_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
+arequest_supply_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
+arequest_supply_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
+arequest_supply_remaining = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaining'}))
+current_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Date & Time'}))
+arequest_supply_status = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
+
+class withdrawStatusForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super(withdrawStatusForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            self.fields['arequest_supply_department'].widget.attrs['readonly'] = True
+            self.fields['arequest_supply_description'].widget.attrs['readonly'] = True
+            self.fields['arequest_supply_unit'].widget.attrs['readonly'] = True
+            self.fields['arequest_supply_quantity'].widget.attrs['readonly'] = True
+            self.fields['arequest_supply_remaining'].widget.attrs['readonly'] = True
+            self.fields['current_date'].widget.attrs['readonly'] = True
+
+    class Meta:
+        model = acceptSupplyRequests
+        fields = ['arequest_supply_department', 'arequest_supply_description', 'arequest_supply_unit', 'arequest_supply_quantity', 'arequest_supply_remaining',
+        'current_date', 'arequest_supply_status']
+
+
+#-------------- DELIVERY EQUIPMENT ---------------
 class deliveryEquipmentForm(forms.ModelForm):
     delivery_equipment_itemname = forms.CharField(required=True, widget=forms.TextInput(
             attrs={
@@ -149,80 +244,28 @@ class updateEquipmentSupplyForm(forms.ModelForm):
         model = equipmentmainstorage
         fields = ['ItemName', 'Description', 'Brand', 'Quantity', 'Remaining']
 
-# Request supply - admin window
-request_supply_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
-request_supply_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
-request_supply_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
-request_supply_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
-request_supply_remaining= forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaining'}))
-current_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Date & Time'}))
-request_supply_status = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
 
-class requestSupplyForm(forms.ModelForm):
-    
-    def __init__(self, *args, **kwargs):
-        super(requestSupplyForm, self).__init__(*args, **kwargs)
-        instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
-            self.fields['request_supply_department'].widget.attrs['readonly'] = True
-            self.fields['request_supply_description'].widget.attrs['readonly'] = True
-            self.fields['request_supply_unit'].widget.attrs['readonly'] = True
-            self.fields['request_supply_quantity'].widget.attrs['readonly'] = True
-            self.fields['request_supply_remaining'].widget.attrs['readonly'] = True
-            self.fields['current_date'].widget.attrs['readonly'] = True
-
-
-    class Meta:
-        model = requestsupply
-        fields = ['request_supply_department', 'request_supply_description', 'request_supply_unit', 'request_supply_quantity', 'request_supply_remaining',
-        'current_date', 'request_supply_status']
-
-
-
-# withdraw supply - admin view
-arequest_supply_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
-arequest_supply_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
-arequest_supply_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
-arequest_supply_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
-arequest_supply_remaining = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaining'}))
-current_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Date & Time'}))
-arequest_supply_status = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
-
-class withdrawStatusForm(forms.ModelForm):
-    
-    def __init__(self, *args, **kwargs):
-        super(withdrawStatusForm, self).__init__(*args, **kwargs)
-        instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
-            self.fields['arequest_supply_department'].widget.attrs['readonly'] = True
-            self.fields['arequest_supply_description'].widget.attrs['readonly'] = True
-            self.fields['arequest_supply_unit'].widget.attrs['readonly'] = True
-            self.fields['arequest_supply_quantity'].widget.attrs['readonly'] = True
-            self.fields['arequest_supply_remaining'].widget.attrs['readonly'] = True
-            self.fields['current_date'].widget.attrs['readonly'] = True
-
-    class Meta:
-        model = acceptSupplyRequests
-        fields = ['arequest_supply_department', 'arequest_supply_description', 'arequest_supply_unit', 'arequest_supply_quantity', 'arequest_supply_remaining',
-        'current_date', 'arequest_supply_status']
-
-
-# withdraw equipment - admin view
+# request equipment - admin view
 request_equipment_itemname = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item name'}))
 request_equipment_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
 request_equipment_brand = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brand'}))
-request_equipment_department = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Issued To'}))
+request_equipment_quantity = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
+request_equipment_department = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
+request_equipment_status = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
+current_date = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Date and Time'}))
 
-class equipmentwithdrawStatusForm(forms.ModelForm):
+class equipmentRequestForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
-        super(equipmentwithdrawStatusForm, self).__init__(*args, **kwargs)
+        super(equipmentRequestForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
             self.fields['request_equipment_itemname'].widget.attrs['readonly'] = True
             self.fields['request_equipment_description'].widget.attrs['readonly'] = True
             self.fields['request_equipment_brand'].widget.attrs['readonly'] = True
+            self.fields['request_equipment_quantity'].widget.attrs['readonly'] = True
             self.fields['request_equipment_department'].widget.attrs['readonly'] = True
+            self.fields['current_date'].widget.attrs['readonly'] = True
 
 
     class Meta:
@@ -230,52 +273,68 @@ class equipmentwithdrawStatusForm(forms.ModelForm):
         fields = ['request_equipment_itemname', 'request_equipment_description', 'request_equipment_brand', 
                     'request_equipment_quantity', 'request_equipment_department', 'request_equipment_status', 'current_date']
 
-# updatestatuslimit - admin window - limitrecord models
-limit_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
-limit_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
-limit_quantity = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
-limit_department = forms.DecimalField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
-limit_addquantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Add Quantity'}))
+# dep request equipment - dep view
+ItemName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item name'}))
+Description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
+Brand = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brand'}))
+Quantity = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
+Remaining = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaining'}))
+RequestQuantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'RequestQuantity'}))
 
-class statusForm(forms.ModelForm):
+class depRequestEquipmentForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
-        super(statusForm, self).__init__(*args, **kwargs)
+        super(depRequestEquipmentForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:           
-            self.fields['limit_description'].widget.attrs['readonly'] = True
-            self.fields['limit_unit'].widget.attrs['readonly'] = True
-            self.fields['limit_quantity'].widget.attrs['readonly'] = True
-            self.fields['limit_department'].widget.attrs['readonly'] = True
+        if instance and instance.pk:
+            self.fields['ItemName'].widget.attrs['readonly'] = True
+            self.fields['Description'].widget.attrs['readonly'] = True
+            self.fields['Brand'].widget.attrs['readonly'] = True
+            self.fields['Quantity'].widget.attrs['readonly'] = True
+            self.fields['Remaining'].widget.attrs['readonly'] = True
 
 
     class Meta:
-        model = limitrecords
-        fields = ['limit_description', 'limit_unit', 'limit_quantity', 'limit_department', 'limit_addquantity']
+        model = equipmentmainstorage
+        fields = ['ItemName', 'Description', 'Brand', 
+                    'Quantity', 'Remaining', 'RequestQuantity']
 
+# withdraw equipment - admin view
+arequest_equipment_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
+arequest_equipment_itemname = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item Name'}))
+arequest_equipment_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
+arequest_equipment_brand = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brand'}))
+arequest_equipment_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
+arequest_equipment_remaining = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaning'}))
+arequest_equipment_status = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
+arequest_equipment_yearacquired = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Year Acquired'}))
+arequest_equipment_issued_to  = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Issued to'}))
+arequest_equipment_model_no = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Model No'}))
+arequest_equipment_serial_no  = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Serial No'}))
+arequest_equipment_certifiedcorrect = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Certified Correct'}))
+current_date = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Date and Time'}))
 
-
-
-class depRequestSupplyForm(forms.ModelForm):
-    # supply request - admin window - mainstorage models
-    limit_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
-    limit_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
-    limit_quantity = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
-    limit_addquantity= forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Add Quantity'}))
-   
+class withdrawEquipmentForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
-        super(depRequestSupplyForm, self).__init__(*args, **kwargs)
+        super(withdrawEquipmentForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
-        if instance and instance.pk:           
-            self.fields['limit_description'].widget.attrs['readonly'] = True
-            self.fields['limit_unit'].widget.attrs['readonly'] = True
-            self.fields['limit_quantity'].widget.attrs['readonly'] = True
+        if instance and instance.pk:
+            self.fields['arequest_equipment_department'].widget.attrs['readonly'] = True
+            self.fields['arequest_equipment_itemname'].widget.attrs['readonly'] = True
+            self.fields['arequest_equipment_description'].widget.attrs['readonly'] = True
+            self.fields['arequest_equipment_brand'].widget.attrs['readonly'] = True
+            self.fields['arequest_equipment_quantity'].widget.attrs['readonly'] = True
+            self.fields['arequest_equipment_remaining'].widget.attrs['readonly'] = True
+            self.fields['arequest_equipment_status'].widget.attrs['readonly'] = True
 
 
     class Meta:
-        model = limitrecords
-        fields = ['limit_description', 'limit_unit','limit_quantity', 'limit_addquantity']
+        model = acceptEquipmentRequests
+        fields = ['arequest_equipment_department', 'arequest_equipment_itemname', 'arequest_equipment_description', 
+                    'arequest_equipment_brand', 'arequest_equipment_quantity', 'arequest_equipment_remaining', 
+                    'arequest_equipment_status', 'arequest_equipment_yearacquired', 'arequest_equipment_issued_to',
+                    'arequest_equipment_model_no', 'arequest_equipment_serial_no', 'arequest_equipment_certifiedcorrect', 'current_date' ]
 
 # updatestorage - admin window - storagemapping models
 Category = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Category'}))

@@ -48,6 +48,7 @@ class requestsupply(models.Model):
     class Meta:
         db_table = ('requestsupply')
 
+# wala na din to
 class withdrawsupply(models.Model):
 
     withdrawsupply_id = models.AutoField(primary_key=True)
@@ -135,16 +136,30 @@ class requestequipment(models.Model):
     request_equipment_quantity = models.DecimalField(max_digits=6, decimal_places=0, verbose_name='request_equipment_quantity')
     request_equipment_department = models.CharField(max_length=50, verbose_name='request_equipment_department')
     request_equipment_status = models.CharField(max_length=50, verbose_name='request_equipment_status')
-    request_equipment_yearacquired = models.CharField(max_length=50, verbose_name='request_yearacquired')
-    request_equipment_issued_to = models.CharField(max_length=50, verbose_name='request_equipment_issued_to')
-    request_equipment_model_no = models.CharField(max_length=50, verbose_name='request_equipment_model_no')
-    request_equipment_serial_no = models.CharField(max_length=50, verbose_name='request_equipment_serial_no')
-    request_equipment_certifiedcorrect = models.CharField(max_length=50, verbose_name='request_equipment_certifiedcorrect')
     current_date = models.DateTimeField(default=now, verbose_name= 'request_current_date')
 
     class Meta:
         db_table = ('requestequipment')
 
+class acceptEquipmentRequests(models.Model):
+
+    acceptEquipmentRequests_id = models.AutoField(primary_key=True)
+    arequest_equipment_department = models.CharField(max_length=50, verbose_name='arequest_equipment_department')
+    arequest_equipment_itemname = models.CharField(max_length=255, verbose_name='arequest_equipment_itemname')
+    arequest_equipment_description = models.CharField(max_length=255, verbose_name='arequest_equipment_description')
+    arequest_equipment_brand = models.CharField(max_length=50, verbose_name='arequest_equipment_brand')
+    arequest_equipment_quantity = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='arequest_equipment_quantity')
+    arequest_equipment_remaining = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='arequest_equipment_remaining')
+    arequest_equipment_status = models.CharField(max_length=50, verbose_name='arequest_equipment_status')
+    arequest_equipment_yearacquired = models.CharField(max_length=50, verbose_name='arequest_yearacquired')
+    arequest_equipment_issued_to = models.CharField(max_length=50, verbose_name='arequest_equipment_issued_to')
+    arequest_equipment_model_no = models.CharField(max_length=50, verbose_name='arequest_equipment_model_no')
+    arequest_equipment_serial_no = models.CharField(max_length=50, verbose_name='arequest_equipment_serial_no')
+    arequest_equipment_certifiedcorrect = models.CharField(max_length=50, verbose_name='arequest_equipment_certifiedcorrect')
+    current_date = models.DateTimeField(default=now, verbose_name= 'arequest_current_date')
+
+    class Meta:
+        db_table = ('acceptEquipmentRequests')
 class withdrawequipment(models.Model):
 
     withdrawequipment_id = models.AutoField(primary_key=True)
@@ -182,6 +197,7 @@ class returnequipment(models.Model):
 def __str__(self):
     return self.withdraw_item_name
 
+#------ wala na ata tong models
 class statusEquipmentRequest(models.Model):
 
     statusEquipmentRequests_id = models.AutoField(primary_key=True)
@@ -196,20 +212,6 @@ class statusEquipmentRequest(models.Model):
     class Meta:
         db_table = ('statusEquipmentRequest')
 
-class acceptEquipmentRequests(models.Model):
-
-    acceptEquipmentRequests_id = models.AutoField(primary_key=True)
-    arequest_equipment_department = models.CharField(max_length=50, verbose_name='arequest_equipment_department')
-    arequest_equipment_itemname = models.CharField(max_length=255, verbose_name='arequest_equipment_itemname')
-    arequest_equipment_description = models.CharField(max_length=255, verbose_name='arequest_equipment_description')
-    arequest_equipment_brand = models.CharField(max_length=50, verbose_name='arequest_equipment_brand')
-    arequest_equipment_quantity = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='arequest_equipment_quantity')
-    arequest_equipment_remaining = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='arequest_equipment_remaining')
-    arequest_equipment_status = models.CharField(max_length=50, verbose_name='arequest_equipment_status')
-    current_date = models.DateTimeField(default=now, verbose_name= 'arequest_current_date')
-
-    class Meta:
-        db_table = ('acceptEquipmentRequests')
 
 class equipmentmainstorage(models.Model):
 

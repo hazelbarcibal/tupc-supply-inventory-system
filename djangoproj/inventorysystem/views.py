@@ -214,93 +214,6 @@ def updateStatus(request, pk):
 
     return render(request, 'task/update-status.html', context)
 
-#------------------- WITHDRAW SUPPLIES -----------------------------
-def suppliesWithdraw(request):
-    info = acceptSupplyRequests.objects.all()
-    context = {
-        'info': info,
-    }
-    return render(request, 'task/supplies-withdraw.html', context)
-
-
-def updateSupplyWithdraw(request, pk):
-    data = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk)
-    form = withdrawStatusForm(request.POST or None, instance=data)
-    if request.method == 'POST':
-        getdata4 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
-        getdata5 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata4)
-
-        update_storage = supplymainstorage()
-        getdata = supplymainstorage.objects.get(Description = getdata5.arequest_supply_description)
-        update_storage.Description = getdata5.arequest_supply_description
-        update_storage.Unit = getdata5.arequest_supply_unit
-        update_storage.supplymainstorage_id = getdata.supplymainstorage_id
-        update_storage.Quantity = int(getdata.Quantity) - int(getdata5.arequest_supply_quantity)
-        getdata6 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
-        getdata7 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata6).arequest_supply_description
-        supplymainstorage.objects.filter(Description = getdata7).delete()
-        update_storage.save()
-
-        update_limit = limitrecords()
-        getdata3 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
-        update_limit.limit_id = getdata3
-        update_limit.limit_description = getdata5.arequest_supply_description
-        update_limit.limit_unit = getdata5.arequest_supply_unit
-        update_limit.limit_department = getdata5.arequest_supply_department
-        getdata1 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
-        limitqty = limitrecords.objects.get(limit_id = getdata1).limit_quantity      
-        update_limit.limit_quantity = int(limitqty) - int(getdata5.arequest_supply_quantity)
-        getdata8 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
-        getdata9 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata8).arequest_supply_description
-        getdata10 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata8).arequest_supply_description
-        limitrecords.objects.filter(limit_description = getdata9).filter(limit_department = getdata10).delete()
-        update_limit.save()
-
-        accept = withdrawsupply()
-        getdata2 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
-        accept.withdrawsupply_id = getdata2
-        accept.withdraw_supply_department = getdata5.arequest_supply_department
-        accept.withdraw_supply_description = getdata5.arequest_supply_description
-        accept.withdraw_supply_unit = getdata5.arequest_supply_unit
-        accept.withdraw_supply_quantity = getdata5.arequest_supply_quantity
-        accept.withdraw_supply_remaining = supplymainstorage.objects.get(Description = getdata5.arequest_supply_description).Quantity
-        accept.withdraw_supply_status = "successfully withdraw"
-        data1 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
-        acceptSupplyRequests.objects.filter(acceptSupplyRequests_id = data1).delete()
-        status = statusSupplyRequest()
-        status.statusSupplyRequests_id = getdata2
-        status.status_supply_description = getdata5.arequest_supply_description
-        status.status_supply_unit = getdata5.arequest_supply_unit
-        status.status_supply_quantity = getdata5.arequest_supply_quantity
-        status.status_supply_remaining = limitrecords.objects.get(limit_id = getdata2).limit_quantity
-        status.status_supply_department = getdata5.arequest_supply_department
-        status.status_supply_status = "successfully withdraw"
-        statusSupplyRequest.objects.filter(statusSupplyRequests_id = getdata1).delete()         
-        accept.save()
-        status.save()
-
-        messages.success(request, 'successfully withdraw')
-        return redirect('inventorysystem-suppliesWithdraw')
-
-    context = {
-        'data': data,
-        'form': form,
-    }
-    return render(request, 'task/update-supply-withdraw.html', context)
-
-def suppliesWithdrawStatus(request, pk):
-    data = acceptSupplyRequests.objects.get(withdrawsupply_id=pk)
-    form = withdrawStatusForm(request.POST or None, instance=data)
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            return redirect('inventorysystem-suppliesWithdraw')
-
-    context = {
-        'data': data,
-        'form': form,
-    }
-    return render(request, 'task/supply-withdraw-update.html', context)
 
 #------------------- ADMIN VIEW REQUEST SUPPLIES -----------------------------
 def viewRequestSupply(request):
@@ -399,6 +312,93 @@ def editdepRequestSupply(request, pk):
     }
     return render(request, 'task/edit-dep-request-supply.html', context)
 
+#------------------- WITHDRAW SUPPLIES -----------------------------
+def suppliesWithdraw(request):
+    info = acceptSupplyRequests.objects.all()
+    context = {
+        'info': info,
+    }
+    return render(request, 'task/supplies-withdraw.html', context)
+
+
+def updateSupplyWithdraw(request, pk):
+    data = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk)
+    form = withdrawStatusForm(request.POST or None, instance=data)
+    if request.method == 'POST':
+        getdata4 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+        getdata5 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata4)
+
+        update_storage = supplymainstorage()
+        getdata = supplymainstorage.objects.get(Description = getdata5.arequest_supply_description)
+        update_storage.Description = getdata5.arequest_supply_description
+        update_storage.Unit = getdata5.arequest_supply_unit
+        update_storage.supplymainstorage_id = getdata.supplymainstorage_id
+        update_storage.Quantity = int(getdata.Quantity) - int(getdata5.arequest_supply_quantity)
+        getdata6 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+        getdata7 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata6).arequest_supply_description
+        supplymainstorage.objects.filter(Description = getdata7).delete()
+        update_storage.save()
+
+        update_limit = limitrecords()
+        getdata3 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+        update_limit.limit_id = getdata3
+        update_limit.limit_description = getdata5.arequest_supply_description
+        update_limit.limit_unit = getdata5.arequest_supply_unit
+        update_limit.limit_department = getdata5.arequest_supply_department
+        getdata1 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+        limitqty = limitrecords.objects.get(limit_id = getdata1).limit_quantity      
+        update_limit.limit_quantity = int(limitqty) - int(getdata5.arequest_supply_quantity)
+        getdata8 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+        getdata9 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata8).arequest_supply_description
+        getdata10 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata8).arequest_supply_description
+        limitrecords.objects.filter(limit_description = getdata9).filter(limit_department = getdata10).delete()
+        update_limit.save()
+
+        accept = withdrawsupply()
+        getdata2 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+        accept.withdrawsupply_id = getdata2
+        accept.withdraw_supply_department = getdata5.arequest_supply_department
+        accept.withdraw_supply_description = getdata5.arequest_supply_description
+        accept.withdraw_supply_unit = getdata5.arequest_supply_unit
+        accept.withdraw_supply_quantity = getdata5.arequest_supply_quantity
+        accept.withdraw_supply_remaining = supplymainstorage.objects.get(Description = getdata5.arequest_supply_description).Quantity
+        accept.withdraw_supply_status = "successfully withdraw"
+        data1 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+        acceptSupplyRequests.objects.filter(acceptSupplyRequests_id = data1).delete()
+        status = statusSupplyRequest()
+        status.statusSupplyRequests_id = getdata2
+        status.status_supply_description = getdata5.arequest_supply_description
+        status.status_supply_unit = getdata5.arequest_supply_unit
+        status.status_supply_quantity = getdata5.arequest_supply_quantity
+        status.status_supply_remaining = limitrecords.objects.get(limit_id = getdata2).limit_quantity
+        status.status_supply_department = getdata5.arequest_supply_department
+        status.status_supply_status = "successfully withdraw"
+        statusSupplyRequest.objects.filter(statusSupplyRequests_id = getdata1).delete()         
+        accept.save()
+        status.save()
+
+        messages.success(request, 'successfully withdraw')
+        return redirect('inventorysystem-suppliesWithdraw')
+
+    context = {
+        'data': data,
+        'form': form,
+    }
+    return render(request, 'task/update-supply-withdraw.html', context)
+
+def suppliesWithdrawStatus(request, pk):
+    data = acceptSupplyRequests.objects.get(withdrawsupply_id=pk)
+    form = withdrawStatusForm(request.POST or None, instance=data)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('inventorysystem-suppliesWithdraw')
+
+    context = {
+        'data': data,
+        'form': form,
+    }
+    return render(request, 'task/supply-withdraw-update.html', context)
 
 #------------------- DELIVERY EQUIPMENTS -----------------------------
 def equipmentDeliver(request):
@@ -510,6 +510,9 @@ def depRequestEquipment(request):
     }
     return render(request, 'task/dep-request-equipment.html', context)
 
+def editdepRequestEquipment(request):
+
+    return render(request, 'task/edit-dep-request-equipment.html')
 
 #------------------- WITHDRAW EQUIPMENTS -----------------------------
 def equipmentWithdraw(request):
@@ -521,7 +524,6 @@ def equipmentWithdraw(request):
 
 def createqrequipmentWithdraw(request):
     return render(request, 'task/createqr-equipment-withdraw.html')
-
 
 #------------------- RETURN EQUIPMENTS -----------------------------
 def equipmentReturn(request):

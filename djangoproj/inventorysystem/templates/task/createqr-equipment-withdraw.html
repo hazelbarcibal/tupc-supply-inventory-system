@@ -9,57 +9,26 @@
 <link rel="stylesheet" href="{% static 'css/edit-request-supply.css' %}">
 
 <style>
-    .content {
-        max-width: 300px;
-        margin: auto;
-    }
-
-    .btn1{
-        top: 0;
-        left: 50%;
-        color: black;
-        border-radius: 10px;
-        padding: 7px 25px 8px 25px;
-        white-space: nowrap;
-        transition: 0.3s;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        text-decoration: none;
-        font-family: 'Raleway', sans-serif;
-        font-size: 15px;
-        font-weight: bolder;
-        display: inline-block;
-        border: 2px solid #a7241b;
-        background: transparent;
-     }
-  
-    .btn1:hover {
-        text-decoration: none;
-        background: #9c2e26;
-        color: white;
-    }
     .btn{
-        top: 0;
-        left: 50%;
-        color: black;
-        border-radius: 15px;
-        padding: 7px 15px;
-        white-space: nowrap;
-        transition: 0.3s;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: bolder;
-        display: inline-block;
-        border: 2px solid #a7241b;
-        background: transparent;
+        background-color: #ad413a;
+        border: 1px solid black;
+        color: white;
+        padding: 10px 24px; 
+        cursor: pointer; 
+        float: left; 
     }
     
     .btn:hover {
         text-decoration: none;
-        background: #a7241b;
+        background: #9c2e26;
         color: white;
+    }
+
+    .form-holder{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        padding: 32px 25px;
+        height: inherit;
+        
     }
 </style>
 
@@ -84,42 +53,73 @@
                             
                             <div class="form-row">
                                 <div class="form-group">
-                                    {{form.}}
+                                    <label>Departement: </label>
+                                    {{form.arequest_equipment_department}}
                                 </div>
                                 <div class="form-group">
-                                    {{form.}}
+                                    <label>Item Name: </label>
+                                    {{form.arequest_equipment_itemname}}
                                 </div>
                                 <div class="form-group">
-                                    {{form.}}
+                                    <label>Description: </label>
+                                    {{form.arequest_equipment_description}}
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    {{form.}}
+                                    <label>Brand: </label>
+                                    {{form.arequest_equipment_brand}}
                                 </div>
                                 <div class="form-group">
-                                    {{form.}}
+                                    <label>Quantity: </label>
+                                    {{form.arequest_equipment_quantity}}
                                 </div>
-                                
+                                <div class="form-group">
+                                    <label>Remaining: </label>
+                                    {{form.arequest_equipment_remaining}}
+                                </div>
+                                <div class="form-group">
+                                    <label>Status: </label>
+                                    {{form.arequest_equipment_status}}
+                                </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    {{form.}}
+                                    <label>Year Acquired: </label>
+                                    {{form.arequest_equipment_yearacquired}}
                                 </div>
                                 <div class="form-group">
+                                    <label>Issued to: </label>
+                                    {{form.arequest_equipment_issued_to}}
+                                </div>
+                                <div class="form-group">
+                                    <label>Model No: </label>
+                                    {{form.arequest_equipment_model_no}}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Serial No: </label>
+                                    {{form.arequest_equipment_serial_no}}
+                                </div>
+                                <div class="form-group">
+                                    <label>Certified Correct: </label>
+                                    {{form.arequest_equipment_certifiedcorrect}}
+                                </div>
+                                <div class="form-group">
+                                    <label>Date and Time: </label>
                                     {{form.current_date}}
                                 </div>
-                                <div class="form-group">
-                                    {{form.}}
-                                </div>
+                                
                             </div>
 
 
                             <div class="form-button mt-3">
                                 <button id="submit" type="submit" id="btn1" class="btn">CREATE QR</button>
                             </div>
+
                             <div class="form-button mt-3">
                                 <button id="submit" type="submit" id="btn1" class="btn">WITHDRAW</button>
                             </div>
