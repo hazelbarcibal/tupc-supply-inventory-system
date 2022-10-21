@@ -55,7 +55,7 @@
                 <th>Category</th>
                 <th>Item Name</th>
                 <th>Location</th>
-                <th>Cabinet No.</th>
+                <th>Rack No.</th>
                 <th>Shelf No.</th>
                 <th>Layer No.</th>
                 <th>Action</th>
@@ -66,10 +66,10 @@
             <tr>
                 <td>{{x.Category}}</td>
                 <td>{{x.ItemName}}</td>
-                <td>{{x.Location}}</td>
+                <td>{{x.RackNo}}</td>
+                <td>{{x.LayerNo}}</td>
                 <td>{{x.CabinetNo}}</td>
                 <td>{{x.ShelfNo}}</td>
-                <td>{{x.LayerNo}}</td>
                 <td><a href="{% url 'inventorysystem-updateStoragemapping' x.storagemapping_id%}">Update</a></td>
             </tr>
             {% endfor %}

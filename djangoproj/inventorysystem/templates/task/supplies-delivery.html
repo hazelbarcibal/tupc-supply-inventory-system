@@ -104,9 +104,8 @@
             <table id="mainstorage" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Item Name</th>
-                        <th>Unit</th>
                         <th>Description</th>
+                        <th>Unit</th>
                         <th>Quantity</th>
                         <th>Action</th>
                     </tr>
@@ -114,9 +113,8 @@
                 <tbody>
                     {% for x in info1 %}
                     <tr>
-                        <td>{{x.ItemName}}</td>
-                        <td>{{x.Unit}}</td>
                         <td>{{x.Description}}</td>
+                        <td>{{x.Unit}}</td>
                         <td>{{x.Quantity}}</td>
                         <td><a class="btn" style="margin-bottom: 10px;" href="{% url 'inventorysystem-updateSuppliesDeliver' x.supplymainstorage_id %}">UPDATE</a></td>
                     </tr>  
@@ -131,40 +129,36 @@
         <div class="card">
             <h4>New item</h4>
             <br>
-            <form class="row g-3" action="" method="post">
+            <form class="row g-3" action="" method="POST">
                 {% csrf_token %}
-                <div class="col-md-6">
-                    <label class="form-label">Item Name</label>
-                    {{form.delivery_supply_itemname}}
-                    <datalist id="deliveryItemname">
-                        <option id="1" value="Bondpaper"></option>
-                        <option id="2" value="Pencil"></option>
-                        <option id="3" value="Ballpen"></option>
-                        <option id="4" value="Scotch Tape"></option>
-                    </datalist> 
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Unit</label>
-                    {{form.delivery_supply_unit}}
-                    <datalist id="deliveryUnit">
-                        <option id="1" value="Box"></option>
-                        <option id="2" value="Bundle"></option>
-                        <option id="3" value="Ream"></option>
-                        <option id="4" value="Pcs"></option>
-                    </datalist> 
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Description</label>
-                    {{form.delivery_supply_description}}
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Quantity</label>
-                    {{form.delivery_supply_quantity}}
-                </div>
-                
-                <div class="col-12">
-                    <input type="submit" class="btn" value="Submit">
-                </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Description</label>
+                        {{form.delivery_supply_description}}
+                        <datalist id="deliveryItemname">
+                            <option id="1" value="Bondpaper"></option>
+                            <option id="2" value="Pencil"></option>
+                            <option id="3" value="Ballpen"></option>
+                            <option id="4" value="Scotch Tape"></option>
+                        </datalist> 
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Unit</label>
+                        {{form.delivery_supply_unit}}
+                        <datalist id="deliveryUnit">
+                            <option id="1" value="Box"></option>
+                            <option id="2" value="Bundle"></option>
+                            <option id="3" value="Ream"></option>
+                            <option id="4" value="Pcs"></option>
+                        </datalist> 
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Quantity</label>
+                        {{form.delivery_supply_quantity}}
+                    </div>
+                    
+                    <div class="col-12">
+                        <input type="submit" class="btn" value="Submit">
+                    </div>
             </form>
             
         </div>     
@@ -190,9 +184,8 @@
                 <table id="supplyDeliveryTable" class="display" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Item Name</th>
-                            <th>Unit</th>
                             <th>Description</th>
+                            <th>Unit</th>
                             <th>Quantity</th>
                             <th>Remaining</th>
                             <th>Date & Time</th>
@@ -201,9 +194,8 @@
                     <tbody>
                         {% for x in info %}
                         <tr>
-                            <td>{{x.delivery_supply_itemname}}</td>
-                            <td>{{x.delivery_supply_unit}}</td>
                             <td>{{x.delivery_supply_description}}</td>
+                            <td>{{x.delivery_supply_unit}}</td>
                             <td>{{x.delivery_supply_quantity}}</td>
                             <td>{{x.delivery_supply_remaining}}</td>
                             <td>{{x.current_date}}</td>

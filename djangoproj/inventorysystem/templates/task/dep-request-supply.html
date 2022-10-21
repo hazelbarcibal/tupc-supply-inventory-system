@@ -265,7 +265,6 @@
       <table id="MainStorage" class="stripe cell-border hover" style="width:100%">
           <thead>
               <tr>
-                  <th>Item Name</th>
                   <th>Description</th>
                   <th>Unit</th>
                   <th>Quantity</th>
@@ -275,7 +274,6 @@
           <tbody>
             {% for x in info1 %}
             <tr>
-                <td>{{x.limit_item_name}}</td>
                 <td>{{x.limit_description}}</td>
                 <td>{{x.limit_unit}}</td>
                 <td>{{x.limit_quantity}}</td>
@@ -302,7 +300,6 @@
         <table id="depRequestTable" class="stripe cell-border hover" style="width:100%">
             <thead>
                 <tr>
-                    <th>Item Name</th>
                     <th>Description</th>
                     <th>Unit</th>
                     <th>Quantity</th>
@@ -313,7 +310,6 @@
             <tbody>
               {% for x in info %}
               <tr>
-                  <td>{{x.status_supply_itemname}}</td>
                   <td>{{x.status_supply_description}}</td>
                   <td>{{x.status_supply_unit}}</td>
                   <td>{{x.status_supply_quantity}}</td>
