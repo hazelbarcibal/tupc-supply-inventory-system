@@ -433,10 +433,10 @@ def equipmentDeliver(request):
                     
                     mapping.save()
                     messages.success(request, 'Record created for ' + itemname)
-                    return redirect('inventorysystem-suppliesDeliver')
+                    return redirect('inventorysystem-equipmentDeliver')
             else:
                     messages.info(request, "invalid quantity")
-                    return redirect('inventorysystem-suppliesDeliver')
+                    return redirect('inventorysystem-equipmentDeliver')
 
         elif equipmentmainstorage.objects.filter(ItemName = itemname).exists() == True:
             messages.info(request, 'Itemname: '  + itemname + ' already exist ')
@@ -494,7 +494,12 @@ def updateEquipmentDeliver(request, pk):
 
 #------------------- ADMIN VIEW REQUEST EQUIPMENTS -----------------------------
 def viewRequestEquipment(request):
-    return render(request, 'task/view-request-equipment.html')
+    info = requestequipment.objects.all()
+    context = {
+            'info': info,
+        }
+
+    return render(request, 'task/view-request-equipment.html', context)
 
 def editRequestEquipment(request):
     return render(request, 'task/edit-request-equipment.html')
@@ -502,17 +507,49 @@ def editRequestEquipment(request):
 #------------------- DEPARTMENT REQUEST EQUIPMENTS -----------------------------
 def depRequestEquipment(request):
     info = equipmentmainstorage.objects.all()
-    info1 = statusEquipmentRequest.objects.all()
-
+    info1 = requestequipment.objects.all()
     context = {
         'info': info,
-        'info1': info1
+        'info1': info1,
     }
     return render(request, 'task/dep-request-equipment.html', context)
 
-def editdepRequestEquipment(request):
+def editdepRequestEquipment(request, pk):
+    data = equipmentmainstorage.objects.get(equipmentmainstorage_id=pk)
+    form = depRequestEquipmentForm(request.POST or None, instance=data)
+    if request.method == 'POST':
+        requestID = equipmentmainstorage.objects.get(equipmentmainstorage_id=pk).equipmentmainstorage_id
+        requestqty = request.POST.get('RequestQuantity')
+        if equipmentmainstorage.objects.filter(equipmentmainstorage_id = requestID).exists() == True:
+            getdata3 = equipmentmainstorage.objects.get(equipmentmainstorage_id = requestID)
+            requesting = requestequipment()
+            requesting.requestequipment_id = requestID
+            requesting.request_equipment_itemname = getdata3.ItemName
+            requesting.request_equipment_description = getdata3.Description
+            requesting.request_equipment_brand = getdata3.Brand
+            requesting.request_equipment_quantity = requestqty
+            #requesting.request_equipment_department = getdata3.limit_department
+            requesting.request_equipment_status = "pending"
+            status = statusEquipmentRequest()
+            status.statusEquipmentRequests_id = requestID
+            status.status_equipment_itemname = getdata3.ItemName
+            status.status_equipment_description = getdata3.Description
+            status.status_equipment_brand = getdata3.Brand
+            status.status_equipment_quantity = requestqty
+            status.status_equipment_remaining = getdata3.Quantity
+            #status.status_supply_department = getdata3.limit_department
+            status.status_equipment_status = "pending"
+            requesting.save()
+            status.save()
 
-    return render(request, 'task/edit-dep-request-equipment.html')
+            messages.success(request, 'Requesting completed')
+            return redirect('inventorysystem-depRequestEquipment')
+
+    context = {
+        'data': data,
+        'form': form,
+    }
+    return render(request, 'task/edit-dep-request-equipment.html', context)
 
 #------------------- WITHDRAW EQUIPMENTS -----------------------------
 def equipmentWithdraw(request):

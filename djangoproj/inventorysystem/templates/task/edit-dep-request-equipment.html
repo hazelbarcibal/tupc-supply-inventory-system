@@ -42,6 +42,7 @@
         </div>
     </nav>
 
+
     <div class="home-content container">
         <div class="form-holder">
                 <div class="form-content">
@@ -51,29 +52,33 @@
                             {% csrf_token %}
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Description: </label>
-                                    {{form.}}
+                                    <label>Item name: </label>
+                                    {{form.ItemName}}
                                 </div>
                                 <div class="form-group">
-                                    <label>Unit: </label>
-                                    {{form.}}
+                                    <label>Description: </label>
+                                    {{form.Description}}
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Quantity: </label>
-                                    {{form.}}
+                                    <label>Brand: </label>
+                                    {{form.Brand}}
                                 </div>
                                 <div class="form-group">
-                                    <label>Request Quantity: </label>
-                                    {{form.}}
+                                    <label>Quantity: </label>
+                                    {{form.Quantity}}
                                 </div>  
+                                <div class="form-group">
+                                    <label>Request Quantity: </label>
+                                    {{form.RequestQuantity}}
+                                </div>
                             </div>
                             <br>
 
                             <div class="form-button">
-                                <label></label>
-                                <button style="float: right;" type="submit" class="btn">Request</button>
+                                <input type="submit" class="btn" style="float: right;" value="REQUEST">
+                                
                             </div>
                         </form>
                     </div>

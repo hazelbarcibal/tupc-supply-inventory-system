@@ -160,6 +160,7 @@ class acceptEquipmentRequests(models.Model):
 
     class Meta:
         db_table = ('acceptEquipmentRequests')
+
 class withdrawequipment(models.Model):
 
     withdrawequipment_id = models.AutoField(primary_key=True)

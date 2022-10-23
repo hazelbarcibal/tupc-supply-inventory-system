@@ -7,8 +7,14 @@
 
 <title> Request Equipment</title>
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+<link rel="stylesheet" href=https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css"">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
+
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <style>
     .btn{
         background-color: #ad413a;
@@ -77,13 +83,13 @@
                 </tr>
             </thead>
             <tbody>
-                {% for x in info1 %}
+                {% for x in info %}
                 <tr>
                     <td>{{x.ItemName}}</td>
                     <td>{{x.Description}}</td>
                     <td>{{x.Brand}}</td>
                     <td>{{x.Quantity}}</td>
-                    <td><a class="btn" style="margin-bottom: 10px;" href="">REQUEST</a></td>
+                    <td><a class="btn" style="margin-bottom: 10px;" href="{% url 'inventorysystem-editdepRequestEquipment' x.equipmentmainstorage_id %}">REQUEST</a></td>
                 </tr>
                 </tr>
                 {% endfor %}
@@ -139,7 +145,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for x in info %}
+                {% for x in info1 %}
                 <tr>
                     <td>{{x.request_equipment_itemname}}</td>
                     <td>{{x.request_equipment_description}}</td>
@@ -160,10 +166,25 @@
 
 <br><br><br><br>
 <script>
-        $(document).ready(function () {
-        $('#MainStorage').DataTable();
-        $('#depRequestTable').DataTable();
-    });
+
+    $(document).ready(function() {
+        var table = $('#MainStorage').DataTable( {
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            responsive: true
+        } );
+    } );
+
+    $(document).ready(function() {
+        var table = $('#depRequestTable').DataTable( {
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            responsive: true
+        } );
+    } );
+        
 </script>
     
     

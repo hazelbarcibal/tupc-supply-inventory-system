@@ -27,7 +27,7 @@ urlpatterns = [
     path('edit-request-equipment/', views.editRequestEquipment, name='inventorysystem-editRequestEquipment'),
     path('dep-request-equipment/', views.depRequestEquipment, name='inventorysystem-depRequestEquipment'),
     #PK FOR DEP REQUEST, sa next line lalagyan ng pk
-    path('edit-dep-request-equipment/', views.editdepRequestEquipment, name='inventorysystem-editdepRequestEquipment'),
+    path('edit-dep-request-equipment/<int:pk>/', views.editdepRequestEquipment, name='inventorysystem-editdepRequestEquipment'),
     path('equipment-withdraw/', views.equipmentWithdraw, name='inventorysystem-equipmentWithdraw'),
     #PK FOR EQUIPMENT WITHDRAW, sa next line lalagyan ng pk
     path('createqr-equipment-withdraw/', views.createqrequipmentWithdraw, name='inventorysystem-createqrequipmentWith'),
