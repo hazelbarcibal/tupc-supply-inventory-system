@@ -6,6 +6,7 @@
 {% block content %}
 
 <title> Supplies Withdraw </title>
+<link rel="stylesheet" href="{% static 'css/supply-delivery.css' %}">
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href=https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css"">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
@@ -57,15 +58,6 @@
     background-color: #4d0d09;
   }
 
-  .box{
-    border: solid black 2px;
-    padding: 5px 5px;
-  }
-  
-  div.box {
-    border: solid black 2px;
-    padding: 25px 25px 25px; 
-  }
 </style>
 
 <section class="home-section">
@@ -89,33 +81,33 @@
             style="font-size:13px;color:rgb(255, 255, 255); float:right "> Export Data To Excel</button>
     </form>
 </div>
-<br><br><br>
+<br><br>
         
         <!-- Datatable --> 
     <div class="container">
-        <div class="box">
-            <table id="supplyWithdrawTable" class="stripe cell-border hover" style="width:100%">
+        <div class="kahon">
+            <table id="supplyWithdrawTable" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
                         <th>Department</th>
-                        <th>Description</th>
-                        <th>Unit</th>
-                        <th>Quantity</th>
-                        <th>Remaining</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th style="text-align: center;">Description</th>
+                        <th style="text-align: center;">Unit</th>
+                        <th style="text-align: center;">Quantity</th>
+                        <th style="text-align: center;">Remaining</th>
+                        <th style="text-align: center;">Status</th>
+                        <th style="text-align: center;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for x in info %}
                     <tr>
                         <td>{{x.arequest_supply_department}}</td>
-                        <td>{{x.arequest_supply_description}}</td>
-                        <td>{{x.arequest_supply_unit}}</td>
-                        <td>{{x.arequest_supply_quantity}}</td>
-                        <td>{{x.arequest_supply_remaining}}</td>
-                        <td>{{x.arequest_supply_status}}</td>
-                        <td><a class="btn" style="margin-bottom: 10px;" href="{% url 'inventorysystem-updateSupplyWithdraw' x.acceptSupplyRequests_id %}">WITHDRAW</a></td>
+                        <td align="center">{{x.arequest_supply_description}}</td>
+                        <td align="center">{{x.arequest_supply_unit}}</td>
+                        <td align="center">{{x.arequest_supply_quantity}}</td>
+                        <td align="center">{{x.arequest_supply_remaining}}</td>
+                        <td align="center">{{x.arequest_supply_status}}</td>
+                        <td align="center"><a class="btn" style="margin-bottom: 10px;" href="{% url 'inventorysystem-updateSupplyWithdraw' x.acceptSupplyRequests_id %}">WITHDRAW</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -7,8 +7,14 @@
 
 <title> Equipment Return </title>
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+<link rel="stylesheet" href=https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css"">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
+
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
 <style>
     #result {
@@ -18,19 +24,16 @@
         padding: 20px;
     }
     .btn{
-        color: black;
-        border-radius: 10px;
-        padding: 7px 25px 8px 25px;
+        background-color: #ad413a;
+        border: 1px solid black;
+        color: white;
+        padding: 10px 24px; 
+        cursor: pointer;
         white-space: nowrap;
         transition: 0.3s;
-        letter-spacing: 1px;
         text-transform: uppercase;
-        text-decoration: none;
-        font-size: 13px;
-        font-weight: bolder;
         display: inline-block;
-        border: 2px solid #a7241b;
-        background: transparent;
+
     }
     
     .btn:hover {
@@ -38,6 +41,13 @@
         background: #9c2e26;
         color: white;
     }
+
+    div.kahon {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: whitesmoke;
+    padding: 32px 25px;
+    height: inherit;
+}
 </style>
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
@@ -55,7 +65,7 @@
 
 
 <div class="home-content" align="center">
-    <div style="margin: auto;">
+    <div style="margin: auto;"><br>
         <label style="text-align: center;"><h3>Scanning QR</h3></label>
     </div>
     <div style="margin: auto;">
@@ -73,9 +83,10 @@
 </div>
 
 <br><br>
-<div class="home-content" style=" width: 100%; padding-top: 10px; padding-left: 20px;">
+<div class="container" style=" width: 98%;">
+<div class="kahon">
     <!-- Datatable --> 
-    <table id="returnTable" class="stripe cell-border hover" style="width:100%">
+    <table id="returnTable" class="table table-striped" style="width:100%">
         <thead>
             <tr>
                 <th>ID</th>
@@ -121,11 +132,19 @@
         </tbody>
     </table>
 </div>
+    
+</div>
               
-<br><br><br><br>
+<br><br>
 <script>
-        $(document).ready(function () {
-        $('#returnTable').DataTable();
-    });
+    $(document).ready(function() {
+                var table = $('#returnTable').DataTable( {
+                    rowReorder: {
+                        selector: 'td:nth-child(2)'
+                    },
+                    responsive: true
+                } );
+            } );
+
 </script>
 {% endblock %}

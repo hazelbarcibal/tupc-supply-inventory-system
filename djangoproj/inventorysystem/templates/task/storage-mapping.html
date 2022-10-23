@@ -7,8 +7,14 @@
 
 <title> Storage Mapping </title>
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+<link rel="stylesheet" href=https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css"">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
+
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
 <style>
     .btn{
@@ -32,6 +38,13 @@
         background: #9c2e26;
         color: white;
     }
+
+    div.kahon {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: whitesmoke;
+    padding: 32px 25px;
+    height: inherit;
+}
 </style>
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
@@ -47,41 +60,52 @@
         </div>
     </nav>
 
-<div class="home-content" style="margin: auto; width: 90%;">
+<div class="home-content">
+    <br>
+    <div class="container" style="width: 98%;">
+        <div class="kahon">
+            <table id="mappingTable" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Item Name</th>
+                        <th>Location</th>
+                        <th>Rack No.</th>
+                        <th>Shelf No.</th>
+                        <th>Layer No.</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for x in info %}
+                    <tr>
+                        <td>{{x.Category}}</td>
+                        <td>{{x.ItemName}}</td>
+                        <td>{{x.RackNo}}</td>
+                        <td>{{x.LayerNo}}</td>
+                        <td>{{x.CabinetNo}}</td>
+                        <td>{{x.ShelfNo}}</td>
+                        <td><a href="{% url 'inventorysystem-updateStoragemapping' x.storagemapping_id%}">Update</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
      <!-- Datatable --> 
-     <table id="mappingTable" class="stripe cell-border hover" style="width:100%">
-        <thead>
-            <tr>
-                <th>Category</th>
-                <th>Item Name</th>
-                <th>Location</th>
-                <th>Rack No.</th>
-                <th>Shelf No.</th>
-                <th>Layer No.</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for x in info %}
-            <tr>
-                <td>{{x.Category}}</td>
-                <td>{{x.ItemName}}</td>
-                <td>{{x.RackNo}}</td>
-                <td>{{x.LayerNo}}</td>
-                <td>{{x.CabinetNo}}</td>
-                <td>{{x.ShelfNo}}</td>
-                <td><a href="{% url 'inventorysystem-updateStoragemapping' x.storagemapping_id%}">Update</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+     
 
                   
 <br><br><br><br>
 <script>
-        $(document).ready(function () {
-        $('#mappingTable').DataTable();
-    });
+    $(document).ready(function() {
+                var table = $('#mappingTable').DataTable( {
+                    rowReorder: {
+                        selector: 'td:nth-child(2)'
+                    },
+                    responsive: true
+                } );
+            } );
 </script>
     
 </div>

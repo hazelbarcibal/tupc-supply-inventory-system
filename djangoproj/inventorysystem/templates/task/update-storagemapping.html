@@ -6,7 +6,7 @@
 {% block content %}
 
 <title> Storage Mapping </title>
-<link rel="stylesheet" href="{% static 'css/edit-request-supply.css' %}">
+<link rel="stylesheet" href="{% static 'css/edit-supply-delivery.css' %}">
 
 <style>
     .btn{
@@ -15,7 +15,7 @@
         color: white;
         padding: 10px 24px; 
         cursor: pointer; 
-        float: left; 
+        float: right; 
     }
     
     .btn:hover {
@@ -24,10 +24,12 @@
         color: white;
     }
 
-    .form-center {
-        display:flex;
-        justify-content: center;
+    .form-holder{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        padding: 32px 25px;
+        height: inherit;
     }
+
 </style>
 
 <section class="home-section">
@@ -40,7 +42,53 @@
         </div>
     </nav>
 
-    <br><br><br><br><br>
+    <div class="home-content container">
+        <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h5>Update Storage Mapping</h5>
+                        <form action = "" method = "POST">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Category: </label>
+                                    {{form.Category}}
+                                </div>
+                                <div class="form-group">
+                                    <label>ItemName: </label>
+                                    {{form.ItemName}}
+                                </div>
+                                <div class="form-group">
+                                    <label>Rack: </label>
+                                    {{form.RackNo}}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Layer No: </label>
+                                    {{form.LayerNo}}
+                                </div>
+                                <div class="form-group">
+                                    <label>Cabinet No: </label>
+                                    {{form.CabinetNo}}
+                                </div> 
+                                <div class="form-group">
+                                    <label>Shelf No: </label>
+                                    {{form.ShelfNo}}
+                                </div>  
+                            </div>
+                            <br>
+
+                            <div class="form-button form-center mt-3">
+                                <button id="submit" type="submit" id="btn" class="btn">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <!-- <br><br><br><br><br>
     <div class="container form-center">
                 <div class="form-content">
                     <div class="form-items">
@@ -89,7 +137,7 @@
                         </form>
                     </div>
                 </div>
-    </div>
+    </div> -->
     
 
 

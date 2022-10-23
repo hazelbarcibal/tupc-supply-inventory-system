@@ -48,6 +48,20 @@
     .form-group input{
         border: solid #3E3E3E 1px;
     }
+
+    div.kahon {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: whitesmoke;
+    padding: 32px 25px;
+    height: inherit;
+}
+
+div.kahon-1 {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: whitesmoke;
+    padding: 32px 25px;
+    height: 18em;
+}
 </style>
 
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
@@ -67,12 +81,11 @@
 
 <div class="container home-content">
     <div class="container">
+      <div class="kahon">
         <h4>Mainstorage</h4>
-    </div>
-    <div class="container">
-      <div class="box">
+        <br>
     <!-- Datatable --> 
-        <table id="MainStorage" class="stripe cell-border hover" style="width:100%">
+        <table id="MainStorage" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th>Item Name</th>
@@ -98,42 +111,37 @@
       </div>
     </div>
 
-<br>
+<br><br>
 
 <div class="container">
-    <div class="card">
-        <div class="container">
-            <h4>Request Non Existing Equipment</h4>
-        </div>
-        <br>
-        <form action="" method="POST">
+    <div class="kahon-1">
+        <h4>Request Non Existing Equipment</h4>
+        <form action="" method="POST" class="row g-3">
             {% csrf_token %}
-            <div class="form-row">
-                <div class="form-group col-md-12">
+                <div class="col-md-12">
                     <label>Item Name:</label>
                     <input type="text" name = "" class="form-control" placeholder="Item Name" required>
                 </div>
-                <br>
-                <div class="form-group col-md-12">
+                <div class="col-md-12">
                     <label>Quantity:</label>
                     <input type='text' name = "" class="form-control" placeholder="Quantity" required> 
                 </div>
+                <br>
+            <div class="col-12">
+                <input type="submit" class="btn" value="Submit">
             </div>
-            <br>
-            <button type="submit" class="btn">Request Supply</button>
         </form> 
     </div>     
 </div>
 
 
-<div class="container home-content">
+<div class="home-content">
     <div class="container">
+      <div class="kahon">
         <h4>Request Equipment</h4>
-    </div>
-    <div class="container">
-      <div class="box">
+        <br>
         <!-- Datatable --> 
-        <table id="depRequestTable" class="stripe cell-border hover" style="width:100%">
+        <table id="depRequestTable" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th>Item Name</th>
@@ -188,4 +196,4 @@
 </script>
     
     
-    {% endblock %}
+{% endblock %}

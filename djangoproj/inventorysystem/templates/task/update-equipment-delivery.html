@@ -6,62 +6,24 @@
 {% block content %}
 
 <title> Update Equipment Delivery </title>
-<link rel="stylesheet" href="{% static 'css/edit-request-supply.css' %}">
+<link rel="stylesheet" href="{% static 'css/edit-supply-delivery.css' %}">
 
 <style>
-    .btn1{
-        top: 0;
-        left: 50%;
-        color: black;
-        border-radius: 10px;
-        padding: 7px 25px 8px 25px;
-        white-space: nowrap;
-        transition: 0.3s;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        text-decoration: none;
-        font-family: 'Raleway', sans-serif;
-        font-size: 15px;
-        font-weight: bolder;
-        display: inline-block;
-        border: 2px solid #a7241b;
-        background: transparent;
+    .btn{
+        background-color: #ad413a;
+        border: 1px solid black;
+        color: white;
+        padding: 10px 24px; 
+        cursor: pointer; 
+        float: left; 
+    }
     
-     }
-  
-  .btn1:hover {
+    .btn:hover {
         text-decoration: none;
         background: #9c2e26;
         color: white;
     }
-  .btn{
-        top: 0;
-        left: 50%;
-        color: black;
-        border-radius: 15px;
-        padding: 7px 15px;
-        white-space: nowrap;
-        transition: 0.3s;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: bolder;
-        display: inline-block;
-        border: 2px solid #a7241b;
-        background: transparent;
-    }
-  
-  .btn:hover {
-        text-decoration: none;
-        background: #a7241b;
-        color: white;
-    }
-    .form-holder{
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        padding: 32px 25px;
-        height: inherit;
-    }
+
 
 </style>
 
@@ -110,7 +72,7 @@
 
                             <div class="form-button">
                                 <label></label>
-                                <button style="float: right;" id="submit" type="submit" id="btn1" class="btn">ADD</button>
+                                <button style="float: right;" id="submit" type="submit" id="btn" class="btn">ADD</button>
                             </div>
                         </form>
                     </div>

@@ -6,8 +6,6 @@
 {% block content %}
 
 <title> Equipment Delivery </title>
-<link rel="stylesheet" href="{% static 'css/qr-reader.css' %}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href=https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css"">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
@@ -36,20 +34,13 @@
         color: white;
     }
 
-    div.card {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        padding: 32px 25px;
-        height: inherit;
-    }
+    div.kahon {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: whitesmoke;
+    padding: 32px 25px;
+    height: inherit;
+}
 
-    .box{
-        border: solid black 2px;
-        padding: 5px 5px;
-    }
-    div.box {
-        border: solid black 2px;
-        padding: 25px 25px 25px; 
-    }
 
   .form-group input{
         border: solid #3E3E3E 1px;
@@ -80,6 +71,15 @@
         background-color: #4d0d09;
     }
 
+    .col-md-12 input{
+    border: solid #3E3E3E 1px;
+}
+
+
+.col-md-6 input{
+    border: solid #3E3E3E 1px;
+}
+
 </style>
 
 
@@ -95,30 +95,29 @@
 
 <div class="container home-content">
 
-    <div class="container">
-        <h4>Mainstorage</h4>
-    </div>
     
     <div class="container">
-        <div class="box">
+        <div class="kahon">
+            <h4>Mainstorage</h4>
+            <br>
             <table id="equipMainstorage" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Item Name</th>
-                        <th>Description</th>
-                        <th>Brand</th>
-                        <th>Quantity</th>
-                        <th>Action</th>
+                        <th style="text-align: center;">Item Name</th>
+                        <th style="text-align: center;">Description</th>
+                        <th style="text-align: center;">Brand</th>
+                        <th style="text-align: center;">Quantity</th>
+                        <th style="text-align: center;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for x in info %}
                         <tr>
-                            <td>{{x.ItemName}}</td>
-                            <td>{{x.Description}}</td>
-                            <td>{{x.Brand}}</td>
-                            <td>{{x.Quantity}}</td>
-                            <td><a class="btn" style="margin-bottom: 10px;" href="{% url 'inventorysystem-updateEquipmentDeliver' x.equipmentmainstorage_id %}">UPDATE</a></td>
+                            <td align="center">{{x.ItemName}}</td>
+                            <td align="center">{{x.Description}}</td>
+                            <td align="center">{{x.Brand}}</td>
+                            <td align="center">{{x.Quantity}}</td>
+                            <td align="center"><a class="btn" href="{% url 'inventorysystem-updateEquipmentDeliver' x.equipmentmainstorage_id %}">UPDATE</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -130,7 +129,7 @@
 
     <br><br>
     <div class="container">
-        <div class="card">
+        <div class="kahon">
             <form class="row g-3" action="" method="POST">
                 {% csrf_token %}
                 <div class="col-md-6">
@@ -176,32 +175,32 @@
         </form>
     </div>
 <br><br>
-        <div class="container">
-            <h4>Delivery Record</h4>
-        </div>
+
         
           <div class="container">
-            <div class="box">
+            <div class="kahon">
+                <h4>Delivery Record</h4>
+                <br>
                 <table id="equipmentDeliveryTable" class="display" style="width:100%">
                     <thead>
                         <tr>
-                            <th>Item Name</th>
-                            <th>Description</th>
-                            <th>Brand</th>
-                            <th>Quantity</th>
-                            <th>Remaining</th>
-                            <th>Date & Time</th>
+                            <th style="text-align: center;">Item Name</th>
+                            <th style="text-align: center;">Description</th>
+                            <th style="text-align: center;">Brand</th>
+                            <th style="text-align: center;">Quantity</th>
+                            <th style="text-align: center;">Remaining</th>
+                            <th style="text-align: center;">Date & Time</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for x in info1 %}
                             <tr>
-                                <td>{{x.delivery_equipment_itemname}}</td>
-                                <td>{{x.delivery_equipment_description}}</td>
-                                <td>{{x.delivery_equipment_brand}}</td>
-                                <td>{{x.delivery_equipment_quantity}}</td>
-                                <td>{{x.delivery_equipment_remaining}}</td>
-                                <td>{{x.current_date}}</td>
+                                <td align="center">{{x.delivery_equipment_itemname}}</td>
+                                <td align="center">{{x.delivery_equipment_description}}</td>
+                                <td align="center">{{x.delivery_equipment_brand}}</td>
+                                <td align="center">{{x.delivery_equipment_quantity}}</td>
+                                <td align="center">{{x.delivery_equipment_remaining}}</td>
+                                <td align="center">{{x.current_date}}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

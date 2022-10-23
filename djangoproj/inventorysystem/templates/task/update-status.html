@@ -6,7 +6,7 @@
 {% block content %}
 
 <title> Update Status Supply </title>
-<link rel="stylesheet" href="{% static 'css/edit-request-supply.css' %}">
+<link rel="stylesheet" href="{% static 'css/edit-supply-delivery.css' %}">
 
 <style>
     .btn{
@@ -23,6 +23,16 @@
         background: #9c2e26;
         color: white;
     }
+
+    .form-holder-1{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 32px 25px;
+    width: 45em;
+    position: absolute;
+    top: 7em;
+    left: 12em;
+    background: whitesmoke;
+}
 </style>
 
 <section class="home-section">
@@ -37,7 +47,7 @@
 
     <br><br><br><br><br>
     <div class="container">
-        <div class="form-holder">
+        <div class="form-holder-1">
                 <div class="form-content">
                     <div class="form-items">
                         <h3>Update Status Supply</h3>
@@ -48,15 +58,9 @@
                                     <label>Description: </label>
                                     {{form.limit_description}}
                                 </div>
-                            </div>
-                            <div class="form-row">
                                 <div class="form-group">
                                     <label>Unit: </label>
                                     {{form.limit_unit}}
-                                </div>
-                                <div class="form-group">
-                                    <label>Quantity: </label>
-                                    {{form.limit_quantity}}
                                 </div>
                             </div>
                             <div class="form-row">
@@ -65,9 +69,13 @@
                                     {{form.limit_department}}
                                 </div>
                                 <div class="form-group">
-                                    <label>Add Quantity: </label>
-                                    {{form.limit_addquantity}}
+                                    <label>Quantity: </label>
+                                    {{form.limit_quantity}}
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Add Quantity: </label>
+                                {{form.limit_addquantity}}
                             </div>
 
                             <div class="form-button mt-3">

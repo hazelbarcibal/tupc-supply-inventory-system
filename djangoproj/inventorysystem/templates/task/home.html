@@ -5,7 +5,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'css/template.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new.css' %}">
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <!-- Bootstrap cdn -->
@@ -18,6 +18,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="{% static 'img/TUP LOGO.png'%}" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
    </head>
 <body onload="initClock();">
   <div class="sidebar">
@@ -89,6 +93,8 @@
   </div>
 
   {% block content %} 
+
+
   <section class="home-section">
     <nav>
       <div class="sidebar-button">
@@ -103,76 +109,10 @@
 
     <title> Home </title>
 
-    <div class="home-content" >
+    <div class="home-content" style="width: 95%;">
 
-      <div class="container">
-
-        <div class="row">
-          <div class="col-8">
-            
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-           
-          </div>
-
-          <div class="col-4">
-            <div class="container">
-              <div class="">
-                <a class="weatherwidget-io" href="https://forecast7.com/en/12d88121d77/philippines/" data-label_1="PHILIPPINES" data-label_2="WEATHER" data-theme="fall-leaves" >PHILIPPINES WEATHER</a>
-              <script>
-                !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-              </script>
-              </div>
-              
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-8">
-            
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-           
-          </div>
-
-          <div class="col-4">
+      
+          <!-- <div class="col-4">
             <div class="container">
               <br>
               <div class="">
@@ -193,23 +133,124 @@
               
             </div>
           </div>
+        </div>  -->
+
+
+        <!-- CARDS -->
+        <div class="container">
+          <div class="row">
+            <div class="col-8">
+              <div class="row">
+                <div class="col">
+                  <div class="card card-5">
+                    <div class="card__icon"><i class="fas fa-bolt"></i></div>
+                    <p class="card__exit"><i class="fas fa-times"></i></p>
+                    <h4 class="card__title">Recent No. of Supplies Requests</h4>
+                    <h2 class="card__subtitle">8</h2>
+                    <p class="card__apply">
+                      <a class="card__link" href="#">See More <i class="fas fa-arrow-right"></i></a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="card card-3">
+                    <div class="card__icon"><i class="fas fa-bolt"></i></div>
+                    <p class="card__exit"><i class="fas fa-times"></i></p>
+                    <h4 class="card__title">Recent No. of Supplies Withdrawn</h4>
+                    <h2 class="card__subtitle">4</h2>
+                    <p class="card__apply">
+                      <a class="card__link" href="#">See More <i class="fas fa-arrow-right"></i></a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <div class="card card-3">
+                    <div class="card__icon"><i class="fas fa-bolt"></i></div>
+                    <p class="card__exit"><i class="fas fa-times"></i></p>
+                    <h4 class="card__title">Recent No. of Equipment Requests</h4>
+                    <h2 class="card__subtitle">8</h2>
+                    <p class="card__apply">
+                      <a class="card__link" href="#">See More <i class="fas fa-arrow-right"></i></a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="card card-5">
+                    <div class="card__icon"><i class="fas fa-bolt"></i></div>
+                    <p class="card__exit"><i class="fas fa-times"></i></p>
+                    <h4 class="card__title">Recent No. of Equipment Withdrawn</h4>
+                    <h2 class="card__subtitle">4</h2>
+                    <p class="card__apply">
+                      <a class="card__link" href="#">See More <i class="fas fa-arrow-right"></i></a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            
+
+
+            
+            <div class="col-4">
+              <br>
+              <div class="container">
+
+                <div class="row">
+
+                  <div class="box">
+                    <div class="calendar calendar-first" id="calendar_first">
+                      <div class="calendar_header">
+                          <button class="switch-month switch-left"> <i class="fa fa-chevron-left"></i></button>
+                          <h2></h2>
+                          <button class="switch-month switch-right"> <i class="fa fa-chevron-right"></i></button>
+                      </div>
+                      <div class="calendar_weekdays"></div>
+                      <div class="calendar_content"></div>
+                    </div>
+                  </div>
+                  
+                  
+                </div>
+
+                <br><br>
+                <div class="row">
+
+                  <div class="box-1">
+                    <div class="date">
+                      <span id="dayname">Day</span>,
+                      <span id="month">Month</span>
+                      <span id="daynum">00</span>,
+                      <span id="year">Year</span>
+                    </div>
+                    <div class="time">
+                      <span id="hour">00</span>:
+                      <span id="minutes">00</span>:
+                      <span id="seconds">00</span>
+                      <span id="period">AM</span>
+                    </div>
+                  </div>
+                  
+                  
+                </div>
+
+
+              </div>
+            </div>
+          </div>
         </div>
 
 
-      </div>
+    </div>
 
-      <!--
-      <div class="container">
-        <div class="row">
-       
-        <div class="col-8">
-          <a class="weatherwidget-io" href="https://forecast7.com/en/12d88121d77/philippines/" data-label_1="PHILIPPINES" data-label_2="WEATHER" data-theme="fall-leaves" >PHILIPPINES WEATHER</a>
-          <script>
-            !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-          </script>
-        </div>
+      
      
-        <div class="col-4">
+        <!-- <div class="col-4">
           <div class="datetime">
           <div class="date">
             <span id="dayname">Day</span>,
@@ -224,14 +265,13 @@
             <span id="period">AM</span>
           </div>
         </div>
-        </div>
-      </div>
-      </div>
+        </div> -->
+
       
 
         
 
-      <br><br>
+      <!-- <br><br>
       <div class="overview-boxes">
         <div class="box">
           <div class="right-side">
@@ -278,10 +318,70 @@
           </div>
           <i class='bx'></i>
         </div>
-      </div>
+      </div> -->
   </nav>
 
--->
+
+
+
+<!-- CARDS -->
+
+<!-- <div class="main-container">
+  <div class="heading">
+    <h1 class="heading__title">Gradient Banner Cards</h1>
+
+  </div>
+  <div class="cards">
+    <div class="card card-1">
+      <div class="card__icon"><i class="fas fa-bolt"></i></div>
+      <p class="card__exit"><i class="fas fa-times"></i></p>
+      <h2 class="card__title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+      <p class="card__apply">
+        <a class="card__link" href="#">Apply Now <i class="fas fa-arrow-right"></i></a>
+      </p>
+    </div>
+    <div class="card card-2">
+      <div class="card__icon"><i class="fas fa-bolt"></i></div>
+      <p class="card__exit"><i class="fas fa-times"></i></p>
+      <h2 class="card__title">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h2>
+      <p class="card__apply">
+        <a class="card__link" href="#">Apply Now <i class="fas fa-arrow-right"></i></a>
+      </p>
+    </div>
+    <div class="card card-3">
+      <div class="card__icon"><i class="fas fa-bolt"></i></div>
+      <p class="card__exit"><i class="fas fa-times"></i></p>
+      <h2 class="card__title">Ut enim ad minim veniam.</h2>
+      <p class="card__apply">
+        <a class="card__link" href="#">Apply Now <i class="fas fa-arrow-right"></i></a>
+      </p>
+    </div>
+    <div class="card card-4">
+      <div class="card__icon"><i class="fas fa-bolt"></i></div>
+      <p class="card__exit"><i class="fas fa-times"></i></p>
+      <h2 class="card__title">Quis nostrud exercitation ullamco laboris nisi.</h2>
+      <p class="card__apply">
+        <a class="card__link" href="#">Apply Now <i class="fas fa-arrow-right"></i></a>
+      </p>
+    </div>
+    <div class="card card-5">
+      <div class="card__icon"><i class="fas fa-bolt"></i></div>
+      <p class="card__exit"><i class="fas fa-times"></i></p>
+      <h2 class="card__title">Ut aliquip ex ea commodo consequat. Duis aute irure dolor.</h2>
+      <p class="card__apply">
+        <a class="card__link" href="#">Apply Now <i class="fas fa-arrow-right"></i></a>
+      </p>
+    </div>
+    <div class="card card-1">
+      <div class="card__icon"><i class="fas fa-bolt"></i></div>
+      <p class="card__exit"><i class="fas fa-times"></i></p>
+      <h2 class="card__title">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+      <p class="card__apply">
+        <a class="card__link" href="#">Apply Now <i class="fas fa-arrow-right"></i></a>
+      </p>
+    </div>
+  </div>
+</div> -->
 
 
   <script type="text/javascript">
@@ -354,8 +454,404 @@
   {% endif %}
 {% endfor %}
 
-{% endblock %}
+<script>
+$(document).ready(function () {
+    function c(passed_month, passed_year, calNum) {
+        var calendar = calNum == 0 ? calendars.cal1 : calendars.cal2;
+        makeWeek(calendar.weekline);
+        calendar.datesBody.empty();
+        var calMonthArray = makeMonthArray(passed_month, passed_year);
+        var r = 0;
+        var u = false;
+        while (!u) {
+            if (daysArray[r] == calMonthArray[0].weekday) {
+                u = true
+            } else {
+                calendar.datesBody.append('<div class="blank"></div>');
+                r++;
+            }
+        }
+        for (var cell = 0; cell < 42 - r; cell++) { // 42 date-cells in calendar
+            if (cell >= calMonthArray.length) {
+                calendar.datesBody.append('<div class="blank"></div>');
+            } else {
+                var shownDate = calMonthArray[cell].day;
+                var iter_date = new Date(passed_year, passed_month, shownDate);
+                if (
+                (
+                (shownDate != today.getDate() && passed_month == today.getMonth()) || passed_month != today.getMonth()) && iter_date < today) {
+                    var m = '<div class="past-date">';
+                } else {
+                    var m = checkToday(iter_date) ? '<div class="today">' : "<div>";
+                }
+                calendar.datesBody.append(m + shownDate + "</div>");
+            }
+        }
 
+        var color = "#444444";
+        calendar.calHeader.find("h2").text(i[passed_month] + " " + passed_year);
+        calendar.weekline.find("div").css("color", color);
+        calendar.datesBody.find(".today").css("color", "#87b633");
+
+        // find elements (dates) to be clicked on each time
+        // the calendar is generated
+        var clicked = false;
+        selectDates(selected);
+
+        clickedElement = calendar.datesBody.find('div');
+        clickedElement.on("click", function () {
+            clicked = $(this);
+            var whichCalendar = calendar.name;
+
+            if (firstClick && secondClick) {
+                thirdClicked = getClickedInfo(clicked, calendar);
+                var firstClickDateObj = new Date(firstClicked.year,
+                firstClicked.month,
+                firstClicked.date);
+                var secondClickDateObj = new Date(secondClicked.year,
+                secondClicked.month,
+                secondClicked.date);
+                var thirdClickDateObj = new Date(thirdClicked.year,
+                thirdClicked.month,
+                thirdClicked.date);
+                if (secondClickDateObj > thirdClickDateObj && thirdClickDateObj > firstClickDateObj) {
+                    secondClicked = thirdClicked;
+                    // then choose dates again from the start :)
+                    bothCals.find(".calendar_content").find("div").each(function () {
+                        $(this).removeClass("selected");
+                    });
+                    selected = {};
+                    selected[firstClicked.year] = {};
+                    selected[firstClicked.year][firstClicked.month] = [firstClicked.date];
+                    selected = addChosenDates(firstClicked, secondClicked, selected);
+                } else { // reset clicks
+                    selected = {};
+                    firstClicked = [];
+                    secondClicked = [];
+                    firstClick = false;
+                    secondClick = false;
+                    bothCals.find(".calendar_content").find("div").each(function () {
+                        $(this).removeClass("selected");
+                    });
+                }
+            }
+            if (!firstClick) {
+                firstClick = true;
+                firstClicked = getClickedInfo(clicked, calendar);
+                selected[firstClicked.year] = {};
+                selected[firstClicked.year][firstClicked.month] = [firstClicked.date];
+            } else {
+                secondClick = true;
+                secondClicked = getClickedInfo(clicked, calendar);
+
+                // what if second clicked date is before the first clicked?
+                var firstClickDateObj = new Date(firstClicked.year,
+                firstClicked.month,
+                firstClicked.date);
+                var secondClickDateObj = new Date(secondClicked.year,
+                secondClicked.month,
+                secondClicked.date);
+
+                if (firstClickDateObj > secondClickDateObj) {
+
+                    var cachedClickedInfo = secondClicked;
+                    secondClicked = firstClicked;
+                    firstClicked = cachedClickedInfo;
+                    selected = {};
+                    selected[firstClicked.year] = {};
+                    selected[firstClicked.year][firstClicked.month] = [firstClicked.date];
+
+                } else if (firstClickDateObj.getTime() == secondClickDateObj.getTime()) {
+                    selected = {};
+                    firstClicked = [];
+                    secondClicked = [];
+                    firstClick = false;
+                    secondClick = false;
+                    $(this).removeClass("selected");
+                }
+
+
+                // add between dates to [selected]
+                selected = addChosenDates(firstClicked, secondClicked, selected);
+            }
+            selectDates(selected);
+        });
+
+    }
+
+    function selectDates(selected) {
+        if (!$.isEmptyObject(selected)) {
+            var dateElements1 = datesBody1.find('div');
+            var dateElements2 = datesBody2.find('div');
+
+            function highlightDates(passed_year, passed_month, dateElements) {
+                if (passed_year in selected && passed_month in selected[passed_year]) {
+                    var daysToCompare = selected[passed_year][passed_month];
+                    for (var d in daysToCompare) {
+                        dateElements.each(function (index) {
+                            if (parseInt($(this).text()) == daysToCompare[d]) {
+                                $(this).addClass('selected');
+                            }
+                        });
+                    }
+
+                }
+            }
+
+            highlightDates(year, month, dateElements1);
+            highlightDates(nextYear, nextMonth, dateElements2);
+        }
+    }
+
+    function makeMonthArray(passed_month, passed_year) { // creates Array specifying dates and weekdays
+        var e = [];
+        for (var r = 1; r < getDaysInMonth(passed_year, passed_month) + 1; r++) {
+            e.push({
+                day: r,
+                // Later refactor -- weekday needed only for first week
+                weekday: daysArray[getWeekdayNum(passed_year, passed_month, r)]
+            });
+        }
+        return e;
+    }
+
+    function makeWeek(week) {
+        week.empty();
+        for (var e = 0; e < 7; e++) {
+            week.append("<div>" + daysArray[e].substring(0, 3) + "</div>")
+        }
+    }
+
+    function getDaysInMonth(currentYear, currentMon) {
+        return (new Date(currentYear, currentMon + 1, 0)).getDate();
+    }
+
+    function getWeekdayNum(e, t, n) {
+        return (new Date(e, t, n)).getDay();
+    }
+
+    function checkToday(e) {
+        var todayDate = today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + today.getDate();
+        var checkingDate = e.getFullYear() + '/' + (e.getMonth() + 1) + '/' + e.getDate();
+        return todayDate == checkingDate;
+
+    }
+
+    function getAdjacentMonth(curr_month, curr_year, direction) {
+        var theNextMonth;
+        var theNextYear;
+        if (direction == "next") {
+            theNextMonth = (curr_month + 1) % 12;
+            theNextYear = (curr_month == 11) ? curr_year + 1 : curr_year;
+        } else {
+            theNextMonth = (curr_month == 0) ? 11 : curr_month - 1;
+            theNextYear = (curr_month == 0) ? curr_year - 1 : curr_year;
+        }
+        return [theNextMonth, theNextYear];
+    }
+
+    function b() {
+        today = new Date;
+        year = today.getFullYear();
+        month = today.getMonth();
+        var nextDates = getAdjacentMonth(month, year, "next");
+        nextMonth = nextDates[0];
+        nextYear = nextDates[1];
+    }
+
+    var e = 480;
+
+    var today;
+    var year,
+    month,
+    nextMonth,
+    nextYear;
+
+    var r = [];
+    var i = [
+        "JANUARY",
+        "FEBRUARY",
+        "MARCH",
+        "APRIL",
+        "MAY",
+        "JUNE",
+        "JULY",
+        "AUGUST",
+        "SEPTEMBER",
+        "OCTOBER",
+        "NOVEMBER",
+        "DECEMBER"];
+    var daysArray = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"];
+
+    var cal1 = $("#calendar_first");
+    var calHeader1 = cal1.find(".calendar_header");
+    var weekline1 = cal1.find(".calendar_weekdays");
+    var datesBody1 = cal1.find(".calendar_content");
+
+    var cal2 = $("#calendar_second");
+    var calHeader2 = cal2.find(".calendar_header");
+    var weekline2 = cal2.find(".calendar_weekdays");
+    var datesBody2 = cal2.find(".calendar_content");
+
+    var bothCals = $(".calendar");
+
+    var switchButton = bothCals.find(".calendar_header").find('.switch-month');
+
+    var calendars = {
+        "cal1": {
+            "name": "first",
+                "calHeader": calHeader1,
+                "weekline": weekline1,
+                "datesBody": datesBody1
+        },
+            "cal2": {
+            "name": "second",
+                "calHeader": calHeader2,
+                "weekline": weekline2,
+                "datesBody": datesBody2
+        }
+    }
+
+
+    var clickedElement;
+    var firstClicked,
+    secondClicked,
+    thirdClicked;
+    var firstClick = false;
+    var secondClick = false;
+    var selected = {};
+
+    b();
+    c(month, year, 0);
+    c(nextMonth, nextYear, 1);
+    switchButton.on("click", function () {
+        var clicked = $(this);
+        var generateCalendars = function (e) {
+            var nextDatesFirst = getAdjacentMonth(month, year, e);
+            var nextDatesSecond = getAdjacentMonth(nextMonth, nextYear, e);
+            month = nextDatesFirst[0];
+            year = nextDatesFirst[1];
+            nextMonth = nextDatesSecond[0];
+            nextYear = nextDatesSecond[1];
+
+            c(month, year, 0);
+            c(nextMonth, nextYear, 1);
+        };
+        if (clicked.attr("class").indexOf("left") != -1) {
+            generateCalendars("previous");
+        } else {
+            generateCalendars("next");
+        }
+        clickedElement = bothCals.find(".calendar_content").find("div");
+    });
+
+
+    //  Click picking stuff
+    function getClickedInfo(element, calendar) {
+        var clickedInfo = {};
+        var clickedCalendar,
+        clickedMonth,
+        clickedYear;
+        clickedCalendar = calendar.name;
+        clickedMonth = clickedCalendar == "first" ? month : nextMonth;
+        clickedYear = clickedCalendar == "first" ? year : nextYear;
+        clickedInfo = {
+            "calNum": clickedCalendar,
+                "date": parseInt(element.text()),
+                "month": clickedMonth,
+                "year": clickedYear
+        }
+        return clickedInfo;
+    }
+
+
+    // Finding between dates MADNESS. Needs refactoring and smartening up :)
+    function addChosenDates(firstClicked, secondClicked, selected) {
+        if (secondClicked.date > firstClicked.date || secondClicked.month > firstClicked.month || secondClicked.year > firstClicked.year) {
+
+            var added_year = secondClicked.year;
+            var added_month = secondClicked.month;
+            var added_date = secondClicked.date;
+
+            if (added_year > firstClicked.year) {
+                // first add all dates from all months of Second-Clicked-Year
+                selected[added_year] = {};
+                selected[added_year][added_month] = [];
+                for (var i = 1;
+                i <= secondClicked.date;
+                i++) {
+                    selected[added_year][added_month].push(i);
+                }
+
+                added_month = added_month - 1;
+                while (added_month >= 0) {
+                    selected[added_year][added_month] = [];
+                    for (var i = 1;
+                    i <= getDaysInMonth(added_year, added_month);
+                    i++) {
+                        selected[added_year][added_month].push(i);
+                    }
+                    added_month = added_month - 1;
+                }
+
+                added_year = added_year - 1;
+                added_month = 11; // reset month to Dec because we decreased year
+                added_date = getDaysInMonth(added_year, added_month); // reset date as well
+
+                // Now add all dates from all months of inbetween years
+                while (added_year > firstClicked.year) {
+                    selected[added_year] = {};
+                    for (var i = 0; i < 12; i++) {
+                        selected[added_year][i] = [];
+                        for (var d = 1; d <= getDaysInMonth(added_year, i); d++) {
+                            selected[added_year][i].push(d);
+                        }
+                    }
+                    added_year = added_year - 1;
+                }
+            }
+
+            if (added_month > firstClicked.month) {
+                if (firstClicked.year == secondClicked.year) {
+                    selected[added_year][added_month] = [];
+                    for (var i = 1;
+                    i <= secondClicked.date;
+                    i++) {
+                        selected[added_year][added_month].push(i);
+                    }
+                    added_month = added_month - 1;
+                }
+                while (added_month > firstClicked.month) {
+                    selected[added_year][added_month] = [];
+                    for (var i = 1;
+                    i <= getDaysInMonth(added_year, added_month);
+                    i++) {
+                        selected[added_year][added_month].push(i);
+                    }
+                    added_month = added_month - 1;
+                }
+                added_date = getDaysInMonth(added_year, added_month);
+            }
+
+            for (var i = firstClicked.date + 1;
+            i <= added_date;
+            i++) {
+                selected[added_year][added_month].push(i);
+            }
+        }
+        return selected;
+    }
+});
+</script>
+
+{% endblock %}
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>

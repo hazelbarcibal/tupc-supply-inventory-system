@@ -554,8 +554,10 @@ def editdepRequestEquipment(request, pk):
 #------------------- WITHDRAW EQUIPMENTS -----------------------------
 def equipmentWithdraw(request):
     info = requestequipment.objects.all()
+    info1 = withdrawequipment.objects.all()
     context = {
         'info': info,
+        'info1': info1,
     }
     return render(request, 'task/equipment-withdraw.html', context)
 
