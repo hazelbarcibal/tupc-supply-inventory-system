@@ -501,8 +501,43 @@ def viewRequestEquipment(request):
 
     return render(request, 'task/view-request-equipment.html', context)
 
-def editRequestEquipment(request):
-    return render(request, 'task/edit-request-equipment.html')
+def editRequestEquipment(request, pk):
+    data = requestequipment.objects.get(requestequipment_id=pk)
+    form = equipmentRequestForm(request.POST or None, instance=data)
+    if request.method == 'POST':
+        accept = acceptEquipmentRequests()
+        getdata = requestequipment.objects.get(requestequipment_id=pk).requestequipment_id
+        getdata1 = requestequipment.objects.get(requestequipment_id = getdata)
+        accept.acceptEquipmentRequests_id = getdata
+        accept.arequest_equipment_itemname = getdata1.request_equipment_itemname
+        accept.arequest_equipment_department = getdata1.request_equipment_department
+        accept.arequest_equipment_description = getdata1.request_equipment_description
+        accept.arequest_equipment_brand = getdata1.request_equipment_brand
+        accept.arequest_equipment_quantity = getdata1.request_equipment_quantity
+        accept.arequest_equipment_status = "Ready for pick-up"
+        accept.arequest_equipment_remaining = 0
+        data1 = requestequipment.objects.get(requestequipment_id=pk).requestequipment_id
+        requestequipment.objects.filter(requestequipment_id = data1).delete()       
+        status = statusEquipmentRequest()
+        status.statusEquipmentRequests_id = getdata
+        status.status_equipment_itemname = getdata1.request_equipment_itemname
+        status.status_equipment_description = getdata1.request_equipment_description
+        status.status_equipment_brand = getdata1.request_equipment_brand
+        status.status_equipment_quantity = getdata1.request_equipment_quantity
+        status.status_equipment_department = getdata1.request_equipment_department
+        status.status_equipment_status = "Ready for pick-up"  
+        status.status_equipment_remaining = 0  
+        statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete()  
+        accept.save()
+        status.save()
+        messages.success(request, 'request accepted')
+        return redirect('inventorysystem-viewRequestEquipment')
+
+    context = {
+        'data': data,
+        'form': form,
+    }
+    return render(request, 'task/edit-request-equipment.html', context)
 
 #------------------- DEPARTMENT REQUEST EQUIPMENTS -----------------------------
 def depRequestEquipment(request):
@@ -528,7 +563,7 @@ def editdepRequestEquipment(request, pk):
             requesting.request_equipment_description = getdata3.Description
             requesting.request_equipment_brand = getdata3.Brand
             requesting.request_equipment_quantity = requestqty
-            #requesting.request_equipment_department = getdata3.limit_department
+            requesting.request_equipment_department = str(request.user)
             requesting.request_equipment_status = "pending"
             status = statusEquipmentRequest()
             status.statusEquipmentRequests_id = requestID
@@ -537,7 +572,7 @@ def editdepRequestEquipment(request, pk):
             status.status_equipment_brand = getdata3.Brand
             status.status_equipment_quantity = requestqty
             status.status_equipment_remaining = getdata3.Quantity
-            #status.status_supply_department = getdata3.limit_department
+            status.status_equipment_department = str(request.user)
             status.status_equipment_status = "pending"
             requesting.save()
             status.save()
@@ -553,7 +588,7 @@ def editdepRequestEquipment(request, pk):
 
 #------------------- WITHDRAW EQUIPMENTS -----------------------------
 def equipmentWithdraw(request):
-    info = requestequipment.objects.all()
+    info = acceptEquipmentRequests.objects.all()
     info1 = withdrawequipment.objects.all()
     context = {
         'info': info,

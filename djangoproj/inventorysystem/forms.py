@@ -251,7 +251,7 @@ request_equipment_description = forms.CharField(widget=forms.TextInput(attrs={'c
 request_equipment_brand = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brand'}))
 request_equipment_quantity = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
 request_equipment_department = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
-request_equipment_status = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
+request_equipment_status = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
 current_date = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Date and Time'}))
 
 class equipmentRequestForm(forms.ModelForm):

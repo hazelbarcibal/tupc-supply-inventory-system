@@ -24,7 +24,7 @@ urlpatterns = [
     path('update-equipment-delivery/<int:pk>/', views.updateEquipmentDeliver, name='inventorysystem-updateEquipmentDeliver'),
     path('view-request-equipment/', views.viewRequestEquipment, name='inventorysystem-viewRequestEquipment'),
     #PK FOR VIEW REQUEST, sa next line lalagyan ng pk
-    path('edit-request-equipment/', views.editRequestEquipment, name='inventorysystem-editRequestEquipment'),
+    path('edit-request-equipment/<int:pk>/', views.editRequestEquipment, name='inventorysystem-editRequestEquipment'),
     path('dep-request-equipment/', views.depRequestEquipment, name='inventorysystem-depRequestEquipment'),
     #PK FOR DEP REQUEST, sa next line lalagyan ng pk
     path('edit-dep-request-equipment/<int:pk>/', views.editdepRequestEquipment, name='inventorysystem-editdepRequestEquipment'),

@@ -91,7 +91,6 @@
                     <th>Item Name</th>
                     <th>Description</th>
                     <th>Brand</th>
-                    <th>Unit</th>
                     <th>Quantity</th>
                     <th>Action</th>
                 </tr>
@@ -99,12 +98,11 @@
             <tbody>
                 {% for x in info %}
                 <tr>
-                    <td></td>
-                    <td>{{x.request_equipment_itemname}}</td>
-                    <td>{{x.request_equipment_description}}</td>
-                    <td>{{x.request_equipment_brand}}</td>
-                    <td>{{x.request_equipment_unit}}</td>
-                    <td>{{x.request_equipment_quantity}}</td>
+                    <td>{{x.arequest_equipment_department}}</td>
+                    <td>{{x.arequest_equipment_itemname}}</td>
+                    <td>{{x.arequest_equipment_description}}</td>
+                    <td>{{x.arequest_equipment_brand}}</td>
+                    <td>{{x.arequest_equipment_quantity}}</td>
                     <td><a class="btn" href="">WITHDRAW</a></td>
                 </tr>
                 {% endfor %}
