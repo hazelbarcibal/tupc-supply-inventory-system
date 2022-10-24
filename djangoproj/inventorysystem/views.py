@@ -87,6 +87,7 @@ def suppliesDeliver(request):
                     storageupdate.save()
                     mapping = storagemapping()
                     mapping.Category = "Supply"
+                    mapping.ItemName = description
                     mapping.RackNo = 0
                     mapping.LayerNo = 0
                     mapping.CabinetNo = 0
