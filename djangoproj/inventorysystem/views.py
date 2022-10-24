@@ -587,6 +587,7 @@ def editdepRequestEquipment(request, pk):
     }
     return render(request, 'task/edit-dep-request-equipment.html', context)
 
+
 #------------------- WITHDRAW EQUIPMENTS -----------------------------
 def equipmentWithdraw(request):
     info = acceptEquipmentRequests.objects.all()

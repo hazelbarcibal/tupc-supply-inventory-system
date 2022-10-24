@@ -6,7 +6,7 @@
 {% block content %}
 
 <title> Accept Request Equipment </title>
-<link rel="stylesheet" href="{% static 'css/edit-request-supply.css' %}">
+<link rel="stylesheet" href="{% static 'css/edit-supply-delivery.css' %}">
 
 <style>
     .btn{
@@ -23,6 +23,16 @@
         background: #9c2e26;
         color: white;
     }
+
+    .form-holder{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding: 32px 25px;
+    width: 45em;
+    position: absolute;
+    top: 7em;
+    left: 12em;
+    background: whitesmoke;
+}
 </style>
 
 <section class="home-section">
@@ -41,7 +51,6 @@
                 <div class="form-content">
                     <div class="form-items">
                         <h3>Accept Request Equipment</h3>
-                        <p>Update status below.</p>
                         <form action = "" method = "POST">
                             {% csrf_token %}
                             

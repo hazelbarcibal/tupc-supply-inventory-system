@@ -191,14 +191,21 @@ nav .sidebar-button i{
     background: linear-gradient(90deg, rgba(238,207,174,1) 0%, rgba(148,233,203,1) 71%);
   }
   
+  div.kahon {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: whitesmoke;
+    padding: 32px 25px;
+    height: inherit;
+}
+
   .card {
     margin: 20px;
     padding: 20px;
-    width: 280px;
-    min-height: 300px;
+    width: 240px;
+    min-height: 200px;
     display: grid;
     grid-template-rows: 20px 50px 1fr 50px;
-    border-radius: 10px;
+    border-radius: 18px;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
     transition: all 0.2s;
   }
@@ -213,7 +220,7 @@ nav .sidebar-button i{
   .card__icon {
     position: relative;
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.9);
+    color: #2C3333;
   }
   
   .card__link::after {
@@ -223,12 +230,14 @@ nav .sidebar-button i{
     content: "";
     width: 0%;
     height: 3px;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: #2C3333;
     transition: all 0.5s;
+    
   }
   
   .card__link:hover::after {
     width: 100%;
+    color: #233142;
   }
   
   .card__exit {
@@ -244,13 +253,13 @@ nav .sidebar-button i{
   .card__title {
     grid-row: 3/4;
     font-weight: 400;
-    color: maroon;
+    color: #2C3333;
   }
   
   .card__subtitle {
     grid-row: 3/4;
     font-weight: 500;
-    color: white;
+    color: #2C3333;
   }
 
   .card__apply {
@@ -269,7 +278,8 @@ nav .sidebar-button i{
   }
   
   .card-3 {
-    background: radial-gradient(#76b2fe, #b69efe);
+    background: rgb(100,111,212);
+    background: linear-gradient(180deg, rgba(100,111,212,1) 0%, rgba(219,223,253,1) 100%);
   }
   
   .card-4 {
@@ -277,7 +287,8 @@ nav .sidebar-button i{
   }
   
   .card-5 {
-    background: radial-gradient(#f588d8, #c0a3e5);
+    background: rgb(100,111,212);
+    background: linear-gradient(180deg, rgba(100,111,212,1) 0%, rgba(219,223,253,1) 100%);
   }
   
   /* RESPONSIVE */
@@ -288,6 +299,11 @@ nav .sidebar-button i{
     }
   }
 
+  @media (max-width: 1600px) {
+    .kahon {
+      justify-content: center;
+    }
+  }
 
   
 
@@ -384,16 +400,6 @@ nav .sidebar-button i{
   }
 }
 
-.datetime{
-  color: black !important;
-  background: #F7AE5B !important;
-  width: 300px;
-  height: 112px;
-  padding: 10px 8px;
-  border-radius: 5px;
-  align-items: center;
-
-}
 
 
 .date{
@@ -472,7 +478,7 @@ nav .sidebar-button i{
 .calendar_content div.today {
     font-weight: bold;
     font-size: 14px;
-    color: maroon;
+    color: #2C3333;
     border: 1px solid #6f6f6f;
 }
 .calendar_content div.selected {
@@ -487,7 +493,7 @@ nav .sidebar-button i{
     font-family:'Muli', sans-serif;
     font-weight: 300;
     font-size: 18px;
-    color: maroon;
+    color: #2C3333;
     float:left;
     width:70%;
     margin: 0 0 10px;
@@ -503,7 +509,7 @@ button.switch-month {
     transition: color .2s;
 }
 button.switch-month:hover {
-    color: maroon;
+    color: #2C3333;
 }
 	
 	

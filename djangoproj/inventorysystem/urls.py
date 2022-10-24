@@ -30,7 +30,7 @@ urlpatterns = [
     path('edit-dep-request-equipment/<int:pk>/', views.editdepRequestEquipment, name='inventorysystem-editdepRequestEquipment'),
     path('equipment-withdraw/', views.equipmentWithdraw, name='inventorysystem-equipmentWithdraw'),
     #PK FOR EQUIPMENT WITHDRAW, sa next line lalagyan ng pk
-    path('createqr-equipment-withdraw/', views.createqrequipmentWithdraw, name='inventorysystem-createqrequipmentWith'),
+    path('createqr-equipment-withdraw/', views.createqrequipmentWithdraw, name='inventorysystem-createqrequipmentWithraw'),
     path('equipment-return/', views.equipmentReturn, name='inventorysystem-equipmentReturn'),
 #------------ MAPPING x EXPORT ----------------------
     path('storage-mapping/', views.storageMapping, name='inventorysystem-storageMapping'),
