@@ -144,6 +144,7 @@ class requestequipment(models.Model):
 class acceptEquipmentRequests(models.Model):
 
     acceptEquipmentRequests_id = models.AutoField(primary_key=True)
+    arequest_equipment_property_no = models.DecimalField(max_digits=6, decimal_places=0, max_length=50, verbose_name='arequest_equipment_property_no')
     arequest_equipment_department = models.CharField(max_length=50, verbose_name='arequest_equipment_department')
     arequest_equipment_itemname = models.CharField(max_length=255, verbose_name='arequest_equipment_itemname')
     arequest_equipment_description = models.CharField(max_length=255, verbose_name='arequest_equipment_description')

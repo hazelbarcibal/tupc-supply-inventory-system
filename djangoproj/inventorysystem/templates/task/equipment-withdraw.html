@@ -103,7 +103,7 @@
                     <td>{{x.arequest_equipment_description}}</td>
                     <td>{{x.arequest_equipment_brand}}</td>
                     <td>{{x.arequest_equipment_quantity}}</td>
-                    <td><a class="btn" href="{% url 'inventorysystem-createqrequipmentWithraw' %}">WITHDRAW</a></td>
+                    <td><a class="btn" href="{% url 'inventorysystem-createqrequipmentWithraw' x.acceptEquipmentRequests_id %}">WITHDRAW</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

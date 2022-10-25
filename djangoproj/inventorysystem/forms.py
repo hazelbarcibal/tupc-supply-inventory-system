@@ -9,7 +9,7 @@ class DeptRegisterForm(UserCreationForm):
     username = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Username'}))
     password1 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Password', 'id': 'regpass'}))
     password2 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Retype Password', 'id': 'regpass'}))
-    department = forms.CharField(required=True, widget=forms.TextInput(attrs={'list': 'department', 'placeholder': 'Department', 'pattern': '^[A-Z]+(?:_[A-Z]+)*$', 'autocomplete': 'off'}))
+    department = forms.CharField(required=True, widget=forms.TextInput(attrs={'list': 'department', 'placeholder': 'Department', 'pattern': '^[A-Z]+(?:_[A-Z]+)*$', 'autocomplete': 'on'}))
     
     class Meta:
         model = CustomUser
@@ -252,7 +252,7 @@ request_equipment_brand = forms.CharField(widget=forms.TextInput(attrs={'class':
 request_equipment_quantity = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
 request_equipment_department = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
 request_equipment_status = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
-current_date = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Date and Time'}))
+current_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Date and Time'}))
 
 class equipmentRequestForm(forms.ModelForm):
     
@@ -276,7 +276,7 @@ class equipmentRequestForm(forms.ModelForm):
 # dep request equipment - dep view
 ItemName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item name'}))
 Description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
-BrDescriptionand = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brand'}))
+Brand = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brand'}))
 Quantity = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
 Remaining = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaining'}))
 RequestQuantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'RequestQuantity'}))
@@ -299,22 +299,22 @@ class depRequestEquipmentForm(forms.ModelForm):
         fields = ['ItemName', 'Description', 'Brand', 
                     'Quantity', 'Remaining', 'RequestQuantity']
 
-# withdraw equipment - admin view
-arequest_equipment_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
-arequest_equipment_itemname = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item Name'}))
-arequest_equipment_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
-arequest_equipment_brand = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brand'}))
-arequest_equipment_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
-arequest_equipment_remaining = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaning'}))
-arequest_equipment_status = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
-arequest_equipment_yearacquired = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Year Acquired'}))
-arequest_equipment_issued_to  = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Issued to'}))
-arequest_equipment_model_no = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Model No'}))
-arequest_equipment_serial_no  = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Serial No'}))
-arequest_equipment_certifiedcorrect = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Certified Correct'}))
-current_date = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Date and Time'}))
 
+# withdraw equipment - admin view
 class withdrawEquipmentForm(forms.ModelForm):
+    arequest_equipment_property_no = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Property No', 'min': '0', 'id': 'propertyNo'}))
+    arequest_equipment_itemname = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item Name', 'id': 'itemname'}))
+    arequest_equipment_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description', 'id': 'description'}))
+    arequest_equipment_brand = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brand', 'id': 'brand'}))
+    arequest_equipment_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity', 'min': '0', 'id': 'quantity'}))
+    arequest_equipment_remaining = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaning', 'min': '0', 'id': 'remaining'}))
+    arequest_equipment_status = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Status', 'id': 'status'}))
+    arequest_equipment_yearacquired = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Year Acquired', 'id': 'yrAcquired'}))
+    arequest_equipment_issued_to  = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Issued to', 'list': 'department', 'pattern': '^[A-Z]+(?:_[A-Z]+)*$', 'autocomplete': 'off', 'id': 'issuedTo'}))
+    arequest_equipment_model_no = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Model No', 'min': '0', 'id': 'modelNo'}))
+    arequest_equipment_serial_no  = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Serial No', 'min': '0', 'id': 'serialNo'}))
+    arequest_equipment_certifiedcorrect = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Certified Correct', 'id': 'certified'}))
+    current_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Date and Time', 'id': 'datetime'}))    
     
     def __init__(self, *args, **kwargs):
         super(withdrawEquipmentForm, self).__init__(*args, **kwargs)
@@ -327,6 +327,7 @@ class withdrawEquipmentForm(forms.ModelForm):
             self.fields['arequest_equipment_quantity'].widget.attrs['readonly'] = True
             self.fields['arequest_equipment_remaining'].widget.attrs['readonly'] = True
             self.fields['arequest_equipment_status'].widget.attrs['readonly'] = True
+            self.fields['current_date'].widget.attrs['readonly'] = True
 
 
     class Meta:

@@ -517,6 +517,7 @@ def editRequestEquipment(request, pk):
         accept.arequest_equipment_quantity = getdata1.request_equipment_quantity
         accept.arequest_equipment_status = "Ready for pick-up"
         accept.arequest_equipment_remaining = 0
+        accept.arequest_equipment_property_no = 0
         data1 = requestequipment.objects.get(requestequipment_id=pk).requestequipment_id
         requestequipment.objects.filter(requestequipment_id = data1).delete()       
         status = statusEquipmentRequest()
@@ -598,8 +599,19 @@ def equipmentWithdraw(request):
     }
     return render(request, 'task/equipment-withdraw.html', context)
 
-def createqrequipmentWithdraw(request):
-    return render(request, 'task/createqr-equipment-withdraw.html')
+def createqrequipmentWithdraw(request, pk):
+    data = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk)
+    form = withdrawEquipmentForm(request.POST or None, instance=data)
+    # if request.method == 'POST':
+    #     if form.is_valid:
+    #          form.save()
+
+    context = {
+        'data': data,
+        'form': form,
+    }
+
+    return render(request, 'task/createqr-equipment-withdraw.html', context)
 
 #------------------- RETURN EQUIPMENTS -----------------------------
 def equipmentReturn(request):
