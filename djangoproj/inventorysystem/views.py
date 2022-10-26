@@ -11,8 +11,6 @@ import xlwt
 def home(request):
     return render(request, 'task/home.html')
 
-# def addItem(request):
-#     return render(request, 'task/add-new-item.html')
 
 #--------- LOGIN --------------------
 def deptLogin(request):

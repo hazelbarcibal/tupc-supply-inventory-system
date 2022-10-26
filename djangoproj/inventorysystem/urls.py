@@ -23,13 +23,10 @@ urlpatterns = [
     path('equipment-delivery/', views.equipmentDeliver, name='inventorysystem-equipmentDeliver'),
     path('update-equipment-delivery/<int:pk>/', views.updateEquipmentDeliver, name='inventorysystem-updateEquipmentDeliver'),
     path('view-request-equipment/', views.viewRequestEquipment, name='inventorysystem-viewRequestEquipment'),
-    #PK FOR VIEW REQUEST, sa next line lalagyan ng pk
     path('edit-request-equipment/<int:pk>/', views.editRequestEquipment, name='inventorysystem-editRequestEquipment'),
     path('dep-request-equipment/', views.depRequestEquipment, name='inventorysystem-depRequestEquipment'),
-    #PK FOR DEP REQUEST, sa next line lalagyan ng pk
     path('edit-dep-request-equipment/<int:pk>/', views.editdepRequestEquipment, name='inventorysystem-editdepRequestEquipment'),
     path('equipment-withdraw/', views.equipmentWithdraw, name='inventorysystem-equipmentWithdraw'),
-    #PK FOR EQUIPMENT WITHDRAW, sa next line lalagyan ng pk
     path('createqr-equipment-withdraw/<int:pk>/', views.createqrequipmentWithdraw, name='inventorysystem-createqrequipmentWithraw'),
     path('equipment-return/', views.equipmentReturn, name='inventorysystem-equipmentReturn'),
 #------------ MAPPING x EXPORT ----------------------

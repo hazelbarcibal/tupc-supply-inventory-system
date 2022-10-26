@@ -83,7 +83,7 @@
 
 .home-section{
   position: relative;
-  background: rgb(34,193,195);
+  background: rgb(54, 135, 136);
   background: linear-gradient(125deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
   min-height: 100vh;
   width: calc(100% - 240px);
@@ -260,7 +260,7 @@ nav .sidebar-button i{
   transition: all 0.3s ease;
 }
 .sales-boxes .box .button a:hover{
-  background:  #0d3073;
+  background:  #274784;
 }
 
 /* Right box */

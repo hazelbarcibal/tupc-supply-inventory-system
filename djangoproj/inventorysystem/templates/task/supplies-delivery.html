@@ -36,7 +36,8 @@
 
     <div class="container">
         <div class="kahon">
-            <h4>Mainstorage</h4>
+            <h3 align="center">Mainstorage</h3>
+            <hr>
             <br>
             <table id="mainstorage" class="table table-striped" style="width:100%">
                 <thead>
@@ -49,12 +50,12 @@
                 </thead>
                 <tbody>
                     {% for x in info1 %}
-                    <tr>
+                    <tr class="edittr">
                         <td>{{x.Description}}</td>
                         <td align="center">{{x.Unit}}</td>
                         <td align="center">{{x.Quantity}}</td>
                         <td align="center">
-                            <a class="btn" href="{% url 'inventorysystem-updateSuppliesDeliver' x.supplymainstorage_id %}">
+                            <a class="btn btn-success" href="{% url 'inventorysystem-updateSuppliesDeliver' x.supplymainstorage_id %}">
                                 UPDATE</a>
                         </td>
                     </tr>  
@@ -66,13 +67,13 @@
     <br><br>
     
     <div class="container">
-        <div class="kahon">
-            <h4>New item</h4>
+        <div class="kahon1">
+            <h3>Deliver New item</h3>
             <br>
             <form class="row g-3" action="" method="POST">
                 {% csrf_token %}
                     <div class="col-md-12">
-                        <label class="form-label">Description</label>
+                        <label class="form-label">Description: </label>
                         {{form.delivery_supply_description}}
                         <datalist id="deliveryItemname">
                             <option id="1" value="Bondpaper"></option>
@@ -82,7 +83,7 @@
                         </datalist> 
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Unit</label>
+                        <label class="form-label">Unit: </label>
                         {{form.delivery_supply_unit}}
                         <datalist id="deliveryUnit">
                             <option id="1" value="Box"></option>
@@ -92,18 +93,18 @@
                         </datalist> 
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Quantity</label>
+                        <label class="form-label">Quantity: </label>
                         {{form.delivery_supply_quantity}}
                     </div>
                     
                     <div class="col-12">
-                        <input type="submit" class="btn" value="Submit">
+                        <button type="submit" id="submit" class="btn1" style="float: right;" value="Submit"> Submit </button>
                     </div>
             </form>
             
         </div>     
     </div>
-    <div class= "container home-content btn-group" >
+    <div class= "container home-content btn1-group" >
         <form action="">
             <button class="fa fa-file-pdf-o right" 
                 style="font-size:13px;color:rgb(255, 255, 255)"> Save Data As PDF</button>
@@ -118,7 +119,8 @@
 
           <div class="container">
             <div class="kahon">
-                <h4>Delivery Record</h4>
+                <h3 align="center">Delivery Record</h3>
+                <hr>
                 <br>
                 <table id="supplyDeliveryTable" class="table table-striped" style="width:100%">
                     <thead>
@@ -132,7 +134,7 @@
                     </thead>
                     <tbody>
                         {% for x in info %}
-                        <tr>
+                        <tr class="edittr">
                             <td>{{x.delivery_supply_description}}</td>
                             <td align="center">{{x.delivery_supply_unit}}</td>
                             <td align="center">{{x.delivery_supply_quantity}}</td>

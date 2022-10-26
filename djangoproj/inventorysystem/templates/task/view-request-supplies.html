@@ -6,6 +6,7 @@
 {% block content %}
 
 <title> View Request Supply </title>
+<link rel="stylesheet" href="{% static 'css/supply-delivery.css' %}">
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href=https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css"">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
@@ -15,34 +16,6 @@
 <script src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<style>
-    .btn{
-        background-color: #ad413a;
-        border: 1px solid black;
-        color: white;
-        padding: 10px 24px; 
-        cursor: pointer; 
-        float: left; 
-    }
-    
-    .btn:hover {
-        text-decoration: none;
-        background: #9c2e26;
-        color: white;
-    }
-        
-    .box{
-        border: solid black 2px;
-        padding: 5px 5px;
-    }
-    
-    div.kahon {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background: whitesmoke;
-    padding: 32px 25px;
-    height: inherit;
-}
-</style>
 
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
@@ -64,7 +37,7 @@
 
 <div style="margin: auto; width: 90%;">
     <div align="left" style="padding-bottom: 10px; margin: auto; float: right;">
-        <a type="btn1" href="{% url 'inventorysystem-suppliesWithdraw' %}" class="btn">Withdraw Request</a>
+        <a type="button" href="{% url 'inventorysystem-suppliesWithdraw' %}" class="btn btn-danger">Withdraw Request</a>
     </div>
 </div>
 <br><br><br>
@@ -86,7 +59,7 @@
             </thead>
             <tbody>
                 {% for x in info %}
-                <tr>
+                <tr class="edittr">
                     <td>{{x.request_supply_department}}</td>
                     <td align="center">{{x.request_supply_description}}</td>
                     <td align="center">{{x.request_supply_unit}}</td>

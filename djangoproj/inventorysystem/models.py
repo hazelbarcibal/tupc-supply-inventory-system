@@ -1,9 +1,6 @@
 from email.policy import default
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-#from django.contrib.auth.models import User
-#from django.db.models import Model
-from datetime import datetime    
+from django.contrib.auth.models import AbstractUser  
 from django.utils.timezone import now
 
 
@@ -11,6 +8,7 @@ class CustomUser(AbstractUser):
 
     username = models.CharField(max_length=30, verbose_name='username', unique=True, default='')
     department = models.CharField(max_length=250, verbose_name='department', unique=True, default='')
+    email = models.EmailField(max_length=250, verbose_name='email', unique=True, default='')
     is_department = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -28,7 +26,7 @@ class deliverysupply(models.Model):
     delivery_supply_description = models.CharField(max_length=255, verbose_name='delivery_supply_description')
     delivery_supply_unit = models.CharField(max_length=50, verbose_name='delivery_supply_unit')
     delivery_supply_quantity = models.DecimalField(max_digits=6, decimal_places= 0, verbose_name='delivery_supply_quantity')
-    delivery_supply_remaining = models.CharField(max_length=50, verbose_name='delivery_supply_remaining')
+    delivery_supply_remaining = models.DecimalField(null=True, max_digits=6, decimal_places= 0, verbose_name='delivery_supply_remaining')
     current_date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name= 'delivery_current_date')
 
     class Meta:
@@ -40,7 +38,7 @@ class requestsupply(models.Model):
     request_supply_description = models.CharField(max_length=255, verbose_name='request_supply_description')
     request_supply_unit = models.CharField(max_length=50, verbose_name='request_supply_unit')
     request_supply_quantity = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='request_supply_quantity')
-    request_supply_remaining = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='request_supply_remaining')
+    request_supply_remaining = models.DecimalField(null=True, max_digits=6,decimal_places=0, verbose_name='request_supply_remaining')
     request_supply_department = models.CharField(max_length=50, verbose_name='request_supply_department')
     request_supply_status = models.CharField(max_length=50, verbose_name='request_supply_status')
     current_date = models.DateTimeField(default=now, verbose_name= 'request_current_date')
@@ -56,7 +54,7 @@ class withdrawsupply(models.Model):
     withdraw_supply_description = models.CharField(max_length=255, verbose_name='withdraw_supply_description')
     withdraw_supply_unit = models.CharField(max_length=50, verbose_name='withdraw_supply_unit')
     withdraw_supply_quantity = models.DecimalField(max_digits=6, decimal_places=0, verbose_name='withdraw_supply_quantity')
-    withdraw_supply_remaining = models.CharField(max_length=50, verbose_name='withdraw_supply_remaining')
+    withdraw_supply_remaining = models.DecimalField(null=True, max_digits=6, decimal_places=0, verbose_name='withdraw_supply_remaining')
     current_date = models.DateTimeField(default=now, verbose_name='withdraw_current_date')
     withdraw_supply_status = models.CharField(max_length=50, verbose_name='withdraw_supply_status')
     class Meta:
@@ -69,7 +67,7 @@ class limitrecords(models.Model):
     limit_unit = models.CharField(max_length=50, verbose_name='limit_unit')
     limit_quantity = models.DecimalField(max_digits=6, decimal_places=0, verbose_name='limit_quantity')
     limit_department = models.CharField(max_length=50, verbose_name='limit_department')
-    limit_addquantity = models.CharField(max_length=50, verbose_name='limit_addquantity')
+    limit_addquantity = models.DecimalField(null=True, max_digits=6, decimal_places=0, verbose_name='limit_addquantity')
     class Meta:
         db_table = ('limitrecords')
 
@@ -79,8 +77,8 @@ class supplymainstorage(models.Model):
     Description = models.CharField(max_length=255, verbose_name='Description')
     Unit = models.CharField(max_length=50, verbose_name='Unit')
     Quantity = models.DecimalField(max_digits=50, decimal_places=0, verbose_name='Quantity')
-    Remaining = models.DecimalField(null= True, max_digits=50, decimal_places=0, verbose_name='Remaining')
-    RequestQuantity = models.DecimalField(null= True, max_digits=50, decimal_places=0, verbose_name='RequestQuantity')
+    Remaining = models.DecimalField(max_digits=50, decimal_places=0, verbose_name='Remaining')
+    RequestQuantity = models.DecimalField(null=True, max_digits=50, decimal_places=0, verbose_name='RequestQuantity')
     
     class Meta:
         db_table = "supplymainstorage"
@@ -92,7 +90,7 @@ class acceptSupplyRequests(models.Model):
     arequest_supply_description = models.CharField(max_length=255, verbose_name='arequest_supply_description')
     arequest_supply_unit = models.CharField(max_length=50, verbose_name='arequest_supply_unit')
     arequest_supply_quantity = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='arequest_supply_quantity')
-    arequest_supply_remaining = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='arequest_supply_remaining')
+    arequest_supply_remaining = models.DecimalField(null=True, max_digits=6,decimal_places=0, verbose_name='arequest_supply_remaining')
     arequest_supply_status = models.CharField(max_length=50, verbose_name='arequest_supply_status')
     current_date = models.DateTimeField(default=now, verbose_name= 'arequest_current_date')
 
@@ -106,7 +104,7 @@ class statusSupplyRequest(models.Model):
     status_supply_description = models.CharField(max_length=255, verbose_name='status_supply_description')
     status_supply_unit = models.CharField(max_length=50, verbose_name='status_supply_unit')
     status_supply_quantity = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='status_supply_quantity')
-    status_supply_remaining = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='status_supply_remaining')
+    status_supply_remaining = models.DecimalField(null=True, max_digits=6,decimal_places=0, verbose_name='status_supply_remaining')
     status_supply_status = models.CharField(max_length=50, verbose_name='status_supply_status')
 
     class Meta:
@@ -121,7 +119,7 @@ class deliveryequipment(models.Model):
     delivery_equipment_description = models.CharField(max_length=255, verbose_name='delivery_equipment_description')
     delivery_equipment_brand = models.CharField(max_length=50, verbose_name='delivery_equipment_brand')
     delivery_equipment_quantity = models.DecimalField(max_digits=6, decimal_places= 0, verbose_name='delivery_equipment_quantity')
-    delivery_equipment_remaining = models.CharField(max_length=50, verbose_name='delivery_equipment_remaining')
+    delivery_equipment_remaining = models.DecimalField(null=True, max_digits=6, decimal_places= 0, verbose_name='delivery_equipment_remaining')
     current_date = models.DateTimeField(default=now, editable=False, verbose_name= 'delivery_current_date')
 
     class Meta:
@@ -144,18 +142,18 @@ class requestequipment(models.Model):
 class acceptEquipmentRequests(models.Model):
 
     acceptEquipmentRequests_id = models.AutoField(primary_key=True)
-    arequest_equipment_property_no = models.DecimalField(max_digits=6, decimal_places=0, max_length=50, verbose_name='arequest_equipment_property_no')
+    arequest_equipment_property_no = models.CharField(unique=True, max_length=50, verbose_name='arequest_equipment_property_no')
     arequest_equipment_department = models.CharField(max_length=50, verbose_name='arequest_equipment_department')
     arequest_equipment_itemname = models.CharField(max_length=255, verbose_name='arequest_equipment_itemname')
     arequest_equipment_description = models.CharField(max_length=255, verbose_name='arequest_equipment_description')
     arequest_equipment_brand = models.CharField(max_length=50, verbose_name='arequest_equipment_brand')
     arequest_equipment_quantity = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='arequest_equipment_quantity')
-    arequest_equipment_remaining = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='arequest_equipment_remaining')
+    arequest_equipment_remaining = models.DecimalField(null=True, max_digits=6,decimal_places=0, verbose_name='arequest_equipment_remaining')
     arequest_equipment_status = models.CharField(max_length=50, verbose_name='arequest_equipment_status')
     arequest_equipment_yearacquired = models.CharField(max_length=50, verbose_name='arequest_yearacquired')
     arequest_equipment_issued_to = models.CharField(max_length=50, verbose_name='arequest_equipment_issued_to')
     arequest_equipment_model_no = models.CharField(max_length=50, verbose_name='arequest_equipment_model_no')
-    arequest_equipment_serial_no = models.CharField(max_length=50, verbose_name='arequest_equipment_serial_no')
+    arequest_equipment_serial_no = models.CharField(unique=True, max_length=50, verbose_name='arequest_equipment_serial_no')
     arequest_equipment_certifiedcorrect = models.CharField(max_length=50, verbose_name='arequest_equipment_certifiedcorrect')
     current_date = models.DateTimeField(default=now, verbose_name= 'arequest_current_date')
 
@@ -165,14 +163,14 @@ class acceptEquipmentRequests(models.Model):
 class withdrawequipment(models.Model):
 
     withdrawequipment_id = models.AutoField(primary_key=True)
-    withdraw_equipment_property_no = models.CharField(max_length=50, verbose_name='withdraw_equipment_property_no')
+    withdraw_equipment_property_no = models.CharField(unique=True, max_length=50, verbose_name='withdraw_equipment_property_no')
     withdraw_equipment_itemname = models.CharField(max_length=50, verbose_name='withdraw_equipment_itemname')
     withdraw_equipment_description = models.CharField(max_length=255, verbose_name='withdraw_equipment_description')
     withdraw_equipment_brand = models.CharField(max_length=50, verbose_name='withdraw_equipment_brand')
     withdraw_equipment_yearacquired = models.CharField(max_length=50, verbose_name='withdraw_yearacquired')
     withdraw_equipment_issued_to = models.CharField(max_length=50, verbose_name='withdraw_equipment_issued_to')
     withdraw_equipment_model_no = models.CharField(max_length=50, verbose_name='withdraw_equipment_model_no')
-    withdraw_equipment_serial_no = models.CharField(max_length=50, verbose_name='withdraw_equipment_serial_no')
+    withdraw_equipment_serial_no = models.CharField(unique=True, max_length=50, verbose_name='withdraw_equipment_serial_no')
     withdraw_equipment_certifiedcorrect = models.CharField(max_length=50, verbose_name='withdraw_equipment_certifiedcorrect')
     current_date = models.DateTimeField(default=now, verbose_name='withdraw_current_date')
     
@@ -182,14 +180,14 @@ class withdrawequipment(models.Model):
 class returnequipment(models.Model):
 
     returnequipment_id = models.AutoField(primary_key=True)
-    return_equipment_property_no = models.CharField(max_length=50, verbose_name='return_equipment_property_no')
+    return_equipment_property_no = models.CharField(unique=True, max_length=50, verbose_name='return_equipment_property_no')
     return_equipment_itemname = models.CharField(max_length=50, verbose_name='return_equipment_itemname')
     return_equipment_description = models.CharField(max_length=255, verbose_name='return_equipment_description')
     return_equipment_brand = models.CharField(max_length=50, verbose_name='return_equipment_brand')
     return_equipment_yearacquired = models.CharField(max_length=50, verbose_name='return_yearacquired')
     return_equipment_issued_to = models.CharField(max_length=50, verbose_name='return_equipment_issued_to')
     return_equipment_model_no = models.CharField(max_length=50, verbose_name='return_equipment_model_no')
-    return_equipment_serial_no = models.CharField(max_length=50, verbose_name='return_equipment_serial_no')
+    return_equipment_serial_no = models.CharField(unique=True, max_length=50, verbose_name='return_equipment_serial_no')
     return_equipment_certifiedcorrect = models.CharField(max_length=50, verbose_name='return_equipment_certifiedcorrect')
     return_date = models.DateTimeField(default=now, verbose_name='return_date')
     
@@ -208,7 +206,7 @@ class statusEquipmentRequest(models.Model):
     status_equipment_description = models.CharField(max_length=255, verbose_name='status_equipment_description')
     status_equipment_brand = models.CharField(max_length=50, verbose_name='status_equipment_brand')
     status_equipment_quantity = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='status_equipment_quantity')
-    status_equipment_remaining = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='status_equipment_remaining')
+    status_equipment_remaining = models.DecimalField(null=True, max_digits=6,decimal_places=0, verbose_name='status_equipment_remaining')
     status_equipment_status = models.CharField(max_length=50, verbose_name='status_equipment_status')
 
     class Meta:

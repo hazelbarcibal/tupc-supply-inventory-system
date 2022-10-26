@@ -6,6 +6,7 @@
 {% block content %}
 
 <title> Equipment Withdraw </title>
+<link rel="stylesheet" href="{% static 'css/equipment-delivery.css' %}">
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href=https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css"">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
@@ -16,55 +17,7 @@
 <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
-<style>
-    .btn{
-        background-color: #ad413a;
-        border: 1px solid black;
-        color: white;
-        padding: 10px 24px; 
-        cursor: pointer; 
-        float: left; 
-    }
-    
-    .btn:hover {
-        text-decoration: none;
-        background: #9c2e26;
-        color: white;
-    }
 
-    div.kahon {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background: whitesmoke;
-    padding: 32px 25px;
-    height: inherit;
-}
-
-    .btn-group button {
-        background-color: #ad413a;
-        border: 1px solid black;
-        color: white;
-        padding: 10px 24px; 
-        cursor: pointer; 
-        float: right; 
-    }
-
-    .btn-group button:not(:last-child) {
-        border-right: none; /* Prevent double borders */
-    }
-
-    /* Clear floats (clearfix hack) */
-    .btn-group:after {
-        content: "";
-        clear: both;
-        display: table;
-    }
-
-    /* Add a background color on hover */
-    .btn-group button:hover {
-        background-color: #4d0d09;
-    }
-
-</style>
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/webqr.js' %}"></script>
@@ -82,28 +35,28 @@
     <!-- Datatable --> 
     <div class="container" style="width: 98%;">
         <div class="kahon">
-        <h4>Requests</h4>
+        <h3>Requests</h3>
         <br>
         <table id="equipRequestTable" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th>Department</th>
-                    <th>Item Name</th>
-                    <th>Description</th>
-                    <th>Brand</th>
-                    <th>Quantity</th>
-                    <th>Action</th>
+                    <th style="text-align: center;">Department</th>
+                    <th style="text-align: center;">Item Name</th>
+                    <th style="text-align: center;">Description</th>
+                    <th style="text-align: center;">Brand</th>
+                    <th style="text-align: center;">Quantity</th>
+                    <th style="text-align: center;">Action</th>
                 </tr>
             </thead>
             <tbody>
                 {% for x in info %}
-                <tr>
-                    <td>{{x.arequest_equipment_department}}</td>
-                    <td>{{x.arequest_equipment_itemname}}</td>
-                    <td>{{x.arequest_equipment_description}}</td>
-                    <td>{{x.arequest_equipment_brand}}</td>
-                    <td>{{x.arequest_equipment_quantity}}</td>
-                    <td><a class="btn" href="{% url 'inventorysystem-createqrequipmentWithraw' x.acceptEquipmentRequests_id %}">WITHDRAW</a></td>
+                <tr class="edittr">
+                    <td align="center">{{x.arequest_equipment_department}}</td>
+                    <td align="center">{{x.arequest_equipment_itemname}}</td>
+                    <td align="center">{{x.arequest_equipment_description}}</td>
+                    <td align="center">{{x.arequest_equipment_brand}}</td>
+                    <td align="center">{{x.arequest_equipment_quantity}}</td>
+                    <td align="center"><a class="btn btn-success" href="{% url 'inventorysystem-createqrequipmentWithraw' x.acceptEquipmentRequests_id %}">WITHDRAW</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -113,7 +66,7 @@
 </div>
 
 
-<div class= "container home-content btn-group" >
+<div class= "container home-content btn1-group" >
     <form action="">
         <button class="fa fa-file-pdf-o right" 
             style="font-size:13px;color:rgb(255, 255, 255)"> Save Data As PDF</button>
@@ -128,35 +81,35 @@
     <!-- Datatable --> 
     <div class="container">
         <div class="kahon">
-        <h4>Withdraw Record</h4>
+        <h3>Withdraw Record</h3>
         <br>
         <table id="equipWithdrawTable" class="stripe cell-border hover" style="width:100%">
             <thead>
                 <tr>
-                    <th>Property No.</th>
-                    <th>Item Name</th>
-                    <th>Description</th>
-                    <th>Brand</th>
-                    <th>Year Acquired</th>
-                    <th>Issued To</th>
-                    <th>Model No.</th>
-                    <th>Serial No.</th>
-                    <th>Certified Correct</th>
+                    <th style="text-align: center;">Property No.</th>
+                    <th style="text-align: center;">Item Name</th>
+                    <th style="text-align: center;">Description</th>
+                    <th style="text-align: center;">Brand</th>
+                    <th style="text-align: center;">Year Acquired</th>
+                    <th style="text-align: center;">Issued To</th>
+                    <th style="text-align: center;">Model No.</th>
+                    <th style="text-align: center;">Serial No.</th>
+                    <th style="text-align: center;">Certified Correct</th>
                 </tr>
             </thead>
             
             <tbody>
                 {% for x in info1 %}
-                <tr>
-                    <td>{{x.withdraw_equipment_property_no}}</td>
-                    <td>{{x.withdraw_equipment_itemname}}</td>
-                    <td>{{x.withdraw_equipment_description}}</td>
-                    <td>{{x.withdraw_equipment_brand}}</td>
-                    <td>{{x.withdraw_equipment_yearacquired}}</td>
-                    <td>{{x.withdraw_equipment_issued_to}}</td>
-                    <td>{{x.withdraw_equipment_model_no}}</td>
-                    <td>{{x.withdraw_equipment_serial_no}}</td>
-                    <td>{{x.withdraw_equipment_certifiedcorrect}}</td>
+                <tr class="edittr">
+                    <td align="center">{{x.withdraw_equipment_property_no}}</td>
+                    <td align="center">{{x.withdraw_equipment_itemname}}</td>
+                    <td align="center">{{x.withdraw_equipment_description}}</td>
+                    <td align="center">{{x.withdraw_equipment_brand}}</td>
+                    <td align="center">{{x.withdraw_equipment_yearacquired}}</td>
+                    <td align="center">{{x.withdraw_equipment_issued_to}}</td>
+                    <td align="center">{{x.withdraw_equipment_model_no}}</td>
+                    <td align="center">{{x.withdraw_equipment_serial_no}}</td>
+                    <td align="center">{{x.withdraw_equipment_certifiedcorrect}}</td>
                 </tr>
                 {% endfor %}
             </tbody>

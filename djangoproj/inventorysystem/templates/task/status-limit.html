@@ -17,28 +17,6 @@
 <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
-<style>
-    .btn{
-        background-color: #ad413a;
-        border: 1px solid black;
-        color: white;
-        padding: 10px 24px; 
-        cursor: pointer; 
-        float: left; 
-    }
-    
-    .btn:hover {
-        text-decoration: none;
-        background: #9c2e26;
-        color: white;
-    }
-
-
-    .form-group input{
-        border: solid #3E3E3E 1px;
-    }
-
-</style>
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/webqr.js' %}"></script>
@@ -60,7 +38,8 @@
 <!-- Datatable --> 
     <div class="container" style="width: 98%;">
         <div class="kahon">
-            <h4>Main Storage</h4>
+            <h3 align="center">Main Storage</h3>
+            <hr>
             <br>
             <table id="MainStorage" class="table table-striped" style="width:100%">
                 <thead>
@@ -73,7 +52,7 @@
                 </thead>
                 <tbody>
                     {% for x in info %}
-                    <tr>
+                    <tr class="edittr">
                         <td>{{x.Description}}</td>
                         <td align="center">{{x.Unit}}</td>
                         <td align="center">{{x.Quantity}}</td>
@@ -89,8 +68,8 @@
     <!-- Non Existing Tab -->
 
     <div class="container" style="width: 98%;">
-        <div class="kahon">
-            <h4>Non-existing Item</h4>
+        <div class="kahon1">
+            <h3>Non-existing Item</h3>
             <br>
             <form action="" method="POST" class="row g-3">
                 {% csrf_token %}
@@ -162,7 +141,7 @@
                     </div>
                 
                     <div class="col-12">
-                        <input type="submit" class="btn" value="Submit">
+                        <button type="submit" id="submit" class="btn1" style="float: right;" value="Submit"> Submit </button>
                     </div>
             </form> 
         </div>     
@@ -173,7 +152,8 @@
 <!-- LIMIT PER DEPT DATATABLE --> 
     <div class="container" style="width: 98%;">
         <div class="kahon">
-            <h4>Limit Per Department</h4>
+            <h3 align="center">Limit Per Department</h3>
+            <hr>
             <br>
             <table id="LimitTable" class="table table-striped" style="width:100%">
                 <thead>
@@ -187,7 +167,7 @@
                 </thead>
                 <tbody>
                     {% for x in info1 %}
-                    <tr>
+                    <tr class="edittr">
                         <td>{{x.limit_description}}</td>
                         <td align="center">{{x.limit_unit}}</td>
                         <td align="center">{{x.limit_quantity}}</td>

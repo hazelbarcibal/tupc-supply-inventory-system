@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 class DeptRegisterForm(UserCreationForm):
     username = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Email'}))
     password1 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Password', 'id': 'regpass'}))
     password2 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Retype Password', 'id': 'regpass'}))
     department = forms.CharField(required=True, widget=forms.TextInput(attrs={'list': 'department', 'placeholder': 'Department', 'pattern': '^[A-Z]+(?:_[A-Z]+)*$', 'autocomplete': 'on'}))

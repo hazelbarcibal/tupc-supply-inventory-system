@@ -6,6 +6,7 @@
 {% block content %}
 
 <title> Storage Mapping </title>
+<link rel="stylesheet" href="{% static 'css/equipment-delivery.css' %}">
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href=https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css"">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
@@ -16,36 +17,7 @@
 <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
-<style>
-    .btn{
-        color: black;
-        border-radius: 10px;
-        padding: 7px 25px 8px 25px;
-        white-space: nowrap;
-        transition: 0.3s;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        text-decoration: none;
-        font-size: 13px;
-        font-weight: bolder;
-        display: inline-block;
-        border: 2px solid #a7241b;
-        background: transparent;
-    }
-    
-    .btn:hover {
-        text-decoration: none;
-        background: #9c2e26;
-        color: white;
-    }
 
-    div.kahon {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background: whitesmoke;
-    padding: 32px 25px;
-    height: inherit;
-}
-</style>
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/webqr.js' %}"></script>
@@ -69,23 +41,23 @@
                     <tr>
                         <th>Category</th>
                         <th>Item Name</th>
-                        <th>Location</th>
                         <th>Rack No.</th>
-                        <th>Shelf No.</th>
                         <th>Layer No.</th>
+                        <th>Cabinet No.</th>
+                        <th>Shelf No.</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for x in info %}
-                    <tr>
+                    <tr class="edittr">
                         <td>{{x.Category}}</td>
                         <td>{{x.ItemName}}</td>
                         <td>{{x.RackNo}}</td>
                         <td>{{x.LayerNo}}</td>
                         <td>{{x.CabinetNo}}</td>
                         <td>{{x.ShelfNo}}</td>
-                        <td><a href="{% url 'inventorysystem-updateStoragemapping' x.storagemapping_id%}">Update</a></td>
+                        <td><a class="btn btn-success" href="{% url 'inventorysystem-updateStoragemapping' x.storagemapping_id%}">Update</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

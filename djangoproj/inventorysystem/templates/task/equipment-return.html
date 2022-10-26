@@ -6,6 +6,7 @@
 {% block content %}
 
 <title> Equipment Return </title>
+<link rel="stylesheet" href="{% static 'css/equipment-delivery.css' %}">
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href=https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css"">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
@@ -17,37 +18,15 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
 <style>
-    #result {
+    #returnequipment {
         color: white;
         background-color: #c0d2e4;
         border: 2px solid #0a0a0a;
-        padding: 20px;
-    }
-    .btn{
-        background-color: #ad413a;
-        border: 1px solid black;
-        color: white;
-        padding: 10px 24px; 
-        cursor: pointer;
-        white-space: nowrap;
-        transition: 0.3s;
-        text-transform: uppercase;
-        display: inline-block;
-
-    }
-    
-    .btn:hover {
-        text-decoration: none;
-        background: #9c2e26;
-        color: white;
+        padding: 10px;
+        height: 200px;
+        width: 400px;
     }
 
-    div.kahon {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background: whitesmoke;
-    padding: 32px 25px;
-    height: inherit;
-}
 </style>
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
@@ -71,15 +50,11 @@
     <div style="margin: auto;">
         <label style="text-align: center;"><h5>INFO</h5></label>
     </div>
-    <table class="tsel" border="0" width="100%">
-        <br>
-        <!-- Where cam will appear-->
-        <tr>
-            <div id="result" style="height: 14em; width: 20em;"></div>
-        </tr>
-    </table>
-    <br>
-    <span><button id="btn1" type="button" class="btn">Return</button></span>
+
+    <input type="text" id="returnequipment" name="returnequipment">
+
+    <br><br>
+    <span><button id="" type="button" class="btn btn-danger">Return</button></span>
 </div>
 
 <br><br>
@@ -89,46 +64,33 @@
     <table id="returnTable" class="table table-striped" style="width:100%">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Property No.</th>
-                <th>Item Name</th>
-                <th>Description</th>
-                <th>Brand</th>
-                <th>Year Acquired</th>
-                <th>Issued To</th>
-                <th>Model No.</th>
-                <th>Serial Number</th>
-                <th>Certified Correct</th>
-                <th>Date Return</th>
+                <th style="text-align: center;">Property No.</th>
+                <th style="text-align: center;">Item Name</th>
+                <th style="text-align: center;">Description</th>
+                <th style="text-align: center;">Brand</th>
+                <th style="text-align: center;">Year Acquired</th>
+                <th style="text-align: center;">Issued To</th>
+                <th style="text-align: center;">Model No.</th>
+                <th style="text-align: center;">Serial No.</th>
+                <th style="text-align: center;">Certified Correct</th>
+                <th style="text-align: center;">Date Return</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Marker</td>
-                <td>Black Whiteboard Marker</td>
-                <td>Artline</td>
-                <td>Box</td>
-                <td>45</td>
-                <td>ADAA</td>
-                <td>--</td>
-                <td>Pending</td>
-                <td>--</td>
-                <td>Pending</td>
+            {% for x in info %}
+            <tr class="edittr">
+                <td align="center">{{x.return_equipment_property_no}}</td>
+                <td align="center">{{x.return_equipment_itemname}}</td>
+                <td align="center">{{x.return_equipment_description}}</td>
+                <td align="center">{{x.return_equipment_brand}}</td>
+                <td align="center">{{x.return_equipment_yearacquired}}</td>
+                <td align="center">{{x.return_equipment_issued_to}}</td>
+                <td align="center">{{x.return_equipment_model_no}}</td>
+                <td align="center">{{x.return_equipment_serial_no}}</td>
+                <td align="center">{{x.return_equipment_certifiedcorrect}}</td>
+                <td align="center">{{x.return_date}}</td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>Marker1</td>
-                <td>Black Whiteboard Marker</td>
-                <td>Artline</td>
-                <td>Box</td>
-                <td>45</td>
-                <td>ADAA</td>
-                <td>--</td>
-                <td>Pending</td>
-                <td>--</td>
-                <td>Pending</td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
