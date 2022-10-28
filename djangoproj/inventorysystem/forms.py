@@ -14,7 +14,7 @@ class DeptRegisterForm(UserCreationForm):
     
     class Meta:
         model = CustomUser
-        fields = ['username', 'department', 'password1', 'password2']
+        fields = ['username', 'email', 'department', 'password1', 'password2']
 
 #-------------- DELIVERY SUPPLIES ---------------
 class deliverySupplyForm(forms.ModelForm):
@@ -37,9 +37,14 @@ class deliverySupplyForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Quantity',}))   
 
+    delivery_supply_remaining = forms.DecimalField(required=True,  widget=forms.NumberInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Remaining',}))   
+
     class Meta:
         model = deliverysupply
-        fields = [ 'delivery_supply_description',  'delivery_supply_unit', 'delivery_supply_quantity']
+        fields = [ 'delivery_supply_description',  'delivery_supply_unit', 'delivery_supply_quantity', 'delivery_supply_remaining']
 
 class updateDeliverySupplyForm(forms.ModelForm):
     Description = forms.CharField(required=True, widget=forms.TextInput(
@@ -59,7 +64,7 @@ class updateDeliverySupplyForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Quantity',}))  
 
-    AddQuantity = forms.DecimalField(required=True, widget=forms.NumberInput(
+    RequestQuantity = forms.DecimalField(required=True, widget=forms.NumberInput(
             attrs={
                 'class': 'form-control',
                 'placeholder': 'Quantity',}))  
@@ -74,7 +79,7 @@ class updateDeliverySupplyForm(forms.ModelForm):
 
     class Meta:
         model = supplymainstorage
-        fields = ['Description', 'Unit', 'Quantity', 'Remaining']
+        fields = ['Description', 'Unit', 'Quantity', 'RequestQuantity']
 
 # updatestatuslimit - admin window - limitrecord models
 limit_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))

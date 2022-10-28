@@ -49,21 +49,6 @@
                         <h5> Supply Request </h5>
                         <form action = "" method = "POST">
                             {% csrf_token %}
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Description: </label>
-                                    {{form.limit_description}}
-                                </div>
-                                <div class="form-group">
-                                    <label>Unit: </label>
-                                    {{form.limit_unit}}
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Quantity: </label>
-                                    {{form.limit_quantity}}
-                                </div>
                                 <div class="form-group">
                                     <label>Request Quantity: </label>
                                     {{form.limit_addquantity}}

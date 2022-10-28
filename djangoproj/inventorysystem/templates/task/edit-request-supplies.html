@@ -69,24 +69,14 @@
                                 </div>
                                 
                             </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Remaining in department storage: </label>
-                                    {{form.request_supply_remaining}}
-                                </div>
                                 <div class="form-group">
                                     <label>Date and Time: </label>
                                     {{form.current_date}}
                                 </div>
-                                <div class="form-group">
-                                    <label>Status: </label>
-                                    {{form.request_supply_status}}
-                                </div>
                             </div>
 
                             <div class="form-button mt-3">
-                                <button style="float: right;" id="submit" type="submit" id="btn1" class="btn">Update</button>
+                                <button style="float: right;" id="submit" type="submit" id="btn1" class="btn">Accept Request</button>
                             </div>
                         </form>
                     </div>
@@ -95,6 +85,20 @@
     </div>
 </section>
 
-
+{% for message in messages %}
+{% if message.tags == 'info' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        var m = "{{ message }}";
+        swal("Notice: ", m, "info")
+    </script>
+    {% elif message.tags == 'success' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+    var m = "{{ message }}";
+    swal("Success! ", m, "success")
+    </script>
+{% endif %}
+{% endfor %}
 
 {% endblock %}

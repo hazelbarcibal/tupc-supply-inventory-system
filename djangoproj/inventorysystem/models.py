@@ -77,7 +77,7 @@ class supplymainstorage(models.Model):
     Description = models.CharField(max_length=255, verbose_name='Description')
     Unit = models.CharField(max_length=50, verbose_name='Unit')
     Quantity = models.DecimalField(max_digits=50, decimal_places=0, verbose_name='Quantity')
-    Remaining = models.DecimalField(max_digits=50, decimal_places=0, verbose_name='Remaining')
+    Remaining = models.DecimalField(null=True, max_digits=50, decimal_places=0, verbose_name='Remaining')
     RequestQuantity = models.DecimalField(null=True, max_digits=50, decimal_places=0, verbose_name='RequestQuantity')
     
     class Meta:

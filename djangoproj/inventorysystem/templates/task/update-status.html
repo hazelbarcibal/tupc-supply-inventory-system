@@ -53,26 +53,6 @@
                         <h3>Update Status Supply</h3>
                         <form action = "" method = "POST">
                             {% csrf_token %}
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Description: </label>
-                                    {{form.limit_description}}
-                                </div>
-                                <div class="form-group">
-                                    <label>Unit: </label>
-                                    {{form.limit_unit}}
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Department: </label>
-                                    {{form.limit_department}}
-                                </div>
-                                <div class="form-group">
-                                    <label>Quantity: </label>
-                                    {{form.limit_quantity}}
-                                </div>
-                            </div>
                             <div class="form-group">
                                 <label>Add Quantity: </label>
                                 {{form.limit_addquantity}}
