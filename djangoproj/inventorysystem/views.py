@@ -1,3 +1,4 @@
+from distutils.log import info
 from .forms import *
 from .models import *
 from django.shortcuts import render, redirect, HttpResponse
@@ -651,6 +652,7 @@ def createqrequipmentWithdraw(request, pk):
         accept.withdraw_equipment_certifiedcorrect = request.POST.get('arequest_equipment_certifiedcorrect')
         data1 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk).acceptEquipmentRequests_id
         acceptEquipmentRequests.objects.filter(acceptEquipmentRequests_id = data1).delete()
+
         status = statusEquipmentRequest()
         status.statusEquipmentRequests_id = getdata2
         status.status_equipment_description = getdata5.arequest_equipment_description
@@ -674,6 +676,22 @@ def createqrequipmentWithdraw(request, pk):
 
 #------------------- RETURN EQUIPMENTS -----------------------------
 def equipmentReturn(request):
+    # print(request.POST.get('property'))
+    # num = ''
+    # fetch = ''
+    # if 'returnequipment' in request.GET:
+    #     num = request.GET['returnequipment']
+    #     if num == '':
+    #         messages.info(request, 'Invalid property no.')
+    #         fetch = []
+
+    #     else:
+    #         fetch = withdrawequipment.objects.filter(withdraw_equipment_property_no = num)
+    #         returnequip = returnequipment()
+            
+    #         if info.count() == 0:
+    #             messages.info(request, 'Property number not found. Please try again.')
+
     return render(request, 'task/equipment-return.html')
 
 

@@ -28,9 +28,6 @@
     }
 
 </style>
-<script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/webqr.js' %}"></script>
 
 <section class="home-section">
     <nav>
@@ -51,10 +48,18 @@
         <label style="text-align: center;"><h5>INFO</h5></label>
     </div>
 
-    <input type="text" id="returnequipment" name="returnequipment">
+    <!-- <input type="text" id="returnequipment" name="returnequipment"> -->
+    <form action="" method="post">
+        {% csrf_token %}
+        <textarea rows="4" cols="50" name="returnequipment" id="propertyNum"></textarea>
+        <br>
+        <input type="hidden" name="property" id="property">
+        <br>
+        <span><button onclick="getVal();" id="" type="submit" class="btn btn-danger">Return</button></span>
+    
+    </form>
 
-    <br><br>
-    <span><button id="" type="button" class="btn btn-danger">Return</button></span>
+    
 </div>
 
 <br><br>
@@ -108,5 +113,20 @@
                 } );
             } );
 
+
+    function getVal() {
+        var x = document.getElementById('propertyNum').value;
+        var word = x.split(' ');
+        // let info = x.join(' ');
+        // var z = y.split(' ');
+        var property = document.getElementById('propertyNum').innerHTML = word[2];
+        document.getElementById('property').value = property
+        // alert(word[2]);
+
+    }
 </script>
+
+
+
+
 {% endblock %}
