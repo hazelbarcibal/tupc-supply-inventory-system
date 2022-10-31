@@ -1,4 +1,4 @@
-{% extends 'task/home.html' %}
+{% extends 'task/supplies-delivery.html' %}
 {% load static %}
 
 
@@ -6,9 +6,8 @@
 {% block content %}
 
 <title> Equipment Return </title>
-<link rel="stylesheet" href="{% static 'css/equipment-delivery.css' %}">
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
-<link rel="stylesheet" href=https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css"">
+<link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -25,6 +24,14 @@
         padding: 10px;
         height: 200px;
         width: 400px;
+    }
+
+    h3 {
+        color: whitesmoke;
+    }
+
+    h5{
+        color: whitesmoke;
     }
 
 </style>

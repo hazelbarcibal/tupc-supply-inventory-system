@@ -4,9 +4,6 @@
 
 
 {% block content %}
-<script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/webqr.js' %}"></script>
 
 <title> Withdraw Equipment </title>
 
@@ -62,6 +59,23 @@ position: absolute;
 top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
+}
+
+.col-md-4 input{
+    border: solid #3E3E3E 1.5px;
+}
+
+.col-md-2 input{
+    border: solid #3E3E3E 1.5px;
+}
+
+.col-md-12 input{
+    border: solid #3E3E3E 1.5px;
+}
+
+
+.col-md-6 input{
+    border: solid #3E3E3E 1.5px;
 }
 
 </style>
@@ -128,11 +142,11 @@ transform: translate(-50%, -50%);
                         <label class="form-label">Item Name: </label>
                         {{form.arequest_equipment_itemname}}
                     </div>
-                    <div class="col-4">
+                    <div class="col-md-4">
                         <label class="form-label">Description: </label>
                         {{form.arequest_equipment_description}}
                     </div>
-                    <div class="col-4">
+                    <div class="col-md-4">
                         <label class="form-label">Brand: </label>
                         {{form.arequest_equipment_brand}}
                     </div>

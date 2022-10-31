@@ -83,7 +83,16 @@
 
 .home-section{
   position: relative;
-  background: #739099;
+  /* background: #739099; */
+  background: hsla(356, 76%, 50%, 1);
+
+background: linear-gradient(90deg, hsla(356, 76%, 50%, 1) 0%, hsla(14, 63%, 36%, 1) 100%);
+
+background: -moz-linear-gradient(90deg, hsla(356, 76%, 50%, 1) 0%, hsla(14, 63%, 36%, 1) 100%);
+
+background: -webkit-linear-gradient(90deg, hsla(356, 76%, 50%, 1) 0%, hsla(14, 63%, 36%, 1) 100%);
+
+filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#E01F2D", endColorstr="#943C22", GradientType=1 );
   min-height: 100vh;
   width: calc(100% - 240px);
   left: 240px;
@@ -97,11 +106,11 @@
   display: flex;
   justify-content: space-between;
   height: 80px;
-  background:  #374d67;
+  background:  #eaac8b;
   display: flex;
   align-items: center;
   position: fixed;
-  color: white;
+  color: #2C3333;
   width: calc(100% - 240px);
   left: 240px;
   z-index: 100;
@@ -193,7 +202,15 @@ nav .sidebar-button i{
   
   div.kahon {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background: whitesmoke;
+    background: hsla(233, 100%, 90%, 1);
+
+    background: linear-gradient(90deg, hsla(233, 100%, 90%, 1) 0%, hsla(0, 0%, 89%, 1) 100%);
+    
+    background: -moz-linear-gradient(90deg, hsla(233, 100%, 90%, 1) 0%, hsla(0, 0%, 89%, 1) 100%);
+    
+    background: -webkit-linear-gradient(90deg, hsla(233, 100%, 90%, 1) 0%, hsla(0, 0%, 89%, 1) 100%);
+    
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#CAD0FF", endColorstr="#E3E3E3", GradientType=1 );
     padding: 32px 25px;
     height: inherit;
 }
@@ -287,8 +304,15 @@ nav .sidebar-button i{
   }
   
   .card-5 {
-    background: rgb(100,111,212);
-    background: linear-gradient(180deg, rgba(100,111,212,1) 0%, rgba(219,223,253,1) 100%);
+    background: hsla(233, 100%, 90%, 1);
+
+    background: linear-gradient(90deg, hsla(233, 100%, 90%, 1) 0%, hsla(0, 0%, 89%, 1) 100%);
+    
+    background: -moz-linear-gradient(90deg, hsla(233, 100%, 90%, 1) 0%, hsla(0, 0%, 89%, 1) 100%);
+    
+    background: -webkit-linear-gradient(90deg, hsla(233, 100%, 90%, 1) 0%, hsla(0, 0%, 89%, 1) 100%);
+    
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#CAD0FF", endColorstr="#E3E3E3", GradientType=1 );
   }
   
   /* RESPONSIVE */
@@ -401,7 +425,7 @@ nav .sidebar-button i{
 }
 
 
-
+/* Date time */
 .date{
   font-size: 20px;
   font-weight: 500;
@@ -457,8 +481,9 @@ nav .sidebar-button i{
     overflow: hidden;
     text-align: center;
     background-color: transparent;
-    color: #6f6f6f;
-    font-size: 14px;
+    color: black;
+    font-weight: 100;
+    font-size: 16px;
 }
 .calendar_content div {
     border: 1px solid transparent;
@@ -513,3 +538,11 @@ button.switch-month:hover {
 }
 	
 	
+.col-md-12 input{
+  border: solid #3E3E3E 1.5px;
+}
+
+
+.col-md-6 input{
+  border: solid #3E3E3E 1.5px;
+}
