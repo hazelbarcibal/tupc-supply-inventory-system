@@ -46,7 +46,8 @@
                         <p>Update status below.</p>
                         <form action = "" method = "POST">
                             {% csrf_token %}
-                            
+                            {% for x in info %}
+                            {% for a in info1 %}
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Department: </label>
@@ -67,6 +68,10 @@
                                     <label>Request Quantity: </label>
                                     {{form.request_supply_quantity}}
                                 </div>
+                                <div class="form-group">
+                                    <label>Mainstorage Quantity: </label>
+                                    <label>{{info.Quantity}}</label>
+                                </div>
                                 
                             </div>
                                 <div class="form-group">
@@ -74,6 +79,8 @@
                                     {{form.current_date}}
                                 </div>
                             </div>
+                            {% endfor %}
+                            {% endfor %}
 
                             <div class="form-button mt-3">
                                 <button style="float: right;" id="submit" type="submit" id="btn1" class="btn">Accept Request</button>
