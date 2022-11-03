@@ -147,6 +147,38 @@
       </div>
     </div>
 </div>
+
+
+<div class="container home-content">
+  <!-- Datatable --> 
+  <div class="container">
+    <div class="kahon">
+      <h3 align="center">Withdrawn Supply Item</h3>
+      <hr>
+      <br>
+      <table id="depwithdrawnTable" class="stripe cell-border hover" style="width:100%">
+          <thead>
+              <tr>
+                  <th>Description</th>
+                  <th>Unit</th>
+                  <th>Quantity</th>
+                  <th>Date & Time</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% for x in info2 %}
+            <tr class="edittr">
+                <td>{{x.withdraw_supply_description}}</td>
+                <td>{{x.withdraw_supply_unit}}</td>
+                <td>{{x.withdraw_supply_quantity}}</td>
+                <td>{{x.current_date}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+    </div>
+  </div>
+</div>
         
 
 <br><br><br><br>
@@ -162,6 +194,15 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     var table = $('#depRequestTable').DataTable( {
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        responsive: true
+    } );
+} );
+
+$(document).ready(function() {
+    var table = $('#depwithdrawnTable').DataTable( {
         rowReorder: {
             selector: 'td:nth-child(2)'
         },

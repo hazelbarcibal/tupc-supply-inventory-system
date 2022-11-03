@@ -77,6 +77,10 @@ transform: translate(-50%, -50%);
 .col-md-6 input{
     border: solid #3E3E3E 1.5px;
 }
+label{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+}
 
 </style>
 
@@ -183,7 +187,7 @@ transform: translate(-50%, -50%);
 
                     
                     <div class="col-12">
-                        <button style="float: right;" type="submit" class="btn btn-primary">Withdraw</button>
+                        <button id="submit" style="float: right;" type="submit" class="btn btn-primary">Withdraw</button>
                     </div>
                     <!-- <div class="col-12">
                         <button onclick="create()" type="submit" class="btn btn-primary">Create QR</button>
@@ -191,7 +195,7 @@ transform: translate(-50%, -50%);
                 </form>
                 
                 <div class="row" style="padding-left: 12px; padding-top: 10px;">
-                    <button class="btn1" id="createBtn" onclick="create()">Create QR</button>
+                    <button class="btn1" id="createBtn" onclick="create()" >Create QR</button>
                 </div>
                 
             </div>
@@ -255,8 +259,6 @@ transform: translate(-50%, -50%);
             }
             
     }
-
-
 
 
 </script>

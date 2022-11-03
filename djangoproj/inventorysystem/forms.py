@@ -131,7 +131,8 @@ request_supply_description = forms.CharField(widget=forms.TextInput(attrs={'clas
 request_supply_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
 request_supply_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
 request_supply_remaining= forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaining'}))
-#request_supply_mainstoragequantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
+request_supply_mainstoragequantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Mainstorage Quantity'}))
+request_supply_acceptquantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Accept Quantity'}))
 current_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Date & Time'}))
 request_supply_status = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
 
@@ -146,14 +147,14 @@ class requestSupplyForm(forms.ModelForm):
             self.fields['request_supply_unit'].widget.attrs['readonly'] = True
             self.fields['request_supply_quantity'].widget.attrs['readonly'] = True
             self.fields['request_supply_remaining'].widget.attrs['readonly'] = True
-            #self.fields['request_supply_mainstoragequantity'].widget.attrs['readonly'] = True
+            self.fields['request_supply_mainstoragequantity'].widget.attrs['readonly'] = True
             self.fields['current_date'].widget.attrs['readonly'] = True
 
 
     class Meta:
         model = requestsupply
         fields = ['request_supply_department', 'request_supply_description', 'request_supply_unit', 'request_supply_quantity', 'request_supply_remaining',
-        'current_date', 'request_supply_status']
+        'current_date', 'request_supply_status', 'request_supply_mainstoragequantity', 'request_supply_acceptquantity']
 
 #---------- withdraw supply - admin view ------------
 arequest_supply_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
@@ -261,6 +262,7 @@ request_equipment_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={
 request_equipment_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
 request_equipment_status = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
 request_equipment_mainstoragequantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
+request_equipment_acceptquantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
 current_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Date and Time'}))
 
 class equipmentRequestForm(forms.ModelForm):
@@ -273,6 +275,7 @@ class equipmentRequestForm(forms.ModelForm):
             self.fields['request_equipment_description'].widget.attrs['readonly'] = True
             self.fields['request_equipment_brand'].widget.attrs['readonly'] = True
             self.fields['request_equipment_quantity'].widget.attrs['readonly'] = True
+            self.fields['request_equipment_mainstoragequantity'].widget.attrs['readonly'] = True
             self.fields['request_equipment_department'].widget.attrs['readonly'] = True
             self.fields['current_date'].widget.attrs['readonly'] = True
 
@@ -280,7 +283,8 @@ class equipmentRequestForm(forms.ModelForm):
     class Meta:
         model = requestequipment
         fields = ['request_equipment_itemname', 'request_equipment_description', 'request_equipment_brand', 
-                    'request_equipment_quantity', 'request_equipment_department', 'request_equipment_status', 'request_equipment_mainstoragequantity', 'current_date']
+                    'request_equipment_quantity', 'request_equipment_department', 'request_equipment_status', 
+                    'request_equipment_mainstoragequantity','request_equipment_acceptquantity', 'current_date']
 
 # dep request equipment - dep view
 ItemName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item name'}))

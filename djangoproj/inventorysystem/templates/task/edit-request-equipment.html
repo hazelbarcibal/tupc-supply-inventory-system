@@ -55,10 +55,18 @@
                             {% csrf_token %}
                             
                                 <div class="form-row">
+                                  
                                     <div class="form-group">
                                         <label>Item Name: </label>
                                         {{form.request_equipment_itemname}}
                                     </div>
+                                    <div class="form-group">
+                                        <label>Department: <label>
+                                        {{form.request_equipment_department}}
+                                    </div>
+
+                                </div>
+                                <div class="form-row">
                                     <div class="form-group">
                                         <label>Description: </label>
                                         {{form.request_equipment_description}}
@@ -71,24 +79,22 @@
 
                                 <div class="form-row">
                                     <div class="form-group">
+                                        <label>Mainstorage Quantity: </label>
+                                        {{form.request_equipment_mainstoragequantity}}
+                                    </div>
+                                    <div class="form-group">
                                         <label>Quantity: </label>
                                         {{form.request_equipment_quantity}}
                                     </div>
                                     <div class="form-group">
-                                        <label>Department: <label>
-                                        {{form.request_equipment_department}}
+                                        <label>Accept Quantity: <label>
+                                        {{form.request_equipment_acceptquantity}}
                                     </div>
+
                                 </div>
 
                                 <div class="form-row">
-                                    <div class="form-group">
-                                        <label>Date: </label>
-                                        {{form.current_date}}
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Accept Quantity: <label>
-                                        {{form.request_equipment_mainstoragequantity}}
-                                    </div>
+
                                 </div>
 
                             <div class="form-button mt-3">
