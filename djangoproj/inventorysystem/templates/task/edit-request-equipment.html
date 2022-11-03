@@ -85,10 +85,14 @@
                                         <label>Date: </label>
                                         {{form.current_date}}
                                     </div>
+                                    <div class="form-group">
+                                        <label>Accept Quantity: <label>
+                                        {{form.request_equipment_mainstoragequantity}}
+                                    </div>
                                 </div>
 
                             <div class="form-button mt-3">
-                                <button style="float: right;" id="submit" type="submit" id="btn1" class="btn">Update</button>
+                                <button style="float: right;" id="submit" type="submit" id="btn1" class="btn">Accept</button>
                             </div>
                         </form>
                     </div>
@@ -97,6 +101,7 @@
     </div>
 </section>
 
-
+<br><br>
+<br>
 
 {% endblock %}

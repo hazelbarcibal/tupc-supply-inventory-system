@@ -34,7 +34,7 @@ form{
     grid-template-columns: 15% 85%;
     padding: 0 0.4rem;
     position: relative;
-    border: 2px solid #a7241b;
+    border: 2px solid #000000;
 
 }
 
@@ -89,4 +89,11 @@ background: transparent;
 text-decoration: none;
 background: #9c2e26;
 color: white;
+}
+
+div.kahon {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: rgb(255, 255, 255) !important;
+    padding: 32px 25px;
+    height: inherit;
 }

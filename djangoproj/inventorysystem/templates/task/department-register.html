@@ -21,6 +21,7 @@
     }
 
     img{
+        padding-top: 70px;
         height: 100%;
         width: 100%;
     }
@@ -64,86 +65,90 @@
 
         <div class="container">
             <div class="row">
-                
-                <div class="column">
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <h4 class="title" style="color: whitesmoke;">Department User <br>Registration</h4>
-                        <div class="input-field">
-                            <i class="fas fa-user"></i>
-                            {{form.username}}
-                        </div>
-                        <div class="input-field">
-                            <i class="fas fa-user"></i>
-                            {{form.email}}
-                        </div>
-                        <div class="input-field">
-                            <i class="input-icon fa fa-users"></i>
-                            {{form.department}}
-                            <datalist id="department">
-                                <option id="1" value="OCS_CASHIER_SERVICES"></option>
-                                <option id="2" value="OES_EXTENSION_SERVICES"></option>
-                                <option id="3" value="OGS_GUIDANCE_SERVICES"></option>
-                                <option id="4" value="OHR_HUMAN_RESOURCES"></option>
-                                <option id="5" value="OHS_HEALTH_SERVICES"></option>
-                                <option id="6" value="OIT_INFORMATION_TECHNOLOGY"></option>
-                                <option id="7" value="OSP_JOB_PLACEMENT"></option>
-                                <option id="8" value="OPR_PROCUREMENT"></option>
-                                <option id="9" value="ORE_RESEARCH_AND_EXTENSION"></option>
-                                <option id="10" value="ORS_RESEARCH_SERVICES"></option>
-                                <option id="11" value="OSA_STUDENT_AFFAIRS"></option>
-                                <option id="12" value="OSH_SECURITY_HOUSE"></option>
-                                <option id="13" value="DID_INDUSTRIAL_EDUCATION"></option>
-                                <option id="14" value="DES_ENGINEERING_TECHNOLOGY"></option>
-                                <option id="15" value="DLA_LIBERAL_ARTS"></option>
-                                <option id="16" value="DMS_MATH_AND_SCIENCE"></option>
-                                <option id="17" value="DPECS_PHYSICAL_EDUCATION_CULTURAL_SPORTS"></option>
-                                <option id="18" value="BETEEAP_EXPANDED_TERTIARY_EDUCATION_EQUIVALENCY_AND_ACCREDITATION"></option>
-                                <option id="19" value="GAD_GENDER_AND_DEVELOPMENT"></option>
-                                <option id="20" value="IDO_INFRASTRUCTURE_DEVELOPMENT_OFFICE"></option>
-                                <option id="21" value="NSTP_NATIONAL_SERVICE_TRAINING_PROGRAM"></option>
-                                <option id="22" value="OAA_ACADEMIC_AFFAIRS"></option>
-                                <option id="23" value="OAD_ADMISSION"></option>
-                                <option id="24" value="OAL_ALUMNI"></option>
-                                <option id="25" value="OAS_ADMIN_SERVICES"></option>
-                                <option id="26" value="OAX_AUXILIARY"></option>
-                                <option id="27" value="BA_BIDS_AND_AWARDS"></option>
-                                <option id="28" value="OBD_BUDGET_DEVELOPMENT"></option>
-                                <option id="29" value="OCD_CAMPUS_DIRECTOR"></option>
-                                <option id="30" value="OCL_CAMPUS_LIBRARY"></option>
-                                <option id="31" value="OCP_CAMPUS_PLANNING"></option>
-                                <option id="32" value="OCR_CAMPUS_REGISTRAR"></option>
-                            </datalist> 
-                        </div>
-                        
-                        
-                        <div class="input-field">
-                            <i class="fas fa-lock"></i>
-                            {{form.password1}}
-                        </div>
 
-                        <div class="input-field">
-                            <i class="fas fa-lock"></i>
-                            {{form.password2}}
-                        </div>
-
-                        <div class="col-12" style="text-align: center;">
-                            <input type="checkbox" onclick="myFunction()" class="custom-control-input" id="customControlInline">
-                            <label class="custom-control-label" for="customControlInline">Show password</label>
-                        </div>
-
+                    <div class="column">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <h4 class="title" style="color: rgb(0, 0, 0); 
+                                font-size: 30px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 
+                                'Trebuchet MS', sans-serif; ">Department User Registration</h4>
+                            <div class="input-field">
+                                <i class="fas fa-user"></i>
+                                {{form.username}}
+                            </div>
+                            <div class="input-field">
+                                <i class="fas fa-user"></i>
+                                {{form.email}}
+                            </div>
+                            <div class="input-field">
+                                <i class="input-icon fa fa-users"></i>
+                                {{form.department}}
+                                <datalist id="department">
+                                    <option id="1" value="OCS_CASHIER_SERVICES"></option>
+                                    <option id="2" value="OES_EXTENSION_SERVICES"></option>
+                                    <option id="3" value="OGS_GUIDANCE_SERVICES"></option>
+                                    <option id="4" value="OHR_HUMAN_RESOURCES"></option>
+                                    <option id="5" value="OHS_HEALTH_SERVICES"></option>
+                                    <option id="6" value="OIT_INFORMATION_TECHNOLOGY"></option>
+                                    <option id="7" value="OSP_JOB_PLACEMENT"></option>
+                                    <option id="8" value="OPR_PROCUREMENT"></option>
+                                    <option id="9" value="ORE_RESEARCH_AND_EXTENSION"></option>
+                                    <option id="10" value="ORS_RESEARCH_SERVICES"></option>
+                                    <option id="11" value="OSA_STUDENT_AFFAIRS"></option>
+                                    <option id="12" value="OSH_SECURITY_HOUSE"></option>
+                                    <option id="13" value="DID_INDUSTRIAL_EDUCATION"></option>
+                                    <option id="14" value="DES_ENGINEERING_TECHNOLOGY"></option>
+                                    <option id="15" value="DLA_LIBERAL_ARTS"></option>
+                                    <option id="16" value="DMS_MATH_AND_SCIENCE"></option>
+                                    <option id="17" value="DPECS_PHYSICAL_EDUCATION_CULTURAL_SPORTS"></option>
+                                    <option id="18" value="BETEEAP_EXPANDED_TERTIARY_EDUCATION_EQUIVALENCY_AND_ACCREDITATION"></option>
+                                    <option id="19" value="GAD_GENDER_AND_DEVELOPMENT"></option>
+                                    <option id="20" value="IDO_INFRASTRUCTURE_DEVELOPMENT_OFFICE"></option>
+                                    <option id="21" value="NSTP_NATIONAL_SERVICE_TRAINING_PROGRAM"></option>
+                                    <option id="22" value="OAA_ACADEMIC_AFFAIRS"></option>
+                                    <option id="23" value="OAD_ADMISSION"></option>
+                                    <option id="24" value="OAL_ALUMNI"></option>
+                                    <option id="25" value="OAS_ADMIN_SERVICES"></option>
+                                    <option id="26" value="OAX_AUXILIARY"></option>
+                                    <option id="27" value="BA_BIDS_AND_AWARDS"></option>
+                                    <option id="28" value="OBD_BUDGET_DEVELOPMENT"></option>
+                                    <option id="29" value="OCD_CAMPUS_DIRECTOR"></option>
+                                    <option id="30" value="OCL_CAMPUS_LIBRARY"></option>
+                                    <option id="31" value="OCP_CAMPUS_PLANNING"></option>
+                                    <option id="32" value="OCR_CAMPUS_REGISTRAR"></option>
+                                </datalist> 
+                            </div>
                             
-                        <br>
-                        <input type="submit" class="btn" value="Register">
                             
-                    </form>
-                </div>
+                            <div class="input-field">
+                                <i class="fas fa-lock"></i>
+                                {{form.password1}}
+                            </div>
 
-                <div class="column">
-                    <div class="container" align="center">
-                        <img src="{% static 'img/add-user.svg' %}" alt="add-user" >
+                            <div class="input-field">
+                                <i class="fas fa-lock"></i>
+                                {{form.password2}}
+                            </div>
+
+                            <div class="col-12" style="text-align: center;">
+                                <input type="checkbox" onclick="myFunction()" class="custom-control-input" id="customControlInline">
+                                <label class="custom-control-label" for="customControlInline">Show password</label>
+                            </div>
+
+                                
+                            <br>
+                            <input type="submit" class="btn" value="Register">
+                                
+                        </form>
                     </div>
-                </div>
+
+
+                    <div class="column">
+                        <div class="container" align="center">
+                            <img src="{% static 'img/add-user.svg' %}" alt="add-user" >
+                        </div>
+                    </div>
+
 
             </div>
         </div>

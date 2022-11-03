@@ -6,7 +6,7 @@
 {% block content %}
 
 <title> Status Limit </title>
-<link rel="stylesheet" href="{% static 'css/new.css' %}">
+<link rel="stylesheet" href="{% static 'css/supply-delivery.css' %}">
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
@@ -223,7 +223,7 @@
                         <td align="center">{{x.limit_unit}}</td>
                         <td align="center">{{x.limit_quantity}}</td>
                         <td align="center">{{x.limit_department}}</td>
-                        <td align="center"><a class="btn" href="{% url 'inventorysystem-updateStatus' x.limit_id %}">UPDATE</a></td>
+                        <td align="center"><a class="btn btn-success" href="{% url 'inventorysystem-updateStatus' x.limit_id %}">UPDATE</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

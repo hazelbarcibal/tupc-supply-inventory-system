@@ -76,7 +76,10 @@
   
   .home-section{
     position: relative;
-    background: #f8f8f8;
+    background: #B9D1D9;
+
+    
+    
     min-height: 100vh;
     width: calc(100% - 240px);
     left: 240px;
@@ -94,7 +97,7 @@
     display: flex;
     align-items: center;
     position: fixed;
-    color: white;
+    color:rgb(255, 255, 255);
     width: calc(100% - 240px);
     left: 240px;
     z-index: 100;
@@ -235,7 +238,7 @@
 
 div.kahon {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background: rgb(218, 237, 251);
+    background: rgb(255, 255, 255);
     padding: 32px 25px;
     height: inherit;
 }
@@ -290,7 +293,7 @@ label{
   font-weight: bold;
 }
 tr.edittr:hover{
-  background-color: #f8f8f8 !important;
+  background-color: rgb(109, 192, 252) !important;
 }
 input{
   background-color: #f8f8f8 !important;

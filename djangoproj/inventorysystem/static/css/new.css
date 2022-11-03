@@ -84,13 +84,13 @@
 .home-section{
   position: relative;
   /* background: #739099; */
-  background: hsla(356, 76%, 50%, 1);
+  background: #B9D1D9;
 
-background: linear-gradient(90deg, hsla(356, 76%, 50%, 1) 0%, hsla(14, 63%, 36%, 1) 100%);
+/*background: linear-gradient(90deg, #B9D1D9 0%, hsla(14, 63%, 36%, 1) 100%); */
 
-background: -moz-linear-gradient(90deg, hsla(356, 76%, 50%, 1) 0%, hsla(14, 63%, 36%, 1) 100%);
+/*background: -moz-linear-gradient(90deg, #B9D1D9 0%, hsla(14, 63%, 36%, 1) 100%); */
 
-background: -webkit-linear-gradient(90deg, hsla(356, 76%, 50%, 1) 0%, hsla(14, 63%, 36%, 1) 100%);
+/*background: -webkit-linear-gradient(90deg, #B9D1D9 0%, hsla(14, 63%, 36%, 1) 100%); */
 
 filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#E01F2D", endColorstr="#943C22", GradientType=1 );
   min-height: 100vh;
@@ -106,11 +106,11 @@ filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#E01F2D", en
   display: flex;
   justify-content: space-between;
   height: 80px;
-  background:  #eaac8b;
+  background: #374d67;
   display: flex;
   align-items: center;
   position: fixed;
-  color: #2C3333;
+  color: #ffffff;
   width: calc(100% - 240px);
   left: 240px;
   z-index: 100;
@@ -204,11 +204,11 @@ nav .sidebar-button i{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background: hsla(233, 100%, 90%, 1);
 
-    background: linear-gradient(90deg, hsla(233, 100%, 90%, 1) 0%, hsla(0, 0%, 89%, 1) 100%);
+    background: linear-gradient(90deg, rgb(205, 210, 250) 0%, hsla(0, 0%, 89%, 1) 100%);
     
-    background: -moz-linear-gradient(90deg, hsla(233, 100%, 90%, 1) 0%, hsla(0, 0%, 89%, 1) 100%);
+    background: -moz-linear-gradient(90deg, rgb(205, 210, 250) 0%, hsla(0, 0%, 89%, 1) 100%);
     
-    background: -webkit-linear-gradient(90deg, hsla(233, 100%, 90%, 1) 0%, hsla(0, 0%, 89%, 1) 100%);
+    background: -webkit-linear-gradient(90deg, rgb(205, 210, 250) 0%, hsla(0, 0%, 89%, 1) 100%);
     
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#CAD0FF", endColorstr="#E3E3E3", GradientType=1 );
     padding: 32px 25px;
@@ -304,13 +304,13 @@ nav .sidebar-button i{
   }
   
   .card-5 {
-    background: hsla(233, 100%, 90%, 1);
+    background: rgb(152, 163, 252);
 
-    background: linear-gradient(90deg, hsla(233, 100%, 90%, 1) 0%, hsla(0, 0%, 89%, 1) 100%);
+    background: linear-gradient(90deg, rgb(70, 84, 188) 0%, hsla(0, 0%, 89%, 1) 100%);
     
-    background: -moz-linear-gradient(90deg, hsla(233, 100%, 90%, 1) 0%, hsla(0, 0%, 89%, 1) 100%);
+    background: -moz-linear-gradient(90deg, rgb(70, 84, 188) 0%, hsla(0, 0%, 89%, 1) 100%);
     
-    background: -webkit-linear-gradient(90deg, hsla(233, 100%, 90%, 1) 0%, hsla(0, 0%, 89%, 1) 100%);
+    background: -webkit-linear-gradient(90deg, rgb(70, 84, 188) 0%, hsla(0, 0%, 89%, 1) 100%);
     
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#CAD0FF", endColorstr="#E3E3E3", GradientType=1 );
   }

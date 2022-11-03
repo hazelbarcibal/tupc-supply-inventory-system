@@ -84,8 +84,8 @@ class updateDeliverySupplyForm(forms.ModelForm):
 # updatestatuslimit - admin window - limitrecord models
 limit_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
 limit_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
-limit_quantity = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
-limit_department = forms.DecimalField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
+limit_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
+limit_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
 limit_addquantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Add Quantity'}))
 
 class statusForm(forms.ModelForm):
@@ -109,7 +109,7 @@ class statusForm(forms.ModelForm):
 # supply request - admin window - mainstorage models
 limit_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
 limit_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
-limit_quantity = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
+limit_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
 limit_addquantity= forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Add Quantity'}))
 class depRequestSupplyForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -131,6 +131,7 @@ request_supply_description = forms.CharField(widget=forms.TextInput(attrs={'clas
 request_supply_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
 request_supply_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
 request_supply_remaining= forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaining'}))
+#request_supply_mainstoragequantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
 current_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Date & Time'}))
 request_supply_status = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
 
@@ -145,6 +146,7 @@ class requestSupplyForm(forms.ModelForm):
             self.fields['request_supply_unit'].widget.attrs['readonly'] = True
             self.fields['request_supply_quantity'].widget.attrs['readonly'] = True
             self.fields['request_supply_remaining'].widget.attrs['readonly'] = True
+            #self.fields['request_supply_mainstoragequantity'].widget.attrs['readonly'] = True
             self.fields['current_date'].widget.attrs['readonly'] = True
 
 
@@ -255,9 +257,10 @@ class updateEquipmentSupplyForm(forms.ModelForm):
 request_equipment_itemname = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item name'}))
 request_equipment_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
 request_equipment_brand = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brand'}))
-request_equipment_quantity = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
-request_equipment_department = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
-request_equipment_status = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
+request_equipment_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
+request_equipment_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
+request_equipment_status = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
+request_equipment_mainstoragequantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
 current_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Date and Time'}))
 
 class equipmentRequestForm(forms.ModelForm):
@@ -277,13 +280,13 @@ class equipmentRequestForm(forms.ModelForm):
     class Meta:
         model = requestequipment
         fields = ['request_equipment_itemname', 'request_equipment_description', 'request_equipment_brand', 
-                    'request_equipment_quantity', 'request_equipment_department', 'request_equipment_status', 'current_date']
+                    'request_equipment_quantity', 'request_equipment_department', 'request_equipment_status', 'request_equipment_mainstoragequantity', 'current_date']
 
 # dep request equipment - dep view
 ItemName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item name'}))
 Description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
 Brand = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brand'}))
-Quantity = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
+Quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
 Remaining = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaining'}))
 RequestQuantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'RequestQuantity'}))
 
@@ -308,7 +311,7 @@ class depRequestEquipmentForm(forms.ModelForm):
 
 # withdraw equipment - admin view
 class withdrawEquipmentForm(forms.ModelForm):
-    arequest_equipment_property_no = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Property No', 'min': '0', 'id': 'propertyNo'}))
+    arequest_equipment_property_no = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Property No', 'min': '0', 'id': 'propertyNo'}))
     arequest_equipment_itemname = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item Name', 'id': 'itemname'}))
     arequest_equipment_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description', 'id': 'description'}))
     arequest_equipment_brand = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brand', 'id': 'brand'}))
@@ -317,8 +320,8 @@ class withdrawEquipmentForm(forms.ModelForm):
     arequest_equipment_status = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Status', 'id': 'status'}))
     arequest_equipment_yearacquired = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Year Acquired', 'id': 'yrAcquired'}))
     arequest_equipment_issued_to  = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Issued to', 'list': 'department', 'pattern': '^[A-Z]+(?:_[A-Z]+)*$', 'autocomplete': 'off', 'id': 'issuedTo'}))
-    arequest_equipment_model_no = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Model No', 'min': '0', 'id': 'modelNo'}))
-    arequest_equipment_serial_no  = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Serial No', 'min': '0', 'id': 'serialNo'}))
+    arequest_equipment_model_no = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Model No', 'min': '0', 'id': 'modelNo'}))
+    arequest_equipment_serial_no  = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Serial No', 'min': '0', 'id': 'serialNo'}))
     arequest_equipment_certifiedcorrect = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Certified Correct', 'id': 'certified'}))
     current_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Date and Time', 'id': 'datetime'}))    
     
@@ -346,9 +349,9 @@ class withdrawEquipmentForm(forms.ModelForm):
 # updatestorage - admin window - storagemapping models
 Category = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Category'}))
 ItemName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ItemName'}))
-RackNo = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Rack'}))
+RackNo = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Rack'}))
 LayerNo= forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'LayerNo'}))
-CabinetNo = forms.CharField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'CabinetNo'}))
+CabinetNo = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'CabinetNo'}))
 ShelfNo = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'ShelfNo'}))
 
 

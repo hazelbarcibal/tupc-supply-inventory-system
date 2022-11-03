@@ -6,7 +6,7 @@
 {% block content %}
 
 <title> Equipment Withdraw </title>
-<link rel="stylesheet" href="{% static 'css/new.css' %}">
+<link rel="stylesheet" href="{% static 'css/equipment-delivery.css' %}">
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
@@ -18,59 +18,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
 
-<style>
-    .btn1{
-        background-color: #ad413a;
-        border: 1px solid black;
-        border-radius: 5px;
-        color: white;
-        padding: 10px 24px; 
-        cursor: pointer; 
-    
-    }
-    
-    .col-md-12 input{
-        border: solid #3E3E3E 1.5px;
-    }
-    
-    
-    .col-md-6 input{
-        border: solid #3E3E3E 1.5px;
-    }
-    
-    .btn1:hover {
-        text-decoration: none;
-        background: #9c2e26;
-        color: white;
-    }
-    
-    .btn1-group button {
-        background-color: #ad413a;
-        border: 1px solid black;
-        color: white;
-        padding: 10px 24px; 
-        cursor: pointer; 
-        float: right; 
-        border-radius: 5px;
-    }
-    
-    
-    .btn1-group button:not(:last-child) {
-        border-right: none; /* Prevent double borders */
-    }
-    
-    /* Clear floats (clearfix hack) */
-    .btn1-group:after {
-        content: "";
-        clear: both;
-        display: table;
-    }
-    
-    /* Add a background color on hover */
-    .btn1-group button:hover {
-        background-color: #4d0d09;
-    }
-    </style>
+
 
 <section class="home-section">
     <nav>
@@ -86,7 +34,8 @@
     <br>
     <div class="container" style="width: 98%;">
         <div class="kahon">
-        <h3>Requests</h3>
+        <h3 align="center">Requests</h3>
+        <hr>
         <br>
         <table id="equipRequestTable" class="table table-striped" style="width:100%">
             <thead>
@@ -133,7 +82,8 @@
     <!-- Datatable --> 
     <div class="container">
         <div class="kahon">
-        <h3>Withdraw Record</h3>
+        <h3 align="center">Withdraw Record</h3>
+        <hr>
         <br>
         <table id="equipWithdrawTable" class="stripe cell-border hover" style="width:100%">
             <thead>
@@ -147,6 +97,7 @@
                     <th style="text-align: center;">Model No.</th>
                     <th style="text-align: center;">Serial No.</th>
                     <th style="text-align: center;">Certified Correct</th>
+                    <th style="text-align: center;">Status</th>
                 </tr>
             </thead>
             
@@ -162,6 +113,7 @@
                     <td align="center">{{x.withdraw_equipment_model_no}}</td>
                     <td align="center">{{x.withdraw_equipment_serial_no}}</td>
                     <td align="center">{{x.withdraw_equipment_certifiedcorrect}}</td>
+                    <td align="center">{{x.withdraw_equipment_status}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
