@@ -74,7 +74,7 @@ def suppliesDeliver(request):
         unit = request.POST.get('delivery_supply_unit')
         quantity = request.POST.get('delivery_supply_quantity')
 
-        if supplymainstorage.objects.filter(Description = description).filter(Unit = unit).exists() == False:
+        if supplymainstorage.objects.filter(Description = description).exists() == False:
             if int(quantity) > 0:
                     delivery_record = deliverysupply()
                     delivery_record.delivery_supply_description = description
@@ -101,7 +101,7 @@ def suppliesDeliver(request):
                     messages.info(request, "invalid quantity")
                     return redirect('inventorysystem-suppliesDeliver')
 
-        elif supplymainstorage.objects.filter(Description = description).filter(Unit = unit).exists() == True:
+        elif supplymainstorage.objects.filter(Description = description).exists() == True:
             messages.info(request, 'Description: '  + description + ' already exist ')
             return redirect('inventorysystem-suppliesDeliver')        
     
@@ -122,7 +122,6 @@ def updateSuppliesDeliver(request, pk):
                 getdata1 = supplymainstorage.objects.get(supplymainstorage_id=pk).supplymainstorage_id
                 getdata2 = supplymainstorage.objects.get(supplymainstorage_id= getdata1).Description
                 update_record = deliverysupply()
-                update_record.deliverysupply_id = getdata1
                 update_record.delivery_supply_description = getdata2
                 update_record.delivery_supply_unit = supplymainstorage.objects.get(supplymainstorage_id= getdata1).Unit
                 getdata3 = supplymainstorage.objects.get(supplymainstorage_id=pk).supplymainstorage_id
@@ -295,7 +294,7 @@ def depRequestSupply(request):
         'info1': info1,
         'info': info,
         'info2': info2,
-    }
+    }   
     return render(request, 'task/dep-request-supply.html', context)
 
 def editdepRequestSupply(request, pk):
@@ -306,6 +305,14 @@ def editdepRequestSupply(request, pk):
         requestingitem = limitrecords.objects.get(limit_id= requestingID).limit_description
         if statusSupplyRequest.objects.filter(status_supply_description = requestingitem).filter(status_supply_department = request.user).exists() == True:
                 messages.info(request, 'You already have a request for this item.')
+                return redirect('inventorysystem-depRequestSupply')
+
+        elif int(request.POST.get('limit_quantity')) == 0:
+                messages.info(request, 'Not enough quantity for this item.')
+                return redirect('inventorysystem-depRequestSupply')
+
+        elif int(request.POST.get('limit_addquantity')) <= 0:
+                messages.info(request, 'Check the available quantity')
                 return redirect('inventorysystem-depRequestSupply')
 
         elif statusSupplyRequest.objects.filter(statusSupplyRequests_id = requestingID).exists() == False:
@@ -388,24 +395,13 @@ def updateSupplyWithdraw(request, pk):
         update_limit.save()
 
         accept = withdrawsupply()
-        getdata2 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
-        accept.withdrawsupply_id = getdata2
         accept.withdraw_supply_department = getdata5.arequest_supply_department
         accept.withdraw_supply_description = getdata5.arequest_supply_description
         accept.withdraw_supply_unit = getdata5.arequest_supply_unit
         accept.withdraw_supply_quantity = getdata5.arequest_supply_quantity
         accept.withdraw_supply_remaining = supplymainstorage.objects.get(Description = getdata5.arequest_supply_description).Quantity
-        accept.withdraw_supply_status = "successfully withdraw"
         data1 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
         acceptSupplyRequests.objects.filter(acceptSupplyRequests_id = data1).delete()
-        status = statusSupplyRequest()
-        # status.statusSupplyRequests_id = getdata2
-        # status.status_supply_description = getdata5.arequest_supply_description
-        # status.status_supply_unit = getdata5.arequest_supply_unit
-        # status.status_supply_quantity = getdata5.arequest_supply_quantity
-        # status.status_supply_remaining = limitrecords.objects.get(limit_id = getdata2).limit_quantity
-        # status.status_supply_department = getdata5.arequest_supply_department
-        # status.status_supply_status = "successfully withdraw"
         statusSupplyRequest.objects.filter(statusSupplyRequests_id = getdata1).delete()         
         accept.save()
 
@@ -444,7 +440,7 @@ def equipmentDeliver(request):
         brand = request.POST.get('delivery_equipment_brand')
         quantity = request.POST.get('delivery_equipment_quantity')
 
-        if equipmentmainstorage.objects.filter(ItemName = itemname).exists() == False:
+        if equipmentmainstorage.objects.filter(ItemName = itemname).filter(Description = description).exists() == False:
             if int(quantity) > 0:
                 if form.is_valid():
                     form.save()
@@ -452,7 +448,7 @@ def equipmentDeliver(request):
                     storageupdate.ItemName = itemname
                     storageupdate.Description = description
                     storageupdate.Brand = brand
-                    storageupdate.Remaining = 0
+                    storageupdate.Remaining = quantity
                     storageupdate.Quantity = quantity
                     storageupdate.save()
                     mapping = storagemapping()
@@ -497,7 +493,6 @@ def updateEquipmentDeliver(request, pk):
             update_record.delivery_equipment_remaining = adding
             update_record.delivery_equipment_quantity = request.POST.get('Remaining')
             update_record.save()
-
             update_delivery = equipmentmainstorage()
             update_delivery.equipmentmainstorage_id = equipmentmainstorage.objects.get(ItemName = itemname).equipmentmainstorage_id
             update_delivery.ItemName = request.POST.get('ItemName')
@@ -575,8 +570,32 @@ def editRequestEquipment(request, pk):
 #------------------- DEPARTMENT REQUEST EQUIPMENTS -----------------------------
 def depRequestEquipment(request):
     info = equipmentmainstorage.objects.all()
-    info1 = requestequipment.objects.all()
+    info1  = statusEquipmentRequest.objects.all().filter(status_equipment_department = request.user)
     info2 = withdrawequipment.objects.all()
+
+    if request.method == 'POST':
+        if int(request.POST.get('non-existing_equipment_quantity')) > 0:
+            if equipmentmainstorage.objects.filter(ItemName = request.POST.get('non-existing_equipment_itemname')).exists == False:
+                requesting = requestequipment()
+                requesting.request_equipment_itemname = request.POST.get('non-existing_equipment_itemname')
+                requesting.request_equipment_quantity = request.POST.get('non-existing_equipment_quantity')
+                requesting.request_equipment_department = str(request.user)
+                requesting.request_equipment_status = "pending"
+                status = statusEquipmentRequest()
+                status.status_equipment_itemname = request.POST.get('non-existing_equipment_itemname')
+                status.status_equipment_quantity = request.POST.get('non-existing_equipment_quantity')
+                status.status_equipment_department = str(request.user)
+                status.status_equipment_status = "pending"
+                requesting.save()
+                status.save()
+                messages.success(request, "Successfully Requested")
+                return redirect('inventorysystem-depRequestEquipment')
+                
+            elif equipmentmainstorage.objects.filter(ItemName = request.POST.get('non-existing_equipment_itemname')).exists == True:
+                messages.info(request, "Existing Equipment")
+                return redirect('inventorysystem-depRequestEquipment')
+        else:
+            messages.info(request, "invalid quantity")
     context = {
         'info': info,
         'info1': info1,
@@ -590,7 +609,21 @@ def editdepRequestEquipment(request, pk):
     if request.method == 'POST':
         requestID = equipmentmainstorage.objects.get(equipmentmainstorage_id=pk).equipmentmainstorage_id
         requestqty = request.POST.get('RequestQuantity')
-        if equipmentmainstorage.objects.filter(equipmentmainstorage_id = requestID).exists() == True:
+        requestingID1 = equipmentmainstorage.objects.get(equipmentmainstorage_id=pk).equipmentmainstorage_id
+        requestingitem1 = equipmentmainstorage.objects.get(equipmentmainstorage_id= requestingID1).ItemName
+        if statusEquipmentRequest.objects.filter(status_equipment_itemname =  requestingitem1).exists() == True:
+                messages.info(request, 'You already have a request for this equipment.')
+                return redirect('inventorysystem-depRequestEquipment')
+
+        elif int(request.POST.get('Quantity')) == 0:
+                messages.info(request, 'Not enough quantity for this equipment.')
+                return redirect('inventorysystem-depRequestEquipment')
+
+        elif int(request.POST.get('RequestQuantity')) <= 0:
+                messages.info(request, 'Check the available quantity')
+                return redirect('inventorysystem-depRequestEquipment')
+
+        elif equipmentmainstorage.objects.filter(equipmentmainstorage_id = requestID).exists() == True:
             getdata3 = equipmentmainstorage.objects.get(equipmentmainstorage_id = requestID)
             requesting = requestequipment()
             requesting.requestequipment_id = requestID
@@ -652,30 +685,20 @@ def createqrequipmentWithdraw(request, pk):
 
         accept = withdrawequipment()
         getdata2 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk).acceptEquipmentRequests_id
-        accept.withdrawequipment_id = getdata2
         accept.withdraw_equipment_property_no = request.POST.get('arequest_equipment_property_no')
         accept.withdraw_equipment_itemname = request.POST.get('arequest_equipment_itemname')
         accept.withdraw_equipment_description = request.POST.get('arequest_equipment_description')
         accept.withdraw_equipment_brand = request.POST.get('arequest_equipment_brand')
         accept.withdraw_equipment_yearacquired = request.POST.get('arequest_equipment_yearacquired')
-        accept.withdraw_equipment_issued_to = request.POST.get('arequest_equipment_issued_to')
+        accept.withdraw_equipment_issued_to = request.POST.get('arequest_equipment_department')
         accept.withdraw_equipment_model_no = request.POST.get('arequest_equipment_serial_no')
         accept.withdraw_equipment_serial_no = request.POST.get('arequest_equipment_serial_no')
         accept.withdraw_equipment_certifiedcorrect = request.POST.get('arequest_equipment_certifiedcorrect')
         data1 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk).acceptEquipmentRequests_id
         acceptEquipmentRequests.objects.filter(acceptEquipmentRequests_id = data1).delete()
-
-        status = statusEquipmentRequest()
-        status.statusEquipmentRequests_id = getdata2
-        status.status_equipment_description = getdata5.arequest_equipment_description
-        status.status_equipment_itemname = getdata5.arequest_equipment_itemname
-        status.status_equipment_quantity = getdata5.arequest_equipment_quantity
-        status.status_equipment_remaining = equipmentmainstorage.objects.get(equipmentmainstorage_id = getdata2).Quantity
-        status.status_equipment_department = getdata5.arequest_equipment_department
-        status.status_equipment_status = "successfully withdraw"
         statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata2).delete()         
         accept.save()
-        status.save()
+
 
         messages.success(request, 'successfully withdraw')
         return redirect('inventorysystem-suppliesWithdraw')

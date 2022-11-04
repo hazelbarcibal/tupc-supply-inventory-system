@@ -76,12 +76,12 @@
             {% csrf_token %}
                 <div class="col-md-12">
                     <label>Item Name:</label>
-                    <input type="text" name = "" class="form-control" placeholder="Item Name" required>
+                    <input type="text" name = "non-existing_equipment_itemname" class="form-control" placeholder="Item Name" required>
                 </div>
                 <br>
                 <div class="col-md-12">
                     <label>Quantity:</label>
-                    <input type='text' name = "" class="form-control" placeholder="Quantity" required> 
+                    <input type='text' name = "non-existing_equipment_quantity" class="form-control" placeholder="Quantity" required> 
                 </div>
                 <br>
                 <div class="col-12">
@@ -114,11 +114,11 @@
             <tbody>
                 {% for x in info1 %}
                 <tr class="edittr">
-                    <td>{{x.request_equipment_itemname}}</td>
-                    <td>{{x.request_equipment_description}}</td>
-                    <td>{{x.request_equipment_brand}}</td>
-                    <td>{{x.request_equipment_quantity}}</td>
-                    <td>{{x.request_equipment_status}}</td>
+                    <td>{{x.status_equipment_itemname}}</td>
+                    <td>{{x.status_equipment_description}}</td>
+                    <td>{{x.status_equipment_brand}}</td>
+                    <td>{{x.status_equipment_quantity}}</td>
+                    <td>{{x.status_equipment_status}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
