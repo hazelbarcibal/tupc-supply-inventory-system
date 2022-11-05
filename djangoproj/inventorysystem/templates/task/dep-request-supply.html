@@ -5,7 +5,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'css/supply-delivery.css' %}">
+    <link rel="stylesheet" href="{% static 'css/new.css' %}">
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <!-- Bootstrap cdn -->
@@ -26,14 +26,7 @@
 
       <ul class="nav-links">
         <br>
-        <form action="" method="POST">
-          {% csrf_token %}
-          <div>
-            <span style="font-size: 25px; padding-left: 50px; color: #fffefd;">Welcome, <span name = 'departmentlogin' style="color: #ffc451; margin-right: 5px; 
-              font-size: 15px; padding-left: 20px;">{{request.user}}</span></span>
-        </div>
 
-        <br>
         <li>
           <a class="" href="{% url 'inventorysystem-depRequestSupply' %}" role="button"  aria-expanded="false">
             <i class='bx bx-paperclip'></i>
@@ -85,6 +78,14 @@
 
 
 <div class="container home-content">
+  <div class="container">
+      <div class="col-12">
+        <!-- <span style="font-size: 25px; padding-left: 50px; color: #fffefd;">Welcome, <span name = 'departmentlogin' style="color: #444544; margin-right: 5px; 
+          font-size: 15px; padding-left: 20px;">{{request.user}}</span></span> -->
+          <h4>Welcome, <span style="text-decoration: underline; font-weight: 600;">{{request.user}}</span> !</h4>
+    </div>
+  </div>
+  <br>
     <div class="container">
       <div class="kahon">
       <h3 align="center">Mainstorage</h3>

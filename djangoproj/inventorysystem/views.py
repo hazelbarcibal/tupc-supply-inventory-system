@@ -1,4 +1,5 @@
 from distutils.log import info
+from multiprocessing import context
 from .forms import *
 from .models import *
 from django.shortcuts import render, redirect, HttpResponse
@@ -16,17 +17,20 @@ def home(request):
 #--------- LOGIN --------------------
 def deptLogin(request):
     if request.method == "POST":
-        deptuser = request.POST.get('logusername')
-        department1 = request.POST.get('logdept')
-        deptpass = request.POST.get('logpassword')
-        user = authenticate(request, department=department1, username=deptuser,  password=deptpass)
+        username = request.POST.get('logusername')
+        # department = request.POST.get('logdept')
+        email = request.POST.get('email')
+        password = request.POST.get('logpassword')
+        # print(username + ' ' + department + ' ' + email + ' ' + password + ' ')
+        user = authenticate(request, username=username, email=email,  password=password)
 
         if user is not None and user.is_active and user.is_department:
             login(request, user)
-            messages.success(request, 'Hello ' + deptuser + '!')
+            # messages.success(request, 'Hello ' + deptuser + '!')
             return redirect('inventorysystem-depRequestSupply')
         else:
             messages.info(request, 'Invalid credentials. Please try again.')
+
     return render(request, 'task/department-login.html')
 
 def userLogin(request):

@@ -176,7 +176,7 @@ nav .sidebar-button i{
     justify-content: space-between;
   }
 
-  .box{
+  /* .box{
     padding: 20px;
     width: 130px;
     min-height: 300px;
@@ -213,7 +213,7 @@ nav .sidebar-button i{
     filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#CAD0FF", endColorstr="#E3E3E3", GradientType=1 );
     padding: 32px 25px;
     height: inherit;
-}
+} */
 
   .card {
     margin: 20px;
@@ -545,4 +545,18 @@ button.switch-month:hover {
 
 .col-md-6 input{
   border: solid #3E3E3E 1.5px;
+}
+
+div.kahon {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background: rgb(255, 255, 255);
+  padding: 32px 25px;
+  height: inherit;
+}
+div.kahon1 {
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+border-radius: 10px;
+background: rgb(255, 255, 255);
+padding: 32px 25px;
+height: inherit;
 }
