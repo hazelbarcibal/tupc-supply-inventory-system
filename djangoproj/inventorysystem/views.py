@@ -539,7 +539,7 @@ def editRequestEquipment(request, pk):
         getdata1 = requestequipment.objects.get(requestequipment_id = getdata)
         accept.acceptEquipmentRequests_id = getdata
         accept.arequest_equipment_itemname = getdata1.request_equipment_itemname
-        accept.arequest_equipment_department = getdata1.request_equipment_department
+        accept.arequest_equipment_issued_to = getdata1.request_equipment_department
         accept.arequest_equipment_description = getdata1.request_equipment_description
         accept.arequest_equipment_brand = getdata1.request_equipment_brand
         accept.arequest_equipment_quantity = getdata1.request_equipment_quantity
@@ -692,8 +692,8 @@ def createqrequipmentWithdraw(request, pk):
         accept.withdraw_equipment_description = request.POST.get('arequest_equipment_description')
         accept.withdraw_equipment_brand = request.POST.get('arequest_equipment_brand')
         accept.withdraw_equipment_yearacquired = request.POST.get('arequest_equipment_yearacquired')
-        accept.withdraw_equipment_issued_to = request.POST.get('arequest_equipment_department')
-        accept.withdraw_equipment_model_no = request.POST.get('arequest_equipment_serial_no')
+        accept.withdraw_equipment_issued_to = request.POST.get('arequest_equipment_issued_to')
+        accept.withdraw_equipment_model_no = request.POST.get('arequest_equipment_model_no')
         accept.withdraw_equipment_serial_no = request.POST.get('arequest_equipment_serial_no')
         accept.withdraw_equipment_certifiedcorrect = request.POST.get('arequest_equipment_certifiedcorrect')
         data1 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk).acceptEquipmentRequests_id

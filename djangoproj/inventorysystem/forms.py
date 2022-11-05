@@ -249,12 +249,12 @@ class equipmentRequestForm(forms.ModelForm):
                     'request_equipment_mainstoragequantity','request_equipment_acceptquantity', 'current_date']
 
 # dep request equipment - dep view
-ItemName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item name'}))
-Description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
-Brand = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brand'}))
-Quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
-Remaining = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaining'}))
-RequestQuantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'RequestQuantity'}))
+equipmentmainstorage_itemName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item name'}))
+equipmentmainstorage_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Description'}))
+equipmentmainstorage_brand = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Brand'}))
+equipmentmainstorage_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity'}))
+equipmentmainstorage_remaining = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaining'}))
+equipmentmainstorage_RequestQuantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'RequestQuantity'}))
 
 class depRequestEquipmentForm(forms.ModelForm):
     
@@ -262,17 +262,18 @@ class depRequestEquipmentForm(forms.ModelForm):
         super(depRequestEquipmentForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
-            self.fields['ItemName'].widget.attrs['readonly'] = True
-            self.fields['Description'].widget.attrs['readonly'] = True
-            self.fields['Brand'].widget.attrs['readonly'] = True
-            self.fields['Quantity'].widget.attrs['readonly'] = True
-            self.fields['Remaining'].widget.attrs['readonly'] = True
+            self.fields['equipmentmainstorage_itemName'].widget.attrs['readonly'] = True
+            self.fields['equipmentmainstorage_description'].widget.attrs['readonly'] = True
+            self.fields['equipmentmainstorage_brand'].widget.attrs['readonly'] = True
+            self.fields['equipmentmainstorage_quantity'].widget.attrs['readonly'] = True
+            self.fields['equipmentmainstorage_remaining'].widget.attrs['readonly'] = True
 
 
     class Meta:
         model = equipmentmainstorage
-        fields = ['ItemName', 'Description', 'Brand', 
-                    'Quantity', 'Remaining', 'RequestQuantity']
+        fields = ['equipmentmainstorage_itemName', 'equipmentmainstorage_description', 'equipmentmainstorage_brand', 
+                    'equipmentmainstorage_quantity', 'equipmentmainstorage_remaining', 'equipmentmainstorage_RequestQuantity']
+
 
 
 # withdraw equipment - admin view
@@ -295,7 +296,7 @@ class withdrawEquipmentForm(forms.ModelForm):
         super(withdrawEquipmentForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
-            self.fields['arequest_equipment_department'].widget.attrs['readonly'] = True
+            self.fields['arequest_equipment_issued_to'].widget.attrs['readonly'] = True
             self.fields['arequest_equipment_itemname'].widget.attrs['readonly'] = True
             self.fields['arequest_equipment_description'].widget.attrs['readonly'] = True
             self.fields['arequest_equipment_brand'].widget.attrs['readonly'] = True
@@ -307,9 +308,9 @@ class withdrawEquipmentForm(forms.ModelForm):
 
     class Meta:
         model = acceptEquipmentRequests
-        fields = ['arequest_equipment_department', 'arequest_equipment_itemname', 'arequest_equipment_description', 
+        fields = ['arequest_equipment_issued_to', 'arequest_equipment_itemname', 'arequest_equipment_description', 
                     'arequest_equipment_brand', 'arequest_equipment_quantity', 'arequest_equipment_remaining', 
-                    'arequest_equipment_status', 'arequest_equipment_yearacquired', 'arequest_equipment_issued_to',
+                    'arequest_equipment_status', 'arequest_equipment_yearacquired',
                     'arequest_equipment_model_no', 'arequest_equipment_serial_no', 'arequest_equipment_certifiedcorrect', 'current_date' ]
 
 # updatestorage - admin window - storagemapping models

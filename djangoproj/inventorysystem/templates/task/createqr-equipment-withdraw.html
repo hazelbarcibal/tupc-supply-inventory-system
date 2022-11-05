@@ -95,11 +95,12 @@ transform: translate(-50%, -50%);
     <div class="container" style="width: 97%;">
 
             <div class="kahon">
+
                 <form class="row g-3" action="" method="post" name="form">
                     {% csrf_token %}
                     <div class="col-md-4">
                       <label class="form-label">Issued to:</label>
-                      {{form.arequest_equipment_department}}
+                      {{form.arequest_equipment_issued_to}}
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Item Name: </label>

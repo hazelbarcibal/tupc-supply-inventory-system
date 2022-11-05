@@ -145,7 +145,7 @@ class acceptEquipmentRequests(models.Model):
 
     acceptEquipmentRequests_id = models.AutoField(primary_key=True)
     arequest_equipment_property_no = models.CharField(unique=True, max_length=50, verbose_name='arequest_equipment_property_no')
-    arequest_equipment_department = models.CharField(max_length=50, verbose_name='arequest_equipment_department')
+    # wag gamitin to - arequest_equipment_department = models.CharField(max_length=50, verbose_name='arequest_equipment_department')
     arequest_equipment_itemname = models.CharField(max_length=255, verbose_name='arequest_equipment_itemname')
     arequest_equipment_description = models.CharField(max_length=255, verbose_name='arequest_equipment_description')
     arequest_equipment_brand = models.CharField(max_length=50, verbose_name='arequest_equipment_brand')
