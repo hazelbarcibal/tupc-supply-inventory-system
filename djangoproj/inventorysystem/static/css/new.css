@@ -304,15 +304,15 @@ nav .sidebar-button i{
   }
   
   .card-5 {
-    background: rgb(152, 163, 252);
+    background: hsla(186, 33%, 94%, 1);
 
-    background: linear-gradient(90deg, rgb(70, 84, 188) 0%, hsla(0, 0%, 89%, 1) 100%);
-    
-    background: -moz-linear-gradient(90deg, rgb(70, 84, 188) 0%, hsla(0, 0%, 89%, 1) 100%);
-    
-    background: -webkit-linear-gradient(90deg, rgb(70, 84, 188) 0%, hsla(0, 0%, 89%, 1) 100%);
-    
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#CAD0FF", endColorstr="#E3E3E3", GradientType=1 );
+  background: linear-gradient(90deg, hsla(186, 33%, 94%, 1) 0%, hsla(216, 41%, 79%, 1) 100%);
+
+  background: -moz-linear-gradient(90deg, hsla(186, 33%, 94%, 1) 0%, hsla(216, 41%, 79%, 1) 100%);
+
+  background: -webkit-linear-gradient(90deg, hsla(186, 33%, 94%, 1) 0%, hsla(216, 41%, 79%, 1) 100%);
+
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#EBF4F5", endColorstr="#B5C6E0", GradientType=1 );
   }
   
   /* RESPONSIVE */

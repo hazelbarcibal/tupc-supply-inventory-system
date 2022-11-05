@@ -6,7 +6,6 @@
 {% block content %}
 
 <title> Request Equipment</title>
-<link rel="stylesheet" href="{% static 'css/equipment-delivery.css' %}">
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href=https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css"">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
@@ -21,6 +20,25 @@
 <script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/webqr.js' %}"></script>
+
+<style>
+.btn1{
+    background-color: #ad413a;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 24px; 
+    cursor: pointer; 
+
+}
+
+.btn1:hover {
+    text-decoration: none;
+    background: #9c2e26;
+    color: white;
+}
+
+</style>
 
 <section class="home-section">
     <nav>
@@ -85,7 +103,7 @@
                 </div>
                 <br>
                 <div class="col-12">
-                    <button type="submit" id="submit" class="btn1" style="float: right;" value="Submit"> Submit </button>
+                    <button type="submit" id="submit" class="btn1" style="float: right;"> Submit </button>
                 </div>
                 <br>
                 <br>

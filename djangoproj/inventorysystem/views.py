@@ -1,5 +1,3 @@
-from distutils.log import info
-from multiprocessing import context
 from .forms import *
 from .models import *
 from django.shortcuts import render, redirect, HttpResponse
@@ -291,7 +289,7 @@ def editRequestSupply(request, pk):
 def depRequestSupply(request):
     info1 = limitrecords.objects.all().filter(limit_department = request.user)
     info = statusSupplyRequest.objects.all().filter(status_supply_department = request.user)
-    info2 = withdrawsupply.objects.all()
+    info2 = withdrawsupply.objects.all().filter(withdraw_supply_department = request.user)
     
 
     context = {
@@ -575,7 +573,7 @@ def editRequestEquipment(request, pk):
 def depRequestEquipment(request):
     info = equipmentmainstorage.objects.all()
     info1  = statusEquipmentRequest.objects.all().filter(status_equipment_department = request.user)
-    info2 = withdrawequipment.objects.all()
+    info2 = withdrawequipment.objects.all().filter(withdraw_equipment_issued_to = request.user)
 
     if request.method == 'POST':
         if int(request.POST.get('non-existing_equipment_quantity')) > 0:
@@ -677,7 +675,7 @@ def createqrequipmentWithdraw(request, pk):
         getdata5 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id = getdata4)
 
         update_storage = equipmentmainstorage()
-        getdata = equipmentmainstorage.objects.get(Description = getdata5.arequest_equipment_description)
+        getdata = equipmentmainstorage.objects.get(ItemName = getdata5.arequest_equipment_itemname)
         update_storage.Description = getdata5.arequest_equipment_description
         update_storage.ItemName = getdata5.arequest_equipment_itemname        
         update_storage.equipmentmainstorage_id = getdata.equipmentmainstorage_id
@@ -705,7 +703,7 @@ def createqrequipmentWithdraw(request, pk):
 
 
         messages.success(request, 'successfully withdraw')
-        return redirect('inventorysystem-suppliesWithdraw')
+        return redirect('inventorysystem-equipmentWithdraw')
     context = {
         'data': data,
         'form': form,

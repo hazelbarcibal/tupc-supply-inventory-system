@@ -77,10 +77,7 @@ transform: translate(-50%, -50%);
 .col-md-6 input{
     border: solid #3E3E3E 1.5px;
 }
-label{
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-weight: bold;
-}
+
 
 </style>
 
@@ -130,24 +127,24 @@ label{
                         {{form.current_date}}
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Property No: </label>
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Property No: </label>
                         {{form.arequest_equipment_property_no}}
                     </div>
                     
                     <div class="col-md-6">
-                        <label class="form-label">Year Acquired: </label>
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Year Acquired: </label>
                         {{form.arequest_equipment_yearacquired}}
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">Model No: </label>
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Model No: </label>
                             {{form.arequest_equipment_model_no}}
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">Serial No: </label>
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Serial No: </label>
                         {{form.arequest_equipment_serial_no}}
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">Certified Correct: </label>
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Certified Correct: </label>
                         {{form.arequest_equipment_certifiedcorrect}}
                     </div>
 
@@ -170,6 +167,7 @@ label{
 
     <div class="container" style="text-align: center; color: rgb(0, 0, 0);">
         <p><h4><i style="color: rgb(0, 0, 0);">--- QR will appear below ---</i></h4></p>
+        <p><small><i style="color: rgb(0, 0, 0);">To save the QR, kindly right click on the image and click 'Save image'</i></small></p>
     </div>
 
     <div class="box-2">
@@ -200,8 +198,8 @@ label{
             document.getElementById("brand").value + '\n' +
             'Quantity: ' +
             document.getElementById("quantity").value + '\n' +
-            'Remaining: ' +
-            document.getElementById("remaining").value + '\n' +
+            // 'Remaining: ' +
+            // document.getElementById("remaining").value + '\n' +
             // 'Status: ' +
             // document.getElementById("status").value + '\n' +
             'Year Acquired: ' +
@@ -216,9 +214,9 @@ label{
             document.getElementById("datetime").value
             ;
 
-            if( document.getElementById('propertyNo').value === '' && document.getElementById('issuedTo').value === ''
-            && document.getElementById('yrAcquired').value === '' && document.getElementById('serialNo').value === '' 
-            && document.getElementById('modelNo').value === '' && document.getElementById('certified').value === ''){
+            if( document.getElementById('propertyNo').value === '' || document.getElementById('issuedTo').value === ''
+            || document.getElementById('yrAcquired').value === '' || document.getElementById('serialNo').value === '' 
+            || document.getElementById('modelNo').value === '' || document.getElementById('certified').value === ''){
                 alert('Some fields are empty. Please enter details to generate QR code.');
             } else {
                 document.getElementById("qrimage").innerHTML = "<img src='https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=" + encodeURIComponent(data) + "'/>";

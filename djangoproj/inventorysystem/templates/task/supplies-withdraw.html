@@ -138,18 +138,18 @@
                 <thead>
                     <tr>
                         <th>Description</th>
-                        <th>Unit</th>
-                        <th>Quantity</th>
-                        <th>Date & Time</th>
+                        <th style="text-align: center;">Unit</th>
+                        <th style="text-align: center;">Quantity</th>
+                        <th style="text-align: center;">Date & Time</th>
                     </tr>
                 </thead>
                 <tbody>
                   {% for x in info1 %}
                   <tr class="edittr">
                       <td>{{x.withdraw_supply_description}}</td>
-                      <td>{{x.withdraw_supply_unit}}</td>
-                      <td>{{x.withdraw_supply_quantity}}</td>
-                      <td>{{x.current_date}}</td>
+                      <td align="center">{{x.withdraw_supply_unit}}</td>
+                      <td align="center">{{x.withdraw_supply_quantity}}</td>
+                      <td align="center">{{x.current_date}}</td>
                   </tr>
                   {% endfor %}
                 </tbody>
