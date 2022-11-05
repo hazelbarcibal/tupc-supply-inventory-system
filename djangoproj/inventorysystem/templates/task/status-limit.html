@@ -95,7 +95,7 @@
             <table id="MainStorage" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Description</th>
+                        <th style="text-align: center;">Description</th>
                         <th style="text-align: center;">Unit</th>
                         <th style="text-align: center;">Quantity</th>
                     
@@ -104,9 +104,9 @@
                 <tbody>
                     {% for x in info %}
                     <tr class="edittr">
-                        <td>{{x.Description}}</td>
-                        <td align="center">{{x.Unit}}</td>
-                        <td align="center">{{x.Quantity}}</td>
+                        <td align="center">{{x.supplymainstorage_description}}</td>
+                        <td align="center">{{x.supplymainstorage_unit}}</td>
+                        <td align="center">{{x.supplymainstorage_quantity}}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

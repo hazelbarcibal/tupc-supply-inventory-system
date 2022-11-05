@@ -49,10 +49,10 @@
                 <tbody>
                     {% for x in info %}
                         <tr class="edittr">
-                            <td align="center">{{x.ItemName}}</td>
-                            <td align="center">{{x.Description}}</td>
-                            <td align="center">{{x.Brand}}</td>
-                            <td align="center">{{x.Quantity}}</td>
+                            <td align="center">{{x.equipmentmainstorage_itemName}}</td>
+                            <td align="center">{{x.equipmentmainstorage_description}}</td>
+                            <td align="center">{{x.equipmentmainstorage_brand}}</td>
+                            <td align="center">{{x.equipmentmainstorage_quantity}}</td>
                             <td align="center"><a class="btn btn-success" href="{% url 'inventorysystem-updateEquipmentDeliver' x.equipmentmainstorage_id %}">UPDATE</a></td>
                         </tr>
                     {% endfor %}

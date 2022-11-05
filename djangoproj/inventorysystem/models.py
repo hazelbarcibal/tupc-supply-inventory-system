@@ -74,11 +74,11 @@ class limitrecords(models.Model):
 class supplymainstorage(models.Model):
 
     supplymainstorage_id = models.AutoField(primary_key=True)
-    Description = models.CharField(max_length=255, verbose_name='Description')
-    Unit = models.CharField(max_length=50, verbose_name='Unit')
-    Quantity = models.DecimalField(max_digits=50, decimal_places=0, verbose_name='Quantity')
-    Remaining = models.DecimalField(null=True, max_digits=50, decimal_places=0, verbose_name='Remaining')
-    RequestQuantity = models.DecimalField(null=True, max_digits=50, decimal_places=0, verbose_name='RequestQuantity')
+    supplymainstorage_description = models.CharField(max_length=255, verbose_name='supplymainstorage_description')
+    supplymainstorage_unit = models.CharField(max_length=50, verbose_name='supplymainstorage_unit')
+    supplymainstorage_quantity = models.DecimalField(max_digits=50, decimal_places=0, verbose_name='supplymainstorage_quantity')
+    supplymainstorage_remaining = models.DecimalField(null=True, max_digits=50, decimal_places=0, verbose_name='supplymainstorage_remaining')
+    supplymainstorage_RequestQuantity = models.DecimalField(null=True, max_digits=50, decimal_places=0, verbose_name='supplymainstorage_RequestQuantity')
     
     class Meta:
         db_table = "supplymainstorage"
@@ -218,12 +218,12 @@ class statusEquipmentRequest(models.Model):
 class equipmentmainstorage(models.Model):
 
     equipmentmainstorage_id = models.AutoField(primary_key=True)
-    ItemName = models.CharField(max_length=50, verbose_name='ItemName')
-    Description = models.CharField(max_length=255, verbose_name='Description')
-    Brand = models.CharField(max_length=50, verbose_name='Brand')
-    Quantity = models.DecimalField(max_digits=50, decimal_places=0, verbose_name='Quantity')
-    Remaining = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Remaining')
-    RequestQuantity = models.DecimalField(null= True, max_digits=50, decimal_places=0, verbose_name='RequestQuantity')
+    equipmentmainstorage_itemName = models.CharField(max_length=50, verbose_name='equipmentmainstorage_itemName')
+    equipmentmainstorage_description = models.CharField(max_length=255, verbose_name='equipmentmainstorage_description')
+    equipmentmainstorage_brand = models.CharField(max_length=50, verbose_name='equipmentmainstorage_brand')
+    equipmentmainstorage_quantity = models.DecimalField(max_digits=50, decimal_places=0, verbose_name='equipmentmainstorage_quantity')
+    equipmentmainstorage_remaining = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='equipmentmainstorage_remaining')
+    equipmentmainstorage_RequestQuantity = models.DecimalField(null= True, max_digits=50, decimal_places=0, verbose_name='equipmentmainstorage_RequestQuantity')
 
     class Meta:
         db_table = "equipmentmainstorage"

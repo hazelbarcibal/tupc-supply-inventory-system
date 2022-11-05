@@ -94,7 +94,7 @@
             <table id="mainstorage" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Description</th>
+                        <th style="text-align: center;">Description</th>
                         <th style="text-align: center;">Unit</th>
                         <th style="text-align: center;">Quantity</th>
                         <th style="text-align: center;">Action</th>
@@ -103,9 +103,9 @@
                 <tbody>
                     {% for x in info1 %}
                     <tr class="edittr">
-                        <td>{{x.Description}}</td>
-                        <td align="center">{{x.Unit}}</td>
-                        <td align="center">{{x.Quantity}}</td>
+                        <td align="center">{{x.supplymainstorage_description}}</td>
+                        <td align="center">{{x.supplymainstorage_unit}}</td>
+                        <td align="center">{{x.supplymainstorage_quantity}}</td>
                         <td align="center">
                             <a class="btn btn-success" href="{% url 'inventorysystem-updateSuppliesDeliver' x.supplymainstorage_id %}">
                                 UPDATE</a>
