@@ -8,6 +8,13 @@ from django.contrib import messages
 import datetime
 import xlwt
 
+from django.core.mail import send_mail
+from django.conf import settings
+
+from django.template.loader import render_to_string
+from weasyprint import HTML 
+import tempfile
+
 def home(request):
     return render(request, 'task/home.html')
 
@@ -270,9 +277,18 @@ def editRequestSupply(request, pk):
             status.status_supply_department = getdata1.request_supply_department
             status.status_supply_status = "Ready for pick-up"  
             statusSupplyRequest.objects.filter(statusSupplyRequests_id = getdata).delete()  
+            messages.success(request, 'request accepted')
+            subject = "Supply Department"
+            message = "Your Item is ready for pick up"
+            lol = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
+            haha = requestsupply.objects.get(requestsupply_id = lol)
+            depinfo = requestsupply.objects.get(requestsupply_id = haha).request_supply_department
+            print(depinfo)
+            recipient = str(CustomUser.objects.get(department= depinfo).email)
+            # email field ng bawat department
+            send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
             accept.save()
             status.save()
-            messages.success(request, 'request accepted')
             return redirect('inventorysystem-viewRequestSupply')
         else:
             number = str(supplymainstorage.objects.get(supplymainstorage_description = getdata1.request_supply_description).supplymainstorage_quantity)
@@ -319,6 +335,7 @@ def editdepRequestSupply(request, pk):
 
         elif statusSupplyRequest.objects.filter(statusSupplyRequests_id = requestingID).exists() == False:
                 requestID = limitrecords.objects.get(limit_id=pk).limit_id
+
                 requestqty = request.POST.get('limit_addquantity')
                 if limitrecords.objects.filter(limit_id = requestID).exists() == True:
                     getdata3 = limitrecords.objects.get(limit_id = requestID)
@@ -343,6 +360,15 @@ def editdepRequestSupply(request, pk):
                     getdata4 = limitrecords.objects.get(limit_id = requestID).limit_description
 
                     messages.success(request, 'Request Successful for itemname ' + getdata4)
+                    subject = str(limitrecords.objects.get(limit_id = requestID).limit_department)
+                    message = "New Request"
+                    depinfo = str(CustomUser.objects.get(is_superuser=True).email)
+                    # limitrecords.objects.get(limit_id = requestID).limit_department
+                    # str(CustomUser.objects.get(department= depinfo).email)
+                    print(depinfo)
+                    recipient = depinfo
+                    # email ni sir gascon 
+                    send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
                     return redirect('inventorysystem-depRequestSupply')
 
 
