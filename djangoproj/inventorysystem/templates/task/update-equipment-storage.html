@@ -1,0 +1,146 @@
+{% extends 'task/home.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<title> Storage Mapping </title>
+<link rel="stylesheet" href="{% static 'css/edit-supply-delivery.css' %}">
+
+<style>
+    .btn{
+        background-color: #ad413a;
+        border: 1px solid black;
+        color: white;
+        padding: 10px 24px; 
+        cursor: pointer; 
+        float: right; 
+    }
+    
+    .btn:hover {
+        text-decoration: none;
+        background: #9c2e26;
+        color: white;
+    }
+
+    .form-holder{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        padding: 32px 25px;
+        height: inherit;
+    }
+
+</style>
+
+<section class="home-section">
+    <nav>
+        <div class="sidebar-button">
+            <i class='bx bx-menu sidebarBtn'></i>
+            <div>
+                <label style="padding-top: 10px;"><h2>Storage Mapping</h2></label>
+            </div>
+        </div>
+    </nav>
+
+    <div class="home-content container">
+        <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h5>Update Storage Mapping</h5>
+                        <form action = "" method = "POST">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>ItemName: </label>
+                                    {{form.equipmentItemName}}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Rack: </label>
+                                    {{form.equipmentRackNo}}
+                                </div>
+                                <div class="form-group">
+                                    <label>Layer No: </label>
+                                    {{form.equipmentLayerNo}}
+                                </div>
+                                <div class="form-group">
+                                    <label>Cabinet No: </label>
+                                    {{form.equipmentCabinetNo}}
+                                </div> 
+                                <div class="form-group">
+                                    <label>Shelf No: </label>
+                                    {{form.equipmentShelfNo}}
+                                </div>  
+                            </div>
+                            <br>
+
+                            <div class="form-button form-center mt-3">
+                                <button id="submit" type="submit" id="btn" class="btn">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <!-- <br><br><br><br><br>
+    <div class="container form-center">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h4 align="center">Update Storage Mapping</h4>
+                        <br>
+                        <form action = "" method = "POST">
+                            {% csrf_token %}
+                            <div class="form-control">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Category: </label>
+                                        {{form.Category}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Item Name: </label>
+                                        {{form.ItemName}}
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Rack: </label>
+                                        {{form.RackNo}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Layer No.: </label>
+                                        {{form.LayerNo}}
+                                    </div>
+                                </div>
+                                <div class="form-row">  
+                                    <div class="form-group">
+                                        <label>Cabinet No.: </label>
+                                        {{form.CabinetNo}}
+                                    </div>              
+                                    <div class="form-group">
+                                        <label>Shelf No.: </label>
+                                        {{form.ShelfNo}}
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-button form-center mt-3">
+                                <button id="submit" type="submit" id="btn" class="btn">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+    </div> -->
+    
+
+
+
+
+</section>
+
+
+
+{% endblock %}

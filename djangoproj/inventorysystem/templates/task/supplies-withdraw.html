@@ -81,30 +81,18 @@
             </div>
         </div>
     </nav>
-
-<br>
-<div class= "container home-content btn1-group" >
-    <form action="">
-        <button class="fa fa-file-pdf-o" 
-            style="font-size:13px; color:rgb(255, 255, 255); float:right"> Save Data As PDF</button>
-    </form>
-    <form action="{% url 'export_excel'%}">
-        <button class="fa fa-file-excel-o" 
-            style="font-size:13px;color:rgb(255, 255, 255); float:right "> Export Data To Excel</button>
-    </form>
-</div>
-<br><br>
-        
         <!-- Datatable --> 
-    <div class="container">
+    <div class="container home-content">
         <div class="kahon">
+            <h3 align="center">Requests</h3>
+            <hr>
             <table id="supplyWithdrawTable" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
                         <th>Department</th>
                         <th style="text-align: center;">Description</th>
                         <th style="text-align: center;">Unit</th>
-                        <th style="text-align: center;">Quantity</th>
+                        <th style="text-align: center;">Requested Quantity</th>
                         <th style="text-align: center;">Remaining</th>
                         <th style="text-align: center;">Status</th>
                         <th style="text-align: center;">Action</th>
@@ -126,20 +114,28 @@
             </table>
         </div>
     </div>
-
-    <div class="container home-content">
+    <div class= "container home-content btn1-group" >
+        <form action="">
+            <button class="fa fa-file-pdf-o" 
+                style="font-size:13px; color:rgb(255, 255, 255); float:right"> Save Data As PDF</button>
+        </form>
+        <form action="{% url 'export_excel'%}">
+            <button class="fa fa-file-excel-o" 
+                style="font-size:13px;color:rgb(255, 255, 255); float:right "> Export Data To Excel</button>
+        </form>
+    </div>
+    <br>
         <!-- Datatable --> 
         <div class="container">
           <div class="kahon">
             <h3 align="center">Withdrawn Supply Item</h3>
             <hr>
-            <br>
             <table id="depwithdrawnTable" class="stripe cell-border hover" style="width:100%">
                 <thead>
                     <tr>
                         <th>Description</th>
                         <th style="text-align: center;">Unit</th>
-                        <th style="text-align: center;">Quantity</th>
+                        <th style="text-align: center;">Withdrawn Quantity</th>
                         <th style="text-align: center;">Date & Time</th>
                     </tr>
                 </thead>
@@ -156,7 +152,7 @@
             </table>
           </div>
         </div>
-      </div>
+
 
          <br><br>
         <script>

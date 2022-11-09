@@ -31,7 +31,8 @@ urlpatterns = [
     path('equipment-return/', views.equipmentReturn, name='inventorysystem-equipmentReturn'),
 #------------ MAPPING x EXPORT ----------------------
     path('storage-mapping/', views.storageMapping, name='inventorysystem-storageMapping'),
-    path('update-storage/<int:pk>/', views.updateStoragemapping, name='inventorysystem-updateStoragemapping'),
+    path('update-supply-storage/<int:pk>/', views.updateSupplyStorage, name='inventorysystem-updateSupplyStorage'),
+    path('update-equipment-storage/<int:pk>/', views.updateEquipmentStorage, name='inventorysystem-updateEquipmentStorage'),
     path('export_excel/', views.export_excel, name='export_excel'),
 ]
 

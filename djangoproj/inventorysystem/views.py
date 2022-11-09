@@ -12,7 +12,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 from django.template.loader import render_to_string
-from weasyprint import HTML 
+# from weasyprint import HTML 
 import tempfile
 
 def home(request):
@@ -96,13 +96,12 @@ def suppliesDeliver(request):
                     storageupdate.supplymainstorage_unit = unit
                     storageupdate.supplymainstorage_quantity = quantity
                     storageupdate.save()
-                    mapping = storagemapping()
-                    mapping.Category = "Supply"
-                    mapping.ItemName = description
-                    mapping.RackNo = 0
-                    mapping.LayerNo = 0
-                    mapping.CabinetNo = 0
-                    mapping.ShelfNo = 0
+                    mapping = supply_storagemapping()
+                    mapping.supplyItemName = description
+                    mapping.supplyRackNo = 0
+                    mapping.supplyLayerNo = 0
+                    mapping.supplyCabinetNo = 0
+                    mapping.supplyShelfNo = 0
                     mapping.save()
                     messages.success(request, 'Record created for ' + description)
                     return redirect('inventorysystem-suppliesDeliver')
@@ -150,7 +149,7 @@ def updateSuppliesDeliver(request, pk):
                 update_delivery.supplymainstorage_quantity = adding1
                 getdata7 = supplymainstorage.objects.get(supplymainstorage_id=pk).supplymainstorage_id
                 getdata8 = supplymainstorage.objects.get(supplymainstorage_id= getdata7)
-                supplymainstorage.objects.filter(Description = getdata8.supplymainstorage_description).filter(supplymainstorage_unit = getdata8.supplymainstorage_unit).delete()
+                supplymainstorage.objects.filter(supplymainstorage_description = getdata8.supplymainstorage_description).filter(supplymainstorage_unit = getdata8.supplymainstorage_unit).delete()
                 update_delivery.save()
                 getdata9 = supplymainstorage.objects.get(supplymainstorage_id=pk).supplymainstorage_id
                 getdata10 = supplymainstorage.objects.get(supplymainstorage_id= getdata9).supplymainstorage_description
@@ -267,6 +266,15 @@ def editRequestSupply(request, pk):
             accept.arequest_supply_remaining = supplymainstorage.objects.get(supplymainstorage_description = getdata1.request_supply_description).supplymainstorage_quantity
             accept.arequest_supply_status = "Ready for pick-up"
             data1 = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
+            # subject = "Supply Department"
+            # message = "Your Item is ready for pick up"
+            # get1 = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
+            # get2 = str(requestsupply.objects.get(requestsupply_id = getdata).request_supply_department)
+            # depinfo = str(requestsupply.objects.get(requestsupply_id = getdata1).request_supply_department)
+            # print(depinfo)
+            # recipient = str(CustomUser.objects.get(department= get2).email)
+            # # email field ng bawat department
+            # send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
             requestsupply.objects.filter(requestsupply_id = data1).delete()       
             status = statusSupplyRequest()
             status.statusSupplyRequests_id = getdata
@@ -278,17 +286,10 @@ def editRequestSupply(request, pk):
             status.status_supply_status = "Ready for pick-up"  
             statusSupplyRequest.objects.filter(statusSupplyRequests_id = getdata).delete()  
             messages.success(request, 'request accepted')
-            subject = "Supply Department"
-            message = "Your Item is ready for pick up"
-            lol = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
-            haha = requestsupply.objects.get(requestsupply_id = lol)
-            depinfo = requestsupply.objects.get(requestsupply_id = haha).request_supply_department
-            print(depinfo)
-            recipient = str(CustomUser.objects.get(department= depinfo).email)
-            # email field ng bawat department
-            send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
             accept.save()
             status.save()
+          
+
             return redirect('inventorysystem-viewRequestSupply')
         else:
             number = str(supplymainstorage.objects.get(supplymainstorage_description = getdata1.request_supply_description).supplymainstorage_quantity)
@@ -470,26 +471,29 @@ def equipmentDeliver(request):
 
         if equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = itemname).filter(equipmentmainstorage_description = description).exists() == False:
             if int(quantity) > 0:
-                if form.is_valid():
-                    form.save()
-                    storageupdate = equipmentmainstorage()
-                    storageupdate.equipmentmainstorage_itemName = itemname
-                    storageupdate.equipmentmainstorage_description = description
-                    storageupdate.equipmentmainstorage_brand = brand
-                    storageupdate.equipmentmainstorage_remaining = quantity
-                    storageupdate.equipmentmainstorage_quantity = quantity
-                    storageupdate.save()
-                    mapping = storagemapping()
-                    mapping.Category = "Equipment"
-                    mapping.ItemName = itemname
-                    mapping.RackNo = 0
-                    mapping.LayerNo = 0
-                    mapping.CabinetNo = 0
-                    mapping.ShelfNo = 0
-                    
-                    mapping.save()
-                    messages.success(request, 'Record created for ' + itemname)
-                    return redirect('inventorysystem-equipmentDeliver')
+                delivery_record = deliveryequipment()
+                delivery_record.delivery_equipment_itemname = itemname
+                delivery_record.delivery_equipment_description = description
+                delivery_record.delivery_equipment_brand = brand
+                delivery_record.delivery_equipment_quantity = quantity
+                delivery_record.delivery_equipment_remaining = quantity
+                delivery_record.save()
+                storageupdate = equipmentmainstorage()
+                storageupdate.equipmentmainstorage_itemName = itemname
+                storageupdate.equipmentmainstorage_description = description
+                storageupdate.equipmentmainstorage_brand = brand
+                storageupdate.equipmentmainstorage_remaining = quantity
+                storageupdate.equipmentmainstorage_quantity = quantity
+                storageupdate.save()
+                mapping = equipment_storagemapping()
+                mapping.equipmentItemName = itemname
+                mapping.equipmentRackNo = 0
+                mapping.equipmentLayerNo = 0
+                mapping.equipmentCabinetNo = 0
+                mapping.equipmentShelfNo = 0
+                mapping.save()
+                messages.success(request, 'Record created for ' + itemname)
+                return redirect('inventorysystem-equipmentDeliver')
             else:
                     messages.info(request, "invalid quantity")
                     return redirect('inventorysystem-equipmentDeliver')
@@ -510,16 +514,16 @@ def updateEquipmentDeliver(request, pk):
     data = equipmentmainstorage.objects.get(equipmentmainstorage_id=pk)
     form = updateEquipmentSupplyForm(request.POST or None, instance=data)
     if request.method == 'POST':
-        if int(request.POST.get('equipmentmainstorage_remaining')) > 0:
+        if int(request.POST.get('equipmentmainstorage_RequestQuantity')) > 0:
             itemname = request.POST.get('equipmentmainstorage_itemName')
             update_record = deliveryequipment()
             update_record.delivery_equipment_itemname = request.POST.get('equipmentmainstorage_itemName')
             update_record.delivery_equipment_brand = request.POST.get('equipmentmainstorage_brand')
             update_record.delivery_equipment_description = request.POST.get('equipmentmainstorage_description')
             getdata = equipmentmainstorage.objects.get(equipmentmainstorage_itemName = itemname)
-            adding = int(getdata.equipmentmainstorage_quantity) + int(request.POST.get('equipmentmainstorage_remaining'))
+            adding = int(getdata.equipmentmainstorage_quantity) + int(request.POST.get('equipmentmainstorage_RequestQuantity'))
             update_record.delivery_equipment_remaining = adding
-            update_record.delivery_equipment_quantity = request.POST.get('equipmentmainstorage_remaining')
+            update_record.delivery_equipment_quantity = request.POST.get('equipmentmainstorage_RequestQuantity')
             update_record.save()
             update_delivery = equipmentmainstorage()
             update_delivery.equipmentmainstorage_id = equipmentmainstorage.objects.get(equipmentmainstorage_itemName = itemname).equipmentmainstorage_id
@@ -527,7 +531,7 @@ def updateEquipmentDeliver(request, pk):
             update_delivery.equipmentmainstorage_brand = request.POST.get('equipmentmainstorage_brand')
             update_delivery.equipmentmainstorage_description = request.POST.get('equipmentmainstorage_description')
             getdata = equipmentmainstorage.objects.get(equipmentmainstorage_itemName = itemname)
-            adding = int(getdata.equipmentmainstorage_quantity) + int(request.POST.get('equipmentmainstorage_remaining'))
+            adding = int(getdata.equipmentmainstorage_quantity) + int(request.POST.get('equipmentmainstorage_RequestQuantity'))
             update_delivery.equipmentmainstorage_remaining = 0
             update_delivery.equipmentmainstorage_quantity = adding
             equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = itemname).delete()
@@ -766,17 +770,19 @@ def equipmentReturn(request):
 
 #------------------- STORAGE MAPPING -----------------------------
 def storageMapping(request):
-    info = storagemapping.objects.all()
+    info = supply_storagemapping.objects.all()
+    info1 = equipment_storagemapping.objects.all()
 
     context = {
-        'info': info
+        'info': info,
+        'info1': info1
     }
 
     return render(request, 'task/storage-mapping.html', context)
 
-def updateStoragemapping(request, pk):
-    data = storagemapping.objects.get(storagemapping_id=pk)
-    form = storageForm(request.POST or None, instance=data)
+def updateSupplyStorage(request, pk):
+    data = supply_storagemapping.objects.get(supplyStoragemapping_id=pk)
+    form = supply_storageForm(request.POST or None, instance=data)
     if request.method == 'POST':
         if form.is_valid():
             form.save()
@@ -786,14 +792,27 @@ def updateStoragemapping(request, pk):
         'form': form,
     }
 
-    return render(request, 'task/update-storagemapping.html', context)
+    return render(request, 'task/update-supply-storage.html', context)
+
+def updateEquipmentStorage(request, pk):
+    data = equipment_storagemapping.objects.get(equipmentStoragemapping_id=pk)
+    form = equipment_storageForm(request.POST or None, instance=data)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('inventorysystem-storageMapping')
+    context = {
+        'data': data,
+        'form': form,
+    }
+
+    return render(request, 'task/update-equipment-storage.html', context)
 
 
 #------------------- EXPORT EXCEL FILE -----------------------------
 def export_excel(request):
     response=HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition'] = 'attachment; filename=Supply Inventory' + \
-        str(datetime.datetime.now())+'.xls'
+    response['Content-Disposition'] = 'attachment; filename=Supply Inventory' + '.xls'
     wb =xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet('Supply Delivery')
     ws1 = wb.add_sheet('Equipment Delivery')
@@ -805,8 +824,7 @@ def export_excel(request):
 
 #supply delivery
     supply_font.font.bold = True
-    supplydelivery = ['Description', 'Unit',
-                'Quantity', 'Remaining Quantity', 'Date']
+    supplydelivery = ['Description', 'Unit', 'Quantity', 'Remaining Quantity', 'Date']
 
     for col_num in range(len(supplydelivery)):
         ws.write(row_num,col_num, supplydelivery[col_num], supply_font)
@@ -826,7 +844,7 @@ def export_excel(request):
 
 #equipment delivery
     equipment_font.font.bold = True
-    equipmentdelivery = ['Itemname', 'Description', 'Brand', 'Serial No.',
+    equipmentdelivery = ['Itemname', 'Description', 'Brand',
                 'Quantity', 'Remaining Quantity', 'Date']
 
     for col_num1 in range(len(equipmentdelivery)):
@@ -835,7 +853,7 @@ def export_excel(request):
     font_style = xlwt.XFStyle()
 
     rows1 =deliveryequipment.objects.all().values_list(
-        'delivery_equipment_itemname', 'delivery_equipment_description', 'delivery_equipment_brand', 'delivery_equipment_unit',
+        'delivery_equipment_itemname', 'delivery_equipment_description', 'delivery_equipment_brand',
                 'delivery_equipment_quantity', 'delivery_equipment_remaining', 'current_date')
 
     for row in rows1:

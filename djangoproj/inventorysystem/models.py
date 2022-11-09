@@ -230,16 +230,28 @@ class equipmentmainstorage(models.Model):
 
 
 #-------------- STORAGE MODELS -------------------
-class storagemapping(models.Model):
+class supply_storagemapping(models.Model):
 
-    storagemapping_id = models.AutoField(primary_key=True)
-    Category = models.CharField(max_length=50, verbose_name='Category')
-    ItemName = models.CharField(max_length=50, verbose_name='ItemName')
-    RackNo = models.CharField(null= True, max_length=50, verbose_name='Rack')
-    LayerNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Layer')
-    CabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Cabinet')
-    ShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Shelf')
+    supplyStoragemapping_id = models.AutoField(primary_key=True)
+    supplyItemName = models.CharField(max_length=50, verbose_name='Supply ItemName')
+    supplyRackNo = models.CharField(null= True, max_length=50, verbose_name='Supply Rack')
+    supplyLayerNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply Layer')
+    supplyCabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply Cabinet')
+    supplyShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply Shelf')
 
 
     class Meta:
-        db_table = "storageMapping"
+        db_table = "supply_StorageMapping"
+
+class equipment_storagemapping(models.Model):
+
+    equipmentStoragemapping_id = models.AutoField(primary_key=True)
+    equipmentItemName = models.CharField(max_length=50, verbose_name='Equipment ItemName')
+    equipmentRackNo = models.CharField(null= True, max_length=50, verbose_name='Equipment Rack')
+    equipmentLayerNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Equipment Layer')
+    equipmentCabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Equipment Cabinet')
+    equipmentShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Equipment Shelf')
+
+
+    class Meta:
+        db_table = "equipment_StorageMapping"

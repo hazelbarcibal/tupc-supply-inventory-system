@@ -199,7 +199,7 @@ class updateEquipmentSupplyForm(forms.ModelForm):
             attrs={'class': 'form-control', 'placeholder': 'Remaining',})) 
 
     equipmentmainstorage_RequestQuantity = forms.DecimalField(required=True, widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'Request Quantity',}))  
+            attrs={'class': 'form-control', 'placeholder': 'Add Quantity',}))  
 
     def __init__(self, *args, **kwargs):
         super(updateEquipmentSupplyForm, self).__init__(*args, **kwargs)
@@ -313,26 +313,46 @@ class withdrawEquipmentForm(forms.ModelForm):
                     'arequest_equipment_status', 'arequest_equipment_yearacquired',
                     'arequest_equipment_model_no', 'arequest_equipment_serial_no', 'arequest_equipment_certifiedcorrect', 'current_date' ]
 
-# updatestorage - admin window - storagemapping models
-Category = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Category'}))
-ItemName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ItemName'}))
-RackNo = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Rack'}))
-LayerNo= forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'LayerNo'}))
-CabinetNo = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'CabinetNo'}))
-ShelfNo = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'ShelfNo'}))
+# update-supply-storage - admin window - storagemapping models
+supplyItemName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ItemName'}))
+supplyRackNo = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Rack'}))
+supplyLayerNo= forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'LayerNo'}))
+supplyCabinetNo = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'CabinetNo'}))
+supplyShelfNo = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'ShelfNo'}))
 
 
 
-class storageForm(forms.ModelForm):
+class supply_storageForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
-        super(storageForm, self).__init__(*args, **kwargs)
+        super(supply_storageForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
-            self.fields['Category'].widget.attrs['readonly'] = True
-            self.fields['ItemName'].widget.attrs['readonly'] = True
+            self.fields['supplyItemName'].widget.attrs['readonly'] = True
 
 
     class Meta:
-        model = storagemapping
-        fields = ['Category', 'ItemName', 'RackNo', 'CabinetNo', 'ShelfNo', 'LayerNo']
+        model = supply_storagemapping
+        fields = ['supplyItemName', 'supplyRackNo', 'supplyCabinetNo', 'supplyShelfNo', 'supplyLayerNo']
+
+# update-equipment-storage - admin window - storagemapping models
+equipmentItemName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ItemName'}))
+equipmentRackNo = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Rack'}))
+equipmentLayerNo= forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'LayerNo'}))
+equipmentCabinetNo = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'CabinetNo'}))
+equipmentShelfNo = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'ShelfNo'}))
+
+
+
+class equipment_storageForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super(equipment_storageForm, self).__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            self.fields['equipmentItemName'].widget.attrs['readonly'] = True
+
+
+    class Meta:
+        model = equipment_storagemapping
+        fields = ['equipmentItemName', 'equipmentRackNo', 'equipmentCabinetNo', 'equipmentShelfNo', 'equipmentLayerNo']

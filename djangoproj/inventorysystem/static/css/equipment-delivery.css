@@ -283,16 +283,16 @@ div.kahon1 {
 .btn1-group button:hover {
     background-color: #4d0d09;
 }
-h3{
+/* h3{
   font-weight: bold;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
+} */
 label{
   font-weight: bold;
 }
-tr.edittr:hover{
+/* tr.edittr:hover{
   background-color: rgb(109, 192, 252) !important;
-}
+} */
 input{
   background-color: #f8f8f8 !important;
   border-radius: 10px !important;
