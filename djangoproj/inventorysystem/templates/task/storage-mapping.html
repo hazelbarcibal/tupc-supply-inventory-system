@@ -32,71 +32,62 @@
         </div>
     </nav>
 
-<div class="home-content">
     <br>
-    <div class="container" style="width: 98%;">
-        <div class="kahon">
-            <h3 align="center">Supply</h3>
-            <hr>
-            <table id="supplymappingTable" class="table table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Item Name</th>
-                        <th>Rack No.</th>
-                        <th>Layer No.</th>
-                        <th>Cabinet No.</th>
-                        <th>Shelf No.</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for x in info %}
-                    <tr class="edittr">
-                        <td>{{x.supplyItemName}}</td>
-                        <td>{{x.supplyRackNo}}</td>
-                        <td>{{x.supplyLayerNo}}</td>
-                        <td>{{x.supplyCabinetNo}}</td>
-                        <td>{{x.supplyShelfNo}}</td>
-                        <td><a class="btn btn-success" href="{% url 'inventorysystem-updateSupplyStorage' x.supplyStoragemapping_id%}">Update</a></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+<div class="container home-content" style="width: 98%;">
+    <div class="kahon">
+        <h3 align="center">Supply</h3>
+        <hr>
+        <table id="supplymappingTable" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Rack No.</th>
+                    <th>Layer No.</th>
+                    <th>Cabinet No.</th>
+                    <th>Shelf No.</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in info %}
+                <tr class="edittr">
+                    <td>{{x.supplyItemName}}</td>
+                    <td>{{x.supplyRackNo}}</td>
+                    <td>{{x.supplyLayerNo}}</td>
+                    <td>{{x.supplyCabinetNo}}</td>
+                    <td>{{x.supplyShelfNo}}</td>
+                    <td><a class="btn btn-success" href="{% url 'inventorysystem-updateSupplyStorage' x.supplyStoragemapping_id%}">Update</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+</div>
      <!-- Datatable --> 
-     <div class="home-content">
-        <br>
-        <div class="container" style="width: 98%;">
-            <div class="kahon">
-                <h3 align="center">Equipment</h3>
-                <hr>
-                <table id="equipmentmappingTable" class="table table-striped" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Item Name</th>
-                            <th>Rack No.</th>
-                            <th>Layer No.</th>
-                            <th>Cabinet No.</th>
-                            <th>Shelf No.</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for x in info1 %}
-                        <tr class="edittr">
-                            <td>{{x.equipmentItemName}}</td>
-                            <td>{{x.equipmentRackNo}}</td>
-                            <td>{{x.equipmentLayerNo}}</td>
-                            <td>{{x.equipmentCabinetNo}}</td>
-                            <td>{{x.equipmentShelfNo}}</td>
-                            <td><a class="btn btn-success" href="{% url 'inventorysystem-updateEquipmentStorage' x.equipmentStoragemapping_id%}">Update</a></td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div class="container home-content" style="width: 98%;">
+    <div class="kahon">
+        <h3 align="center">Equipment</h3>
+        <hr>
+        <table id="equipmentmappingTable" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Equipment Name</th>
+                    <th>Location</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in info1 %}
+                <tr class="edittr">
+                    <td>{{x.equipmentItemName}}</td>
+                    <td>{{x.equipmentLocation}}</td>
+                    <td><a class="btn btn-success" href="{% url 'inventorysystem-updateEquipmentStorage' x.equipmentStoragemapping_id%}">Update</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
                   
 <br><br><br><br>
 <script>

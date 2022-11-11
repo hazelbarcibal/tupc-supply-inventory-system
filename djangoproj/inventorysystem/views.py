@@ -18,6 +18,8 @@ import tempfile
 def home(request):
     return render(request, 'task/home.html')
 
+def SupplyInventorySystem(request):
+    return render(request, 'task/landing-page.html')
 
 #--------- LOGIN --------------------
 def deptLogin(request):
@@ -487,10 +489,7 @@ def equipmentDeliver(request):
                 storageupdate.save()
                 mapping = equipment_storagemapping()
                 mapping.equipmentItemName = itemname
-                mapping.equipmentRackNo = 0
-                mapping.equipmentLayerNo = 0
-                mapping.equipmentCabinetNo = 0
-                mapping.equipmentShelfNo = 0
+                mapping.equipmentLocation = "Supply Office"
                 mapping.save()
                 messages.success(request, 'Record created for ' + itemname)
                 return redirect('inventorysystem-equipmentDeliver')

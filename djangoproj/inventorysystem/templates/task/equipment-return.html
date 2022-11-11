@@ -34,6 +34,7 @@
     h5{
         color: rgb(0, 0, 0);
     }
+   
 
 </style>
 
@@ -59,18 +60,26 @@
     <!-- <input type="text" id="returnequipment" name="returnequipment"> -->
     <form action="" method="post">
         {% csrf_token %}
-        <textarea rows="4" cols="50" name="returnequipment" id="propertyNum"></textarea>
+        <textarea rows="6" cols="50" name="returnequipment" id="propertyNum"></textarea>
         <br>
         <input type="hidden" name="property" id="property">
         <br>
         <span><button onclick="getVal();" id="" type="submit" class="btn btn-danger">Return</button></span>
     
     </form>
-
-    
 </div>
 
-<br><br>
+<div class= "container home-content btn1-group" >
+    <form action="">
+        <button class="fa fa-file-pdf-o right" 
+            style="font-size:13px;color:rgb(255, 255, 255)"> Save Data As PDF</button>
+    </form>
+    <form action="{% url 'export_excel'%}">
+        <button class="fa fa-file-excel-o right" 
+            style="font-size:13px;color:rgb(255, 255, 255)"> Export Data To Excel</button>
+    </form>
+</div>
+<br>
 <div class="container" style=" width: 98%;">
 <div class="kahon">
     <!-- Datatable --> 

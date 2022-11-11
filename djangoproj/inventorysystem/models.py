@@ -247,10 +247,7 @@ class equipment_storagemapping(models.Model):
 
     equipmentStoragemapping_id = models.AutoField(primary_key=True)
     equipmentItemName = models.CharField(max_length=50, verbose_name='Equipment ItemName')
-    equipmentRackNo = models.CharField(null= True, max_length=50, verbose_name='Equipment Rack')
-    equipmentLayerNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Equipment Layer')
-    equipmentCabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Equipment Cabinet')
-    equipmentShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Equipment Shelf')
+    equipmentLocation = models.CharField(max_length=50, verbose_name='Equipment Location')
 
 
     class Meta:

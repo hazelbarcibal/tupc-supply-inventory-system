@@ -19,7 +19,7 @@ class DeptRegisterForm(UserCreationForm):
 #-------------- DELIVERY SUPPLIES ---------------
 class deliverySupplyForm(forms.ModelForm):
     delivery_supply_description = forms.CharField(required=True, widget=forms.TextInput(
-            attrs={'id': 'deliveryItemname', 'list': 'deliveryItemname', 'class': 'form-control', 'placeholder': 'Description'}))
+            attrs={'list': 'deliveryItemname', 'class': 'form-control', 'placeholder': 'Description', 'autocomplete': 'on'}))
 
     delivery_supply_unit = forms.CharField(required=True, widget=forms.TextInput(
             attrs={'list': 'deliveryUnit', 'class': 'form-control', 'placeholder': 'Unit', 'autocomplete': 'on'}))
@@ -337,12 +337,7 @@ class supply_storageForm(forms.ModelForm):
 
 # update-equipment-storage - admin window - storagemapping models
 equipmentItemName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ItemName'}))
-equipmentRackNo = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Rack'}))
-equipmentLayerNo= forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'LayerNo'}))
-equipmentCabinetNo = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'CabinetNo'}))
-equipmentShelfNo = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'ShelfNo'}))
-
-
+equipmentLocation = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Location'}))
 
 class equipment_storageForm(forms.ModelForm):
     
@@ -355,4 +350,4 @@ class equipment_storageForm(forms.ModelForm):
 
     class Meta:
         model = equipment_storagemapping
-        fields = ['equipmentItemName', 'equipmentRackNo', 'equipmentCabinetNo', 'equipmentShelfNo', 'equipmentLayerNo']
+        fields = ['equipmentItemName', 'equipmentLocation']
