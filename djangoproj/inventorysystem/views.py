@@ -84,36 +84,71 @@ def suppliesDeliver(request):
         description = request.POST.get('delivery_supply_description')
         unit = request.POST.get('delivery_supply_unit')
         quantity = request.POST.get('delivery_supply_quantity')
+        update_description = request.POST.get('supplymainstorage_description')
+        add_quantity = request.POST.get('supplymainstorage_RequestQuantity')
+        update_unit = request.POST.get('supplymainstorage_unit')
 
-        if supplymainstorage.objects.filter(supplymainstorage_description = description).exists() == False:
-            if int(quantity) > 0:
-                    delivery_record = deliverysupply()
-                    delivery_record.delivery_supply_description = description
-                    delivery_record.delivery_supply_unit = unit
-                    delivery_record.delivery_supply_quantity = quantity
-                    delivery_record.delivery_supply_remaining = quantity
-                    delivery_record.save()
-                    storageupdate = supplymainstorage()
-                    storageupdate.supplymainstorage_description = description
-                    storageupdate.supplymainstorage_unit = unit
-                    storageupdate.supplymainstorage_quantity = quantity
-                    storageupdate.save()
-                    mapping = supply_storagemapping()
-                    mapping.supplyItemName = description
-                    mapping.supplyRackNo = 0
-                    mapping.supplyLayerNo = 0
-                    mapping.supplyCabinetNo = 0
-                    mapping.supplyShelfNo = 0
-                    mapping.save()
-                    messages.success(request, 'Record created for ' + description)
-                    return redirect('inventorysystem-suppliesDeliver')
-            else:
-                    messages.info(request, "invalid quantity")
-                    return redirect('inventorysystem-suppliesDeliver')
+        if 'delivery_new' in request.POST:
+            if supplymainstorage.objects.filter(supplymainstorage_description = description).exists() == False:
+                if int(quantity) > 0:
+                        delivery_record = deliverysupply()
+                        delivery_record.delivery_supply_description = description
+                        delivery_record.delivery_supply_unit = unit
+                        delivery_record.delivery_supply_quantity = quantity
+                        delivery_record.delivery_supply_remaining = quantity
+                        delivery_record.save()
+                        storageupdate = supplymainstorage()
+                        storageupdate.supplymainstorage_description = description
+                        storageupdate.supplymainstorage_unit = unit
+                        storageupdate.supplymainstorage_quantity = quantity
+                        storageupdate.save()
+                        mapping = supply_storagemapping()
+                        mapping.supplyItemName = description
+                        mapping.supplyRackNo = 0
+                        mapping.supplyLayerNo = 0
+                        mapping.supplyCabinetNo = 0
+                        mapping.supplyShelfNo = 0
+                        mapping.save()
+                        messages.success(request, 'Record created for ' + description)
+                        return redirect('inventorysystem-suppliesDeliver')
+                else:
+                        messages.info(request, "invalid quantity")
+                        return redirect('inventorysystem-suppliesDeliver')
 
-        elif supplymainstorage.objects.filter(supplymainstorage_description = description).exists() == True:
-            messages.info(request, 'Description: '  + description + ' already exist ')
-            return redirect('inventorysystem-suppliesDeliver')        
+            elif supplymainstorage.objects.filter(supplymainstorage_description = description).exists() == True:
+                messages.info(request, 'Description: '  + description + ' already exist ')
+                
+                return redirect('inventorysystem-suppliesDeliver')
+
+        elif 'delivery_update' in request.POST:
+
+            if int(add_quantity) > 0:
+
+                getdata1 = supplymainstorage.objects.get(supplymainstorage_description = update_description)
+            
+                update_record = deliverysupply()
+                update_record.delivery_supply_description = getdata1
+                update_record.delivery_supply_unit = getdata1.supplymainstorage_unit
+                adding = int(getdata1.supplymainstorage_quantity) + int(add_quantity)
+                update_record.delivery_supply_quantity = add_quantity
+                update_record.delivery_supply_remaining = adding
+                update_record.save()
+
+                update_delivery = supplymainstorage()
+                update_delivery.supplymainstorage_id = getdata1.supplymainstorage_id
+                update_delivery.supplymainstorage_description = update_description
+                update_delivery.supplymainstorage_unit = update_unit
+                adding1 = int(getdata1.supplymainstorage_quantity) + int(add_quantity)
+                update_delivery.supplymainstorage_quantity = adding1
+                supplymainstorage.objects.filter(supplymainstorage_description = update_description).filter(supplymainstorage_unit = update_unit).delete()
+                update_delivery.save()
+
+                messages.success(request, 'Record updated for: ' + str(getdata1.supplymainstorage_description))
+                return redirect('inventorysystem-suppliesDeliver')
+
+        else:
+            messages.info(request, "invalid quantity")
+
     
     context = {
         'form': form,
@@ -126,41 +161,41 @@ def suppliesDeliver(request):
 def updateSuppliesDeliver(request, pk):
     data = supplymainstorage.objects.get(supplymainstorage_id=pk)
     form = updateDeliverySupplyForm(request.POST or None, instance=data)
-    if request.method == 'POST':
-        if int(request.POST.get('supplymainstorage_RequestQuantity')) > 0:
+    # if request.method == 'POST':
+    #     if int(request.POST.get('supplymainstorage_RequestQuantity')) > 0:
             
-                getdata1 = supplymainstorage.objects.get(supplymainstorage_id=pk).supplymainstorage_id
-                getdata2 = supplymainstorage.objects.get(supplymainstorage_id= getdata1).supplymainstorage_description
-                update_record = deliverysupply()
-                update_record.delivery_supply_description = getdata2
-                update_record.delivery_supply_unit = supplymainstorage.objects.get(supplymainstorage_id= getdata1).supplymainstorage_unit
-                getdata3 = supplymainstorage.objects.get(supplymainstorage_id=pk).supplymainstorage_id
-                getdata4 = supplymainstorage.objects.get(supplymainstorage_id= getdata3)
-                adding = int(getdata4.supplymainstorage_quantity) + int(request.POST.get('supplymainstorage_RequestQuantity'))
-                update_record.delivery_supply_quantity = request.POST.get('supplymainstorage_RequestQuantity')
-                update_record.delivery_supply_remaining = adding
-                update_record.save()
+    #             getdata1 = supplymainstorage.objects.get(supplymainstorage_id=pk).supplymainstorage_id
+    #             getdata2 = supplymainstorage.objects.get(supplymainstorage_id= getdata1).supplymainstorage_description
+    #             update_record = deliverysupply()
+    #             update_record.delivery_supply_description = getdata2
+    #             update_record.delivery_supply_unit = supplymainstorage.objects.get(supplymainstorage_id= getdata1).supplymainstorage_unit
+    #             getdata3 = supplymainstorage.objects.get(supplymainstorage_id=pk).supplymainstorage_id
+    #             getdata4 = supplymainstorage.objects.get(supplymainstorage_id= getdata3)
+    #             adding = int(getdata4.supplymainstorage_quantity) + int(request.POST.get('supplymainstorage_RequestQuantity'))
+    #             update_record.delivery_supply_quantity = request.POST.get('supplymainstorage_RequestQuantity')
+    #             update_record.delivery_supply_remaining = adding
+    #             update_record.save()
 
-                update_delivery = supplymainstorage()
-                update_delivery.supplymainstorage_id = getdata1
-                update_delivery.supplymainstorage_description = getdata2
-                update_delivery.supplymainstorage_unit = supplymainstorage.objects.get(supplymainstorage_id= getdata1).supplymainstorage_unit
-                getdata5 = supplymainstorage.objects.get(supplymainstorage_id=pk).supplymainstorage_id
-                getdata6 = supplymainstorage.objects.get(supplymainstorage_id= getdata5)
-                adding1 = int(getdata6.supplymainstorage_quantity) + int(request.POST.get('supplymainstorage_RequestQuantity'))
-                update_delivery.supplymainstorage_quantity = adding1
-                getdata7 = supplymainstorage.objects.get(supplymainstorage_id=pk).supplymainstorage_id
-                getdata8 = supplymainstorage.objects.get(supplymainstorage_id= getdata7)
-                supplymainstorage.objects.filter(supplymainstorage_description = getdata8.supplymainstorage_description).filter(supplymainstorage_unit = getdata8.supplymainstorage_unit).delete()
-                update_delivery.save()
-                getdata9 = supplymainstorage.objects.get(supplymainstorage_id=pk).supplymainstorage_id
-                getdata10 = supplymainstorage.objects.get(supplymainstorage_id= getdata9).supplymainstorage_description
+    #             update_delivery = supplymainstorage()
+    #             update_delivery.supplymainstorage_id = getdata1
+    #             update_delivery.supplymainstorage_description = getdata2
+    #             update_delivery.supplymainstorage_unit = supplymainstorage.objects.get(supplymainstorage_id= getdata1).supplymainstorage_unit
+    #             getdata5 = supplymainstorage.objects.get(supplymainstorage_id=pk).supplymainstorage_id
+    #             getdata6 = supplymainstorage.objects.get(supplymainstorage_id= getdata5)
+    #             adding1 = int(getdata6.supplymainstorage_quantity) + int(request.POST.get('supplymainstorage_RequestQuantity'))
+    #             update_delivery.supplymainstorage_quantity = adding1
+    #             getdata7 = supplymainstorage.objects.get(supplymainstorage_id=pk).supplymainstorage_id
+    #             getdata8 = supplymainstorage.objects.get(supplymainstorage_id= getdata7)
+    #             supplymainstorage.objects.filter(supplymainstorage_description = getdata8.supplymainstorage_description).filter(supplymainstorage_unit = getdata8.supplymainstorage_unit).delete()
+    #             update_delivery.save()
+    #             getdata9 = supplymainstorage.objects.get(supplymainstorage_id=pk).supplymainstorage_id
+    #             getdata10 = supplymainstorage.objects.get(supplymainstorage_id= getdata9).supplymainstorage_description
 
-                messages.success(request, 'Record updated for: ' + getdata10)
-                return redirect('inventorysystem-suppliesDeliver')
+    #             messages.success(request, 'Record updated for: ' + getdata10)
+    #             return redirect('inventorysystem-suppliesDeliver')
 
-        else:
-            messages.info(request, "invalid quantity")
+    #     else:
+    #         messages.info(request, "invalid quantity")
 
     context = {
         'data': data,
@@ -178,24 +213,51 @@ def statusLimit(request):
         unit = request.POST.get('non-existing_unit')
         quantity = request.POST.get('non-existing_quantity')
         department = request.POST.get('non-existing_department')
+        update_limit_department = request.POST.get('limit_department')
+        update_limit_description = request.POST.get('limit_description')
+        update_limit_unit = request.POST.get('limit_unit')
+        update_limit_quantity = request.POST.get('limit_quantity')
+        update_limit_addquantity = request.POST.get('limit_addquantity')
 
-        if supplymainstorage.objects.filter(supplymainstorage_description = description).filter(supplymainstorage_unit = unit).exists() == True:
-            if int(request.POST.get('non-existing_quantity')) > 0:
-                    if limitrecords.objects.filter(limit_description = description).filter(limit_department = department).filter(limit_unit = unit).exists() == False:
-                            limit = limitrecords()
-                            limit.limit_description = description
-                            limit.limit_unit = unit
-                            limit.limit_quantity = quantity
-                            limit.limit_department = department
-                            limit.save()        
-                            messages.success(request, 'Record created for ' + description)
+        if 'new_limit' in request.POST:
 
-                    elif limitrecords.objects.filter(limit_description = description).filter(limit_department = department).filter(limit_unit = unit).exists() == True:
-                            messages.info(request, "Item name: " +  description + " with a unit: " + unit + " is existing in the department: " + department)
+            if supplymainstorage.objects.filter(supplymainstorage_description = description).filter(supplymainstorage_unit = unit).exists() == True:
+                if int(request.POST.get('non-existing_quantity')) > 0:
+                        if limitrecords.objects.filter(limit_description = description).filter(limit_department = department).filter(limit_unit = unit).exists() == False:
+                                limit = limitrecords()
+                                limit.limit_description = description
+                                limit.limit_unit = unit
+                                limit.limit_quantity = quantity
+                                limit.limit_department = department
+                                limit.save()        
+                                messages.success(request, 'Record created for ' + description)
+
+                        elif limitrecords.objects.filter(limit_description = description).filter(limit_department = department).filter(limit_unit = unit).exists() == True:
+                                messages.info(request, "Item name: " +  description + " with a unit: " + unit + " is existing in the department: " + department)
+                else:
+                    messages.info(request, "invalid quantity")
+            elif  supplymainstorage.objects.filter(supplymainstorage_description = description).filter(supplymainstorage_unit = unit).exists() == False:
+                messages.info(request, "No Existing item name: " +  description +  " with a unit: " + unit + " in supply mainstorage")
+
+        if 'update_limit' in request.POST:
+            
+            getdata = limitrecords.objects.get(limit_description = update_limit_description)
+            if int(update_limit_addquantity) > 0:
+                update_record = limitrecords()
+                update_record.limit_id = getdata.limit_id
+                update_record.limit_description = update_limit_description
+                update_record.limit_unit = update_limit_unit
+                update_record.limit_department = update_limit_department
+                adding = int(getdata.limit_quantity) + int(update_limit_addquantity)
+                update_record.limit_quantity = adding
+                limitrecords.objects.filter(limit_id = getdata.limit_id).delete()
+                update_record.save()
+
+
+                messages.success(request, 'Record updated for Itemname: ' + update_limit_description +  " with a unit: " + update_limit_unit + " into department: " + update_limit_department)
+                return redirect('inventorysystem-statusLimit')
             else:
                 messages.info(request, "invalid quantity")
-        elif  supplymainstorage.objects.filter(supplymainstorage_description = description).filter(supplymainstorage_unit = unit).exists() == False:
-            messages.info(request, "No Existing item name: " +  description +  " with a unit: " + unit + " in supply mainstorage")
 
 
     context = {
@@ -207,31 +269,31 @@ def statusLimit(request):
 def updateStatus(request, pk):
     data = limitrecords.objects.get(limit_id=pk)
     form = statusForm(request.POST or None, instance=data)
-    if request.method == 'POST':
-        getdata2 = limitrecords.objects.get(limit_id=pk).limit_id
-        getdata3 = limitrecords.objects.get(limit_id = getdata2)
-        if int(request.POST.get('limit_addquantity')) > 0:
-            update_record = limitrecords()
-            update_record.limit_id = getdata2
-            update_record.limit_description = getdata3.limit_description
-            update_record.limit_unit = getdata3.limit_unit
-            update_record.limit_department = getdata3.limit_department
-            getdata = limitrecords.objects.get(limit_id=pk).limit_id
-            getdata1 = limitrecords.objects.get(limit_id=getdata)
-            adding = int(getdata1.limit_quantity) + int(request.POST.get('limit_addquantity'))
-            update_record.limit_quantity = adding
-            getdatalimit = limitrecords.objects.get(limit_id=pk).limit_id
-            limitrecords.objects.filter(limit_id = getdatalimit).delete()
-            update_record.save()
-            getdata4 = limitrecords.objects.get(limit_id=pk).limit_id
-            getdata5 = limitrecords.objects.get(limit_id = getdata4).limit_description
-            getdata6 = limitrecords.objects.get(limit_id = getdata4).limit_unit
-            getdata7 = limitrecords.objects.get(limit_id = getdata4).limit_department
+    # if request.method == 'POST':
+        # getdata2 = limitrecords.objects.get(limit_id=pk).limit_id
+        # getdata3 = limitrecords.objects.get(limit_id = getdata2)
+        # if int(request.POST.get('limit_addquantity')) > 0:
+        #     update_record = limitrecords()
+        #     update_record.limit_id = getdata2
+        #     update_record.limit_description = getdata3.limit_description
+        #     update_record.limit_unit = getdata3.limit_unit
+        #     update_record.limit_department = getdata3.limit_department
+        #     getdata = limitrecords.objects.get(limit_id=pk).limit_id
+        #     getdata1 = limitrecords.objects.get(limit_id=getdata)
+        #     adding = int(getdata1.limit_quantity) + int(request.POST.get('limit_addquantity'))
+        #     update_record.limit_quantity = adding
+        #     getdatalimit = limitrecords.objects.get(limit_id=pk).limit_id
+        #     limitrecords.objects.filter(limit_id = getdatalimit).delete()
+        #     update_record.save()
+        #     getdata4 = limitrecords.objects.get(limit_id=pk).limit_id
+        #     getdata5 = limitrecords.objects.get(limit_id = getdata4).limit_description
+        #     getdata6 = limitrecords.objects.get(limit_id = getdata4).limit_unit
+        #     getdata7 = limitrecords.objects.get(limit_id = getdata4).limit_department
 
-            messages.success(request, 'Record updated for Itemname: ' + getdata5 +  " with a unit: " + getdata6 + " into department: " + getdata7)
-            return redirect('inventorysystem-statusLimit')
-        else:
-            messages.info(request, "invalid quantity")
+        #     messages.success(request, 'Record updated for Itemname: ' + getdata5 +  " with a unit: " + getdata6 + " into department: " + getdata7)
+        #     return redirect('inventorysystem-statusLimit')
+        # else:
+        #     messages.info(request, "invalid quantity")
 
     context = {
             'data': data,
@@ -245,6 +307,55 @@ def updateStatus(request, pk):
 def viewRequestSupply(request):
     info = requestsupply.objects.all()
     # info1 = supplymainstorage.objects.filter()
+    
+    if request.method == 'POST':
+        request_id = request.POST.get('requestsupply_id')
+        request_department = request.POST.get('request_supply_department')
+        request_unit = request.POST.get('request_supply_unit')
+        request_description = request.POST.get('request_supply_description')
+        request_quantity = request.POST.get('request_supply_quantity')
+        request_accept_quantity = request.POST.get('request_supply_acceptquantity')
+        getdata1 = requestsupply.objects.get(requestsupply_id = request_id).requestsupply_id
+        getdata2 = requestsupply.objects.get(requestsupply_id = request_id)
+
+        if int(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity) > int(getdata2.request_supply_quantity):
+            accept = acceptSupplyRequests()
+            accept.acceptSupplyRequests_id = request_id
+            accept.arequest_supply_department = request_department
+            accept.arequest_supply_description = request_description
+            accept.arequest_supply_unit = request_unit
+            accept.arequest_supply_quantity = request_accept_quantity
+            accept.arequest_supply_status = "Ready for pick-up"
+            # data1 = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
+            # subject = "Supply Department"
+            # message = "Your Item is ready for pick up"
+            # get1 = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
+            # get2 = str(requestsupply.objects.get(requestsupply_id = getdata).request_supply_department)
+            # depinfo = str(requestsupply.objects.get(requestsupply_id = getdata1).request_supply_department)
+            # print(depinfo)
+            # recipient = str(CustomUser.objects.get(department= get2).email)
+            # # email field ng bawat department
+            # send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
+            requestsupply.objects.filter(requestsupply_id = getdata1).delete()       
+            status = statusSupplyRequest()
+            status.statusSupplyRequests_id = request_id
+            status.status_supply_description = request_description
+            status.status_supply_unit = request_unit
+            status.status_supply_quantity = request_quantity
+            status.status_supply_remaining = limitrecords.objects.get(limit_id = getdata1).limit_quantity
+            status.status_supply_acceptquantity = request_accept_quantity
+            status.status_supply_department = request_department
+            status.status_supply_status = "Ready for pick-up"  
+            statusSupplyRequest.objects.filter(statusSupplyRequests_id = getdata1).delete()  
+            messages.success(request, 'request accepted')
+            accept.save()
+            status.save()
+          
+
+            return redirect('inventorysystem-viewRequestSupply')
+        else:
+            number = str(supplymainstorage.objects.get(supplymainstorage_description = getdata1.request_supply_description).supplymainstorage_quantity)
+            messages.info(request, 'This item does not have enough stock in the main storage,'+ ' Mainstorage Remaining: ' + number)
     context = {
         'info': info,
         # 'info1': info1,
@@ -255,47 +366,47 @@ def viewRequestSupply(request):
 def editRequestSupply(request, pk):
     data = requestsupply.objects.get(requestsupply_id=pk)
     form = requestSupplyForm(request.POST or None, instance=data)
-    if request.method == 'POST':
-        getdata = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
-        getdata1 = requestsupply.objects.get(requestsupply_id = getdata)
-        if int(supplymainstorage.objects.get(supplymainstorage_description = getdata1.request_supply_description).supplymainstorage_quantity) > int(getdata1.request_supply_quantity):
-            accept = acceptSupplyRequests()
-            accept.acceptSupplyRequests_id = getdata
-            accept.arequest_supply_department = getdata1.request_supply_department
-            accept.arequest_supply_description = getdata1.request_supply_description
-            accept.arequest_supply_unit = getdata1.request_supply_unit
-            accept.arequest_supply_quantity = getdata1.request_supply_quantity
-            accept.arequest_supply_remaining = supplymainstorage.objects.get(supplymainstorage_description = getdata1.request_supply_description).supplymainstorage_quantity
-            accept.arequest_supply_status = "Ready for pick-up"
-            data1 = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
-            # subject = "Supply Department"
-            # message = "Your Item is ready for pick up"
-            # get1 = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
-            # get2 = str(requestsupply.objects.get(requestsupply_id = getdata).request_supply_department)
-            # depinfo = str(requestsupply.objects.get(requestsupply_id = getdata1).request_supply_department)
-            # print(depinfo)
-            # recipient = str(CustomUser.objects.get(department= get2).email)
-            # # email field ng bawat department
-            # send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
-            requestsupply.objects.filter(requestsupply_id = data1).delete()       
-            status = statusSupplyRequest()
-            status.statusSupplyRequests_id = getdata
-            status.status_supply_description = getdata1.request_supply_description
-            status.status_supply_unit = getdata1.request_supply_unit
-            status.status_supply_quantity = getdata1.request_supply_quantity
-            status.status_supply_remaining = limitrecords.objects.get(limit_id = getdata).limit_quantity
-            status.status_supply_department = getdata1.request_supply_department
-            status.status_supply_status = "Ready for pick-up"  
-            statusSupplyRequest.objects.filter(statusSupplyRequests_id = getdata).delete()  
-            messages.success(request, 'request accepted')
-            accept.save()
-            status.save()
+    # if request.method == 'POST':
+    #     getdata = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
+    #     getdata1 = requestsupply.objects.get(requestsupply_id = getdata)
+    #     if int(supplymainstorage.objects.get(supplymainstorage_description = getdata1.request_supply_description).supplymainstorage_quantity) > int(getdata1.request_supply_quantity):
+    #         accept = acceptSupplyRequests()
+    #         accept.acceptSupplyRequests_id = getdata
+    #         accept.arequest_supply_department = getdata1.request_supply_department
+    #         accept.arequest_supply_description = getdata1.request_supply_description
+    #         accept.arequest_supply_unit = getdata1.request_supply_unit
+    #         accept.arequest_supply_quantity = getdata1.request_supply_quantity
+    #         accept.arequest_supply_remaining = supplymainstorage.objects.get(supplymainstorage_description = getdata1.request_supply_description).supplymainstorage_quantity
+    #         accept.arequest_supply_status = "Ready for pick-up"
+    #         data1 = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
+    #         # subject = "Supply Department"
+    #         # message = "Your Item is ready for pick up"
+    #         # get1 = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
+    #         # get2 = str(requestsupply.objects.get(requestsupply_id = getdata).request_supply_department)
+    #         # depinfo = str(requestsupply.objects.get(requestsupply_id = getdata1).request_supply_department)
+    #         # print(depinfo)
+    #         # recipient = str(CustomUser.objects.get(department= get2).email)
+    #         # # email field ng bawat department
+    #         # send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
+    #         requestsupply.objects.filter(requestsupply_id = data1).delete()       
+    #         status = statusSupplyRequest()
+    #         status.statusSupplyRequests_id = getdata
+    #         status.status_supply_description = getdata1.request_supply_description
+    #         status.status_supply_unit = getdata1.request_supply_unit
+    #         status.status_supply_quantity = getdata1.request_supply_quantity
+    #         status.status_supply_remaining = limitrecords.objects.get(limit_id = getdata).limit_quantity
+    #         status.status_supply_department = getdata1.request_supply_department
+    #         status.status_supply_status = "Ready for pick-up"  
+    #         statusSupplyRequest.objects.filter(statusSupplyRequests_id = getdata).delete()  
+    #         messages.success(request, 'request accepted')
+    #         accept.save()
+    #         status.save()
           
 
-            return redirect('inventorysystem-viewRequestSupply')
-        else:
-            number = str(supplymainstorage.objects.get(supplymainstorage_description = getdata1.request_supply_description).supplymainstorage_quantity)
-            messages.info(request, 'This item does not have enough stock in the main storage,'+ ' Mainstorage Remaining: ' + number)
+    #         return redirect('inventorysystem-viewRequestSupply')
+    #     else:
+    #         number = str(supplymainstorage.objects.get(supplymainstorage_description = getdata1.request_supply_description).supplymainstorage_quantity)
+    #         messages.info(request, 'This item does not have enough stock in the main storage,'+ ' Mainstorage Remaining: ' + number)
 
     context = {
         'data': data,
@@ -309,7 +420,60 @@ def depRequestSupply(request):
     info1 = limitrecords.objects.all().filter(limit_department = request.user)
     info = statusSupplyRequest.objects.all().filter(status_supply_department = request.user)
     info2 = withdrawsupply.objects.all().filter(withdraw_supply_department = request.user)
+    if request.method == 'POST':
+        request_description = request.POST.get('request_description')
+        request_unit = request.POST.get('request_unit')
+        request_quantity = request.POST.get('request_quantity')
+        request_addquantity = request.POST.get('request_addquantity')
+        requestingitem = limitrecords.objects.get(limit_description = request_description)
+        requestingID = limitrecords.objects.get(limit_description = request_description).limit_id
+        if statusSupplyRequest.objects.filter(status_supply_description = requestingitem).filter(status_supply_department = request.user).exists() == True:
+                messages.info(request, 'You already have a request for this item.')
+                return redirect('inventorysystem-depRequestSupply')
+
+        elif int(request_addquantity) == 0:
+                messages.info(request, 'Not enough quantity for this item.')
+                return redirect('inventorysystem-depRequestSupply')
+
+        elif int(request_addquantity) <= 0:
+                messages.info(request, 'Check the available quantity')
+                return redirect('inventorysystem-depRequestSupply')
+
+        elif statusSupplyRequest.objects.filter(statusSupplyRequests_id = requestingID).exists() == False:
     
+                if limitrecords.objects.filter(limit_id = requestingID).exists() == True:
+                    getdata3 = limitrecords.objects.get(limit_id = requestingID)
+                    requesting = requestsupply()
+                    requesting.requestsupply_id = requestingID
+                    requesting.request_supply_description = request_description
+                    requesting.request_supply_unit = request_unit
+                    requesting.request_supply_quantity = request_addquantity
+                    requesting.request_supply_remaining = request_quantity
+                    requesting.request_supply_department = getdata3.limit_department
+                    requesting.request_supply_status = "pending"
+                    status = statusSupplyRequest()
+                    status.statusSupplyRequests_id = requestingID
+                    status.status_supply_description = request_description
+                    status.status_supply_unit = request_unit
+                    status.status_supply_quantity = request_addquantity
+                    status.status_supply_remaining = request_quantity
+                    status.status_supply_department = getdata3.limit_department
+                    status.status_supply_status = "pending"
+                    requesting.save()
+                    status.save()
+                    getdata4 = limitrecords.objects.get(limit_id = requestingID).limit_description
+
+                    messages.success(request, 'Request Successful for itemname ' + getdata4)
+                    # # subject = str(limitrecords.objects.get(limit_id = requestingID).limit_department)
+                    # # message = "New Request"
+                    # # depinfo = str(CustomUser.objects.get(is_superuser=True).email)
+                    # # # limitrecords.objects.get(limit_id = requestID).limit_department
+                    # # # str(CustomUser.objects.get(department= depinfo).email)
+                    # # print(depinfo)
+                    # # recipient = depinfo
+                    # # # email ni sir gascon 
+                    # # send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
+                    return redirect('inventorysystem-depRequestSupply')
 
     context = {
         'info1': info1,
@@ -321,58 +485,58 @@ def depRequestSupply(request):
 def editdepRequestSupply(request, pk):
     info1 = limitrecords.objects.get(limit_id=pk)
     form = depRequestSupplyForm(request.POST or None, instance=info1)
-    if request.method == 'POST':
-        requestingID = limitrecords.objects.get(limit_id=pk).limit_id
-        requestingitem = limitrecords.objects.get(limit_id= requestingID).limit_description
-        if statusSupplyRequest.objects.filter(status_supply_description = requestingitem).filter(status_supply_department = request.user).exists() == True:
-                messages.info(request, 'You already have a request for this item.')
-                return redirect('inventorysystem-depRequestSupply')
+    # if request.method == 'POST':
+    #     requestingID = limitrecords.objects.get(limit_id=pk).limit_id
+    #     requestingitem = limitrecords.objects.get(limit_id= requestingID).limit_description
+    #     if statusSupplyRequest.objects.filter(status_supply_description = requestingitem).filter(status_supply_department = request.user).exists() == True:
+    #             messages.info(request, 'You already have a request for this item.')
+    #             return redirect('inventorysystem-depRequestSupply')
 
-        elif int(request.POST.get('limit_quantity')) == 0:
-                messages.info(request, 'Not enough quantity for this item.')
-                return redirect('inventorysystem-depRequestSupply')
+    #     elif int(request.POST.get('limit_quantity')) == 0:
+    #             messages.info(request, 'Not enough quantity for this item.')
+    #             return redirect('inventorysystem-depRequestSupply')
 
-        elif int(request.POST.get('limit_addquantity')) <= 0:
-                messages.info(request, 'Check the available quantity')
-                return redirect('inventorysystem-depRequestSupply')
+    #     elif int(request.POST.get('limit_addquantity')) <= 0:
+    #             messages.info(request, 'Check the available quantity')
+    #             return redirect('inventorysystem-depRequestSupply')
 
-        elif statusSupplyRequest.objects.filter(statusSupplyRequests_id = requestingID).exists() == False:
-                requestID = limitrecords.objects.get(limit_id=pk).limit_id
+    #     elif statusSupplyRequest.objects.filter(statusSupplyRequests_id = requestingID).exists() == False:
+    #             requestID = limitrecords.objects.get(limit_id=pk).limit_id
 
-                requestqty = request.POST.get('limit_addquantity')
-                if limitrecords.objects.filter(limit_id = requestID).exists() == True:
-                    getdata3 = limitrecords.objects.get(limit_id = requestID)
-                    requesting = requestsupply()
-                    requesting.requestsupply_id = requestID
-                    requesting.request_supply_description = getdata3.limit_description
-                    requesting.request_supply_unit = getdata3.limit_unit
-                    requesting.request_supply_quantity = requestqty
-                    requesting.request_supply_remaining = getdata3.limit_quantity
-                    requesting.request_supply_department = getdata3.limit_department
-                    requesting.request_supply_status = "pending"
-                    status = statusSupplyRequest()
-                    status.statusSupplyRequests_id = requestID
-                    status.status_supply_description = getdata3.limit_description
-                    status.status_supply_unit = getdata3.limit_unit
-                    status.status_supply_quantity = requestqty
-                    status.status_supply_remaining = getdata3.limit_quantity
-                    status.status_supply_department = getdata3.limit_department
-                    status.status_supply_status = "pending"
-                    requesting.save()
-                    status.save()
-                    getdata4 = limitrecords.objects.get(limit_id = requestID).limit_description
+    #             requestqty = request.POST.get('limit_addquantity')
+    #             if limitrecords.objects.filter(limit_id = requestID).exists() == True:
+    #                 getdata3 = limitrecords.objects.get(limit_id = requestID)
+    #                 requesting = requestsupply()
+    #                 requesting.requestsupply_id = requestID
+    #                 requesting.request_supply_description = getdata3.limit_description
+    #                 requesting.request_supply_unit = getdata3.limit_unit
+    #                 requesting.request_supply_quantity = requestqty
+    #                 requesting.request_supply_remaining = getdata3.limit_quantity
+    #                 requesting.request_supply_department = getdata3.limit_department
+    #                 requesting.request_supply_status = "pending"
+    #                 status = statusSupplyRequest()
+    #                 status.statusSupplyRequests_id = requestID
+    #                 status.status_supply_description = getdata3.limit_description
+    #                 status.status_supply_unit = getdata3.limit_unit
+    #                 status.status_supply_quantity = requestqty
+    #                 status.status_supply_remaining = getdata3.limit_quantity
+    #                 status.status_supply_department = getdata3.limit_department
+    #                 status.status_supply_status = "pending"
+    #                 requesting.save()
+    #                 status.save()
+    #                 getdata4 = limitrecords.objects.get(limit_id = requestID).limit_description
 
-                    messages.success(request, 'Request Successful for itemname ' + getdata4)
-                    subject = str(limitrecords.objects.get(limit_id = requestID).limit_department)
-                    message = "New Request"
-                    depinfo = str(CustomUser.objects.get(is_superuser=True).email)
-                    # limitrecords.objects.get(limit_id = requestID).limit_department
-                    # str(CustomUser.objects.get(department= depinfo).email)
-                    print(depinfo)
-                    recipient = depinfo
-                    # email ni sir gascon 
-                    send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
-                    return redirect('inventorysystem-depRequestSupply')
+    #                 messages.success(request, 'Request Successful for itemname ' + getdata4)
+    #                 subject = str(limitrecords.objects.get(limit_id = requestID).limit_department)
+    #                 message = "New Request"
+    #                 depinfo = str(CustomUser.objects.get(is_superuser=True).email)
+    #                 # limitrecords.objects.get(limit_id = requestID).limit_department
+    #                 # str(CustomUser.objects.get(department= depinfo).email)
+    #                 print(depinfo)
+    #                 recipient = depinfo
+    #                 # email ni sir gascon 
+    #                 send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
+    #                 return redirect('inventorysystem-depRequestSupply')
 
 
     context = {
@@ -385,6 +549,46 @@ def editdepRequestSupply(request, pk):
 def suppliesWithdraw(request):
     info = acceptSupplyRequests.objects.all()
     info1 = withdrawsupply.objects.all()
+
+    if request.method == 'POST':
+        getdata = request.POST.get('acceptSupplyRequests_id')
+        withdraw_department = request.POST.get('arequest_supply_department')
+        withdraw_description = request.POST.get('arequest_supply_description')
+        withdraw_unit = request.POST.get('arequest_supply_unit')
+        withdraw_quantity = request.POST.get('arequest_supply_quantity')
+        getdata1 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata).acceptSupplyRequests_id
+
+        update_storage = supplymainstorage()
+        getdata2 = supplymainstorage.objects.get(supplymainstorage_description = withdraw_description)
+        update_storage.supplymainstorage_description = withdraw_description
+        update_storage.supplymainstorage_unit = withdraw_unit
+        update_storage.supplymainstorage_id = getdata2.supplymainstorage_id
+        update_storage.supplymainstorage_quantity = int(getdata2.supplymainstorage_quantity) - int(withdraw_quantity)
+        supplymainstorage.objects.filter(supplymainstorage_description = withdraw_description).delete()
+        update_storage.save()
+
+        update_limit = limitrecords()
+        update_limit.limit_id = getdata1
+        update_limit.limit_description = withdraw_description
+        update_limit.limit_unit = withdraw_unit
+        update_limit.limit_department = withdraw_department
+        limitqty = limitrecords.objects.get(limit_id = getdata1).limit_quantity      
+        update_limit.limit_quantity = int(limitqty) - int(withdraw_quantity)
+        # limitrecords.objects.filter(limit_description = withdraw_description).filter(limit_department = withdraw_department).delete()
+        update_limit.save()
+
+        accept = withdrawsupply()
+        accept.withdraw_supply_department = withdraw_department
+        accept.withdraw_supply_description = withdraw_description
+        accept.withdraw_supply_unit = withdraw_unit
+        accept.withdraw_supply_quantity = withdraw_quantity
+        accept.withdraw_supply_remaining = supplymainstorage.objects.get(supplymainstorage_description = withdraw_description).supplymainstorage_quantity
+        acceptSupplyRequests.objects.filter(acceptSupplyRequests_id = getdata1).delete()
+        statusSupplyRequest.objects.filter(statusSupplyRequests_id = getdata1).delete()         
+        accept.save()
+
+        messages.success(request, 'successfully withdraw')
+        return redirect('inventorysystem-suppliesWithdraw')
     context = {
         'info': info,
         'info1': info1,
@@ -395,49 +599,49 @@ def suppliesWithdraw(request):
 def updateSupplyWithdraw(request, pk):
     data = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk)
     form = withdrawStatusForm(request.POST or None, instance=data)
-    if request.method == 'POST':
-        getdata4 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
-        getdata5 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata4)
+    # if request.method == 'POST':
+    #     getdata4 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+    #     getdata5 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata4)
 
-        update_storage = supplymainstorage()
-        getdata = supplymainstorage.objects.get(supplymainstorage_description = getdata5.arequest_supply_description)
-        update_storage.supplymainstorage_description = getdata5.arequest_supply_description
-        update_storage.supplymainstorage_unit = getdata5.arequest_supply_unit
-        update_storage.supplymainstorage_id = getdata.supplymainstorage_id
-        update_storage.supplymainstorage_quantity = int(getdata.supplymainstorage_quantity) - int(getdata5.arequest_supply_quantity)
-        getdata6 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
-        getdata7 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata6).arequest_supply_description
-        supplymainstorage.objects.filter(supplymainstorage_description = getdata7).delete()
-        update_storage.save()
+    #     update_storage = supplymainstorage()
+    #     getdata = supplymainstorage.objects.get(supplymainstorage_description = getdata5.arequest_supply_description)
+    #     update_storage.supplymainstorage_description = getdata5.arequest_supply_description
+    #     update_storage.supplymainstorage_unit = getdata5.arequest_supply_unit
+    #     update_storage.supplymainstorage_id = getdata.supplymainstorage_id
+    #     update_storage.supplymainstorage_quantity = int(getdata.supplymainstorage_quantity) - int(getdata5.arequest_supply_quantity)
+    #     getdata6 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+    #     getdata7 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata6).arequest_supply_description
+    #     supplymainstorage.objects.filter(supplymainstorage_description = getdata7).delete()
+    #     update_storage.save()
 
-        update_limit = limitrecords()
-        getdata3 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
-        update_limit.limit_id = getdata3
-        update_limit.limit_description = getdata5.arequest_supply_description
-        update_limit.limit_unit = getdata5.arequest_supply_unit
-        update_limit.limit_department = getdata5.arequest_supply_department
-        getdata1 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
-        limitqty = limitrecords.objects.get(limit_id = getdata1).limit_quantity      
-        update_limit.limit_quantity = int(limitqty) - int(getdata5.arequest_supply_quantity)
-        getdata8 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
-        getdata9 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata8).arequest_supply_description
-        getdata10 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata8).arequest_supply_description
-        limitrecords.objects.filter(limit_description = getdata9).filter(limit_department = getdata10).delete()
-        update_limit.save()
+    #     update_limit = limitrecords()
+    #     getdata3 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+    #     update_limit.limit_id = getdata3
+    #     update_limit.limit_description = getdata5.arequest_supply_description
+    #     update_limit.limit_unit = getdata5.arequest_supply_unit
+    #     update_limit.limit_department = getdata5.arequest_supply_department
+    #     getdata1 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+    #     limitqty = limitrecords.objects.get(limit_id = getdata1).limit_quantity      
+    #     update_limit.limit_quantity = int(limitqty) - int(getdata5.arequest_supply_quantity)
+    #     getdata8 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+    #     getdata9 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata8).arequest_supply_description
+    #     getdata10 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata8).arequest_supply_description
+    #     limitrecords.objects.filter(limit_description = getdata9).filter(limit_department = getdata10).delete()
+    #     update_limit.save()
 
-        accept = withdrawsupply()
-        accept.withdraw_supply_department = getdata5.arequest_supply_department
-        accept.withdraw_supply_description = getdata5.arequest_supply_description
-        accept.withdraw_supply_unit = getdata5.arequest_supply_unit
-        accept.withdraw_supply_quantity = getdata5.arequest_supply_quantity
-        accept.withdraw_supply_remaining = supplymainstorage.objects.get(supplymainstorage_description = getdata5.arequest_supply_description).supplymainstorage_quantity
-        data1 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
-        acceptSupplyRequests.objects.filter(acceptSupplyRequests_id = data1).delete()
-        statusSupplyRequest.objects.filter(statusSupplyRequests_id = getdata1).delete()         
-        accept.save()
+    #     accept = withdrawsupply()
+    #     accept.withdraw_supply_department = getdata5.arequest_supply_department
+    #     accept.withdraw_supply_description = getdata5.arequest_supply_description
+    #     accept.withdraw_supply_unit = getdata5.arequest_supply_unit
+    #     accept.withdraw_supply_quantity = getdata5.arequest_supply_quantity
+    #     accept.withdraw_supply_remaining = supplymainstorage.objects.get(supplymainstorage_description = getdata5.arequest_supply_description).supplymainstorage_quantity
+    #     data1 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id=pk).acceptSupplyRequests_id
+    #     acceptSupplyRequests.objects.filter(acceptSupplyRequests_id = data1).delete()
+    #     statusSupplyRequest.objects.filter(statusSupplyRequests_id = getdata1).delete()         
+    #     accept.save()
 
-        messages.success(request, 'successfully withdraw')
-        return redirect('inventorysystem-suppliesWithdraw')
+    #     messages.success(request, 'successfully withdraw')
+    #     return redirect('inventorysystem-suppliesWithdraw')
 
     context = {
         'data': data,
@@ -470,36 +674,73 @@ def equipmentDeliver(request):
         description = request.POST.get('delivery_equipment_description')
         brand = request.POST.get('delivery_equipment_brand')
         quantity = request.POST.get('delivery_equipment_quantity')
+        update_itemname = request.POST.get('equipmentmainstorage_itemName')
+        update_description = request.POST.get('equipmentmainstorage_description')
+        update_brand = request.POST.get('equipmentmainstorage_brand')
+        update_quantity = request.POST.get('equipmentmainstorage_RequestQuantity')
 
-        if equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = itemname).filter(equipmentmainstorage_description = description).exists() == False:
-            if int(quantity) > 0:
-                delivery_record = deliveryequipment()
-                delivery_record.delivery_equipment_itemname = itemname
-                delivery_record.delivery_equipment_description = description
-                delivery_record.delivery_equipment_brand = brand
-                delivery_record.delivery_equipment_quantity = quantity
-                delivery_record.delivery_equipment_remaining = quantity
-                delivery_record.save()
-                storageupdate = equipmentmainstorage()
-                storageupdate.equipmentmainstorage_itemName = itemname
-                storageupdate.equipmentmainstorage_description = description
-                storageupdate.equipmentmainstorage_brand = brand
-                storageupdate.equipmentmainstorage_remaining = quantity
-                storageupdate.equipmentmainstorage_quantity = quantity
-                storageupdate.save()
-                mapping = equipment_storagemapping()
-                mapping.equipmentItemName = itemname
-                mapping.equipmentLocation = "Supply Office"
-                mapping.save()
-                messages.success(request, 'Record created for ' + itemname)
+    
+        if 'delivery_equipment_new' in request.POST:
+
+            if equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = itemname).filter(equipmentmainstorage_description = description).exists() == False:
+                if int(quantity) > 0:
+                    delivery_record = deliveryequipment()
+                    delivery_record.delivery_equipment_itemname = itemname
+                    delivery_record.delivery_equipment_description = description
+                    delivery_record.delivery_equipment_brand = brand
+                    delivery_record.delivery_equipment_quantity = quantity
+                    delivery_record.delivery_equipment_remaining = quantity
+                    delivery_record.save()
+                    storageupdate = equipmentmainstorage()
+                    storageupdate.equipmentmainstorage_itemName = itemname
+                    storageupdate.equipmentmainstorage_description = description
+                    storageupdate.equipmentmainstorage_brand = brand
+                    storageupdate.equipmentmainstorage_remaining = quantity
+                    storageupdate.equipmentmainstorage_quantity = quantity
+                    storageupdate.save()
+                    mapping = equipment_storagemapping()
+                    mapping.equipmentItemName = itemname
+                    mapping.equipmentLocation = "Supply Office"
+                    mapping.save()
+                    messages.success(request, 'Record created for ' + itemname)
+                    return redirect('inventorysystem-equipmentDeliver')
+                else:
+                        messages.info(request, "invalid quantity")
+                        return redirect('inventorysystem-equipmentDeliver')
+
+            elif equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = itemname).exists() == True:
+                messages.info(request, 'Itemname: '  + itemname + ' already exist ')
+                return redirect('inventorysystem-equipmentDeliver')    
+
+        elif 'delivery_equipment_update' in request.POST:
+
+            getdata = equipmentmainstorage.objects.get(equipmentmainstorage_itemName = update_itemname)
+            if int(update_quantity) > 0:
+                update_record = deliveryequipment()
+                update_record.delivery_equipment_itemname = update_itemname
+                update_record.delivery_equipment_brand = update_brand
+                update_record.delivery_equipment_description = update_description
+                adding = int(getdata.equipmentmainstorage_quantity) + int(update_quantity)
+                update_record.delivery_equipment_remaining = adding
+                update_record.delivery_equipment_quantity = update_quantity
+                update_record.save()
+
+                update_delivery = equipmentmainstorage()
+                update_delivery.equipmentmainstorage_id = getdata.equipmentmainstorage_id
+                update_delivery.equipmentmainstorage_itemName = update_itemname
+                update_delivery.equipmentmainstorage_brand = update_brand
+                update_delivery.equipmentmainstorage_description = update_description
+                adding = int(getdata.equipmentmainstorage_quantity) + int(update_quantity)
+                update_delivery.equipmentmainstorage_quantity = adding
+                equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = update_itemname).delete()
+                update_delivery.save()
+
+
+                messages.success(request, 'Record updated for: ' + str(update_itemname))
                 return redirect('inventorysystem-equipmentDeliver')
             else:
-                    messages.info(request, "invalid quantity")
-                    return redirect('inventorysystem-equipmentDeliver')
+                messages.info(request, "invalid quantity") 
 
-        elif equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = itemname).exists() == True:
-            messages.info(request, 'Itemname: '  + itemname + ' already exist ')
-            return redirect('inventorysystem-equipmentDeliver')     
     context = {
         'form': form,
         'info': info,
@@ -512,35 +753,35 @@ def equipmentDeliver(request):
 def updateEquipmentDeliver(request, pk):
     data = equipmentmainstorage.objects.get(equipmentmainstorage_id=pk)
     form = updateEquipmentSupplyForm(request.POST or None, instance=data)
-    if request.method == 'POST':
-        if int(request.POST.get('equipmentmainstorage_RequestQuantity')) > 0:
-            itemname = request.POST.get('equipmentmainstorage_itemName')
-            update_record = deliveryequipment()
-            update_record.delivery_equipment_itemname = request.POST.get('equipmentmainstorage_itemName')
-            update_record.delivery_equipment_brand = request.POST.get('equipmentmainstorage_brand')
-            update_record.delivery_equipment_description = request.POST.get('equipmentmainstorage_description')
-            getdata = equipmentmainstorage.objects.get(equipmentmainstorage_itemName = itemname)
-            adding = int(getdata.equipmentmainstorage_quantity) + int(request.POST.get('equipmentmainstorage_RequestQuantity'))
-            update_record.delivery_equipment_remaining = adding
-            update_record.delivery_equipment_quantity = request.POST.get('equipmentmainstorage_RequestQuantity')
-            update_record.save()
-            update_delivery = equipmentmainstorage()
-            update_delivery.equipmentmainstorage_id = equipmentmainstorage.objects.get(equipmentmainstorage_itemName = itemname).equipmentmainstorage_id
-            update_delivery.equipmentmainstorage_itemName = request.POST.get('equipmentmainstorage_itemName')
-            update_delivery.equipmentmainstorage_brand = request.POST.get('equipmentmainstorage_brand')
-            update_delivery.equipmentmainstorage_description = request.POST.get('equipmentmainstorage_description')
-            getdata = equipmentmainstorage.objects.get(equipmentmainstorage_itemName = itemname)
-            adding = int(getdata.equipmentmainstorage_quantity) + int(request.POST.get('equipmentmainstorage_RequestQuantity'))
-            update_delivery.equipmentmainstorage_remaining = 0
-            update_delivery.equipmentmainstorage_quantity = adding
-            equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = itemname).delete()
-            update_delivery.save()
+    # if request.method == 'POST':
+    #     if int(request.POST.get('equipmentmainstorage_RequestQuantity')) > 0:
+    #         itemname = request.POST.get('equipmentmainstorage_itemName')
+    #         update_record = deliveryequipment()
+    #         update_record.delivery_equipment_itemname = request.POST.get('equipmentmainstorage_itemName')
+    #         update_record.delivery_equipment_brand = request.POST.get('equipmentmainstorage_brand')
+    #         update_record.delivery_equipment_description = request.POST.get('equipmentmainstorage_description')
+    #         getdata = equipmentmainstorage.objects.get(equipmentmainstorage_itemName = itemname)
+    #         adding = int(getdata.equipmentmainstorage_quantity) + int(request.POST.get('equipmentmainstorage_RequestQuantity'))
+    #         update_record.delivery_equipment_remaining = adding
+    #         update_record.delivery_equipment_quantity = request.POST.get('equipmentmainstorage_RequestQuantity')
+    #         update_record.save()
+    #         update_delivery = equipmentmainstorage()
+    #         update_delivery.equipmentmainstorage_id = equipmentmainstorage.objects.get(equipmentmainstorage_itemName = itemname).equipmentmainstorage_id
+    #         update_delivery.equipmentmainstorage_itemName = request.POST.get('equipmentmainstorage_itemName')
+    #         update_delivery.equipmentmainstorage_brand = request.POST.get('equipmentmainstorage_brand')
+    #         update_delivery.equipmentmainstorage_description = request.POST.get('equipmentmainstorage_description')
+    #         getdata = equipmentmainstorage.objects.get(equipmentmainstorage_itemName = itemname)
+    #         adding = int(getdata.equipmentmainstorage_quantity) + int(request.POST.get('equipmentmainstorage_RequestQuantity'))
+    #         update_delivery.equipmentmainstorage_remaining = 0
+    #         update_delivery.equipmentmainstorage_quantity = adding
+    #         equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = itemname).delete()
+    #         update_delivery.save()
 
 
-            messages.success(request, 'Record updated for: ' + itemname)
-            return redirect('inventorysystem-equipmentDeliver')
-        else:
-            messages.info(request, "invalid quantity")
+    #         messages.success(request, 'Record updated for: ' + itemname)
+    #         return redirect('inventorysystem-equipmentDeliver')
+    #     else:
+    #         messages.info(request, "invalid quantity")
 
     context = {
             'data': data,

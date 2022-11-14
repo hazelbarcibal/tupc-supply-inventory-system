@@ -138,22 +138,22 @@
 
               <div class="col-md-6">
                   <label class="form-label">Description:</label>
-                  <input type="text" class="form-control" id="description" name="limit_description" readonly>
+                  <input type="text" class="form-control" id="description" name="request_description" readonly>
               </div>
 
               <div class="col-md-6">
                   <label class="form-label">Unit:</label>
-                  <input type="text" min="1" class="form-control" id="unit" name="limit_unit" readonly>
+                  <input type="text" min="1" class="form-control" id="unit" name="request_unit" readonly>
               </div>
 
               <div class="col-md-6">
                   <label class="form-label">Quantity:</label>
-                  <input type="number" class="form-control" id="quantity" name="limit_quantity" readonly>
+                  <input type="number" class="form-control" id="quantity" name="request_quantity" readonly>
               </div>
 
               <div class="col-md-6">
                   <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Accept Quantity:</label>
-                  <input type="number" min="1" class="form-control" id="addquantity" name="limit_addquantity" required>
+                  <input type="number" min="1" class="form-control" id="addquantity" name="request_addquantity" required>
               </div>
 
 
@@ -206,7 +206,8 @@
                 <tr>
                     <th>Description</th>
                     <th>Unit</th>
-                    <th>Quantity</th>
+                    <th>Requested Quantity</th>
+                    <th>Accepted Quantity</th>
                     <th>Remaining</th>
                     <th>Status</th>
                 </tr>
@@ -217,6 +218,7 @@
                   <td>{{x.status_supply_description}}</td>
                   <td>{{x.status_supply_unit}}</td>
                   <td>{{x.status_supply_quantity}}</td>
+                  <td>{{x.status_supply_acceptquantity}}</td>
                   <td>{{x.status_supply_remaining}}</td>
                   <td>{{x.status_supply_status}}</td>
               </tr>

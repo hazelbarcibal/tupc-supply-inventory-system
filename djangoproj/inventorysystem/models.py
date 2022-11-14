@@ -104,6 +104,7 @@ class statusSupplyRequest(models.Model):
     status_supply_description = models.CharField(max_length=255, verbose_name='status_supply_description')
     status_supply_unit = models.CharField(max_length=50, verbose_name='status_supply_unit')
     status_supply_quantity = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='status_supply_quantity')
+    status_supply_acceptquantity = models.DecimalField(null=True, max_digits=6,decimal_places=0, verbose_name='status_supply_quantity')
     status_supply_remaining = models.DecimalField(null=True, max_digits=6,decimal_places=0, verbose_name='status_supply_remaining')
     status_supply_status = models.CharField(max_length=50, verbose_name='status_supply_status')
 
