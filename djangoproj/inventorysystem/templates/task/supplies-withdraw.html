@@ -1,8 +1,6 @@
 {% extends 'task/home.html' %}
 {% load static %}
 
-
-
 {% block content %}
 
 <title> Supplies Withdraw </title>
@@ -89,7 +87,8 @@
             <table id="supplyWithdrawTable" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Department</th>
+                        <th style="text-align: center;">Request No.</th>
+                        <th style="text-align: center;">Department</th>
                         <th style="text-align: center;">Description</th>
                         <th style="text-align: center;">Unit</th>
                         <th style="text-align: center;">Requested Quantity</th>
@@ -101,19 +100,104 @@
                 <tbody>
                     {% for x in info %}
                     <tr class="edittr">
-                        <td>{{x.arequest_supply_department}}</td>
+                        <td align="center">{{x.acceptSupplyRequests_id}}</td>
+                        <td align="center">{{x.arequest_supply_department}}</td>
                         <td align="center">{{x.arequest_supply_description}}</td>
                         <td align="center">{{x.arequest_supply_unit}}</td>
                         <td align="center">{{x.arequest_supply_quantity}}</td>
                         <td align="center">{{x.arequest_supply_remaining}}</td>
                         <td align="center">{{x.arequest_supply_status}}</td>
-                        <td align="center"><a class="btn btn-success" style="margin-bottom: 10px;" href="{% url 'inventorysystem-updateSupplyWithdraw' x.acceptSupplyRequests_id %}">WITHDRAW</a></td>
+                        <td align="center">
+                            <button class="btn btn-success editBtn" style="margin-bottom: 10px;" name="editBtn">WITHDRAW</button>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
+
+
+<!----- UPDATE DELIVERY MODAL ----->
+<div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+        <!----- UPDATE STATUS FORM ---->
+
+            <form action = "" method = "POST" class="row g-3" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <input type="hidden" id="editId" name="acceptSupplyRequests_id" value="" readonly>
+
+                <div class="col-md-12">
+                    <label class="form-label">Department:</label>
+                    <input type="text" class="form-control" id="department" name="arequest_supply_department" readonly>
+                </div>
+
+                <div class="col-md-12">
+                    <label class="form-label">Description:</label>
+                    <input type="text" class="form-control" id="description" name="arequest_supply_description" readonly>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Unit:</label>
+                    <input type="number" min="1" class="form-control" id="unit" name="arequest_supply_unit" readonly>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Quantity:</label>
+                    <input type="number" min="1" class="form-control" id="quantity" name="arequest_supply_quantity" readonly>
+                </div>
+
+                <div class="col-md-12">
+                    <label class="form-label">Mainstorage Remaining:</label>
+                    <input type="number" min="1" class="form-control" id="remaining" name="arequest_supply_remaining" readonly>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">OK</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+      </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $('.editBtn').on('click', function(){
+
+            $('#openModal').modal('show');
+            $tr =$(this).closest('tr');
+            var data= $tr.children("td").map(function(){
+            return $(this).text();
+            }).get();
+
+            console.log(data);
+            $('h5.modal-title').html('Change Withdrawing Status for: '+ data[1]);
+            $('#editId').val(data[0]);
+            $('#department').val(data[1]);
+            $('#description').val(data[2]);
+            $('#unit').val(data[3]);
+            $('#quantity').val(data[4]);
+            $('#remaining').val(data[5]);
+        });
+    });
+
+</script>
+
+
+
     <div class= "container home-content btn1-group" >
         <form action="">
             <button class="fa fa-file-pdf-o" 

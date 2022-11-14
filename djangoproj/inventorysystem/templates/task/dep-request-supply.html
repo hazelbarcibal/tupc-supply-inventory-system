@@ -80,10 +80,8 @@
 <div class="container home-content">
   <div class="container">
       <div class="col-12">
-        <!-- <span style="font-size: 25px; padding-left: 50px; color: #fffefd;">Welcome, <span name = 'departmentlogin' style="color: #444544; margin-right: 5px; 
-          font-size: 15px; padding-left: 20px;">{{request.user}}</span></span> -->
-          <h4>Welcome, <span style="text-decoration: underline; font-weight: 600;">{{request.user}}</span> !</h4>
-    </div>
+        <h4>Welcome, <span style="text-decoration: underline; font-weight: 600;">{{request.user}}</span> !</h4>
+      </div>
   </div>
   <br>
     <div class="container">
@@ -95,19 +93,23 @@
       <table id="MainStorage" class="table table-striped" style="width:100%">
           <thead>
               <tr>
-                  <th>Description</th>
-                  <th>Unit</th>
-                  <th>Quantity</th>
-                  <th>Action</th>
+                  <th style="text-align: center;">Item no.</th>
+                  <th style="text-align: center;">Description</th>
+                  <th style="text-align: center;">Unit</th>
+                  <th style="text-align: center;">Quantity</th>
+                  <th style="text-align: center;">Action</th>
               </tr>
           </thead>
           <tbody>
             {% for x in info1 %}
             <tr class="edittr">
-                <td>{{x.limit_description}}</td>
-                <td>{{x.limit_unit}}</td>
-                <td>{{x.limit_quantity}}</td>
-                <td><a class="btn btn-success" style="margin-bottom: 10px;" href="{% url 'inventorysystem-editdepRequestSupply' x.limit_id %}">REQUEST</a></td>
+                <td align="center">{{x.limit_id}}</td>
+                <td align="center">{{x.limit_description}}</td>
+                <td align="center">{{x.limit_unit}}</td>
+                <td align="center">{{x.limit_quantity}}</td>
+                <td align="center">
+                  <button class="btn btn-success editBtn" style="margin-bottom: 10px;">Request</button>
+                </td>
             </tr>
             {% endfor %}
           </tbody>
@@ -115,6 +117,82 @@
     </div>
   </div>
 </div>
+
+
+<!----- UPDATE MODAL ----->
+<div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+      <!----- UPDATE FORM ---->
+
+          <form action = "" method = "POST" class="row g-3" enctype="multipart/form-data">
+              {% csrf_token %}
+
+              <input type="hidden" id="editId" name="limit_id" value="" readonly>
+
+              <div class="col-md-6">
+                  <label class="form-label">Description:</label>
+                  <input type="text" class="form-control" id="description" name="limit_description" readonly>
+              </div>
+
+              <div class="col-md-6">
+                  <label class="form-label">Unit:</label>
+                  <input type="text" min="1" class="form-control" id="unit" name="limit_unit" readonly>
+              </div>
+
+              <div class="col-md-6">
+                  <label class="form-label">Quantity:</label>
+                  <input type="number" class="form-control" id="quantity" name="limit_quantity" readonly>
+              </div>
+
+              <div class="col-md-6">
+                  <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Accept Quantity:</label>
+                  <input type="number" min="1" class="form-control" id="addquantity" name="limit_addquantity" required>
+              </div>
+
+
+              <div class="modal-footer">
+                  <div class="col-12">
+                      <button type="submit" class="btn btn-primary">Request</button>
+                  </div>
+              </div>
+          </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+  $(document).ready(function(){
+      $('.editBtn').on('click', function(){
+
+          $('#openModal').modal('show');
+          $tr =$(this).closest('tr');
+          var data= $tr.children("td").map(function(){
+          return $(this).text();
+          }).get();
+
+          console.log(data);
+          $('h5.modal-title').html('Add Request for: '+ data[1]);
+          $('#editId').val(data[0]);
+          $('#description').val(data[1]);
+          $('#unit').val(data[2]);
+          $('#quantity').val(data[3]);
+
+      });
+  });
+
+</script>
+
+
 
 <div class="container home-content">
     <!-- Datatable --> 
@@ -238,7 +316,7 @@ $(document).ready(function() {
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
     var m = "{{ message }}";
-    swal("Welcome! ", m, "success")
+    swal("Success! ", m, "success")
     </script>
 {% endif %}
 {% endfor %}

@@ -127,12 +127,12 @@ transform: translate(-50%, -50%);
                         <label class="form-label">Date and Time: </label>
                         {{form.current_date}}
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Property No: </label>
                         {{form.arequest_equipment_property_no}}
                     </div>
                     
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Year Acquired: </label>
                         {{form.arequest_equipment_yearacquired}}
                     </div>
@@ -148,14 +148,22 @@ transform: translate(-50%, -50%);
                         <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Certified Correct: </label>
                         {{form.arequest_equipment_certifiedcorrect}}
                     </div>
-
-                    
-                    <div class="col-12">
-                        <button id="submit" style="float: right;" type="submit" class="btn btn-primary">Withdraw</button>
+    
+                    <div class="col-md-4">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">QR Size: </label>
+                        <select id="qrSize" class="form-select" required style="border: solid #3E3E3E 1.5px;">
+                            <option id="0">76x76</option>
+                            <option id="1">150x150</option>
+                            <option id="2">250x250</option>
+                            <option id="3">350x350</option>
+                            <option id="4">450x450</option>
+                        </select>
                     </div>
-                    <!-- <div class="col-12">
-                        <button onclick="create()" type="submit" class="btn btn-primary">Create QR</button>
-                    </div> -->
+ 
+                    <div class="col-12">
+                        <button id="submit" disabled style="float: right;" type="submit" class="btn btn-primary">Withdraw</button>
+                    </div>
+                    
                 </form>
                 
                 <div class="row" style="padding-left: 12px; padding-top: 10px;">
@@ -170,13 +178,13 @@ transform: translate(-50%, -50%);
         <p><h4><i style="color: rgb(0, 0, 0);">--- QR will appear below ---</i></h4></p>
         <p><small><i style="color: rgb(0, 0, 0);">To save the QR, kindly right click on the image and click 'Save image'</i></small></p>
     </div>
+    <hr style="width:35%; margin: auto; color: black; border: 1px solid;" align="center">
 
-    <div class="box-2">
-        <div class="border">
-            <div id="qrimage"></div>
-        </div>
-    </div>
 <br>
+
+<!--- Where generated QR will be displayed ---->
+<div id="qrimage" align='center'></div>
+<br><br><br>
 
 
 
@@ -186,6 +194,7 @@ transform: translate(-50%, -50%);
 <script type="text/javascript">
 
     function create() {
+        var qrSizeResult = document.getElementById("qrSize").value;
         var data = 
             'Property No: ' +
             document.getElementById("propertyNo").value + ' ' +
@@ -199,10 +208,6 @@ transform: translate(-50%, -50%);
             document.getElementById("brand").value + '\n' +
             'Quantity: ' +
             document.getElementById("quantity").value + '\n' +
-            // 'Remaining: ' +
-            // document.getElementById("remaining").value + '\n' +
-            // 'Status: ' +
-            // document.getElementById("status").value + '\n' +
             'Year Acquired: ' +
             document.getElementById("yrAcquired").value + '\n' +
             'Serial No: ' +
@@ -219,8 +224,10 @@ transform: translate(-50%, -50%);
             || document.getElementById('yrAcquired').value === '' || document.getElementById('serialNo').value === '' 
             || document.getElementById('modelNo').value === '' || document.getElementById('certified').value === ''){
                 alert('Some fields are empty. Please enter details to generate QR code.');
+
             } else {
-                document.getElementById("qrimage").innerHTML = "<img src='https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=" + encodeURIComponent(data) + "'/>";
+                document.getElementById("submit").disabled = false;
+                document.getElementById("qrimage").innerHTML = "<img src='https://chart.googleapis.com/chart?chs=" + encodeURIComponent(qrSizeResult) + "&cht=qr&chl=" + encodeURIComponent(data) + "'/>";
             }
             
     }

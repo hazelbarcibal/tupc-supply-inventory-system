@@ -2,7 +2,6 @@
 {% load static %}
 
 
-
 {% block content %}
 
 <title> View Request Supply </title>
@@ -44,11 +43,12 @@
         <table id="viewRequestSupplyTable" class="table table-striped" style="width:100%;">
             <thead>
                 <tr>
-                    <th>Department</th>
+                    <th>Request No.</th>
+                    <th style="text-align: center;">Department</th>
                     <th style="text-align: center;">Description</th>
                     <th style="text-align: center;">Unit</th>
                     <th style="text-align: center;">Request Quantity</th>
-                    <!-- <th style="text-align: center;">MainStorage Quantity</th> -->
+                    <th style="text-align: center;">MainStorage Quantity</th>
                     <th style="text-align: center;">Date & Time</th>
                     <th style="text-align: center;">Status</th>
                 </tr>
@@ -56,13 +56,16 @@
             <tbody>
                 {% for x in info %}
                 <tr class="edittr">
-                    <td>{{x.request_supply_department}}</td>
+                    <td>{{x.requestsupply_id}}</td>
+                    <td align="center">{{x.request_supply_department}}</td>
                     <td align="center">{{x.request_supply_description}}</td>
                     <td align="center">{{x.request_supply_unit}}</td>
                     <td align="center">{{x.request_supply_quantity}}</td>
-                    <!-- <td align="center">{{a.Quantity}}</td> -->
+                    <td align="center">{{x.request_supply_mainstoragequantity}}</td>
                     <td align="center">{{x.current_date}}</td>
-                    <td align="center"><a class="btn btn-success" style="margin-bottom: 10px;" href="{% url 'inventorysystem-editRequestSupply' x.requestsupply_id %}">ACCEPT</a></td>
+                    <td align="center">
+                        <button class="btn btn-success editBtn" style="margin-bottom: 10px;" name="editBtn">ACCEPT</button>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -71,16 +74,98 @@
 </div>
     <br><br>
 
-<script>
+<!----- UPDATE MODAL ----->
+<div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+        <!----- UPDATE FORM ---->
+
+            <form action = "" method = "POST" class="row g-3" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <input type="hidden" id="editId" name="requestsupply_id" value="" readonly>
+
+                <div class="col-md-12">
+                    <label class="form-label">Department:</label>
+                    <input type="text" class="form-control" id="department" name="request_supply_department" readonly>
+                </div>
+
+                <div class="col-md-12">
+                    <label class="form-label">Description:</label>
+                    <input type="text" class="form-control" id="description" name="request_supply_description" readonly>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Unit:</label>
+                    <input type="text" min="1" class="form-control" id="unit" name="request_supply_unit" readonly>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Mainstorage Quantity:</label>
+                    <input type="number" min="1" class="form-control" id="mainquantity" name="request_supply_mainstoragequantity" readonly>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Requested Quantity:</label>
+                    <input type="number" min="1" class="form-control" id="requestquantity" name="request_supply_quantity" readonly>
+                </div>
+
+                <div class="col-md-6">
+                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Accept Quantity:</label>
+                    <input type="number" min="1" class="form-control" id="acceptquantity" name="request_supply_acceptquantity" required>
+                </div>
+
+
+                <div class="modal-footer">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Accept Request</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $('.editBtn').on('click', function(){
+
+            $('#openModal').modal('show');
+            $tr =$(this).closest('tr');
+            var data= $tr.children("td").map(function(){
+            return $(this).text();
+            }).get();
+
+            console.log(data);
+            $('h5.modal-title').html('Accept Request for: '+ data[1]);
+            $('#editId').val(data[0]);
+            $('#department').val(data[1]);
+            $('#description').val(data[2]);
+            $('#unit').val(data[3]);
+            $('#mainquantity').val(data[4]);
+            $('#requestquantity').val(data[5]);
+        });
+    });
 
     $(document).ready(function() {
-                var table = $('#viewRequestSupplyTable').DataTable( {
-                    rowReorder: {
-                        selector: 'td:nth-child(2)'
-                    },
-                    responsive: true
-                } );
-            } );
+        var table = $('#viewRequestSupplyTable').DataTable( {
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            responsive: true
+        } );
+    } );
+    
 </script>
 
 

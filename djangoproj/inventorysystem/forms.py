@@ -25,7 +25,7 @@ class deliverySupplyForm(forms.ModelForm):
             attrs={'list': 'deliveryUnit', 'class': 'form-control', 'placeholder': 'Unit', 'autocomplete': 'on'}))
 
     delivery_supply_quantity = forms.DecimalField(required=True,  widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'Quantity',}))   
+            attrs={'class': 'form-control', 'placeholder': 'Quantity', 'min': 0,}))   
 
     delivery_supply_remaining = forms.DecimalField(required=True,  widget=forms.NumberInput(
             attrs={'class': 'form-control', 'placeholder': 'Remaining',}))   
@@ -33,6 +33,7 @@ class deliverySupplyForm(forms.ModelForm):
     class Meta:
         model = deliverysupply
         fields = [ 'delivery_supply_description',  'delivery_supply_unit', 'delivery_supply_quantity', 'delivery_supply_remaining']
+
 
 class updateDeliverySupplyForm(forms.ModelForm):
     supplymainstorage_description = forms.CharField(required=True, widget=forms.TextInput(

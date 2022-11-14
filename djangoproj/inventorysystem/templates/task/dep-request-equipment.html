@@ -67,7 +67,7 @@
                             {% csrf_token %}
                                 <div class="col-md-12">
                                     <label>Item Name:</label>
-                                    <input list="requestItemname" type="text" name = "non-existing_equipment_itemname" class="form-control" placeholder="Item Name" required>
+                                    <input list="requestItemname" type="text" name = "non_existing_equipment_itemname" class="form-control" placeholder="Item Name" required>
                                     <datalist id="requestItemname">
                                         <option id="1" value="Aircon"></option>
                                         <option id="2" value="Computer"></option>
@@ -80,7 +80,7 @@
                                 <br>
                                 <div class="col-md-12">
                                     <label>Quantity:</label>
-                                    <input type='number' name = "non-existing_equipment_quantity" class="form-control" placeholder="Quantity" required> 
+                                    <input type='number' min="1" name = "non_existing_equipment_quantity" class="form-control" placeholder="Quantity" required> 
                                 </div>
                                 <br>
                                 <div class="col-12">

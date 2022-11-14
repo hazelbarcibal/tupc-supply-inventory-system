@@ -93,6 +93,7 @@
             <table id="mainstorage" class="table table-striped" style="width:100%">
                 <thead>
                     <tr>
+                        <th style="text-align: center;">Delivery No.</th>
                         <th style="text-align: center;">Description</th>
                         <th style="text-align: center;">Unit</th>
                         <th style="text-align: center;">Mainstorage Quantity</th>
@@ -102,12 +103,12 @@
                 <tbody>
                     {% for x in info1 %}
                     <tr class="edittr">
-                        <td align="center">{{x.supplymainstorage_description}}</td>
-                        <td align="center">{{x.supplymainstorage_unit}}</td>
-                        <td align="center">{{x.supplymainstorage_quantity}}</td>
+                        <td id="deliveryID" align="center">{{x.supplymainstorage_id}}</td>
+                        <td id="sdescription" align="center">{{x.supplymainstorage_description}}</td>
+                        <td id="sunit" align="center">{{x.supplymainstorage_unit}}</td>
+                        <td id="squantity" align="center">{{x.supplymainstorage_quantity}}</td>
                         <td align="center">
-                            <a class="btn btn-success" href="{% url 'inventorysystem-updateSuppliesDeliver' x.supplymainstorage_id %}">
-                                UPDATE</a>
+                           <button class="btn btn-success editBtn" style="margin-bottom: 10px;" name="editBtn">UPDATE</button>
                         </td>
                     </tr>  
                 {% endfor %}
@@ -116,6 +117,71 @@
         </div>
     </div>
     <br><br>
+
+    <!----- UPDATE DELIVERY MODAL ----->
+    <div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            <!----- UPDATE DELIVERY FORM ---->
+
+                <form action = "" method = "POST" class="row g-3" enctype="multipart/form-data">
+                    {% csrf_token %}
+    
+                    <input type="hidden" id="editId" name="supplymainstorage_id" value="" readonly>
+    
+                    <div class="col-md-12">
+                        <label class="form-label">Description:</label>
+                        <input type="text" class="form-control" id="description" name="supplymainstorage_description" readonly>
+                    </div>
+    
+                    <div class="col-md-12">
+                        <label class="form-label">Unit:</label>
+                        <input type="text" class="form-control" id="unit" name="supplymainstorage_unit" readonly>
+                    </div>
+    
+                    <div class="col-md-12">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Add Quantity:</label>
+                        <input type="number" min="1" class="form-control" id="quantity" name="supplymainstorage_RequestQuantity" required>
+                    </div>
+    
+
+                    <div class="modal-footer">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">ADD</button>
+                        </div>
+                    </div>
+                </form>
+    
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.editBtn').on('click', function(){
+
+                $('#openModal').modal('show');
+                $tr =$(this).closest('tr');
+                var data= $tr.children("td").map(function(){
+                return $(this).text();
+                }).get();
+
+                console.log(data);
+                $('h5.modal-title').html('Add Item Delivery for: '+ data[1]);
+                $('#editId').val(data[0]);
+                $('#description').val(data[1]);
+                $('#unit').val(data[2]);
+            });
+        });
+    </script>
+
     
     <div class="container">
         <div class="kahon1">
