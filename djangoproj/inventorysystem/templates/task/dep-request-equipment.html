@@ -7,7 +7,7 @@
 
 <title> Request Equipment</title>
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
-<link rel="stylesheet" href=https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css"">
+<link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -15,11 +15,6 @@
 <script src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-
-
-<script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/webqr.js' %}"></script>
 
 <style>
 .btn1{
@@ -57,6 +52,22 @@
 
 <div class="container home-content">
     <div class="container">
+        <div class="col-12">
+          <h4>Welcome, <span style="text-decoration: underline; font-weight: 600;">{{request.user}}</span> !</h4>
+        </div>
+    </div>
+    <br>
+    <div class="container" align="center">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <a type="button" href="#requestEquipment" class="btn btn-outline-secondary">Request Equipment</a>
+            <a type="button" href="#requestRecord" class="btn btn-outline-secondary">Request Record</a>
+            <a type="button" href="#withdrawnEquipment" class="btn btn-outline-secondary">Withdrawn Equipment</a>
+          </div>
+          
+    </div>
+
+    <br>
+    <div class="container" id="requestEquipment">
         <div class="container">
             <div class="container">
                 <div class="container">
@@ -95,12 +106,12 @@
         </div>  
     </div>
 </div>
-<br><br>
-<div class="container">
+<br><br><br>
+<div class="container" id="requestRecord">
     <div class="container">
         <div class="kahon">
-            <h3 align="center">Request Equipment</h3>
-            <hr>
+            <h3 align="center">Request Record</h3>
+            <hr>s
             <br>
                 <!-- Datatable --> 
                 <table id="depRequestTable" class="table table-striped" style="width:100%">
@@ -129,8 +140,8 @@
     </div>
     
 </div>
-<br><br>
-<div class="container">
+<br><br><br>
+<div class="container" id="withdrawnEquipment">
     <div class="container">
         <div class="kahon">
             <h3 align="center">Withdrawn Equipment</h3>
@@ -162,7 +173,7 @@
     </div>
 </div>
     
-
+<a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
 <br><br><br><br>
 
     {% for message in messages %}
@@ -180,6 +191,7 @@
         </script>
     {% endif %}
     {% endfor %}
+    
 <script>
 
     $(document).ready(function() {

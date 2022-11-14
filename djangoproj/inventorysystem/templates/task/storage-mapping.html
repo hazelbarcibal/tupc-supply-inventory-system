@@ -6,9 +6,9 @@
 {% block content %}
 
 <title> Storage Mapping </title>
-<link rel="stylesheet" href="{% static 'css/equipment-delivery.css' %}">
+<link rel="stylesheet" href="{% static 'css/supply-delivery.css' %}">
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
-<link rel="stylesheet" href=https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css"">
+<link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -32,9 +32,17 @@
         </div>
     </nav>
 
-    <br>
 <div class="container home-content" style="width: 98%;">
-    <div class="kahon">
+    <br>
+    <div class="container" align="center">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <a type="button" href="#supply" class="btn btn-outline-secondary">Supply</a>
+            <a type="button" href="#equipment" class="btn btn-outline-secondary">Equipment</a>
+          </div>
+          
+    </div>
+    <br>
+    <div class="kahon" id="supply">
         <h3 align="center">Supply</h3>
         <hr>
         <table id="supplymappingTable" class="table table-striped" style="width:100%">
@@ -138,8 +146,9 @@
             });
         });
     </script>
-     <!-- Datatable --> 
-<div class="container home-content" style="width: 98%;">
+
+<!-- Datatable --> 
+<div class="container home-content" style="width: 98%;" id="equipment">
     <div class="kahon">
         <h3 align="center">Equipment</h3>
         <hr>
@@ -206,6 +215,8 @@
           </div>
         </div>
     </div>
+
+    <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
 
     <script type="text/javascript">
         $(document).ready(function(){

@@ -79,8 +79,18 @@
             </div>
         </div>
     </nav>
-        <!-- Datatable --> 
-    <div class="container home-content">
+
+    <br>
+    <div class="container home-content" align="center">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <a type="button" href="#requests" class="btn btn-outline-secondary">Requests</a>
+            <a type="button" href="#withdrawnItem" class="btn btn-outline-secondary">Withdrawn Supply Item</a>
+          </div>
+          
+    </div>
+    <br>
+    <!-- Datatable --> 
+    <div class="container" style="width: 98%;" id="requests">
         <div class="kahon">
             <h3 align="center">Requests</h3>
             <hr>
@@ -198,7 +208,7 @@
 
 
 
-    <div class= "container home-content btn1-group" >
+    <div class= "container home-content btn1-group" id="withdrawnItem" style="width: 98%;">
         <form action="">
             <button class="fa fa-file-pdf-o" 
                 style="font-size:13px; color:rgb(255, 255, 255); float:right"> Save Data As PDF</button>
@@ -210,7 +220,7 @@
     </div>
     <br>
         <!-- Datatable --> 
-        <div class="container">
+        <div class="container" style="width: 98%;">
           <div class="kahon">
             <h3 align="center">Withdrawn Supply Item</h3>
             <hr>
@@ -237,8 +247,8 @@
           </div>
         </div>
 
-
-         <br><br>
+        <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+        <br><br>
         <script>
             $(document).ready(function() {
               var table = $('#supplyWithdrawTable').DataTable( {

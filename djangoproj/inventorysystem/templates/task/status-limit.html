@@ -86,10 +86,20 @@
   
 <div class="home-content">
 
-<!-- Datatable --> 
-    <div class="container" style="width: 98%;">
+    <div class="container" align="center">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <a type="button" href="#mainstorage" class="btn btn-outline-secondary">Mainstorage</a>
+            <a type="button" href="#nonExisting" class="btn btn-outline-secondary">Non-existing Item</a>
+            <a type="button" href="#limitPerDept" class="btn btn-outline-secondary">Limit Per Department</a>
+          </div>
+          
+    </div>
+    <br>
+
+    <!-- Datatable --> 
+    <div class="container" style="width: 98%;" id="mainstorage">
         <div class="kahon">
-            <h3 align="center">Main Storage</h3>
+            <h3 align="center">Mainstorage</h3>
             <hr>
             <br>
             <table id="MainStorage" class="table table-striped" style="width:100%">
@@ -118,7 +128,7 @@
 
     <!-- Non Existing Tab -->
 
-    <div class="container" style="width: 98%;">
+    <div class="container" style="width: 98%;" id="nonExisting">
         <div class="kahon">
             <h3>Non-existing Item</h3>
             <br>
@@ -218,7 +228,7 @@
 
 <br><br>
 <!-- LIMIT PER DEPT DATATABLE --> 
-    <div class="container" style="width: 98%;">
+    <div class="container" style="width: 98%;" id="limitPerDept">
         <div class="kahon">
             <h3 align="center">Limit Per Department</h3>
             <hr>
@@ -310,6 +320,7 @@
     </div>
 </div>
 
+<a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
 
 <script type="text/javascript">
 

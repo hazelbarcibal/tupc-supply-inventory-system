@@ -85,6 +85,17 @@
     </nav>
 
 <div class="container home-content">
+    <br>
+    <div class="container" align="center">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <a type="button" href="" class="btn btn-outline-secondary">Mainstorage</a>
+            <a type="button" href="#deliverItem" class="btn btn-outline-secondary">Deliver New Item</a>
+            <a type="button" href="#deliveryRecord" class="btn btn-outline-secondary">Delivery Record</a>
+          </div>
+          
+    </div>
+
+    <br>
     <div class="container">
         <div class="kahon">
             <h3 align="center">Mainstorage</h3>
@@ -182,8 +193,8 @@
         });
     </script>
 
-    
-    <div class="container">
+    <br>
+    <div class="container" id="deliverItem">
         <div class="kahon1">
             <h3>Deliver New item</h3>
             <br>
@@ -238,7 +249,7 @@
             
         </div>     
     </div>
-    <div class= "container home-content btn1-group" >
+    <div class= "container home-content btn1-group" id="deliveryRecord">
         <form action="">
             <button class="fa fa-file-pdf-o right" 
                 style="font-size:13px;color:rgb(255, 255, 255)"> Save Data As PDF</button>
@@ -282,7 +293,9 @@
           </div>
 
 
+    <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
     <br><br>
+    
    
         {% for message in messages %}
             {% if message.tags == 'info' %}

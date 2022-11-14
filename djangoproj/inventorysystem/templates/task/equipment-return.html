@@ -7,6 +7,7 @@
 
 <title> Equipment Return </title>
 <link rel="stylesheet" href="{% static 'css/supply-delivery.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
@@ -16,6 +17,14 @@
 <script src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
+<!-- <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/icofont/icofont.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/boxicons/css/boxicons.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/owl.carousel/assets/owl.carousel.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/venobox/venobox.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/remixicon/remixicon.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/aos/aos.css' %}"> -->
 
 <style>
     #returnequipment {
@@ -35,11 +44,21 @@
         color: rgb(0, 0, 0);
     }
    
+    textarea {
+        padding: 12px 20px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        background-color: #f8f8f8;
+        font-size: 16px;
+        resize: none;
+    }
+
 
 </style>
 
 <section class="home-section">
-    <nav>
+    <nav class="nav">
         <div class="sidebar-button">
             <i class='bx bx-menu sidebarBtn'></i>
             <div>
@@ -49,27 +68,42 @@
     </nav>
 
 
-<div class="home-content" align="center">
-    <div style="margin: auto;"><br>
+<div class="home-content" align="center" id="scanning">
+    <div class="container">
+        <br>
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <a type="button" href="#scanning" class="btn btn-outline-secondary">Scanning QR</a>
+            <a type="button" href="#table" class="btn btn-outline-secondary">Returned Equipment Record</a>
+          </div>
+          
+    </div>
+
+    <div style="margin: auto;"><br><br>
         <label style="text-align: center;"><h3>Scanning QR</h3></label>
     </div>
     <div style="margin: auto;">
         <label style="text-align: center;"><h5>INFO</h5></label>
     </div>
+    <br>
+    <div class="container">
+        <a onclick="window.location.reload()" style="text-decoration: underline; font-style: italic; cursor: pointer;">
+            <i class="fa-solid fa-arrows-rotate" style="text-decoration: underline; font-style: italic;">
+            </i> reload
+        </a>
+    </div>
 
-    <!-- <input type="text" id="returnequipment" name="returnequipment"> -->
     <form action="" method="post">
         {% csrf_token %}
-        <textarea rows="6" cols="50" name="returnequipment" id="propertyNum"></textarea>
+        <textarea required rows="6" cols="60" name="returnequipment" id="propertyNum" onchange="disableFunction();"></textarea> 
         <br>
-        <input type="hidden" name="property" id="property">
-        <br>
-        <span><button onclick="getVal();" id="" type="submit" class="btn btn-danger">Return</button></span>
-    
+        <input type="hidden" name="property" id="property" readonly>
+        <span><button onclick="getVal();" id="" type="submit" class="btn btn-secondary">Return</button></span>
     </form>
+    <br>
+    
 </div>
 
-<div class= "container home-content btn1-group" >
+<div class= "container home-content btn1-group" style=" width: 98%;">
     <form action="">
         <button class="fa fa-file-pdf-o right" 
             style="font-size:13px;color:rgb(255, 255, 255)"> Save Data As PDF</button>
@@ -80,7 +114,7 @@
     </form>
 </div>
 <br>
-<div class="container" style=" width: 98%;">
+<div class="container" style=" width: 98%;" id="table">
 <div class="kahon">
     <!-- Datatable --> 
     <table id="returnTable" class="table table-striped" style="width:100%">
@@ -120,6 +154,9 @@
 </div>
               
 <br><br>
+
+<a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+
 <script>
     $(document).ready(function() {
                 var table = $('#returnTable').DataTable( {
@@ -132,18 +169,30 @@
 
 
     function getVal() {
-        var x = document.getElementById('propertyNum').value;
-        var word = x.split(' ');
-        // let info = x.join(' ');
-        // var z = y.split(' ');
-        var property = document.getElementById('propertyNum').innerHTML = word[2];
-        document.getElementById('property').value = property
-        // alert(word[2]);
 
+        if (document.getElementById('propertyNum').value == ''){
+            alert('Please scan a qr first before returning.');
+        } else {
+            var x = document.getElementById('propertyNum').value;
+            var word = x.split(' ');
+            var property = document.getElementById('propertyNum').innerHTML = word[2];
+            document.getElementById('property').value = property
+        }
+
+    }
+
+    function disableFunction() {
+        document.getElementById("propertyNum").disabled = true;
     }
 </script>
 
+<!-- <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+<script src="{% static 'vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+<script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'vendor/venobox/venobox.min.js' %}"></script>
+<script src="{% static 'vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'vendor/counterup/counterup.min.js' %}"></script>
+<script src="{% static 'vendor/aos/aos.js' %}"></script>
 
-
-
+<script src="{% static 'js/main.js' %}"></script> -->
 {% endblock %}
