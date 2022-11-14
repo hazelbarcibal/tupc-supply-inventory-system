@@ -18,8 +18,8 @@ import tempfile
 def home(request):
     return render(request, 'task/home.html')
 
-def SupplyInventorySystem(request):
-    return render(request, 'task/landing-page.html')
+def index(request):
+    return render(request, 'task/index.html')
 
 #--------- LOGIN --------------------
 def deptLogin(request):

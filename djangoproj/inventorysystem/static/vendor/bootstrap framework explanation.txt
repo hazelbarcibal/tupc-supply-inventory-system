@@ -1,0 +1,10 @@
+Downloaded package js and css files:
+
+the folders below are those we only used for the webapp
+
+* aos - for the animation/delay of an element/container in the webapp
+* bootstrap - compiled js and css of bootstrap
+* boxicons - box icon designs
+* jquery - compiled js of jquery
+* jquery.easing - animation
+* owl.carousel - carousel plugin

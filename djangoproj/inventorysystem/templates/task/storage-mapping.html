@@ -40,6 +40,7 @@
         <table id="supplymappingTable" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
+                    <th>Item No.</th>
                     <th>Item Name</th>
                     <th>Rack No.</th>
                     <th>Layer No.</th>
@@ -51,18 +52,92 @@
             <tbody>
                 {% for x in info %}
                 <tr class="edittr">
+                    <td id="supplyID">{{x.supplyStoragemapping_id}}</td>
                     <td>{{x.supplyItemName}}</td>
                     <td>{{x.supplyRackNo}}</td>
                     <td>{{x.supplyLayerNo}}</td>
                     <td>{{x.supplyCabinetNo}}</td>
                     <td>{{x.supplyShelfNo}}</td>
-                    <td><a class="btn btn-success" href="{% url 'inventorysystem-updateSupplyStorage' x.supplyStoragemapping_id%}">Update</a></td>
+                    <td><a class="btn btn-success editBtn" name="editBtn">UPDATE</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
+
+    <!----- UPDATE SUPPLY STORAGE MODAL ----->
+    <div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            <!----- UPDATE SUPPLY STORAGE FORM ---->
+
+                <form action = "" method = "POST" class="row g-3" enctype="multipart/form-data">
+                    {% csrf_token %}
+    
+                    <input type="hidden" id="editId" name="supplyStoragemapping_id" value="" readonly>
+    
+                    <div class="col-md-12">
+                        <label class="form-label">Item name:</label>
+                        <input type="text" class="form-control" id="itemname" name="supplyItemName" readonly>
+                    </div>
+    
+                    <div class="col-md-12">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Rack No. :</label>
+                        <input type="text" class="form-control" id="rackno" name="supplyRackNo" >
+                    </div>
+                    <div class="col-md-12">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Layer No. :</label>
+                        <input type="text" class="form-control" id="layerno" name="supplyLayerNo" >
+                    </div>
+                    <div class="col-md-12">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Cabinet No. :</label>
+                        <input type="text" class="form-control" id="cabinetno" name="supplyCabinetNo" >
+                    </div>
+                    <div class="col-md-12">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Shelf No. :</label>
+                        <input type="text" class="form-control" id="shelfno" name="supplyShelfNo" >
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="col-12">
+                            <button type="submit" name = "storagesupply_update" class="btn btn-primary">UPDATE</button>
+                        </div>
+                    </div>
+                </form>
+    
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.editBtn').on('click', function(){
+
+                $('#openModal').modal('show');
+                $tr =$(this).closest('tr');
+                var data= $tr.children("td").map(function(){
+                return $(this).text();
+                }).get();
+
+                console.log(data);
+                $('h5.modal-title').html('Update Storage for: '+ data[1]);
+                $('#editId').val(data[0]);
+                $('#itemname').val(data[1]);
+                $('#rackno').val(data[2]);
+                $('#layerno').val(data[3]);
+                $('#cabinetno').val(data[4]);
+                $('#shelfno').val(data[5]);
+            });
+        });
+    </script>
      <!-- Datatable --> 
 <div class="container home-content" style="width: 98%;">
     <div class="kahon">
@@ -71,6 +146,7 @@
         <table id="equipmentmappingTable" class="table table-striped" style="width:100%">
             <thead>
                 <tr>
+                    <th>Item No.</th>
                     <th>Equipment Name</th>
                     <th>Location</th>
                     <th>Action</th>
@@ -79,15 +155,76 @@
             <tbody>
                 {% for x in info1 %}
                 <tr class="edittr">
+                    <td id="equipmentID">{{x.equipmentStoragemapping_id}}</td>
                     <td>{{x.equipmentItemName}}</td>
                     <td>{{x.equipmentLocation}}</td>
-                    <td><a class="btn btn-success" href="{% url 'inventorysystem-updateEquipmentStorage' x.equipmentStoragemapping_id%}">Update</a></td>
+                    <td><a class="btn btn-success editBtn1" name="editBtn1">UPDATE</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
+
+    <!----- UPDATE SUPPLY STORAGE MODAL ----->
+    <div class="modal fade" id="openModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            <!----- UPDATE SUPPLY STORAGE FORM ---->
+
+                <form action = "" method = "POST" class="row g-3" enctype="multipart/form-data">
+                    {% csrf_token %}
+    
+                    <input type="hidden" id="editId1" name="equipmentStoragemapping_id" value="" readonly>
+    
+                    <div class="col-md-12">
+                        <label class="form-label">Equipment name:</label>
+                        <input type="text" class="form-control" id="equipmentname" name="equipmentItemName" readonly>
+                    </div>
+    
+                    <div class="col-md-12">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Location:</label>
+                        <!-- <label class="form-label">Location:</label> -->
+                        <input type="text" class="form-control" id="location" name="equipmentLocation" >
+                    </div>
+           
+
+                    <div class="modal-footer">
+                        <div class="col-12">
+                            <button type="submit" name = "storageequipment_update" class="btn btn-primary">UPDATE</button>
+                        </div>
+                    </div>
+                </form>
+    
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.editBtn1').on('click', function(){
+
+                $('#openModal1').modal('show');
+                $tr =$(this).closest('tr');
+                var data= $tr.children("td").map(function(){
+                return $(this).text();
+                }).get();
+
+                console.log(data);
+                $('h5.modal-title').html('Update Storage for: '+ data[1]);
+                $('#editId1').val(data[0]);
+                $('#equipmentname').val(data[1]);
+                $('#location').val(data[2]);
+            });
+        });
+    </script>
                   
 <br><br><br><br>
 <script>
