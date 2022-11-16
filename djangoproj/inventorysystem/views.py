@@ -12,14 +12,14 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 from django.template.loader import render_to_string
-# from weasyprint import HTML 
+from weasyprint import HTML 
 import tempfile
 
 def home(request):
     return render(request, 'task/home.html')
 
-def SupplyInventorySystem(request):
-    return render(request, 'task/landing-page.html')
+def index(request):
+    return render(request, 'task/index.html')
 
 #--------- LOGIN --------------------
 def deptLogin(request):
@@ -1205,4 +1205,110 @@ def export_excel(request):
             ws1.write(row_num1, col_num1, str(row[col_num1]), font_style)
 
     wb.save(response)
+    return response
+
+#------------------- EXPORT PDF FILE -----------------------------
+def export_pdf_suppydelivery(request):
+    response=HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
+        str(datetime.datetime.now())+'.pdf'
+    supply = deliverysupply.objects.all()
+    response['Content-Transfer-Enconding'] = 'binary'
+
+
+    html_string = render_to_string('task/pdf-output-supplydelivery.html' ,{'Supplydelivery': supply})
+    html = HTML(string=html_string)
+    result = html.write_pdf()
+
+    with tempfile.NamedTemporaryFile(delete=False) as output:
+        output.write(result)
+        output.flush()
+        output = open(output.name, 'rb')
+        response.write(output.read())
+
+    
+    return response
+
+def export_pdf_suppywithdraw(request):
+    response=HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
+        str(datetime.datetime.now())+'.pdf'
+    supply = withdrawsupply.objects.all()
+    response['Content-Transfer-Enconding'] = 'binary'
+
+
+    html_string = render_to_string('task/pdf-output-supplywithdraw.html' ,{'Supplywithdraw': supply})
+    html = HTML(string=html_string)
+    result = html.write_pdf()
+
+    with tempfile.NamedTemporaryFile(delete=False) as output:
+        output.write(result)
+        output.flush()
+        output = open(output.name, 'rb')
+        response.write(output.read())
+
+    
+    return response
+
+def export_pdf_equipdelivery(request):
+    response=HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
+        str(datetime.datetime.now())+'.pdf'
+    supply = deliveryequipment.objects.all()
+    response['Content-Transfer-Enconding'] = 'binary'
+
+
+    html_string = render_to_string('task/pdf-output-equipdelivery.html' ,{'Equipdelivery': supply})
+    html = HTML(string=html_string)
+    result = html.write_pdf()
+
+    with tempfile.NamedTemporaryFile(delete=False) as output:
+        output.write(result)
+        output.flush()
+        output = open(output.name, 'rb')
+        response.write(output.read())
+
+    
+    return response
+
+def export_pdf_equipwithdraw(request):
+    response=HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
+        str(datetime.datetime.now())+'.pdf'
+    supply = withdrawequipment.objects.all()
+    response['Content-Transfer-Enconding'] = 'binary'
+
+
+    html_string = render_to_string('task/pdf-output-equipwithdraw.html' ,{'Equipwithdraw': supply})
+    html = HTML(string=html_string)
+    result = html.write_pdf()
+
+    with tempfile.NamedTemporaryFile(delete=False) as output:
+        output.write(result)
+        output.flush()
+        output = open(output.name, 'rb')
+        response.write(output.read())
+
+    
+    return response
+
+def export_pdf_equipreturn(request):
+    response=HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
+        str(datetime.datetime.now())+'.pdf'
+    supply = returnequipment.objects.all()
+    response['Content-Transfer-Enconding'] = 'binary'
+
+
+    html_string = render_to_string('task/pdf-output-equipreturn.html' ,{'EquipReturn': supply})
+    html = HTML(string=html_string)
+    result = html.write_pdf()
+
+    with tempfile.NamedTemporaryFile(delete=False) as output:
+        output.write(result)
+        output.flush()
+        output = open(output.name, 'rb')
+        response.write(output.read())
+
+    
     return response

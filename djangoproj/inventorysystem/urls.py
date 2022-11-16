@@ -35,5 +35,10 @@ urlpatterns = [
     path('update-supply-storage/<int:pk>/', views.updateSupplyStorage, name='inventorysystem-updateSupplyStorage'),
     path('update-equipment-storage/<int:pk>/', views.updateEquipmentStorage, name='inventorysystem-updateEquipmentStorage'),
     path('export_excel/', views.export_excel, name='export_excel'),
+    path('export_pdf_suppydelivery/', views.export_pdf_suppydelivery, name='export_pdf_suppydelivery'),
+    path('export_pdf_suppywithdraw/', views.export_pdf_suppywithdraw, name='export_pdf_suppywithdraw'),
+    path('export_pdf_equipdelivery/', views.export_pdf_equipdelivery, name='export_pdf_equipdelivery'),
+    path('export_pdf_equipwithdraw/', views.export_pdf_equipwithdraw, name='export_pdf_equipwithdraw'),
+    path('export_pdf_equipreturn/', views.export_pdf_equipreturn, name='export_pdf_equipreturn'),
 ]
 
