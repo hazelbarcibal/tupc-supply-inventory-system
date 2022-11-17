@@ -19,7 +19,7 @@ def home(request):
     return render(request, 'task/home.html')
 
 def index(request):
-    return render(request, 'task/index.html')
+    return render(request, 'task/index.html')   
 
 #--------- LOGIN --------------------
 def deptLogin(request):
@@ -317,8 +317,20 @@ def viewRequestSupply(request):
         request_accept_quantity = request.POST.get('request_supply_acceptquantity')
         getdata1 = requestsupply.objects.get(requestsupply_id = request_id).requestsupply_id
         getdata2 = requestsupply.objects.get(requestsupply_id = request_id)
+        getdata3 = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_quantity
 
-        if int(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity) > int(getdata2.request_supply_quantity):
+        if int(request_accept_quantity) > int(request_quantity):
+
+                messages.info(request, 'Not enough quantity for this item.')
+                return redirect('inventorysystem-viewRequestSupply')
+
+
+        elif int(request_accept_quantity) > int(getdata3):
+
+                messages.info(request, 'Not enough quantity for this item.')
+                return redirect('inventorysystem-viewRequestSupply')       
+
+        elif int(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity) > int(request_accept_quantity):
             accept = acceptSupplyRequests()
             accept.acceptSupplyRequests_id = request_id
             accept.arequest_supply_department = request_department
@@ -351,10 +363,11 @@ def viewRequestSupply(request):
             accept.save()
             status.save()
           
-
             return redirect('inventorysystem-viewRequestSupply')
+
+
         else:
-            number = str(supplymainstorage.objects.get(supplymainstorage_description = getdata1.request_supply_description).supplymainstorage_quantity)
+            number = str(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity)
             messages.info(request, 'This item does not have enough stock in the main storage,'+ ' Mainstorage Remaining: ' + number)
     context = {
         'info': info,
@@ -421,13 +434,15 @@ def depRequestSupply(request):
     info = statusSupplyRequest.objects.all().filter(status_supply_department = request.user)
     info2 = withdrawsupply.objects.all().filter(withdraw_supply_department = request.user)
     if request.method == 'POST':
+        request_id = request.POST.get('limit_id')
         request_description = request.POST.get('request_description')
         request_unit = request.POST.get('request_unit')
         request_quantity = request.POST.get('request_quantity')
         request_addquantity = request.POST.get('request_addquantity')
-        requestingitem = limitrecords.objects.get(limit_description = request_description)
-        requestingID = limitrecords.objects.get(limit_description = request_description).limit_id
-        if statusSupplyRequest.objects.filter(status_supply_description = requestingitem).filter(status_supply_department = request.user).exists() == True:
+        # requestingID = limitrecords.objects.get(limit_description = request_description).limit_id
+        
+        if statusSupplyRequest.objects.filter(status_supply_description = request.POST.get('request_description')).filter(status_supply_department = request.user).exists() == True:
+            
                 messages.info(request, 'You already have a request for this item.')
                 return redirect('inventorysystem-depRequestSupply')
 
@@ -435,35 +450,37 @@ def depRequestSupply(request):
                 messages.info(request, 'Not enough quantity for this item.')
                 return redirect('inventorysystem-depRequestSupply')
 
+        elif int(request_addquantity) > int(request_quantity):
+                messages.info(request, 'Not enough quantity for this item.')
+                return redirect('inventorysystem-depRequestSupply')
+
         elif int(request_addquantity) <= 0:
                 messages.info(request, 'Check the available quantity')
                 return redirect('inventorysystem-depRequestSupply')
 
-        elif statusSupplyRequest.objects.filter(statusSupplyRequests_id = requestingID).exists() == False:
+        elif statusSupplyRequest.objects.filter(status_supply_description = request.POST.get('request_description')).filter(status_supply_department = request.user).exists() == False:
     
-                if limitrecords.objects.filter(limit_id = requestingID).exists() == True:
-                    getdata3 = limitrecords.objects.get(limit_id = requestingID)
+                # if limitrecords.objects.filter(limit_id = requestingID).exists() == True:
+                #     getdata3 = limitrecords.objects.get(limit_id = requestingID)
                     requesting = requestsupply()
-                    requesting.requestsupply_id = requestingID
+                    requesting.requestsupply_id = request_id
                     requesting.request_supply_description = request_description
                     requesting.request_supply_unit = request_unit
                     requesting.request_supply_quantity = request_addquantity
                     requesting.request_supply_remaining = request_quantity
-                    requesting.request_supply_department = getdata3.limit_department
+                    requesting.request_supply_department = str(request.user)
                     requesting.request_supply_status = "pending"
                     status = statusSupplyRequest()
-                    status.statusSupplyRequests_id = requestingID
                     status.status_supply_description = request_description
                     status.status_supply_unit = request_unit
                     status.status_supply_quantity = request_addquantity
                     status.status_supply_remaining = request_quantity
-                    status.status_supply_department = getdata3.limit_department
+                    status.status_supply_department = request.user
                     status.status_supply_status = "pending"
                     requesting.save()
                     status.save()
-                    getdata4 = limitrecords.objects.get(limit_id = requestingID).limit_description
 
-                    messages.success(request, 'Request Successful for itemname ' + getdata4)
+                    messages.success(request, 'Request Successful for itemname ')
                     # # subject = str(limitrecords.objects.get(limit_id = requestingID).limit_department)
                     # # message = "New Request"
                     # # depinfo = str(CustomUser.objects.get(is_superuser=True).email)
@@ -568,7 +585,7 @@ def suppliesWithdraw(request):
         update_storage.save()
 
         update_limit = limitrecords()
-        update_limit.limit_id = getdata1
+        update_limit.limit_id = getdata
         update_limit.limit_description = withdraw_description
         update_limit.limit_unit = withdraw_unit
         update_limit.limit_department = withdraw_department
