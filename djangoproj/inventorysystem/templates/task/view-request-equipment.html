@@ -140,6 +140,22 @@
     </div>
 </div>
 
+{% for message in messages %}
+{% if message.tags == 'info' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        var m = "{{ message }}";
+        swal("Notice: ", m, "info")
+    </script>
+    {% elif message.tags == 'success' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+    var m = "{{ message }}";
+    swal("Success! ", m, "success")
+    </script>
+{% endif %}
+{% endfor %}
+
 
 
 <script type="text/javascript">
@@ -172,5 +188,7 @@
                 } );
             } );
 </script>
+
+
 
 {% endblock %}

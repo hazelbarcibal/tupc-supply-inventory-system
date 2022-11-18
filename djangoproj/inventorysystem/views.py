@@ -223,19 +223,25 @@ def statusLimit(request):
 
             if supplymainstorage.objects.filter(supplymainstorage_description = description).filter(supplymainstorage_unit = unit).exists() == True:
                 if int(request.POST.get('non-existing_quantity')) > 0:
-                        if limitrecords.objects.filter(limit_description = description).filter(limit_department = department).filter(limit_unit = unit).exists() == False:
-                                limit = limitrecords()
-                                limit.limit_description = description
-                                limit.limit_unit = unit
-                                limit.limit_quantity = quantity
-                                limit.limit_department = department
-                                limit.save()        
-                                messages.success(request, 'Record created for ' + description)
+                    if CustomUser.objects.filter(department = update_limit_department).exists() == True:
 
-                        elif limitrecords.objects.filter(limit_description = description).filter(limit_department = department).filter(limit_unit = unit).exists() == True:
-                                messages.info(request, "Item name: " +  description + " with a unit: " + unit + " is existing in the department: " + department)
+                            if limitrecords.objects.filter(limit_description = description).filter(limit_department = department).filter(limit_unit = unit).exists() == False:
+                                    limit = limitrecords()
+                                    limit.limit_description = description
+                                    limit.limit_unit = unit
+                                    limit.limit_quantity = quantity
+                                    limit.limit_department = department
+                                    limit.save()        
+                                    messages.success(request, 'Record created for ' + description)
+
+                            elif limitrecords.objects.filter(limit_description = description).filter(limit_department = department).filter(limit_unit = unit).exists() == True:
+                                    messages.info(request, "Item name: " +  description + " with a unit: " + unit + " is existing in the department: " + department)
+                    else:
+                        messages.info(request, "no available account for this department")
+
                 else:
                     messages.info(request, "invalid quantity")
+                    
             elif  supplymainstorage.objects.filter(supplymainstorage_description = description).filter(supplymainstorage_unit = unit).exists() == False:
                 messages.info(request, "No Existing item name: " +  description +  " with a unit: " + unit + " in supply mainstorage")
 
@@ -821,32 +827,40 @@ def viewRequestEquipment(request):
         request_acceptquantity = request.POST.get('request_equipment_acceptquantity')
         getdata = requestequipment.objects.get(requestequipment_id=request_id).requestequipment_id
 
-        accept = acceptEquipmentRequests()
-        accept.acceptEquipmentRequests_id = getdata
-        accept.arequest_equipment_itemname = request_itemname
-        accept.arequest_equipment_issued_to = request_department
-        accept.arequest_equipment_description = request_description
-        accept.arequest_equipment_brand = request_brand
-        accept.arequest_equipment_quantity = request_acceptquantity
-        accept.arequest_equipment_status = "Ready for pick-up"
-        accept.arequest_equipment_remaining = 0
-        accept.arequest_equipment_property_no = 0
-        requestequipment.objects.filter(requestequipment_id = getdata).delete()       
-        status = statusEquipmentRequest()
-        status.statusEquipmentRequests_id = getdata
-        status.status_equipment_itemname = request_itemname
-        status.status_equipment_description = request_description
-        status.status_equipment_brand = request_brand
-        status.status_equipment_quantity = request_quantity
-        status.status_equipment_acceptquantity = request_acceptquantity
-        status.status_equipment_department = request_department
-        status.status_equipment_status = "Ready for pick-up"  
-        status.status_equipment_remaining = 0  
-        statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete()  
-        accept.save()
-        status.save()
-        messages.success(request, 'request accepted')
-        return redirect('inventorysystem-viewRequestEquipment')
+        if request_acceptquantity > request_quantity:
+
+            messages.info(request, 'request quantity is less than to accept quantity')
+            return redirect('inventorysystem-viewRequestEquipment')
+        
+        elif request_acceptquantity < request_quantity:
+
+            accept = acceptEquipmentRequests()
+            accept.acceptEquipmentRequests_id = getdata
+            accept.arequest_equipment_itemname = request_itemname
+            accept.arequest_equipment_issued_to = request_department
+            accept.arequest_equipment_description = request_description
+            accept.arequest_equipment_brand = request_brand
+            accept.arequest_equipment_quantity = request_acceptquantity
+            accept.arequest_equipment_status = "Ready for pick-up"
+            accept.arequest_equipment_remaining = 0
+            accept.arequest_equipment_property_no = 0
+            requestequipment.objects.filter(requestequipment_id = getdata).delete()       
+            status = statusEquipmentRequest()
+            status.statusEquipmentRequests_id = getdata
+            status.status_equipment_itemname = request_itemname
+            status.status_equipment_description = request_description
+            status.status_equipment_brand = request_brand
+            status.status_equipment_quantity = request_quantity
+            status.status_equipment_acceptquantity = request_acceptquantity
+            status.status_equipment_department = request_department
+            status.status_equipment_status = "Ready for pick-up"  
+            status.status_equipment_remaining = 0  
+            statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete()  
+            accept.save()
+            status.save()
+            messages.success(request, 'request accepted')
+            return redirect('inventorysystem-viewRequestEquipment')
+
     context = {
             'info': info,
         }
@@ -1132,6 +1146,21 @@ def storageMapping(request):
     info = supply_storagemapping.objects.all()
     info1 = equipment_storagemapping.objects.all()
 
+    if request.method == 'POST':
+
+        if 'storagesupply_update' in request.POST:
+            locsave = supply_storagemapping()
+            locsave.supplyStoragemapping_id = request.POST.get('supplyStoragemapping_id')
+            locsave.supplyItemName = request.POST.get('supplyItemName')
+            locsave.supplyRackNo = request.POST.get('supplyRackNo')
+            locsave.supplyLayerNo = request.POST.get('supplyLayerNo')
+            locsave.supplyCabinetNo = request.POST.get('supplyCabinetNo')
+            locsave.supplyShelfNo = request.POST.get('supplyShelfNo')
+            locsave.save()
+            messages.success(request, 'successfully update storage mapping')
+            return redirect('inventorysystem-storageMapping')
+
+
     context = {
         'info': info,
         'info1': info1
@@ -1142,10 +1171,10 @@ def storageMapping(request):
 def updateSupplyStorage(request, pk):
     data = supply_storagemapping.objects.get(supplyStoragemapping_id=pk)
     form = supply_storageForm(request.POST or None, instance=data)
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            return redirect('inventorysystem-storageMapping')
+    # if request.method == 'POST':
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('inventorysystem-storageMapping')
     context = {
         'data': data,
         'form': form,
