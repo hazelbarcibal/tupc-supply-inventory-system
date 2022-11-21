@@ -18,13 +18,6 @@
 <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
-<!-- <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'vendor/icofont/icofont.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'vendor/boxicons/css/boxicons.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'vendor/owl.carousel/assets/owl.carousel.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'vendor/venobox/venobox.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'vendor/remixicon/remixicon.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'vendor/aos/aos.css' %}"> -->
 
 <style>
     #returnequipment {
@@ -94,7 +87,7 @@
 
     <form action="" method="post">
         {% csrf_token %}
-        <textarea required rows="6" cols="60" name="returnequipment" id="propertyNum" onchange="disableFunction();"></textarea> 
+        <textarea required rows="6" cols="60" name="returnequipment" id="propertyNum" onkeydown="disableFunction();"></textarea> 
         <br>
         <input type="hidden" name="property" id="property" readonly>
         <span><button onclick="getVal();" id="" type="submit" class="btn btn-secondary">Return</button></span>
@@ -186,13 +179,4 @@
     }
 </script>
 
-<!-- <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
-<script src="{% static 'vendor/owl.carousel/owl.carousel.min.js' %}"></script>
-<script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-<script src="{% static 'vendor/venobox/venobox.min.js' %}"></script>
-<script src="{% static 'vendor/waypoints/jquery.waypoints.min.js' %}"></script>
-<script src="{% static 'vendor/counterup/counterup.min.js' %}"></script>
-<script src="{% static 'vendor/aos/aos.js' %}"></script>
-
-<script src="{% static 'js/main.js' %}"></script> -->
 {% endblock %}

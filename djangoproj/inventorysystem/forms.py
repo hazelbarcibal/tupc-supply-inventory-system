@@ -5,16 +5,28 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 
-class DeptRegisterForm(UserCreationForm):
-    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Username'}))
-    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Email'}))
+class DeptRegisterForm(UserCreationForm): 
+    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Username', 'name': 'username'}))
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
     password1 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Password', 'id': 'regpass'}))
     password2 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Retype Password', 'id': 'regpass'}))
-    department = forms.CharField(required=True, widget=forms.TextInput(attrs={'list': 'department', 'placeholder': 'Department', 'pattern': '^[A-Z]+(?:_[A-Z]+)*$', 'autocomplete': 'on'}))
-    
+    department = forms.CharField(required=False, widget=forms.TextInput(attrs={'list': 'department', 'placeholder': 'Department', 'pattern': '^[A-Z]+(?:_[A-Z]+)*$', 'autocomplete': 'on'}))
+
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'department', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2', 'department']
+
+
+class AdminRegisterForm(UserCreationForm):
+    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
+    password1 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Password', 'id': 'regpass'}))
+    password2 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Retype Password', 'id': 'regpass'}))
+    adminRole = forms.CharField(required=False, widget=forms.HiddenInput(attrs={'value': 'admin'}))
+
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email', 'password1', 'password2',  'is_staff', 'is_admin', 'adminRole']
 
 #-------------- DELIVERY SUPPLIES ---------------
 class deliverySupplyForm(forms.ModelForm):

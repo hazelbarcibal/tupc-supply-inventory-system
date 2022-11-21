@@ -118,6 +118,13 @@
         </li>
 
         <li>
+          <a href="{% url 'inventorysystem-adminRegister' %}" class="" role="button">
+            <i class="fa-solid fa-user-tie"></i>
+            <span id="label2" class="links_name">Add Admin Account</span>
+          </a>
+        </li>
+
+        <li>
           <a href="{% url 'inventorysystem-deptRegister' %}" class="" role="button">
             <i class='bx bx-buildings'></i>
             <span id="label2" class="links_name">Add Department <br>Account</span>
@@ -126,7 +133,7 @@
           
         
         <li class="log_out">
-          <a href="{% url 'inventorysystem-userLogin' %}">
+          <a href="{% url 'inventorysystem-usersLogin' %}">
             <i class='bx bx-log-out'></i>
             <span class="links_name">Log out</span>
           </a>

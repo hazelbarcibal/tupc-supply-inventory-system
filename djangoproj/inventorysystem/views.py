@@ -22,56 +22,88 @@ def index(request):
     return render(request, 'task/index.html')   
 
 #--------- LOGIN --------------------
-def deptLogin(request):
+def usersLogin(request):
     if request.method == "POST":
-        username = request.POST.get('logusername')
-        # department = request.POST.get('logdept')
+        username1 = request.POST.get('logname')
+        password1 = request.POST.get('logpass1')
+
+        username2 = request.POST.get('logusername')
         email = request.POST.get('email')
-        password = request.POST.get('logpassword')
-        # print(username + ' ' + department + ' ' + email + ' ' + password + ' ')
-        user = authenticate(request, username=username, email=email,  password=password)
+        password2 = request.POST.get('logpass2')
 
-        if user is not None and user.is_active and user.is_department:
-            login(request, user)
-            # messages.success(request, 'Hello ' + deptuser + '!')
-            return redirect('inventorysystem-depRequestSupply')
-        else:
-            messages.info(request, 'Invalid credentials. Please try again.')
+        user1 = authenticate(request, username=username1, password=password1)
+        user2 = authenticate(request, username=username2, email=email,  password=password2)
 
-    return render(request, 'task/department-login.html')
-
-def userLogin(request):
-    if request.method == "POST":
-        adminuser = request.POST.get('logname')
-        adminpass = request.POST.get('logpass')
-        user = authenticate(request, username=adminuser, password=adminpass)
-
-        if user is not None and user.is_superuser:
-            login(request, user)
-            messages.success(request, 'Hello ' + adminuser + '!')
+        if (user1 is not None and user1.is_superuser) or \
+        (user1 is not None and user1.is_admin) or \
+        (user1 is not None and user1.is_staff):
+            login(request, user1)
+            messages.success(request, 'Hello ' + username1 + '!')
             return redirect('inventorysystem-home')
         else:
-            messages.info(request, 'Invalid credentials. Please try again.')
+            messages.info(request, 'Invalid credentials. Please try again.') 
 
-    return render(request, 'task/admin-login.html')
+        if user2 is not None and user2.is_active:
+            login(request, user2)
+            messages.success(request, 'Hello ' + username2 + '!')
+            return redirect('inventorysystem-depRequestSupply')
+        else:
+            messages.info(request, 'Invalid credentials. Please try again.')  
+
+    return render(request, 'task/usersLogin.html')
 
 
 def deptRegister(request):
     form = DeptRegisterForm()
-    
+
     if request.method == "POST":
         form = DeptRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, 'Account was created for ' + username)
-            return redirect('inventorysystem-deptRegister')
+            dept = request.POST.get('department')
+
+            
+            if dept == '':
+                messages.info(request, 'Please add a department office.')
+
+            elif CustomUser.objects.filter(department = dept).exists() == True:
+                messages.info(request, 'There is already an existing account for ' + dept)
+
+            else:
+                form.save()
+                messages.success(request, 'Account was created for ' + dept)
+                return redirect('inventorysystem-deptRegister')
         else:
             messages.warning(request, form.errors)
+
     context = {
         'form': form,
     }
+
     return render(request, 'task/department-register.html', context)
+
+
+def adminRegister(request):
+    form = AdminRegisterForm()
+    if request.method == "POST":
+        form = DeptRegisterForm(request.POST)
+        if form.is_valid():
+            getRole = request.POST.get('adminRole')
+            username = request.POST.get('username')  
+
+            if getRole == 'admin':
+                form.instance.is_admin = True
+                form.instance.is_staff = True
+ 
+                form.save()
+                messages.success(request, 'Account was created for ' + username)
+                return redirect('inventorysystem-adminRegister')
+        else:
+            messages.warning(request, form.errors)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'task/admin-register.html', context)
 
 
 #------------------- DELIVERY SUPPLIES -----------------------------

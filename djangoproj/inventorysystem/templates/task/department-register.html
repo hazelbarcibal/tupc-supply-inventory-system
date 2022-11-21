@@ -31,6 +31,14 @@
         padding-left: 45px;
     }
 
+    div.kahon {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: rgb(255, 255, 255) !important;
+    padding: 32px 25px;
+    height: inherit;
+    width: 80%;
+    }
+
 </style>
 
 <section class="home-section">
@@ -60,8 +68,16 @@
                     var m = "{{ message }}";
                     swal("Account added! ", m, "success")
                 </script>
+            {% elif message.tags == 'info' %}
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                <script>
+                    var m = "{{ message }}";
+                    swal("Notice: ", m, "info")
+                </script>
             {% endif %}
         {% endfor %}
+
+        
 
         <div class="container">
             <div class="row">
@@ -69,9 +85,8 @@
                     <div class="column" style="float: left;">
                         <form action="" method="post">
                             {% csrf_token %}
-                            <h4 class="title" style="color: rgb(0, 0, 0); 
-                                font-size: 30px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 
-                                'Trebuchet MS', sans-serif; ">Department User Registration</h4>
+                            <h3 style="text-align: center;">Department User <br>Registration</h3>
+
                             <div class="input-field">
                                 <i class="fas fa-user"></i>
                                 {{form.username}}
@@ -80,6 +95,7 @@
                                 <i class="fa-solid fa-at"></i>
                                 {{form.email}}
                             </div>
+
                             <div class="input-field">
                                 <i class="input-icon fa fa-users"></i>
                                 {{form.department}}
@@ -118,7 +134,7 @@
                                     <option id="32" value="OCR_CAMPUS_REGISTRAR"></option>
                                 </datalist> 
                             </div>
-                            
+
                             
                             <div class="input-field">
                                 <i class="fas fa-lock"></i>
@@ -129,6 +145,8 @@
                                 <i class="fa-solid fa-rotate-right"></i>
                                 {{form.password2}}
                             </div>
+
+                            {{form.adminRole}}
 
                             <div class="col-12" align="center">
                                 <input type="checkbox" onclick="myFunction()" class="custom-control-input" id="customControlInline">
@@ -144,7 +162,7 @@
 
                     <div class="column">
                         <div class="container" align="center">
-                            <img src="{% static 'img/add-user.svg' %}" alt="add-user" >
+                            <img src="{% static 'img/coffee_with_friends.svg' %}" alt="add-department-user" >
                         </div>
                     </div>
 
@@ -152,10 +170,9 @@
             </div>
         </div>
 
-        <br><br>
-
 
     </div>
+    <br><br>
 
 
     <script type="text/javascript">
