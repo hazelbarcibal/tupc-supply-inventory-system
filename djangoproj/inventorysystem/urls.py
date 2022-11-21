@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.index, name='inventorysystem-index'),
@@ -7,6 +8,11 @@ urlpatterns = [
     path('add-department-account/', views.deptRegister, name='inventorysystem-deptRegister'),
     path('add-admin-account/', views.adminRegister, name='inventorysystem-adminRegister'),
     path('login/', views.usersLogin, name='inventorysystem-usersLogin'),
+
+    path('password-reset/', auth_views.PasswordResetView.as_view(), name='reset_password'),
+    path('password-reset-sent/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 #---------- PATH FOR SUPPLIES ----------------------
     path('supplies-delivery/', views.suppliesDeliver, name='inventorysystem-suppliesDeliver'),
     path('status-limit/', views.statusLimit, name='inventorysystem-statusLimit'),

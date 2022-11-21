@@ -138,3 +138,6 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "Ponie932@gmail.com"
 EMAIL_HOST_PASSWORD = "qbdokjdkbhtpfzyl"
+
+# mga dinagdag ko para sa reset password email confirmation
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

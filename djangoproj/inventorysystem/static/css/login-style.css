@@ -404,3 +404,14 @@ form.sign-in-form {
     left: 50%;
   }
 }
+
+form .link{
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+}
+
+form .link:hover{
+  color: #ffd584;
+  text-decoration: underline;
+}
