@@ -258,10 +258,9 @@
                     <th>Unit</th>
                     <th>Requested Quantity</th>
                     <th>Accepted Quantity</th>
-                    <th>Remaining</th>
                     <th>Status</th>
                 </tr>
-            </thead>
+            </thead>  
             <tbody>
               {% for x in info %}
               <tr class="edittr">
@@ -269,7 +268,6 @@
                   <td>{{x.status_supply_unit}}</td>
                   <td>{{x.status_supply_quantity}}</td>
                   <td>{{x.status_supply_acceptquantity}}</td>
-                  <td>{{x.status_supply_remaining}}</td>
                   <td>{{x.status_supply_status}}</td>
               </tr>
               {% endfor %}

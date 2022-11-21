@@ -23,6 +23,9 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.department
 
+    class Meta:
+        db_table = ('inventorysystem_customuser')
+
 
 
 #-------------- SUPPLY MODELS -------------------

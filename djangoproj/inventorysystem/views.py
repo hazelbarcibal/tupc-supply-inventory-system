@@ -178,7 +178,7 @@ def statusLimit(request):
 
             if supplymainstorage.objects.filter(supplymainstorage_description = description).filter(supplymainstorage_unit = unit).exists() == True:
                 if int(request.POST.get('non-existing_quantity')) > 0:
-                    # if CustomUser.objects.filter(department = update_limit_department).exists() == True:
+                    if CustomUser.objects.filter(department = department).exists() == True:
 
                         if limitrecords.objects.filter(limit_description = description).filter(limit_department = department).filter(limit_unit = unit).exists() == False:
                                 limit = limitrecords()
@@ -186,13 +186,15 @@ def statusLimit(request):
                                 limit.limit_unit = unit
                                 limit.limit_quantity = quantity
                                 limit.limit_department = department
-                                limit.save()        
+                                limit.save()    
                                 messages.success(request, 'Record created for ' + description)
+
 
                         elif limitrecords.objects.filter(limit_description = description).filter(limit_department = department).filter(limit_unit = unit).exists() == True:
                                 messages.info(request, "Item name: " +  description + " with a unit: " + unit + " is existing in the department: " + department)
-                    # else:
-                    #     messages.info(request, "no available account for this department")
+
+                    elif CustomUser.objects.filter(department = department).exists() == False:
+                        messages.info(request, "no available account for this department")
 
                 else:
                     messages.info(request, "invalid quantity")
@@ -444,35 +446,41 @@ def equipmentDeliver(request):
     
         if 'delivery_equipment_new' in request.POST:
 
-            if equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = itemname).filter(equipmentmainstorage_description = description).exists() == False:
-                if int(quantity) > 0:
-                    delivery_record = deliveryequipment()
-                    delivery_record.delivery_equipment_itemname = itemname
-                    delivery_record.delivery_equipment_description = description
-                    delivery_record.delivery_equipment_brand = brand
-                    delivery_record.delivery_equipment_quantity = quantity
-                    delivery_record.delivery_equipment_remaining = quantity
-                    delivery_record.save()
-                    storageupdate = equipmentmainstorage()
-                    storageupdate.equipmentmainstorage_itemName = itemname
-                    storageupdate.equipmentmainstorage_description = description
-                    storageupdate.equipmentmainstorage_brand = brand
-                    storageupdate.equipmentmainstorage_remaining = quantity
-                    storageupdate.equipmentmainstorage_quantity = quantity
-                    storageupdate.save()
-                    mapping = equipment_storagemapping()
-                    mapping.equipmentItemName = itemname
-                    mapping.equipmentLocation = "Supply Office"
-                    mapping.save()
-                    messages.success(request, 'Record created for ' + itemname)
-                    return redirect('inventorysystem-equipmentDeliver')
-                else:
-                        messages.info(request, "invalid quantity")
-                        return redirect('inventorysystem-equipmentDeliver')
+            if requestequipment.objects.filter(request_equipment_itemname = itemname).exists() == False:
 
-            elif equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = itemname).exists() == True:
-                messages.info(request, 'Itemname: '  + itemname + ' already exist ')
-                return redirect('inventorysystem-equipmentDeliver')    
+                if equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = itemname).filter(equipmentmainstorage_description = description).exists() == False:
+                    if int(quantity) > 0:
+                        delivery_record = deliveryequipment()
+                        delivery_record.delivery_equipment_itemname = itemname
+                        delivery_record.delivery_equipment_description = description
+                        delivery_record.delivery_equipment_brand = brand
+                        delivery_record.delivery_equipment_quantity = quantity
+                        delivery_record.delivery_equipment_remaining = quantity
+                        delivery_record.save()
+                        storageupdate = equipmentmainstorage()
+                        storageupdate.equipmentmainstorage_itemName = itemname
+                        storageupdate.equipmentmainstorage_description = description
+                        storageupdate.equipmentmainstorage_brand = brand
+                        storageupdate.equipmentmainstorage_remaining = quantity
+                        storageupdate.equipmentmainstorage_quantity = quantity
+                        storageupdate.save()
+                        mapping = equipment_storagemapping()
+                        mapping.equipmentItemName = itemname
+                        mapping.equipmentLocation = "Supply Office"
+                        mapping.save()
+                        messages.success(request, 'Record created for ' + itemname)
+                        return redirect('inventorysystem-equipmentDeliver')
+                    else:
+                            messages.info(request, "invalid quantity")
+                            return redirect('inventorysystem-equipmentDeliver')
+
+                elif equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = itemname).exists() == True:
+                    messages.info(request, 'Itemname: '  + itemname + ' already exist ')
+                    return redirect('inventorysystem-equipmentDeliver')    
+
+            elif requestequipment.objects.filter(request_equipment_itemname = itemname).exists() == True:
+                 messages.info(request, 'Equipment: '  + itemname + ' have a pending request from department')
+                 return redirect('inventorysystem-equipmentDeliver')
 
         elif 'delivery_equipment_update' in request.POST:
 
@@ -503,6 +511,53 @@ def equipmentDeliver(request):
             else:
                 messages.info(request, "invalid quantity") 
 
+        elif 'delivery_dep' in request.POST:
+
+            request_id = request.POST.get('requestequipment_id')
+            request_department = request.POST.get('request_equipment_department')
+            request_itemname = request.POST.get('request_equipment_itemname')
+            request_quantity = request.POST.get('request_equipment_quantity')
+            request_description = request.POST.get('request_equipment_description')
+            request_brand = request.POST.get('request_equipment_brand')
+            request_acceptquantity = request.POST.get('request_equipment_acceptquantity')
+            getdata = requestequipment.objects.get(requestequipment_id=request_id).requestequipment_id
+
+            if request_acceptquantity > request_quantity:
+
+                messages.info(request, 'request quantity is less than to accept quantity')
+                return redirect('inventorysystem-equipmentDeliver')
+            
+            elif request_acceptquantity < request_quantity:
+
+                accept = acceptEquipmentRequests()
+                accept.acceptEquipmentRequests_id = getdata
+                accept.arequest_equipment_itemname = request_itemname
+                accept.arequest_equipment_issued_to = request_department
+                accept.arequest_equipment_description = request_description
+                accept.arequest_equipment_brand = request_brand
+                accept.arequest_equipment_quantity = request_acceptquantity
+                accept.arequest_equipment_status = "Ready for pick-up"
+                accept.arequest_equipment_remaining = 0
+                accept.arequest_equipment_property_no = 0
+                requestequipment.objects.filter(requestequipment_id = getdata).delete()       
+                status = statusEquipmentRequest()
+                status.statusEquipmentRequests_id = getdata
+                status.status_equipment_itemname = request_itemname
+                status.status_equipment_description = request_description
+                status.status_equipment_brand = request_brand
+                status.status_equipment_quantity = request_quantity
+                status.status_equipment_acceptquantity = request_acceptquantity
+                status.status_equipment_department = request_department
+                status.status_equipment_status = "Ready for pick-up"  
+                status.status_equipment_remaining = 0  
+                statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete()  
+                accept.save()
+                status.save()
+                messages.success(request, 'request accepted')
+                return redirect('inventorysystem-equipmentDeliver')
+
+
+
     context = {
         'form': form,
         'info': info,
@@ -525,47 +580,47 @@ def viewDeliveryRecords(request):
 # def viewRequestEquipment(request):
 #     info = requestequipment.objects.all()
 #     if request.method == 'POST':
-#         request_id = request.POST.get('requestequipment_id')
-#         request_department = request.POST.get('request_equipment_department')
-#         request_itemname = request.POST.get('request_equipment_itemname')
-#         request_quantity = request.POST.get('request_equipment_quantity')
-#         request_description = request.POST.get('request_equipment_description')
-#         request_brand = request.POST.get('request_equipment_brand')
-#         request_acceptquantity = request.POST.get('request_equipment_acceptquantity')
-#         getdata = requestequipment.objects.get(requestequipment_id=request_id).requestequipment_id
+        # request_id = request.POST.get('requestequipment_id')
+        # request_department = request.POST.get('request_equipment_department')
+        # request_itemname = request.POST.get('request_equipment_itemname')
+        # request_quantity = request.POST.get('request_equipment_quantity')
+        # request_description = request.POST.get('request_equipment_description')
+        # request_brand = request.POST.get('request_equipment_brand')
+        # request_acceptquantity = request.POST.get('request_equipment_acceptquantity')
+        # getdata = requestequipment.objects.get(requestequipment_id=request_id).requestequipment_id
 
-#         if request_acceptquantity > request_quantity:
+        # if request_acceptquantity > request_quantity:
 
-#             messages.info(request, 'request quantity is less than to accept quantity')
-#             return redirect('inventorysystem-viewRequestEquipment')
+        #     messages.info(request, 'request quantity is less than to accept quantity')
+        #     return redirect('inventorysystem-viewRequestEquipment')
         
-#         elif request_acceptquantity < request_quantity:
+        # elif request_acceptquantity < request_quantity:
 
-#             accept = acceptEquipmentRequests()
-#             accept.acceptEquipmentRequests_id = getdata
-#             accept.arequest_equipment_itemname = request_itemname
-#             accept.arequest_equipment_issued_to = request_department
-#             accept.arequest_equipment_description = request_description
-#             accept.arequest_equipment_brand = request_brand
-#             accept.arequest_equipment_quantity = request_acceptquantity
-#             accept.arequest_equipment_status = "Ready for pick-up"
-#             accept.arequest_equipment_remaining = 0
-#             accept.arequest_equipment_property_no = 0
-#             requestequipment.objects.filter(requestequipment_id = getdata).delete()       
-#             status = statusEquipmentRequest()
-#             status.statusEquipmentRequests_id = getdata
-#             status.status_equipment_itemname = request_itemname
-#             status.status_equipment_description = request_description
-#             status.status_equipment_brand = request_brand
-#             status.status_equipment_quantity = request_quantity
-#             status.status_equipment_acceptquantity = request_acceptquantity
-#             status.status_equipment_department = request_department
-#             status.status_equipment_status = "Ready for pick-up"  
-#             status.status_equipment_remaining = 0  
-#             statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete()  
-#             accept.save()
-#             status.save()
-#             messages.success(request, 'request accepted')
+        #     accept = acceptEquipmentRequests()
+        #     accept.acceptEquipmentRequests_id = getdata
+        #     accept.arequest_equipment_itemname = request_itemname
+        #     accept.arequest_equipment_issued_to = request_department
+        #     accept.arequest_equipment_description = request_description
+        #     accept.arequest_equipment_brand = request_brand
+        #     accept.arequest_equipment_quantity = request_acceptquantity
+        #     accept.arequest_equipment_status = "Ready for pick-up"
+        #     accept.arequest_equipment_remaining = 0
+        #     accept.arequest_equipment_property_no = 0
+        #     requestequipment.objects.filter(requestequipment_id = getdata).delete()       
+        #     status = statusEquipmentRequest()
+        #     status.statusEquipmentRequests_id = getdata
+        #     status.status_equipment_itemname = request_itemname
+        #     status.status_equipment_description = request_description
+        #     status.status_equipment_brand = request_brand
+        #     status.status_equipment_quantity = request_quantity
+        #     status.status_equipment_acceptquantity = request_acceptquantity
+        #     status.status_equipment_department = request_department
+        #     status.status_equipment_status = "Ready for pick-up"  
+        #     status.status_equipment_remaining = 0  
+        #     statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete()  
+        #     accept.save()
+        #     status.save()
+        #     messages.success(request, 'request accepted')
 #             return redirect('inventorysystem-viewRequestEquipment')
 
 #     context = {
