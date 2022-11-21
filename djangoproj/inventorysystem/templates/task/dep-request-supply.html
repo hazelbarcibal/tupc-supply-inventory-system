@@ -131,8 +131,7 @@
         <a type="button" href="#mainstorage" class="btn btn-outline-secondary">Mainstorage</a>
         <a type="button" href="#requestSupply" class="btn btn-outline-secondary">Request Supply</a>
         <a type="button" href="#withdrawnItem" class="btn btn-outline-secondary">Withdraw Supply Item</a>
-      </div>
-          
+      </div>     
     </div>
 
 
@@ -205,10 +204,9 @@
               </div>
 
               <div class="col-md-6">
-                  <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Accept Quantity:</label>
+                  <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Request Quantity:</label>
                   <input type="number" min="1" class="form-control" id="addquantity" name="request_addquantity" required>
               </div>
-
 
               <div class="modal-footer">
                   <div class="col-12">
@@ -216,7 +214,6 @@
                   </div>
               </div>
           </form>
-
       </div>
     </div>
   </div>
@@ -234,7 +231,7 @@
           }).get();
 
           console.log(data);
-          $('h5.modal-title').html('Add Request for: '+ data[1]);
+          $('h5.modal-title').html('Request Supply: ' + data[1]);
           $('#editId').val(data[0]);
           $('#description').val(data[1]);
           $('#unit').val(data[2]);

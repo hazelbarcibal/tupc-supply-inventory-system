@@ -31,15 +31,20 @@
 <div class="container home-content">
 
     <br>
-    <div class="container" align="center">
+    <div class="container">
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
             <a type="button" href="#mainstorage" class="btn btn-outline-secondary">Mainstorage</a>
+            <a type="button" href="#Requests" class="btn btn-outline-secondary">Supply Request</a>
             <a type="button" href="#deliverItem" class="btn btn-outline-secondary">Deliver New Item</a>
-            <a type="button" href="#deliveryRecord" class="btn btn-outline-secondary">Delivery Record</a>
           </div>
+
+          <div style="float: right;" class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <a type="button" href="{% url 'inventorysystem-viewDeliveryRecords' %}" class="btn btn-secondary">Delivery Record</a>
+            <a type="button" href="{% url 'inventorysystem-equipmentWithdraw' %}" class="btn btn-secondary">Withdraw Request</a>
+        </div>
           
     </div>
-    <br>
+    <br><br>
     <div class="container" id="mainstorage">
         <div class="kahon">
             <h3 align="center">Mainstorage</h3>
@@ -75,7 +80,7 @@
         
     </div>
 
-    <br><br>
+    <br>
 
     <!----- UPDATE DELIVERY MODAL ----->
     <div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -151,7 +156,154 @@
             });
         });
     </script>
+<br>
+<!-- Datatable --> 
+<div class="container" id="Requests" >
+    <div class="kahon">
+        <h3 align="center">Requests</h3>
+        <hr>
+        <br>
+        <table id="equipDeliveryTable" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Request No.</th>
+                    <th style="text-align: center;">Department</th>
+                    <th style="text-align: center;">Item Name</th>
+                    <th style="text-align: center;">Request Quantity</th>
+                    <!-- <th style="text-align: center;">Mainstorage Quantity</th> -->
+                    <th style="text-align: center;">Date & Time</th>
+                    <th style="text-align: center;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in info2 %}
+                <tr class="edittr">
+                    <td>{{x.requestequipment_id}}</td>
+                    <td align="center">{{x.request_equipment_department}}</td>
+                    <td align="center">{{x.request_equipment_itemname}}</td>
+                    <td align="center">{{x.request_equipment_quantity}}</td>
+                    <!-- <td align="center">{{x.request_equipment_mainstoragequantity}}</td> -->
+                    <td align="center">{{x.current_date}}</td>
+                    <td>
+                        <button class="btn btn-success editBtn1" style="margin-bottom: 10px;" >DELIVER</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
 
+        </table>
+    </div>
+</div>
+
+<!----- UPDATE DELIVERY MODAL ----->
+<div class="modal fade" id="openModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+        <!----- UPDATE STATUS FORM ---->
+
+            <form action = "" method = "POST" class="row g-3" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <input type="hidden" id="editId1" name="requestequipment_id" value="" readonly>
+
+                <div class="col-md-12">
+                    <label class="form-label">Department:</label>
+                    <input type="text" class="form-control" id="department" name="request_equipment_department" readonly>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Item Name:</label>
+                    <input type="text" class="form-control" id="itemname1" name="request_equipment_itemname" readonly>
+                </div>
+
+
+                <!-- <div class="col-md-6">
+                    <label class="form-label">Mainstorage Quantity:</label>
+                    <input type="number" min="1" class="form-control" id="mainquantity" name="request_equipment_mainstoragequantity" readonly>
+                </div> -->
+
+                <div class="col-md-6">
+                    <label class="form-label">Requested Quantity:</label>
+                    <input type="number" min="1" class="form-control" id="requestquantity" name="request_equipment_quantity" readonly>
+                </div>
+
+                <div class="col-md-12">
+                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Description:</label>
+                    <input type="text" class="form-control" id="description" name="request_equipment_description" required>
+                </div>
+
+                <div class="col-md-6">
+                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Brand:</label>
+                    <input type="text" min="1" class="form-control" id="brand" name="request_equipment_brand" required>
+                </div>
+
+                <div class="col-md-6">
+                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Accept Quantity:</label>
+                    <input type="number" min="1" class="form-control" id="acceptquantity" name="request_equipment_acceptquantity" required>
+                </div>
+
+
+                <div class="modal-footer">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Accept Request</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+      </div>
+    </div>
+</div>
+
+{% for message in messages %}
+{% if message.tags == 'info' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        var m = "{{ message }}";
+        swal("Notice: ", m, "info")
+    </script>
+    {% elif message.tags == 'success' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+    var m = "{{ message }}";
+    swal("Success! ", m, "success")
+    </script>
+{% endif %}
+{% endfor %}
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $('.editBtn1').on('click', function(){
+
+            $('#openModal1').modal('show');
+            $tr =$(this).closest('tr');
+            var data= $tr.children("td").map(function(){
+            return $(this).text();
+            }).get();
+
+            console.log(data);
+            $('h5.modal-title').html('Accept Request for: '+ data[1]);
+            $('#editId1').val(data[0]);
+            $('#department').val(data[1]);
+            $('#itemname1').val(data[2]);
+            $('#mainquantity').val(data[5]);
+            $('#requestquantity').val(data[3]);
+        });
+    });
+
+
+</script>
+
+<br><br>
 
     <div class="container" id="deliverItem">
         <div class="kahon">
@@ -199,51 +351,7 @@
         </div>     
     </div>
 
-    <div align="right" class= "container home-content btn1-group" style="margin: auto;" id="deliveryRecord">
-        <form action="{% url 'export_pdf_equipdelivery'%}">
-            <button class="fa fa-file-pdf-o" 
-                style="font-size:13px;color:rgb(255, 255, 255)"> Save Data As PDF</button>
-        </form>
-        <form action="{% url 'export_excel'%}">
-            <button class="fa fa-file-excel-o" 
-                style="font-size:13px;color:rgb(255, 255, 255)"> Export Data To Excel</button>
-        </form>
-    </div>
-<br><br>
-
-        
-          <div class="container">
-            <div class="kahon">
-                <h3 align="center">Delivery Record</h3>
-                <hr>
-                <br>
-                <table id="equipmentDeliveryTable" class="display" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th style="text-align: center;">Item Name</th>
-                            <th style="text-align: center;">Description</th>
-                            <th style="text-align: center;">Brand</th>
-                            <th style="text-align: center;">Delivery Quantity</th>
-                            <th style="text-align: center;">Remaining</th>
-                            <th style="text-align: center;">Date & Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for x in info1 %}
-                            <tr class="edittr">
-                                <td align="center">{{x.delivery_equipment_itemname}}</td>
-                                <td align="center">{{x.delivery_equipment_description}}</td>
-                                <td align="center">{{x.delivery_equipment_brand}}</td>
-                                <td align="center">{{x.delivery_equipment_quantity}}</td>
-                                <td align="center">{{x.delivery_equipment_remaining}}</td>
-                                <td align="center">{{x.current_date}}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-          </div>
-
+    
     <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
     <br><br>
 
@@ -267,17 +375,18 @@
 
 
         <script>
+
+
             $(document).ready(function() {
-                var table = $('#equipmentDeliveryTable').DataTable( {
+                var table = $('#equipMainstorage').DataTable( {
                     rowReorder: {
                         selector: 'td:nth-child(2)'
                     },
                     responsive: true
                 } );
             } );
-
             $(document).ready(function() {
-                var table = $('#equipMainstorage').DataTable( {
+                var table = $('#equipDeliveryTable').DataTable( {
                     rowReorder: {
                         selector: 'td:nth-child(2)'
                     },

@@ -43,7 +43,7 @@
   <!-- Header -->
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center justify-content-between">
-        <h1 class="logo"><a href="{% url 'inventorysystem-index' %}"><span>Welcome!</span></a></h1>
+        <h1 class="logo"><a href="{% url 'inventorysystem-index' %}"><img src="/static/img/TUP LOGO.png" alt=""></a></h1>
 
       <!-- Navigation bar -->
       <nav class="nav-menu d-none d-lg-block">
@@ -55,6 +55,7 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
+      <a href=" {% url 'inventorysystem-userLogin' %}" class="get-started-btn">Login</a>
 
       
 
@@ -74,7 +75,7 @@
         </div>
       </div>
       <br>
-      <a href=" {% url 'inventorysystem-userLogin' %}" class="get-started-btn">Login</a>
+      
     </div>
   </section>
 
@@ -139,12 +140,9 @@
       <div class="container" data-aos="fade-up">
 
         <div class="row">
-
           <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
-            <img src="{% static 'img/inventory.png'%}" class="img-fluid" alt="">
+            <img src="{% static 'img/users.svg'%}" class="img-fluid" alt="">
           </div>
-          
-
           <div class="col-lg-6" data-aos="fade-left" data-aos-delay="100">
             <!-- <div class="icon-box mt-5" data-aos="zoom-in" data-aos-delay="150">
                 <i class="ri-database-line"></i>
@@ -157,13 +155,19 @@
               <h4>Scanning QR code</h4>
               <p>for returned equipment</p>
             </div> -->
-            <div class="icon-box mt-5" data-aos="zoom-in" data-aos-delay="150">
+            <div class="icon-box mt-6" data-aos="zoom-in" data-aos-delay="150">
               <i class="ri-emotion-happy-line"></i>
               <h4>User-friendly</h4>
               <p>designed for usability regardless of inexperience to technology</p>
             </div>
           </div>
+ 
+          
         </div>
+ 
+          
+
+         
 
       </div>
     </section>

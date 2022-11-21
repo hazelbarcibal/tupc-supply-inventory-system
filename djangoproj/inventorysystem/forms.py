@@ -21,8 +21,8 @@ class deliverySupplyForm(forms.ModelForm):
     delivery_supply_description = forms.CharField(required=True, widget=forms.TextInput(
             attrs={'list': 'deliveryItemname', 'class': 'form-control', 'placeholder': 'Description', 'autocomplete': 'on'}))
 
-    delivery_supply_unit = forms.CharField(required=True, widget=forms.TextInput(
-            attrs={'list': 'deliveryUnit', 'class': 'form-control', 'placeholder': 'Unit', 'autocomplete': 'on'}))
+    delivery_supply_unit = forms.CharField(required=True, widget=forms.Select(choices=UNITS, 
+            attrs={'id': 'deliveryUnit', 'class': 'form-control', 'autocomplete': 'on'}))
 
     delivery_supply_quantity = forms.DecimalField(required=True,  widget=forms.NumberInput(
             attrs={'class': 'form-control', 'placeholder': 'Quantity', 'min': 0,}))   

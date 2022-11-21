@@ -4,6 +4,12 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.timezone import now
 
 
+UNITS= [
+    ('Box', 'Box'),
+    ('Bundle', 'Bundle'),
+    ('Pcs', 'Pcs'),
+    ('Ream', 'Ream'),
+    ]
 class CustomUser(AbstractUser):
 
     username = models.CharField(max_length=30, verbose_name='username', unique=True, default='')
@@ -24,7 +30,7 @@ class deliverysupply(models.Model):
 
     deliverysupply_id = models.AutoField(primary_key=True)
     delivery_supply_description = models.CharField(max_length=255, verbose_name='delivery_supply_description')
-    delivery_supply_unit = models.CharField(max_length=50, verbose_name='delivery_supply_unit')
+    delivery_supply_unit = models.CharField(max_length=50, choices=UNITS, default='Box', verbose_name='delivery_supply_unit')
     delivery_supply_quantity = models.DecimalField(max_digits=6, decimal_places= 0, verbose_name='delivery_supply_quantity')
     delivery_supply_remaining = models.DecimalField(null=True, max_digits=6, decimal_places= 0, verbose_name='delivery_supply_remaining')
     current_date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name= 'delivery_current_date')
