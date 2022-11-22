@@ -227,7 +227,8 @@
             <table id="depwithdrawnTable" class="stripe cell-border hover" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Description</th>
+                        <th style="text-align: center;">Department</th>
+                        <th style="text-align: center;">Description</th>
                         <th style="text-align: center;">Unit</th>
                         <th style="text-align: center;">Withdrawn Quantity</th>
                         <th style="text-align: center;">Date & Time</th>
@@ -236,7 +237,8 @@
                 <tbody>
                   {% for x in info1 %}
                   <tr class="edittr">
-                      <td>{{x.withdraw_supply_description}}</td>
+                      <td align="center">{{x.withdraw_supply_department}}</td>
+                      <td align="center">{{x.withdraw_supply_description}}</td>
                       <td align="center">{{x.withdraw_supply_unit}}</td>
                       <td align="center">{{x.withdraw_supply_quantity}}</td>
                       <td align="center">{{x.current_date}}</td>

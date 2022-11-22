@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
@@ -400,7 +400,7 @@ body {
   #hero {
     width: 100%;
     height: 100vh;
-    background: url("../img/TUPC.jpg") top center;
+    background: url("../img/TUP.jpg") top center;
     background-size: cover;
     position: relative;
   }
@@ -423,7 +423,7 @@ body {
   
   #hero h1 {
     margin: 0;
-    font-size: 56px;
+    font-size: 60px;
     font-weight: 700;
     line-height: 64px;
     color: #fff;
@@ -437,8 +437,8 @@ body {
   #hero h2 {
     color: rgba(255, 255, 255, 0.9);
     margin: 10px 0 0 0;
-    font-size: 24px;
-    font-family: cursive;
+    font-size: 30px;
+    font-family: 'Nunito', sans-serif;
   }
   
   #hero .icon-box {
@@ -621,7 +621,7 @@ body {
   /*--------------------------------------------------------------
   # Features
   --------------------------------------------------------------*/
-  .features {
+  /* .features {
     padding-top: 20px;
   }
   
@@ -637,14 +637,14 @@ body {
   
   .features .icon-box i {
     font-size: 48px;
-    float: left;
     color: #ffc451;
   }
   
   .features .icon-box p {
     font-size: 15px;
     color: #848484;
-    margin-left: 60px;
+    margin-left: 30px;
+    float: left;
   }
   
   .features .image {
@@ -653,7 +653,7 @@ body {
     background-size: cover;
     min-height: 400px;
   }
-  
+   */
   /*--------------------------------------------------------------
   # Services
   --------------------------------------------------------------*/

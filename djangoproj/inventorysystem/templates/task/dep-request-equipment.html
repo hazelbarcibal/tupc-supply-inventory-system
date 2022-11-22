@@ -17,26 +17,26 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
 <style>
-.btn1{
-    background-color: #ad413a;
-    border: 1px solid black;
-    border-radius: 5px;
-    color: white;
-    padding: 10px 24px; 
-    cursor: pointer; 
+    .btn1 {
+        background-color: #ad413a;
+        border: 1px solid black;
+        border-radius: 5px;
+        color: white;
+        padding: 10px 24px;
+        cursor: pointer;
 
-}
+    }
 
-.btn1:hover {
-    text-decoration: none;
-    background: #9c2e26;
-    color: white;
-}
-.kahon1{
-    width: fit-content;
-    margin: auto;
-}
+    .btn1:hover {
+        text-decoration: none;
+        background: #9c2e26;
+        color: white;
+    }
 
+    .kahon1 {
+        width: fit-content;
+        margin: auto;
+    }
 </style>
 
 <section class="home-section">
@@ -44,41 +44,43 @@
         <div class="sidebar-button">
             <i class='bx bx-menu sidebarBtn'></i>
             <div>
-                <label style="padding-top: 10px;"><h2>Request Equipment</h2></label>
+                <label style="padding-top: 10px;">
+                    <h2>Request Equipment</h2>
+                </label>
             </div>
         </div>
     </nav>
-<br>
-
-<div class="container home-content">
-    <div class="container">
-        <div class="col-12">
-          <h4>Welcome, <span style="text-decoration: underline; font-weight: 600;">{{request.user}}</span> !</h4>
-        </div>
-    </div>
     <br>
-    <div class="container" align="center">
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <a type="button" href="#requestEquipment" class="btn btn-outline-secondary">Request Equipment</a>
-            <a type="button" href="#requestRecord" class="btn btn-outline-secondary">Request Record</a>
-            <a type="button" href="#withdrawnEquipment" class="btn btn-outline-secondary">Withdrawn Equipment</a>
-          </div>
-          
-    </div>
 
-    <br>
-    <div class="container" id="requestEquipment">
+    <div class="container home-content">
         <div class="container">
+            <div class="col-12">
+                <h4>Welcome, <span style="text-decoration: underline; font-weight: 600;">{{request.user}}</span> !</h4>
+            </div>
+        </div>
+        <br>
+        <div class="container" align="center">
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <a type="button" href="#requestEquipment" class="btn btn-outline-secondary">Request Equipment</a>
+                <a type="button" href="#requestRecord" class="btn btn-outline-secondary">Request Record</a>
+                <a type="button" href="#withdrawnEquipment" class="btn btn-outline-secondary">Withdrawn Equipment</a>
+            </div>
+        </div>
+
+        <br>
+        <div class="container" id="requestEquipment">
             <div class="container">
                 <div class="container">
-                    <div class="kahon1">
-                        <h3>Request Equipment</h3>
-                        <br>
-                        <form action="" method="POST" class="row g-3">
-                            {% csrf_token %}
+                    <div class="container">
+                        <div class="kahon1">
+                            <h3>Request Equipment</h3>
+                            <br>
+                            <form action="" method="POST" class="row g-3">
+                                {% csrf_token %}
                                 <div class="col-md-12">
                                     <label>Item Name:</label>
-                                    <input list="requestItemname" type="text" name = "non_existing_equipment_itemname" class="form-control" placeholder="Item Name" required>
+                                    <input list="requestItemname" type="text" name="non_existing_equipment_itemname"
+                                        class="form-control" placeholder="Item Name" required>
                                     <datalist id="requestItemname">
                                         <option id="1" value="Aircon"></option>
                                         <option id="2" value="Computer"></option>
@@ -86,34 +88,36 @@
                                         <option id="4" value="Printer"></option>
                                         <option id="5" value="Smart TV"></option>
                                         <option id="6" value="Water Dispenser"></option>
-                                    </datalist> 
+                                    </datalist>
                                 </div>
                                 <br>
                                 <div class="col-md-12">
                                     <label>Quantity:</label>
-                                    <input type='number' min="1" name = "non_existing_equipment_quantity" class="form-control" placeholder="Quantity" required> 
+                                    <input type='number' min="1" name="non_existing_equipment_quantity"
+                                        class="form-control" placeholder="Quantity" required>
                                 </div>
                                 <br>
                                 <div class="col-12">
-                                    <button type="submit" id="submit" class="btn1" style="float: right;"> Request </button>
+                                    <button type="submit" id="submit" class="btn1" style="float: right;"> Request
+                                    </button>
                                 </div>
                                 <br>
                                 <br>
-                        </form> 
-                    </div>     
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>  
+        </div>
     </div>
-</div>
-<br><br><br>
-<div class="container" id="requestRecord">
-    <div class="container">
-        <div class="kahon">
-            <h3 align="center">Request Record</h3>
-            <hr>s
-            <br>
-                <!-- Datatable --> 
+    <br><br><br>
+    <div class="container" id="requestRecord">
+        <div class="container">
+            <div class="kahon">
+                <h3 align="center">Request Record</h3>
+                <hr>s
+                <br>
+                <!-- Datatable -->
                 <table id="depRequestTable" class="table table-striped" style="width:100%">
                     <thead>
                         <tr>
@@ -137,23 +141,22 @@
                     </tbody>
                 </table>
             </div>
+        </div>
     </div>
-    
-</div>
-<br><br><br>
-<div class="container" id="withdrawnEquipment">
-    <div class="container">
-        <div class="kahon">
-            <h3 align="center">Withdrawn Equipment</h3>
-            <hr>
-            <br>
+    <br><br><br>
+    <div class="container" id="withdrawnEquipment">
+        <div class="container">
+            <div class="kahon">
+                <h3 align="center">Withdrawn Equipment</h3>
+                <hr>
+                <br>
                 <table id="depwithdrawnTable" class="stripe cell-border hover" style="width:100%">
                     <thead>
                         <tr>
                             <th>Item Name</th>
                             <th>Description</th>
                             <th>Brand</th>
-                            <th>Quantity</th>
+                            <!-- <th>Quantity</th> -->
                             <th>Date & Time</th>
                         </tr>
                     </thead>
@@ -161,66 +164,66 @@
                         {% for x in info2 %}
                         <tr class="edittr">
                             <td>{{x.withdraw_equipment_itemname}}</td>
-                            <td>{{x.withdraw_equipment_decription}}</td>
+                            <td>{{x.withdraw_equipment_description}}</td>
                             <td>{{x.withdraw_equipment_brand}}</td>
-                            <td></td>
+                            <!-- <td>{{x.withdraw_equipment_quantity}}</td> -->
                             <td>{{x.current_date}}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
+        </div>
     </div>
-</div>
-    
-<a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
-<br><br><br><br>
+
+    <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+    <br><br><br><br>
 
     {% for message in messages %}
     {% if message.tags == 'info' %}
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script>
-            var m = "{{ message }}";
-            swal("Notice: ", m, "info")
-        </script>
-        {% elif message.tags == 'success' %}
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        var m = "{{ message }}";
+        swal("Notice: ", m, "info")
+    </script>
+    {% elif message.tags == 'success' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
         var m = "{{ message }}";
         swal("Success! ", m, "success")
-        </script>
+    </script>
     {% endif %}
     {% endfor %}
-    
-<script>
 
-    $(document).ready(function() {
-        var table = $('#MainStorage').DataTable( {
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            },
-            responsive: true
-        } );
-    } );
+    <script>
 
-    $(document).ready(function() {
-        var table = $('#depRequestTable').DataTable( {
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            },
-            responsive: true
-        } );
-    } );
-    $(document).ready(function() {
-        var table = $('#depwithdrawnTable').DataTable( {
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            },
-            responsive: true
-        } );
-    } );
-        
-</script>
-    
-    
-{% endblock %}
+        $(document).ready(function () {
+            var table = $('#MainStorage').DataTable({
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
+            });
+        });
+
+        $(document).ready(function () {
+            var table = $('#depRequestTable').DataTable({
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
+            });
+        });
+        $(document).ready(function () {
+            var table = $('#depwithdrawnTable').DataTable({
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
+            });
+        });
+
+    </script>
+
+
+    {% endblock %}

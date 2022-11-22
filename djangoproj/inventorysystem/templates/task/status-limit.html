@@ -19,57 +19,58 @@
 
 
 <style>
-.btn1{
-    background-color: #ad413a;
-    border: 1px solid black;
-    border-radius: 5px;
-    color: white;
-    padding: 10px 24px; 
-    cursor: pointer; 
+    .btn1 {
+        background-color: #ad413a;
+        border: 1px solid black;
+        border-radius: 5px;
+        color: white;
+        padding: 10px 24px;
+        cursor: pointer;
 
-}
+    }
 
-.col-md-12 input{
-    border: solid #3E3E3E 1.5px;
-}
-
-
-.col-md-6 input{
-    border: solid #3E3E3E 1.5px;
-}
-
-.btn1:hover {
-    text-decoration: none;
-    background: #9c2e26;
-    color: white;
-}
-
-.btn1-group button {
-    background-color: #ad413a;
-    border: 1px solid black;
-    color: white;
-    padding: 10px 24px; 
-    cursor: pointer; 
-    float: right; 
-    border-radius: 5px;
-}
+    .col-md-12 input {
+        border: solid #3E3E3E 1.5px;
+    }
 
 
-.btn1-group button:not(:last-child) {
-    border-right: none; /* Prevent double borders */
-}
+    .col-md-6 input {
+        border: solid #3E3E3E 1.5px;
+    }
 
-/* Clear floats (clearfix hack) */
-.btn1-group:after {
-    content: "";
-    clear: both;
-    display: table;
-}
+    .btn1:hover {
+        text-decoration: none;
+        background: #9c2e26;
+        color: white;
+    }
 
-/* Add a background color on hover */
-.btn1-group button:hover {
-    background-color: #4d0d09;
-}
+    .btn1-group button {
+        background-color: #ad413a;
+        border: 1px solid black;
+        color: white;
+        padding: 10px 24px;
+        cursor: pointer;
+        float: right;
+        border-radius: 5px;
+    }
+
+
+    .btn1-group button:not(:last-child) {
+        border-right: none;
+        /* Prevent double borders */
+    }
+
+    /* Clear floats (clearfix hack) */
+    .btn1-group:after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    /* Add a background color on hover */
+    .btn1-group button:hover {
+        background-color: #4d0d09;
+    }
 </style>
 
 <section class="home-section">
@@ -77,67 +78,68 @@
         <div class="sidebar-button">
             <i class='bx bx-menu sidebarBtn'></i>
             <div>
-                <label style="padding-top: 10px;"><h2>Status Limit</h2></label>
+                <label style="padding-top: 10px;">
+                    <h2>Status Limit</h2>
+                </label>
             </div>
         </div>
     </nav>
 
-<br>
-  
-<div class="home-content">
-
-    <div class="container" align="center">
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <a type="button" href="#mainstorage" class="btn btn-outline-secondary">Mainstorage</a>
-            <a type="button" href="#nonExisting" class="btn btn-outline-secondary">Non-existing Item</a>
-            <a type="button" href="#limitPerDept" class="btn btn-outline-secondary">Limit Per Department</a>
-          </div>
-          
-    </div>
     <br>
 
-    <!-- Datatable --> 
-    <div class="container" style="width: 98%;" id="mainstorage">
-        <div class="kahon">
-            <h3 align="center">Mainstorage</h3>
-            <hr>
-            <br>
-            <table id="MainStorage" class="table table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Description</th>
-                        <th style="text-align: center;">Unit</th>
-                        <th style="text-align: center;">Quantity</th>
-                    
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for x in info %}
-                    <tr class="edittr">
-                        <td>{{x.supplymainstorage_description}}</td>
-                        <td align="center">{{x.supplymainstorage_unit}}</td>
-                        <td align="center">{{x.supplymainstorage_quantity}}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
+    <div class="home-content">
 
-            </table>
+        <div class="container" align="center">
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <a type="button" href="#mainstorage" class="btn btn-outline-secondary">Mainstorage</a>
+                <a type="button" href="#nonExisting" class="btn btn-outline-secondary">Non-existing Item</a>
+                <a type="button" href="#limitPerDept" class="btn btn-outline-secondary">Limit Per Department</a>
+            </div>
         </div>
-    </div>
-    <br><br>
+        <br>
 
-    <!-- Non Existing Tab -->
+        <!-- Datatable -->
+        <div class="container" style="width: 98%;" id="mainstorage">
+            <div class="kahon">
+                <h3 align="center">Mainstorage</h3>
+                <hr>
+                <br>
+                <table id="MainStorage" class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th style="text-align: center;">Unit</th>
+                            <th style="text-align: center;">Quantity</th>
 
-    <div class="container" style="width: 98%;" id="nonExisting">
-        <div class="kahon">
-            <h3>Non-existing Item</h3>
-            <br>
-            <form action="" method="POST" class="row g-3">
-                {% csrf_token %}
-                
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in info %}
+                        <tr class="edittr">
+                            <td>{{x.supplymainstorage_description}}</td>
+                            <td align="center">{{x.supplymainstorage_unit}}</td>
+                            <td align="center">{{x.supplymainstorage_quantity}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <br><br>
+
+        <!-- Non Existing Tab -->
+        <div class="container" style="width: 98%;" id="nonExisting">
+            <div class="kahon">
+                <h3>Non-existing Item</h3>
+                <br>
+                <form action="" method="POST" class="row g-3">
+                    {% csrf_token %}
+
                     <div class="col-md-6">
                         <label>Description:</label>
-                        <input type="text" list="statusItemname" autocomplete="on" name = "non-existing_description" class="form-control" placeholder="Item Name" required>
+                        <input type="text" list="statusItemname" autocomplete="on" name="non-existing_description"
+                            class="form-control" placeholder="Item Name" required>
                         <datalist id="statusItemname">
                             <option id="1" value="Blue Ballpen"></option>
                             <option id="2" value="Black Ballpen"></option>
@@ -160,26 +162,29 @@
                             <option id="19" value="Packing Tape"></option>
                             <option id="20" value="Scotch Tape"></option>
                             <option id="21" value="Tape Dispenser"></option>
-                        </datalist> 
+                        </datalist>
                     </div>
                     <div class="col-md-6">
                         <label>Unit:</label>
-                        <input type='text' list="statusUnit" autocomplete="on" name = "non-existing_unit" class="form-control" placeholder="Unit" required>
+                        <input type='text' list="statusUnit" autocomplete="on" name="non-existing_unit"
+                            class="form-control" placeholder="Unit" required>
                         <datalist id="statusUnit">
                             <option id="1" value="Box"></option>
                             <option id="2" value="Bundle"></option>
                             <option id="3" value="Ream"></option>
                             <option id="4" value="Pcs"></option>
-                        </datalist> 
+                        </datalist>
                     </div>
-               
+
                     <div class="col-md-6">
                         <label>Quantity:</label>
-                        <input type='number' name = "non-existing_quantity" class="form-control" placeholder="Quantity" required>
+                        <input type='number' name="non-existing_quantity" class="form-control" placeholder="Quantity"
+                            required>
                     </div>
                     <div class="col-md-6">
                         <label>Department:</label>
-                        <input type='text' list="limit" autocomplete="on" name = "non-existing_department" class="form-control" placeholder="Department" required>
+                        <input type='text' list="limit" autocomplete="on" name="non-existing_department"
+                            class="form-control" placeholder="Department" required>
                         <datalist id="limit">
                             <option id="1" value="OCS_CASHIER_SERVICES"></option>
                             <option id="2" value="OES_EXTENSION_SERVICES"></option>
@@ -198,7 +203,8 @@
                             <option id="15" value="DLA_LIBERAL_ARTS"></option>
                             <option id="16" value="DMS_MATH_AND_SCIENCE"></option>
                             <option id="17" value="DPECS_PHYSICAL_EDUCATION_CULTURAL_SPORTS"></option>
-                            <option id="18" value="BETEEAP_EXPANDED_TERTIARY_EDUCATION_EQUIVALENCY_AND_ACCREDITATION"></option>
+                            <option id="18" value="BETEEAP_EXPANDED_TERTIARY_EDUCATION_EQUIVALENCY_AND_ACCREDITATION">
+                            </option>
                             <option id="19" value="GAD_GENDER_AND_DEVELOPMENT"></option>
                             <option id="20" value="IDO_INFRASTRUCTURE_DEVELOPMENT_OFFICE"></option>
                             <option id="21" value="NSTP_NATIONAL_SERVICE_TRAINING_PROGRAM"></option>
@@ -213,171 +219,167 @@
                             <option id="30" value="OCL_CAMPUS_LIBRARY"></option>
                             <option id="31" value="OCP_CAMPUS_PLANNING"></option>
                             <option id="32" value="OCR_CAMPUS_REGISTRAR"></option>
-                        </datalist> 
+                        </datalist>
                     </div>
-                
                     <div class="col-12">
-                        <button type="submit" id="submit" class="btn1" name = "new_limit" style="float: right;" value="Submit"> Submit </button>
+                        <button type="submit" id="submit" class="btn1" name="new_limit" style="float: right;"
+                            value="Submit"> Submit </button>
                     </div>
-            </form> 
-        </div>     
-    </div>
-      
+                </form>
+            </div>
+        </div>
 
-<br><br>
-<!-- LIMIT PER DEPT DATATABLE --> 
-    <div class="container" style="width: 98%;" id="limitPerDept">
-        <div class="kahon">
-            <h3 align="center">Limit Per Department</h3>
-            <hr>
-            <br>
-            <table id="LimitTable" class="table table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th style="text-align: center;">Limit no.</th>
-                        <th style="text-align: center;">Description</th>
-                        <th style="text-align: center;">Unit</th>
-                        <th style="text-align: center;">Quantity</th>
-                        <th style="text-align: center;">Department</th>
-                        <th style="text-align: center;">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for x in info1 %}
-                    <tr class="edittr">
-                        <td align="center">{{x.limit_id}}</td>
-                        <td align="center">{{x.limit_description}}</td>
-                        <td align="center">{{x.limit_unit}}</td>
-                        <td align="center">{{x.limit_quantity}}</td>
-                        <td align="center">{{x.limit_department}}</td>
-                        <td align="center">
-                            <button class="btn btn-success editBtn" style="margin-bottom: 10px;" name="editBtn">UPDATE</button>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <br><br>
+        <!-- LIMIT PER DEPT DATATABLE -->
+        <div class="container" style="width: 98%;" id="limitPerDept">
+            <div class="kahon">
+                <h3 align="center">Limit Per Department</h3>
+                <hr>
+                <br>
+                <table id="LimitTable" class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">Limit no.</th>
+                            <th style="text-align: center;">Description</th>
+                            <th style="text-align: center;">Unit</th>
+                            <th style="text-align: center;">Quantity</th>
+                            <th style="text-align: center;">Department</th>
+                            <th style="text-align: center;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in info1 %}
+                        <tr class="edittr">
+                            <td align="center">{{x.limit_id}}</td>
+                            <td align="center">{{x.limit_description}}</td>
+                            <td align="center">{{x.limit_unit}}</td>
+                            <td align="center">{{x.limit_quantity}}</td>
+                            <td align="center">{{x.limit_department}}</td>
+                            <td align="center">
+                                <button class="btn btn-success editBtn" style="margin-bottom: 10px;"
+                                    name="editBtn">UPDATE</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
-<br><br>
+    <br><br>
 
+    <!----- UPDATE DELIVERY MODAL ----->
+    <div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!----- UPDATE STATUS FORM ---->
+                    <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
+                        {% csrf_token %}
 
-<!----- UPDATE DELIVERY MODAL ----->
-<div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <input type="hidden" id="editId" name="limit_id" value="" readonly>
+
+                        <div class="col-md-12">
+                            <label class="form-label">Department:</label>
+                            <input type="text" class="form-control" id="department" name="limit_department" readonly>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="form-label">Description:</label>
+                            <input type="text" class="form-control" id="description" name="limit_description" readonly>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Unit:</label>
+                            <input type="text" min="1" class="form-control" id="unit" name="limit_unit" readonly>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Quantity:</label>
+                            <input type="number" min="1" class="form-control" id="quantity" name="limit_quantity"
+                                readonly>
+                        </div>
+
+                        <div class="col-md-12">
+                            <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                                class="form-label">Add Quantity:</label>
+                            <input type="number" min="1" class="form-control" id="addquantity" name="limit_addquantity"
+                                required>
+                        </div>
+
+                        <div class="modal-footer">
+                            <div class="col-12">
+                                <button type="submit" name="update_limit" class="btn btn-primary">ADD</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-
-        <!----- UPDATE STATUS FORM ---->
-
-            <form action = "" method = "POST" class="row g-3" enctype="multipart/form-data">
-                {% csrf_token %}
-
-                <input type="hidden" id="editId" name="limit_id" value="" readonly>
-
-                <div class="col-md-12">
-                    <label class="form-label">Department:</label>
-                    <input type="text" class="form-control" id="department" name="limit_department" readonly>
-                </div>
-
-                <div class="col-md-12">
-                    <label class="form-label">Description:</label>
-                    <input type="text" class="form-control" id="description" name="limit_description" readonly>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label">Unit:</label>
-                    <input type="text" min="1" class="form-control" id="unit" name="limit_unit" readonly>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label">Quantity:</label>
-                    <input type="number" min="1" class="form-control" id="quantity" name="limit_quantity" readonly>
-                </div>
-
-                <div class="col-md-12">
-                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Add Quantity:</label>
-                    <input type="number" min="1" class="form-control" id="addquantity" name="limit_addquantity" required>
-                </div>
-
-
-                <div class="modal-footer">
-                    <div class="col-12">
-                        <button type="submit" name = "update_limit" class="btn btn-primary">ADD</button>
-                    </div>
-                </div>
-            </form>
-
-        </div>
-      </div>
     </div>
-</div>
 
-<a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+    <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-    $(document).ready(function(){
-        $('.editBtn').on('click', function(){
+        $(document).ready(function () {
+            $('.editBtn').on('click', function () {
 
-            $('#openModal').modal('show');
-            $tr =$(this).closest('tr');
-            var data= $tr.children("td").map(function(){
-            return $(this).text();
-            }).get();
+                $('#openModal').modal('show');
+                $tr = $(this).closest('tr');
+                var data = $tr.children("td").map(function () {
+                    return $(this).text();
+                }).get();
 
-            console.log(data);
-            $('h5.modal-title').html('Add Limit for: '+ data[4]);
-            $('#editId').val(data[0]);
-            $('#description').val(data[1]);
-            $('#unit').val(data[2]);
-            $('#quantity').val(data[3]);
-            $('#department').val(data[4]);
+                console.log(data);
+                $('h5.modal-title').html('Add Limit for: ' + data[4]);
+                $('#editId').val(data[0]);
+                $('#description').val(data[1]);
+                $('#unit').val(data[2]);
+                $('#quantity').val(data[3]);
+                $('#department').val(data[4]);
+            });
         });
-    });
 
-    $(document).ready(function() {
-        var table = $('#MainStorage').DataTable( {
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            },
-            responsive: true
-        } );
-    } );
+        $(document).ready(function () {
+            var table = $('#MainStorage').DataTable({
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
+            });
+        });
 
-    $(document).ready(function() {
-        var table = $('#LimitTable').DataTable( {
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            },
-            responsive: true
-        } );
-    } );
+        $(document).ready(function () {
+            var table = $('#LimitTable').DataTable({
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
+            });
+        });
 
-
-</script>
+    </script>
 
     {% for message in messages %}
     {% if message.tags == 'info' %}
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script>
-            var m = "{{ message }}";
-            swal("Notice: ", m, "info")
-        </script>
-        {% elif message.tags == 'success' %}
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        var m = "{{ message }}";
+        swal("Notice: ", m, "info")
+    </script>
+    {% elif message.tags == 'success' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
         var m = "{{ message }}";
         swal("Success! ", m, "success")
-        </script>
+    </script>
     {% endif %}
     {% endfor %}
 
 
-
-{% endblock %}
+    {% endblock %}

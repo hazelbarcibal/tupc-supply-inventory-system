@@ -19,58 +19,58 @@
 
 
 <style>
-.btn1{
-    background-color: #ad413a;
-    border: 1px solid black;
-    border-radius: 5px;
-    color: white;
-    padding: 10px 24px; 
-    cursor: pointer; 
+    .btn1 {
+        background-color: #ad413a;
+        border: 1px solid black;
+        border-radius: 5px;
+        color: white;
+        padding: 10px 24px;
+        cursor: pointer;
 
-}
+    }
 
-.col-md-12 input{
-    border: solid #3E3E3E 1.5px;
-}
-
-
-.col-md-6 input{
-    border: solid #3E3E3E 1.5px;
-}
-
-.btn1:hover {
-    text-decoration: none;
-    background: #9c2e26;
-    color: white;
-}
-
-.btn1-group button {
-    background-color: #ad413a;
-    border: 1px solid black;
-    color: white;
-    padding: 10px 24px; 
-    cursor: pointer; 
-    float: right; 
-    border-radius: 5px;
-}
+    .col-md-12 input {
+        border: solid #3E3E3E 1.5px;
+    }
 
 
-.btn1-group button:not(:last-child) {
-    border-right: none; /* Prevent double borders */
-}
+    .col-md-6 input {
+        border: solid #3E3E3E 1.5px;
+    }
 
-/* Clear floats (clearfix hack) */
-.btn1-group:after {
-    content: "";
-    clear: both;
-    display: table;
-}
+    .btn1:hover {
+        text-decoration: none;
+        background: #9c2e26;
+        color: white;
+    }
 
-/* Add a background color on hover */
-.btn1-group button:hover {
-    background-color: #4d0d09;
-}
+    .btn1-group button {
+        background-color: #ad413a;
+        border: 1px solid black;
+        color: white;
+        padding: 10px 24px;
+        cursor: pointer;
+        float: right;
+        border-radius: 5px;
+    }
 
+
+    .btn1-group button:not(:last-child) {
+        border-right: none;
+        /* Prevent double borders */
+    }
+
+    /* Clear floats (clearfix hack) */
+    .btn1-group:after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    /* Add a background color on hover */
+    .btn1-group button:hover {
+        background-color: #4d0d09;
+    }
 </style>
 
 
@@ -79,127 +79,132 @@
         <div class="sidebar-button">
             <i class='bx bx-menu sidebarBtn'></i>
             <div>
-                <label style="padding-top: 10px;"><h2>Supplies Delivery</h2></label>
+                <label style="padding-top: 10px;">
+                    <h2>Supplies Delivery</h2>
+                </label>
             </div>
         </div>
     </nav>
 
-<div class="container home-content">
-    <br>
-    <div class="container" align="center">
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <a type="button" href="" class="btn btn-outline-secondary">Mainstorage</a>
-            <a type="button" href="#deliverItem" class="btn btn-outline-secondary">Deliver New Item</a>
-            <a type="button" href="#deliveryRecord" class="btn btn-outline-secondary">Delivery Record</a>
-          </div>
-          
-    </div>
-
-    <br>
-    <div class="container">
-        <div class="kahon">
-            <h3 align="center">Mainstorage</h3>
-            <hr>
-            <br>
-            <table id="mainstorage" class="table table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th style="text-align: center;">Delivery No.</th>
-                        <th style="text-align: center;">Description</th>
-                        <th style="text-align: center;">Unit</th>
-                        <th style="text-align: center;">Mainstorage Quantity</th>
-                        <th style="text-align: center;">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for x in info1 %}
-                    <tr class="edittr">
-                        <td id="deliveryID" align="center">{{x.supplymainstorage_id}}</td>
-                        <td id="sdescription" align="center">{{x.supplymainstorage_description}}</td>
-                        <td id="sunit" align="center">{{x.supplymainstorage_unit}}</td>
-                        <td id="squantity" align="center">{{x.supplymainstorage_quantity}}</td>
-                        <td align="center">
-                           <button class="btn btn-success editBtn" style="margin-bottom: 10px;" name="editBtn">UPDATE</button>
-                        </td>
-                    </tr>  
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <br><br>
-
-    <!----- UPDATE DELIVERY MODAL ----->
-    <div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel"></h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="container home-content">
+        <br>
+        <div class="container" align="center">
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <a type="button" href="" class="btn btn-outline-secondary">Mainstorage</a>
+                <a type="button" href="#deliverItem" class="btn btn-outline-secondary">Deliver New Item</a>
+                <a type="button" href="#deliveryRecord" class="btn btn-outline-secondary">Delivery Record</a>
             </div>
-            <div class="modal-body">
 
-            <!----- UPDATE DELIVERY FORM ---->
-
-                <form action = "" method = "POST" class="row g-3" enctype="multipart/form-data">
-                    {% csrf_token %}
-    
-                    <input type="hidden" id="editId" name="supplymainstorage_id" value="" readonly>
-    
-                    <div class="col-md-12">
-                        <label class="form-label">Description:</label>
-                        <input type="text" class="form-control" id="description" name="supplymainstorage_description" readonly>
-                    </div>
-    
-                    <div class="col-md-12">
-                        <label class="form-label">Unit:</label>
-                        <input type="text" class="form-control" id="unit" name="supplymainstorage_unit" readonly>
-                    </div>
-    
-                    <div class="col-md-12">
-                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Add Quantity:</label>
-                        <input type="number" min="1" class="form-control" id="quantity" name="supplymainstorage_RequestQuantity" required>
-                    </div>
-    
-
-                    <div class="modal-footer">
-                        <div class="col-12">
-                            <button type="submit" name = "delivery_update" class="btn btn-primary">ADD</button>
-                        </div>
-                    </div>
-                </form>
-    
-            </div>
-          </div>
         </div>
-    </div>
 
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('.editBtn').on('click', function(){
+        <br>
+        <div class="container">
+            <div class="kahon">
+                <h3 align="center">Mainstorage</h3>
+                <hr>
+                <br>
+                <table id="mainstorage" class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">Delivery No.</th>
+                            <th style="text-align: center;">Description</th>
+                            <th style="text-align: center;">Unit</th>
+                            <th style="text-align: center;">Mainstorage Quantity</th>
+                            <th style="text-align: center;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in info1 %}
+                        <tr class="edittr">
+                            <td id="deliveryID" align="center">{{x.supplymainstorage_id}}</td>
+                            <td id="sdescription" align="center">{{x.supplymainstorage_description}}</td>
+                            <td id="sunit" align="center">{{x.supplymainstorage_unit}}</td>
+                            <td id="squantity" align="center">{{x.supplymainstorage_quantity}}</td>
+                            <td align="center">
+                                <button class="btn btn-success editBtn" style="margin-bottom: 10px;"
+                                    name="editBtn">UPDATE</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br><br>
 
-                $('#openModal').modal('show');
-                $tr =$(this).closest('tr');
-                var data= $tr.children("td").map(function(){
-                return $(this).text();
-                }).get();
+        <!----- UPDATE DELIVERY MODAL ----->
+        <div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!----- UPDATE DELIVERY FORM ---->
+                        <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
+                            {% csrf_token %}
 
-                console.log(data);
-                $('h5.modal-title').html('Add Item Delivery for: '+ data[1]);
-                $('#editId').val(data[0]);
-                $('#description').val(data[1]);
-                $('#unit').val(data[2]);
+                            <input type="hidden" id="editId" name="supplymainstorage_id" value="" readonly>
+
+                            <div class="col-md-12">
+                                <label class="form-label">Description:</label>
+                                <input type="text" class="form-control" id="description"
+                                    name="supplymainstorage_description" readonly>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label class="form-label">Unit:</label>
+                                <input type="text" class="form-control" id="unit" name="supplymainstorage_unit"
+                                    readonly>
+                            </div>
+
+                            <div class="col-md-12">
+                                <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                                    class="form-label">Add Quantity:</label>
+                                <input type="number" min="1" class="form-control" id="quantity"
+                                    name="supplymainstorage_RequestQuantity" required>
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <div class="col-12">
+                                    <button type="submit" name="delivery_update" class="btn btn-primary">ADD</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.editBtn').on('click', function () {
+
+                    $('#openModal').modal('show');
+                    $tr = $(this).closest('tr');
+                    var data = $tr.children("td").map(function () {
+                        return $(this).text();
+                    }).get();
+
+                    console.log(data);
+                    $('h5.modal-title').html('Add Item Delivery for: ' + data[1]);
+                    $('#editId').val(data[0]);
+                    $('#description').val(data[1]);
+                    $('#unit').val(data[2]);
+                });
             });
-        });
-    </script>
+        </script>
 
-    <br>
-    <div class="container" id="deliverItem">
-        <div class="kahon1">
-            <h3>Deliver New item</h3>
-            <br>
-            <form class="row g-3" action="" method="POST">
-                {% csrf_token %}
+        <br>
+        <div class="container" id="deliverItem">
+            <div class="kahon1">
+                <h3>Deliver New item</h3>
+                <br>
+                <form class="row g-3" action="" method="POST">
+                    {% csrf_token %}
                     <div class="col-md-12">
                         <label class="form-label">Description: </label>
                         {{form.delivery_supply_description}}
@@ -225,7 +230,7 @@
                             <option id="19" value="Packing Tape"></option>
                             <option id="20" value="Scotch Tape"></option>
                             <option id="21" value="Tape Dispenser"></option>
-                        </datalist> 
+                        </datalist>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Unit: </label><br>
@@ -235,28 +240,29 @@
                         <label class="form-label">Quantity: </label>
                         {{form.delivery_supply_quantity}}
                     </div>
-                    
+
                     <div class="col-12">
-                        <button type="submit" id="submit" class="btn1" name = "delivery_new" style="float: right;" value="Submit"> Deliver </button>
+                        <button type="submit" id="submit" class="btn1" name="delivery_new" style="float: right;"
+                            value="Submit"> Deliver </button>
                     </div>
+                </form>
+
+            </div>
+        </div>
+        <div class="container home-content btn1-group" id="deliveryRecord">
+            <form action="{% url 'export_pdf_suppydelivery'%}">
+                <button class="fa fa-file-pdf-o right" style="font-size:13px;color:rgb(255, 255, 255)"> Save Data As
+                    PDF</button>
             </form>
-            
-        </div>     
-    </div>
-    <div class= "container home-content btn1-group" id="deliveryRecord">
-        <form action="{% url 'export_pdf_suppydelivery'%}">
-            <button class="fa fa-file-pdf-o right" 
-                style="font-size:13px;color:rgb(255, 255, 255)"> Save Data As PDF</button>
-        </form>
-        <form action="{% url 'export_excel'%}">
-            <button class="fa fa-file-excel-o right" 
-                style="font-size:13px;color:rgb(255, 255, 255)"> Export Data To Excel</button>
-        </form>
-    </div>
+            <form action="{% url 'export_excel'%}">
+                <button class="fa fa-file-excel-o right" style="font-size:13px;color:rgb(255, 255, 255)"> Export Data To
+                    Excel</button>
+            </form>
+        </div>
 
-<br><br>
+        <br><br>
 
-          <div class="container">
+        <div class="container">
             <div class="kahon">
                 <h3 align="center">Delivery Record</h3>
                 <hr>
@@ -284,58 +290,52 @@
                     </tbody>
                 </table>
             </div>
-          </div>
+        </div>
 
-
-    <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
-    <br><br>
-    
-   
+        <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+        <br><br>
         {% for message in messages %}
-            {% if message.tags == 'info' %}
-                <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-                <script>
-                    var m = "{{ message }}";
-                    swal("Notice: ", m, "info")
-                </script>
-                {% elif message.tags == 'success' %}
-                <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-                <script>
-                var m = "{{ message }}";
-                swal("Success! ", m, "success")
-                </script>
-            {% endif %}
+        {% if message.tags == 'info' %}
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+            var m = "{{ message }}";
+            swal("Notice: ", m, "info")
+        </script>
+        {% elif message.tags == 'success' %}
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+            var m = "{{ message }}";
+            swal("Success! ", m, "success")
+        </script>
+        {% endif %}
         {% endfor %}
 
 
         <script>
-            $(document).ready(function() {
-                var table = $('#supplyDeliveryTable').DataTable( {
+            $(document).ready(function () {
+                var table = $('#supplyDeliveryTable').DataTable({
                     rowReorder: {
                         selector: 'td:nth-child(2)'
                     },
                     responsive: true
-                } );
-            } );
+                });
+            });
 
-            $(document).ready(function() {
-                var table = $('#mainstorage').DataTable( {
+            $(document).ready(function () {
+                var table = $('#mainstorage').DataTable({
                     rowReorder: {
                         selector: 'td:nth-child(2)'
                     },
                     responsive: true
-                } );
-            } );
-
+                });
+            });
 
         </script>
     </div>
+    </div>
 
-</div>
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <br>
 
 
-<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
-
-<br>
-
-{% endblock %}
+    {% endblock %}

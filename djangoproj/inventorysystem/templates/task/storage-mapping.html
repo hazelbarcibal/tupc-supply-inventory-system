@@ -27,116 +27,120 @@
         <div class="sidebar-button">
             <i class='bx bx-menu sidebarBtn'></i>
             <div>
-                <label style="padding-top: 10px;"><h2>Storage Mapping</h2></label>
+                <label style="padding-top: 10px;">
+                    <h2>Storage Mapping</h2>
+                </label>
             </div>
         </div>
     </nav>
 
-<div class="container home-content" style="width: 98%;">
-    <br>
-    <div class="container" align="center">
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <a type="button" href="#supply" class="btn btn-outline-secondary">Supply</a>
-            <a type="button" href="#equipment" class="btn btn-outline-secondary">Equipment</a>
-          </div>
-          
+    <div class="container home-content" style="width: 98%;">
+        <br>
+        <div class="container" align="center">
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <a type="button" href="#supply" class="btn btn-outline-secondary">Supply</a>
+                <a type="button" href="#equipment" class="btn btn-outline-secondary">Equipment</a>
+            </div>
+        </div>
+        
+        <br>
+        <div class="kahon" id="supply">
+            <h3 align="center">Supply</h3>
+            <hr>
+            <table id="supplymappingTable" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Item No.</th>
+                        <th>Item Name</th>
+                        <th>Rack No.</th>
+                        <th>Layer No.</th>
+                        <th>Cabinet No.</th>
+                        <th>Shelf No.</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for x in info %}
+                    <tr class="edittr">
+                        <td id="supplyID">{{x.supplyStoragemapping_id}}</td>
+                        <td>{{x.supplyItemName}}</td>
+                        <td>{{x.supplyRackNo}}</td>
+                        <td>{{x.supplyLayerNo}}</td>
+                        <td>{{x.supplyCabinetNo}}</td>
+                        <td>{{x.supplyShelfNo}}</td>
+                        <td><a class="btn btn-success editBtn" name="editBtn">UPDATE</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-    <br>
-    <div class="kahon" id="supply">
-        <h3 align="center">Supply</h3>
-        <hr>
-        <table id="supplymappingTable" class="table table-striped" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Item No.</th>
-                    <th>Item Name</th>
-                    <th>Rack No.</th>
-                    <th>Layer No.</th>
-                    <th>Cabinet No.</th>
-                    <th>Shelf No.</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for x in info %}
-                <tr class="edittr">
-                    <td id="supplyID">{{x.supplyStoragemapping_id}}</td>
-                    <td>{{x.supplyItemName}}</td>
-                    <td>{{x.supplyRackNo}}</td>
-                    <td>{{x.supplyLayerNo}}</td>
-                    <td>{{x.supplyCabinetNo}}</td>
-                    <td>{{x.supplyShelfNo}}</td>
-                    <td><a class="btn btn-success editBtn" name="editBtn">UPDATE</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
 
     <!----- UPDATE SUPPLY STORAGE MODAL ----->
     <div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel"></h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
 
-            <!----- UPDATE SUPPLY STORAGE FORM ---->
+                    <!----- UPDATE SUPPLY STORAGE FORM ---->
+                    <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" id="editId" name="supplyStoragemapping_id" value="" readonly>
 
-                <form action = "" method = "POST" class="row g-3" enctype="multipart/form-data">
-                    {% csrf_token %}
-    
-                    <input type="hidden" id="editId" name="supplyStoragemapping_id" value="" readonly>
-    
-                    <div class="col-md-12">
-                        <label class="form-label">Item name:</label>
-                        <input type="number" class="form-control" id="itemname" name="supplyItemName" readonly>
-                    </div>
-    
-                    <div class="col-md-12">
-                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Rack No. :</label>
-                        <input type="number" class="form-control" id="rackno" name="supplyRackNo" >
-                    </div>
-                    <div class="col-md-12">
-                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Layer No. :</label>
-                        <input type="number" class="form-control" id="layerno" name="supplyLayerNo" >
-                    </div>
-                    <div class="col-md-12">
-                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Cabinet No. :</label>
-                        <input type="number" class="form-control" id="cabinetno" name="supplyCabinetNo" >
-                    </div>
-                    <div class="col-md-12">
-                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Shelf No. :</label>
-                        <input type="number" class="form-control" id="shelfno" name="supplyShelfNo" >
-                    </div>
-
-                    <div class="modal-footer">
-                        <div class="col-12">
-                            <button type="submit" name = "storagesupply_update" class="btn btn-primary">UPDATE</button>
+                        <div class="col-md-12">
+                            <label class="form-label">Item name:</label>
+                            <input type="number" class="form-control" id="itemname" name="supplyItemName" readonly>
                         </div>
-                    </div>
-                </form>
-    
+
+                        <div class="col-md-12">
+                            <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                                class="form-label">Rack No. :</label>
+                            <input type="number" class="form-control" id="rackno" name="supplyRackNo">
+                        </div>
+                        <div class="col-md-12">
+                            <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                                class="form-label">Layer No. :</label>
+                            <input type="number" class="form-control" id="layerno" name="supplyLayerNo">
+                        </div>
+                        <div class="col-md-12">
+                            <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                                class="form-label">Cabinet No. :</label>
+                            <input type="number" class="form-control" id="cabinetno" name="supplyCabinetNo">
+                        </div>
+                        <div class="col-md-12">
+                            <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                                class="form-label">Shelf No. :</label>
+                            <input type="number" class="form-control" id="shelfno" name="supplyShelfNo">
+                        </div>
+
+                        <div class="modal-footer">
+                            <div class="col-12">
+                                <button type="submit" name="storagesupply_update"
+                                    class="btn btn-primary">UPDATE</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-          </div>
         </div>
     </div>
 
     <script type="text/javascript">
-        $(document).ready(function(){
-            $('.editBtn').on('click', function(){
+        $(document).ready(function () {
+            $('.editBtn').on('click', function () {
 
                 $('#openModal').modal('show');
-                $tr =$(this).closest('tr');
-                var data= $tr.children("td").map(function(){
-                return $(this).text();
+                $tr = $(this).closest('tr');
+                var data = $tr.children("td").map(function () {
+                    return $(this).text();
                 }).get();
 
                 console.log(data);
-                $('h5.modal-title').html('Update Storage for: '+ data[1]);
+                $('h5.modal-title').html('Update Storage for: ' + data[1]);
                 $('#editId').val(data[0]);
                 $('#itemname').val(data[1]);
                 $('#rackno').val(data[2]);
@@ -147,72 +151,70 @@
         });
     </script>
 
-<!-- Datatable --> 
-<div class="container home-content" style="width: 98%;" id="equipment">
-    <div class="kahon">
-        <h3 align="center">Equipment</h3>
-        <hr>
-        <table id="equipmentmappingTable" class="table table-striped" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Item No.</th>
-                    <th>Equipment Name</th>
-                    <th>Location</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for x in info1 %}
-                <tr class="edittr">
-                    <td id="equipmentID">{{x.equipmentStoragemapping_id}}</td>
-                    <td>{{x.equipmentItemName}}</td>
-                    <td>{{x.equipmentLocation}}</td>
-                    <td><a class="btn btn-success editBtn1" name="editBtn1">UPDATE</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <!-- Datatable -->
+    <div class="container home-content" style="width: 98%;" id="equipment">
+        <div class="kahon">
+            <h3 align="center">Equipment</h3>
+            <hr>
+            <table id="equipmentmappingTable" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Item No.</th>
+                        <th>Equipment Name</th>
+                        <th>Location</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for x in info1 %}
+                    <tr class="edittr">
+                        <td id="equipmentID">{{x.equipmentStoragemapping_id}}</td>
+                        <td>{{x.equipmentItemName}}</td>
+                        <td>{{x.equipmentLocation}}</td>
+                        <td><a class="btn btn-success editBtn1" name="editBtn1">UPDATE</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 
     <!----- UPDATE SUPPLY STORAGE MODAL ----->
     <div class="modal fade" id="openModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel"></h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!----- UPDATE SUPPLY STORAGE FORM ---->
+                    <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" id="editId1" name="equipmentStoragemapping_id" value="" readonly>
 
-            <!----- UPDATE SUPPLY STORAGE FORM ---->
-
-                <form action = "" method = "POST" class="row g-3" enctype="multipart/form-data">
-                    {% csrf_token %}
-    
-                    <input type="hidden" id="editId1" name="equipmentStoragemapping_id" value="" readonly>
-    
-                    <div class="col-md-12">
-                        <label class="form-label">Equipment name:</label>
-                        <input type="text" class="form-control" id="equipmentname" name="equipmentItemName" readonly>
-                    </div>
-    
-                    <div class="col-md-12">
-                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Location:</label>
-                        <!-- <label class="form-label">Location:</label> -->
-                        <input type="text" class="form-control" id="location" name="equipmentLocation" >
-                    </div>
-           
-
-                    <div class="modal-footer">
-                        <div class="col-12">
-                            <button type="submit" name = "storageequipment_update" class="btn btn-primary">UPDATE</button>
+                        <div class="col-md-12">
+                            <label class="form-label">Equipment name:</label>
+                            <input type="text" class="form-control" id="equipmentname" name="equipmentItemName"
+                                readonly>
                         </div>
-                    </div>
-                </form>
-    
+
+                        <div class="col-md-12">
+                            <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                                class="form-label">Location:</label>
+                            <!-- <label class="form-label">Location:</label> -->
+                            <input type="text" class="form-control" id="location" name="equipmentLocation">
+                        </div>
+
+                        <div class="modal-footer">
+                            <div class="col-12">
+                                <button type="submit" name="storageequipment_update"
+                                    class="btn btn-primary">UPDATE</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-          </div>
         </div>
     </div>
 
@@ -220,45 +222,45 @@
 
 
     <script type="text/javascript">
-        $(document).ready(function(){
-            $('.editBtn1').on('click', function(){
+        $(document).ready(function () {
+            $('.editBtn1').on('click', function () {
 
                 $('#openModal1').modal('show');
-                $tr =$(this).closest('tr');
-                var data= $tr.children("td").map(function(){
-                return $(this).text();
+                $tr = $(this).closest('tr');
+                var data = $tr.children("td").map(function () {
+                    return $(this).text();
                 }).get();
 
                 console.log(data);
-                $('h5.modal-title').html('Update Storage for: '+ data[1]);
+                $('h5.modal-title').html('Update Storage for: ' + data[1]);
                 $('#editId1').val(data[0]);
                 $('#equipmentname').val(data[1]);
                 $('#location').val(data[2]);
             });
         });
     </script>
-                  
-<br><br><br><br>
 
-<script>
-    $(document).ready(function() {
-            var table = $('#supplymappingTable').DataTable( {
+    <br><br><br><br>
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#supplymappingTable').DataTable({
                 rowReorder: {
                     selector: 'td:nth-child(2)'
                 },
                 responsive: true
-            } );
-        } );
-    $(document).ready(function() {
-            var table = $('#equipmentmappingTable').DataTable( {
+            });
+        });
+        $(document).ready(function () {
+            var table = $('#equipmentmappingTable').DataTable({
                 rowReorder: {
                     selector: 'td:nth-child(2)'
                 },
                 responsive: true
-            } );
-        } );
-</script>
-    
-</div>
+            });
+        });
+    </script>
 
-{% endblock %}
+    </div>
+
+    {% endblock %}

@@ -4,92 +4,84 @@
 
 <html lang="en" dir="ltr">
 
-  <head>
-   
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'css/outputpdf.css' %}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-       @page {
-          size: letter landscape;
-          margin: 1.5cm 1.5cm 2.5cm 1.5cm; 
-          font-size: 0.3cm;
+<head>
 
-          @bottom-right {
-            content: "Page" counter(page) " of " counter(pages); 
-          }
-          
-       }
-        table{
-          width: 100%;
-          font-size: 0.3cm;
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{% static 'css/outputpdf.css' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @page {
+      size: letter landscape;
+      margin: 1.5cm 1.5cm 2.5cm 1.5cm;
+      font-size: 0.3cm;
 
-          
-        
-        }
-       
-        table, th, td {
-          border: 0.5px solid black;
-          border-collapse: collapse;
-        }   
-        th, td {
-          padding: 5px;
-	        text-align: center;
-        }
-       .container1{
-          margin-top: 0.3cm;
-       }
-       
-        
-        
+      @bottom-right {
+        content: "Page" counter(page) " of " counter(pages);
+      }
 
-    </style>
-  
-   </head>
-   <body> 
-    <div class="container1">
-      <div class="header">
-        <div class="col-md-12">
-          <table >
-            <thead >
-              <tr >
-                <th style="width: 10%; "> logo
-                </th>
-                <th style="width: 90%; " align="center; "> 
-                  <p >Technological University of the Philippines Cavite <br>
-                      Cavite Campus<br>
-                      Carlos Q. Trinidad Avenue, Salawag, Dasmariñas City, Cavite, Philippines <br>
-                      Telefax (046) 416-4920<br>
-                      Email: cavite@tup.edu.php | Website: www.tup.edu.ph
-                    
-                    </p>
-                </th>
-              </tr>
-            </thead>
-         
-          </table>
-          <table>
-              <thead>
-                <style>
-                    
-                 
-                </style>
-                <tr>
-                  <th  style="width: 10%; ">OSP
-                  </th>
-                  <th  style="width: 90%; "> Withdraw Records: Equipment
-                  </th>
-                 
-                </tr>
-              </thead>
-          </table>
-        </div><br><br>
-        
-        
+    }
+
+    table {
+      width: 100%;
+      font-size: 0.3cm;
+    }
+
+    table, th, td {
+      border: 0.5px solid black;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 5px;
+      text-align: center;
+    }
+
+    .container1 {
+      margin-top: 0.3cm;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="container1">
+    <div class="header">
+      <div class="col-md-12">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 10%; "> logo
+              </th>
+              <th style="width: 90%; " align="center; ">
+                <p>Technological University of the Philippines Cavite <br>
+                  Cavite Campus<br>
+                  Carlos Q. Trinidad Avenue, Salawag, Dasmariñas City, Cavite, Philippines <br>
+                  Telefax (046) 416-4920<br>
+                  Email: cavite@tup.edu.php | Website: www.tup.edu.ph
+                </p>
+              </th>
+            </tr>
+          </thead>
+        </table>
+
+        <table>
+          <thead>
+            <style>
+
+            </style>
+            <tr>
+              <th style="width: 10%; ">OSP
+              </th>
+              <th style="width: 90%; "> Withdraw Records: Equipment
+              </th>
+            </tr>
+          </thead>
+        </table>
+
+      </div><br><br>
     </div>
-    
-   
-    <table class="Table-Content" >
+
+    <table class="Table-Content">
       <thead class="thead_1">
         <tr>
           <th>Property No.</th>
@@ -110,19 +102,17 @@
           <td>{{y.withdraw_equipment_property_no}}</td>
           <td>{{y.withdraw_equipment_itemname}}</td>
           <td>{{y.withdraw_equipment_description}}</td>
-          <td>{{y.withdraw_equipment_brand}}</td> 
-          <td>{{y.withdraw_equipment_yearacquired}}</td>   
+          <td>{{y.withdraw_equipment_brand}}</td>
+          <td>{{y.withdraw_equipment_yearacquired}}</td>
           <td>{{y.withdraw_equipment_issued_to}}</td>
           <td>{{y.withdraw_equipment_model_no}}</td>
           <td>{{y.withdraw_equipment_serial_no}}</td>
-          <td>{{y.withdraw_equipment_certifiedcorrect}}</td> 
-          <td>{{y.withdraw_equipment_status}}</td>      
+          <td>{{y.withdraw_equipment_certifiedcorrect}}</td>
+          <td>{{y.withdraw_equipment_status}}</td>
         </tr>
-        {% endfor %} 
+        {% endfor %}
       </tbody>
     </table>
-   </body>
+</body>
+
 </html>
-
-
-

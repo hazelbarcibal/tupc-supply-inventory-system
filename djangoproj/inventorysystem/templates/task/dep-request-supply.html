@@ -3,158 +3,163 @@
 <!DOCTYPE html>
 
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'css/new.css' %}">
-    <!-- Boxicons CDN Link -->
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <!-- Bootstrap cdn -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{% static 'img/TUP LOGO.png'%}" type="image/x-icon">
-   </head>
 
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/icofont/icofont.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/boxicons/css/boxicons.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/owl.carousel/assets/owl.carousel.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/venobox/venobox.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/remixicon/remixicon.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/aos/aos.css' %}">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{% static 'css/new.css' %}">
+  <!-- Boxicons CDN Link -->
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <!-- Bootstrap cdn -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="{% static 'img/TUP LOGO.png'%}" type="image/x-icon">
+</head>
 
-  <style>
-    .back-to-top {
-      position: fixed;
-      display: none;
-      right: 15px;
-      bottom: 15px;
-      z-index: 99999;
-    }
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/icofont/icofont.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/boxicons/css/boxicons.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/owl.carousel/assets/owl.carousel.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/venobox/venobox.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/remixicon/remixicon.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'vendor/aos/aos.css' %}">
 
-    .back-to-top i {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      width: 40px;
-      height: 40px;
-      border-radius: 4px;
-      background: #829D36;
-      color: #ffff;
-      transition: all 0.4s;
-    }
+<style>
+  .back-to-top {
+    position: fixed;
+    display: none;
+    right: 15px;
+    bottom: 15px;
+    z-index: 99999;
+  }
 
-    .back-to-top i:hover {
-      background: #ffff;
-      color: #829D36;
-    }
+  .back-to-top i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    background: #829D36;
+    color: #ffff;
+    transition: all 0.4s;
+  }
 
-    a{
-      text-decoration: none;
-    }
-  </style>
+  .back-to-top i:hover {
+    background: #ffff;
+    color: #829D36;
+  }
+
+  a {
+    text-decoration: none;
+  }
+</style>
 
 
 <body>
   <div class="sidebar">
     <div class="logo-details">
-        <i><img src="{% static 'img/TUP LOGO.png' %}" style="width:50px; height:50px; padding-left: 5px; padding-top:5px" ></img></i>
+      <i><img src="{% static 'img/TUP LOGO.png' %}"
+          style="width:50px; height:50px; padding-left: 5px; padding-top:5px"></img></i>
       <span id="label" class="logo_name">Supply Inventory System</span>
     </div>
 
 
-      <ul class="nav-links">
-        <br>
+    <ul class="nav-links">
+      <br>
 
-        <li>
-          <a class="" href="{% url 'inventorysystem-depRequestSupply' %}" role="button"  aria-expanded="false">
-            <i class='bx bx-paperclip'></i>
-            <span id="label2" class="links_name">Request Supply</span>
-          </a>
-        </li>
+      <li>
+        <a class="" href="{% url 'inventorysystem-depRequestSupply' %}" role="button" aria-expanded="false">
+          <i class='bx bx-paperclip'></i>
+          <span id="label2" class="links_name">Request Supply</span>
+        </a>
+      </li>
 
-        <li>
-          <a class="" href="{% url 'inventorysystem-depRequestEquipment' %}" role="button" aria-expanded="false">
-            <i class='bx bx-devices'></i>
-            <span id="label2" class="links_name">Request Equipment</span>
-          </a>
-  
-        </li>
+      <li>
+        <a class="" href="{% url 'inventorysystem-depRequestEquipment' %}" role="button" aria-expanded="false">
+          <i class='bx bx-devices'></i>
+          <span id="label2" class="links_name">Request Equipment</span>
+        </a>
 
-        <li class="log_out">
-          <a href="{% url 'inventorysystem-usersLogin' %}">
-            <i class='bx bx-log-out'></i>
-            <span class="links_name">Log out</span>
-          </a>
-        </li>
-      </ul>
+      </li>
+
+      <li class="log_out">
+        <a href="{% url 'inventorysystem-usersLogin' %}">
+          <i class='bx bx-log-out'></i>
+          <span class="links_name">Log out</span>
+        </a>
+      </li>
+    </ul>
   </div>
 
 
-{% block content %} 
-<title> Request Supply </title>
-<link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
+  {% block content %}
+  <title> Request Supply </title>
+  <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
 
-<section class="home-section">
+  <section class="home-section">
     <nav>
-        <div class="sidebar-button">
-            <i class='bx bx-menu sidebarBtn'></i>
-            <div>
-                <label style="padding-top: 10px;"><h2>Request Supply</h2></label>
-            </div>
+      <div class="sidebar-button">
+        <i class='bx bx-menu sidebarBtn'></i>
+        <div>
+          <label style="padding-top: 10px;">
+            <h2>Request Supply</h2>
+          </label>
         </div>
+      </div>
     </nav>
     <br>
 
 
-<div class="container home-content">
-  <div class="container">
-      <div class="col-12">
-        <h4>Welcome, <span style="text-decoration: underline; font-weight: 600;">{{request.user}}</span> !</h4>
+    <div class="container home-content">
+      <div class="container">
+        <div class="col-12">
+          <h4>Welcome, <span style="text-decoration: underline; font-weight: 600;">{{request.user}}</span> !</h4>
+        </div>
       </div>
-  </div>
 
-  <br>
-    <div class="container" align="center">
-      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-        <a type="button" href="#mainstorage" class="btn btn-outline-secondary">Mainstorage</a>
-        <a type="button" href="#requestSupply" class="btn btn-outline-secondary">Request Supply</a>
-        <a type="button" href="#withdrawnItem" class="btn btn-outline-secondary">Withdraw Supply Item</a>
-      </div>     
-    </div>
-
-
-  <br>
-    <div class="container" id="mainstorage">
-      <div class="kahon">
-      <h3 align="center">Mainstorage</h3>
-      <hr>
       <br>
-      <!-- Datatable --> 
-      <table id="MainStorage" class="table table-striped" style="width:100%">
-          <thead>
+      <div class="container" align="center">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+          <a type="button" href="#mainstorage" class="btn btn-outline-secondary">Mainstorage</a>
+          <a type="button" href="#requestSupply" class="btn btn-outline-secondary">Request Supply</a>
+          <a type="button" href="#withdrawnItem" class="btn btn-outline-secondary">Withdraw Supply Item</a>
+        </div>
+      </div>
+
+
+      <br>
+      <div class="container" id="mainstorage">
+        <div class="kahon">
+          <h3 align="center">Mainstorage</h3>
+          <hr>
+          <br>
+          <!-- Datatable -->
+          <table id="MainStorage" class="table table-striped" style="width:100%">
+            <thead>
               <tr>
-                  <th style="text-align: center;">Item no.</th>
-                  <th style="text-align: center;">Description</th>
-                  <th style="text-align: center;">Unit</th>
-                  <th style="text-align: center;">Quantity</th>
-                  <th style="text-align: center;">Action</th>
+                <th style="text-align: center;">Item no.</th>
+                <th style="text-align: center;">Description</th>
+                <th style="text-align: center;">Unit</th>
+                <th style="text-align: center;">Quantity</th>
+                <th style="text-align: center;">Action</th>
               </tr>
-          </thead>
-          <tbody>
-            {% for x in info1 %}
-            <tr class="edittr">
+            </thead>
+            <tbody>
+              {% for x in info1 %}
+              <tr class="edittr">
                 <td align="center">{{x.limit_id}}</td>
                 <td align="center">{{x.limit_description}}</td>
                 <td align="center">{{x.limit_unit}}</td>
@@ -162,72 +167,72 @@
                 <td align="center">
                   <button class="btn btn-success editBtn" style="margin-bottom: 10px;">Request</button>
                 </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-
-<!----- UPDATE MODAL ----->
-<div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div class="modal-body">
+    </div>
 
-      <!----- UPDATE FORM ---->
 
-          <form action = "" method = "POST" class="row g-3" enctype="multipart/form-data">
+    <!----- UPDATE MODAL ----->
+    <div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <!----- UPDATE FORM ---->
+            <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
               {% csrf_token %}
 
               <input type="hidden" id="editId" name="limit_id" value="" readonly>
 
               <div class="col-md-6">
-                  <label class="form-label">Description:</label>
-                  <input type="text" class="form-control" id="description" name="request_description" readonly>
+                <label class="form-label">Description:</label>
+                <input type="text" class="form-control" id="description" name="request_description" readonly>
               </div>
 
               <div class="col-md-6">
-                  <label class="form-label">Unit:</label>
-                  <input type="text" min="1" class="form-control" id="unit" name="request_unit" readonly>
+                <label class="form-label">Unit:</label>
+                <input type="text" min="1" class="form-control" id="unit" name="request_unit" readonly>
               </div>
 
               <div class="col-md-6">
-                  <label class="form-label">Quantity:</label>
-                  <input type="number" class="form-control" id="quantity" name="request_quantity" readonly>
+                <label class="form-label">Quantity:</label>
+                <input type="number" class="form-control" id="quantity" name="request_quantity" readonly>
               </div>
 
               <div class="col-md-6">
-                  <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Request Quantity:</label>
-                  <input type="number" min="1" class="form-control" id="addquantity" name="request_addquantity" required>
+                <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Request
+                  Quantity:</label>
+                <input type="number" min="1" class="form-control" id="addquantity" name="request_addquantity" required>
               </div>
 
               <div class="modal-footer">
-                  <div class="col-12">
-                      <button type="submit" class="btn btn-primary">Request</button>
-                  </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary">Request</button>
+                </div>
               </div>
-          </form>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-  $(document).ready(function(){
-      $('.editBtn').on('click', function(){
+      $(document).ready(function () {
+        $('.editBtn').on('click', function () {
 
           $('#openModal').modal('show');
-          $tr =$(this).closest('tr');
-          var data= $tr.children("td").map(function(){
-          return $(this).text();
+          $tr = $(this).closest('tr');
+          var data = $tr.children("td").map(function () {
+            return $(this).text();
           }).get();
 
           console.log(data);
@@ -237,154 +242,155 @@
           $('#unit').val(data[2]);
           $('#quantity').val(data[3]);
 
+        });
       });
-  });
 
-</script>
+    </script>
 
-
-
-<div class="container home-content" id="requestSupply">
-    <!-- Datatable --> 
-    <div class="container">
-      <div class="kahon">
-        <h3 align="center">Request Supply</h3>
-        <hr>
-        <br>
-        <table id="depRequestTable" class="stripe cell-border hover" style="width:100%">
+    <div class="container home-content" id="requestSupply">
+      <!-- Datatable -->
+      <div class="container">
+        <div class="kahon">
+          <h3 align="center">Request Supply</h3>
+          <hr>
+          <br>
+          <table id="depRequestTable" class="stripe cell-border hover" style="width:100%">
             <thead>
-                <tr>
-                    <th>Description</th>
-                    <th>Unit</th>
-                    <th>Requested Quantity</th>
-                    <th>Accepted Quantity</th>
-                    <th>Status</th>
-                </tr>
-            </thead>  
+              <tr>
+                <th>Description</th>
+                <th>Unit</th>
+                <th>Requested Quantity</th>
+                <th>Accepted Quantity</th>
+                <th>Status</th>
+              </tr>
+            </thead>
             <tbody>
               {% for x in info %}
               <tr class="edittr">
-                  <td>{{x.status_supply_description}}</td>
-                  <td>{{x.status_supply_unit}}</td>
-                  <td>{{x.status_supply_quantity}}</td>
-                  <td>{{x.status_supply_acceptquantity}}</td>
-                  <td>{{x.status_supply_status}}</td>
+                <td>{{x.status_supply_description}}</td>
+                <td>{{x.status_supply_unit}}</td>
+                <td>{{x.status_supply_quantity}}</td>
+                <td>{{x.status_supply_acceptquantity}}</td>
+                <td>{{x.status_supply_status}}</td>
               </tr>
               {% endfor %}
             </tbody>
-        </table>
+          </table>
+        </div>
       </div>
     </div>
-</div>
 
 
-<div class="container home-content" id="withdrawnItem">
-  <!-- Datatable --> 
-  <div class="container">
-    <div class="kahon">
-      <h3 align="center">Withdrawn Supply Item</h3>
-      <hr>
-      <br>
-      <table id="depwithdrawnTable" class="stripe cell-border hover" style="width:100%">
-          <thead>
+    <div class="container home-content" id="withdrawnItem">
+      <!-- Datatable -->
+      <div class="container">
+        <div class="kahon">
+          <h3 align="center">Withdrawn Supply Item</h3>
+          <hr>
+          <br>
+          <table id="depwithdrawnTable" class="stripe cell-border hover" style="width:100%">
+            <thead>
               <tr>
-                  <th>Description</th>
-                  <th>Unit</th>
-                  <th>Quantity</th>
-                  <th>Date & Time</th>
+                <th>Description</th>
+                <th>Unit</th>
+                <th>Quantity</th>
+                <th>Date & Time</th>
               </tr>
-          </thead>
-          <tbody>
-            {% for x in info2 %}
-            <tr class="edittr">
+            </thead>
+            <tbody>
+              {% for x in info2 %}
+              <tr class="edittr">
                 <td>{{x.withdraw_supply_description}}</td>
                 <td>{{x.withdraw_supply_unit}}</td>
                 <td>{{x.withdraw_supply_quantity}}</td>
                 <td>{{x.current_date}}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-      </table>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+    <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
 
-<br><br><br><br>
-<script>
-$(document).ready(function() {
-    var table = $('#MainStorage').DataTable( {
-        rowReorder: {
+    <br><br><br><br>
+    <script>
+      $(document).ready(function () {
+        var table = $('#MainStorage').DataTable({
+          rowReorder: {
             selector: 'td:nth-child(2)'
-        },
-        responsive: true
-    } );
-} );
+          },
+          responsive: true
+        });
+      });
 
-$(document).ready(function() {
-    var table = $('#depRequestTable').DataTable( {
-        rowReorder: {
+      $(document).ready(function () {
+        var table = $('#depRequestTable').DataTable({
+          rowReorder: {
             selector: 'td:nth-child(2)'
-        },
-        responsive: true
-    } );
-} );
+          },
+          responsive: true
+        });
+      });
 
-$(document).ready(function() {
-    var table = $('#depwithdrawnTable').DataTable( {
-        rowReorder: {
+      $(document).ready(function () {
+        var table = $('#depwithdrawnTable').DataTable({
+          rowReorder: {
             selector: 'td:nth-child(2)'
-        },
-        responsive: true
-    } );
-} );
+          },
+          responsive: true
+        });
+      });
 
-</script>
+    </script>
 
-{% endblock %}
-  
- <script>
-    let sidebar = document.querySelector(".sidebar");
-    let sidebarBtn = document.querySelector(".sidebarBtn");
-    sidebarBtn.onclick = function() {
-      sidebar.classList.toggle("active");
-      if(sidebar.classList.contains("active")){
-      sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-right");
-    } else
-      sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
-    }
-  </script>
+    {% endblock %}
 
-{% for message in messages %}
-  {% if message.tags == 'info' %}
-      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-      <script>
-          var m = "{{ message }}";
-          swal("Notice: ", m, "info")
-      </script>
-      {% elif message.tags == 'success' %}
-      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-      <script>
+    <script>
+      let sidebar = document.querySelector(".sidebar");
+      let sidebarBtn = document.querySelector(".sidebarBtn");
+      sidebarBtn.onclick = function () {
+        sidebar.classList.toggle("active");
+        if (sidebar.classList.contains("active")) {
+          sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+        } else
+          sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+      }
+    </script>
+
+    {% for message in messages %}
+    {% if message.tags == 'info' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+      var m = "{{ message }}";
+      swal("Notice: ", m, "info")
+    </script>
+    {% elif message.tags == 'success' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
       var m = "{{ message }}";
       swal("Success! ", m, "success")
-      </script>
-  {% endif %}
-{% endfor %}
- 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    </script>
+    {% endif %}
+    {% endfor %}
 
-<script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
-<script src="{% static 'vendor/owl.carousel/owl.carousel.min.js' %}"></script>
-<script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-<script src="{% static 'vendor/venobox/venobox.min.js' %}"></script>
-<script src="{% static 'vendor/waypoints/jquery.waypoints.min.js' %}"></script>
-<script src="{% static 'vendor/counterup/counterup.min.js' %}"></script>
-<script src="{% static 'vendor/aos/aos.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+      crossorigin="anonymous"></script>
 
-<!-- Main JS File -->
-<script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'vendor/venobox/venobox.min.js' %}"></script>
+    <script src="{% static 'vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'vendor/counterup/counterup.min.js' %}"></script>
+    <script src="{% static 'vendor/aos/aos.js' %}"></script>
+
+    <!-- Main JS File -->
+    <script src="{% static 'js/main.js' %}"></script>
 
 
 </body>
+
 </html>

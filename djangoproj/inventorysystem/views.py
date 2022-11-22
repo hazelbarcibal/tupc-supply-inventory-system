@@ -937,14 +937,14 @@ def export_excel(request):
 
 #supply withdraw
     wsupply_font.font.bold = True
-    supplywithdraw = ['Description', 'Unit', 'Withdrawn Quantity', 'Date and Time']
+    supplywithdraw = ['Department', 'Description', 'Unit', 'Withdrawn Quantity', 'Date and Time']
 
     for col_num2 in range(len(supplywithdraw)):
         ws2.write(row_num2,col_num2, supplywithdraw[col_num2], wsupply_font)
 
     font_style = xlwt.XFStyle()
 
-    rows2 = withdrawsupply.objects.all().values_list(
+    rows2 = withdrawsupply.objects.all().values_list( 'withdraw_supply_department',
         'withdraw_supply_description', 'withdraw_supply_unit', 'withdraw_supply_quantity', 'current_date')
 
     for row in rows2:
