@@ -280,7 +280,7 @@ def viewRequestSupply(request):
 
         if int(request_accept_quantity) > int(request_quantity):
 
-                messages.info(request, 'Not enough quantity for this item.')
+                messages.info(request, 'Your accepted quantity is greater than with the requested quantity')
                 return redirect('inventorysystem-viewRequestSupply')
 
 
@@ -289,7 +289,7 @@ def viewRequestSupply(request):
                 messages.info(request, 'Not enough quantity for this item.')
                 return redirect('inventorysystem-viewRequestSupply')       
 
-        elif int(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity) > int(request_accept_quantity):
+        elif int(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity) > int(request_accept_quantity) or int(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity) == int(request_accept_quantity):
             accept = acceptSupplyRequests()
             accept.acceptSupplyRequests_id = request_id
             accept.arequest_supply_department = request_department
