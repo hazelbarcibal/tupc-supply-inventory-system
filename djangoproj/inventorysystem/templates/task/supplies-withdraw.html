@@ -102,7 +102,7 @@
                         <th style="text-align: center;">Description</th>
                         <th style="text-align: center;">Unit</th>
                         <th style="text-align: center;">Quantity</th>
-                        <th style="text-align: center;">Remaining</th>
+                        <!-- <th style="text-align: center;">Remaining</th> -->
                         <th style="text-align: center;">Status</th>
                         <th style="text-align: center;">Action</th>
                     </tr>
@@ -115,7 +115,7 @@
                         <td align="center">{{x.arequest_supply_description}}</td>
                         <td align="center">{{x.arequest_supply_unit}}</td>
                         <td align="center">{{x.arequest_supply_quantity}}</td>
-                        <td align="center">{{x.arequest_supply_remaining}}</td>
+                        <!-- <td align="center">{{x.arequest_supply_remaining}}</td> -->
                         <td align="center">{{x.arequest_supply_status}}</td>
                         <td align="center">
                             <button class="btn btn-success editBtn" style="margin-bottom: 10px;" name="editBtn">WITHDRAW</button>
@@ -165,14 +165,9 @@
                     <input type="number" min="1" class="form-control" id="quantity" name="arequest_supply_quantity" readonly>
                 </div>
 
-                <div class="col-md-12">
-                    <label class="form-label">Mainstorage Remaining:</label>
-                    <input type="number" min="1" class="form-control" id="remaining" name="arequest_supply_remaining" readonly>
-                </div>
-
                 <div class="modal-footer">
                     <div class="col-12">
-                        <button type="submit" class="btn btn-primary">OK</button>
+                        <button style="float: right;" type="submit" class="btn btn-primary">OK</button>
                     </div>
                 </div>
             </form>

@@ -110,7 +110,7 @@
                                     name="equipmentmainstorage_description" readonly>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label class="form-label">Brand:</label>
                                 <input type="text" class="form-control" id="brand" name="equipmentmainstorage_brand"
                                     readonly>
@@ -122,7 +122,7 @@
                                     name="equipmentmainstorage_quantity" readonly>
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
                                     class="form-label">Add Quantity:</label>
                                 <input type="number" min="1" class="form-control" id="addquantity"
@@ -131,7 +131,7 @@
 
                             <div class="modal-footer">
                                 <div class="col-12">
-                                    <button type="submit" name="delivery_equipment_update"
+                                    <button style="float: right;" type="submit" name="delivery_equipment_update"
                                         class="btn btn-primary">ADD</button>
                                 </div>
                             </div>
@@ -222,8 +222,7 @@
 
                             <div class="col-md-6">
                                 <label class="form-label">Item Name:</label>
-                                <input type="text" class="form-control" id="itemname1" name="request_equipment_itemname"
-                                    readonly>
+                                <input type="text" class="form-control" id="itemname1" name="request_equipment_itemname">
                             </div>
 
                             <div class="col-md-6">
@@ -255,7 +254,7 @@
 
                             <div class="modal-footer">
                                 <div class="col-12">
-                                    <button type="submit" name="delivery_dep" class="btn btn-primary">Accept
+                                    <button style="float: right;" type="submit" name="delivery_dep" class="btn btn-primary">Accept
                                         Request</button>
                                 </div>
                             </div>
@@ -305,53 +304,6 @@
         </script>
 
         <br><br>
-
-        <div class="container" id="deliverItem">
-            <div class="kahon">
-                <h3>Deliver New Item</h3>
-                <br>
-                <form class="row g-3" action="" method="POST">
-                    {% csrf_token %}
-                    <div class="col-md-6">
-                        <label class="form-label">Item Name: </label>
-                        {{form.delivery_equipment_itemname}}
-                        <datalist id="deliveryItemname">
-                            <option id="1" value="Aircon"></option>
-                            <option id="2" value="Computer"></option>
-                            <option id="3" value="Electric Fan"></option>
-                            <option id="4" value="Printer"></option>
-                            <option id="5" value="Smart TV"></option>
-                            <option id="6" value="Water Dispenser"></option>
-                        </datalist>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Brand: </label>
-                        {{form.delivery_equipment_brand}}
-                        <datalist id="deliveryBrand">
-                            <option id="1" value="ACER"></option>
-                            <option id="2" value="ASUS"></option>
-                            <option id="2" value="Fujidenzo"></option>
-                            <option id="3" value="LG"></option>
-                            <option id="3" value="HP"></option>
-
-                        </datalist>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label">Description: </label>
-                        {{form.delivery_equipment_description}}
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Quantity: </label>
-                        {{form.delivery_equipment_quantity}}
-                    </div>
-                    <div class="col-12">
-                        <button type="submit" id="submit" name="delivery_equipment_new" class="btn1"
-                            style="float: right;" value="Submit"> Deliver </button>
-                    </div>
-                </form>
-            </div>
-        </div>
 
         <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
         <br><br>

@@ -605,7 +605,7 @@ def equipmentDeliver(request):
 def viewDeliveryRecords(request):
     info = equipmentmainstorage.objects.all()
     context = {
-            'info': info,
+        'info': info,
         }
     return render(request, 'task/view-delivery-records.html', context) 
 

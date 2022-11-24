@@ -47,7 +47,7 @@
                     <th style="text-align: center;">Description</th>
                     <th style="text-align: center;">Unit</th>
                     <th style="text-align: center;">Request Quantity</th>
-                    <th style="text-align: center;">MainStorage Quantity</th>
+                    <!-- <th style="text-align: center;">MainStorage Quantity</th> -->
                     <th style="text-align: center;">Date & Time</th>
                     <th style="text-align: center;">Status</th>
                 </tr>
@@ -60,7 +60,7 @@
                     <td align="center">{{x.request_supply_description}}</td>
                     <td align="center">{{x.request_supply_unit}}</td>
                     <td align="center">{{x.request_supply_quantity}}</td>
-                    <td align="center">{{x.request_supply_mainstoragequantity}}</td>
+                    <!-- <td align="center">{{x.request_supply_mainstoragequantity}}</td> -->
                     <td align="center">{{x.current_date}}</td>
                     <td align="center">
                         <button class="btn btn-success editBtn" style="margin-bottom: 10px;" name="editBtn">ACCEPT</button>
@@ -98,14 +98,9 @@
                     <input type="text" class="form-control" id="description" name="request_supply_description" readonly>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label class="form-label">Unit:</label>
                     <input type="text" min="1" class="form-control" id="unit" name="request_supply_unit" readonly>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label">Mainstorage Quantity:</label>
-                    <input type="number" min="1" class="form-control" id="mainquantity" name="request_supply_mainstoragequantity" readonly>
                 </div>
 
                 <div class="col-md-6">
