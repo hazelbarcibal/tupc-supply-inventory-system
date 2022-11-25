@@ -781,7 +781,7 @@ def createqrequipmentWithdraw(request, pk):
                 not_delete.current_date = getdata5.current_date
                 not_delete.save()
                 accept.save()
-                messages.success(request, 'successfully withdraw')
+                messages.success(request, 'Successfully withdrawn.')
                 return redirect('inventorysystem-equipmentWithdraw')
 
             
@@ -795,22 +795,31 @@ def createqrequipmentWithdraw(request, pk):
 #------------------- RETURN EQUIPMENTS -----------------------------
 def equipmentReturn(request):
     info = returnequipment.objects.all()
-    # print(request.POST.get('property'))
-
     if request.method == 'POST':
         data = request.POST.get('property')
-        getdata = withdrawequipment.objects.get(withdraw_equipment_property_no = data)
-        return1 = returnequipment()
-        return1.return_equipment_property_no = getdata.withdraw_equipment_property_no
-        return1.return_equipment_itemname = getdata.withdraw_equipment_itemname
-        return1.return_equipment_description = getdata.withdraw_equipment_description
-        return1.return_equipment_brand = getdata.withdraw_equipment_brand
-        return1.return_equipment_yearacquired = getdata.withdraw_equipment_yearacquired
-        return1.return_equipment_issued_to = getdata.withdraw_equipment_issued_to
-        return1.return_equipment_model_no = getdata.withdraw_equipment_model_no
-        return1.return_equipment_serial_no = getdata.withdraw_equipment_serial_no
-        return1.return_equipment_certifiedcorrect = getdata.withdraw_equipment_certifiedcorrect
-        return1.save()
+        if returnequipment.objects.filter(return_equipment_property_no = data).exists() == True:
+            messages.info(request, 'This equipment was already returned.')
+            return redirect('inventorysystem-equipmentReturn')
+
+        elif withdrawequipment.objects.filter(withdraw_equipment_property_no = data).exists() == True:
+            getdata = withdrawequipment.objects.get(withdraw_equipment_property_no = data)
+            return1 = returnequipment()
+            return1.return_equipment_property_no = getdata.withdraw_equipment_property_no
+            return1.return_equipment_itemname = getdata.withdraw_equipment_itemname
+            return1.return_equipment_description = getdata.withdraw_equipment_description
+            return1.return_equipment_brand = getdata.withdraw_equipment_brand
+            return1.return_equipment_yearacquired = getdata.withdraw_equipment_yearacquired
+            return1.return_equipment_issued_to = getdata.withdraw_equipment_issued_to
+            return1.return_equipment_model_no = getdata.withdraw_equipment_model_no
+            return1.return_equipment_serial_no = getdata.withdraw_equipment_serial_no
+            return1.return_equipment_certifiedcorrect = getdata.withdraw_equipment_certifiedcorrect
+            return1.save()
+            messages.success(request, 'Equipment returned sucessfully.')
+            return redirect('inventorysystem-equipmentReturn')
+            
+        else: 
+            messages.info(request, 'Non-existing equipment record. Please scan a valid one.')
+            return redirect('inventorysystem-equipmentReturn')
 
 
     context = {

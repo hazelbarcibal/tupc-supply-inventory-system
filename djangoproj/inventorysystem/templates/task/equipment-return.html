@@ -94,7 +94,7 @@
         <form action="" method="post">
             {% csrf_token %}
             <textarea required rows="6" cols="60" name="returnequipment" id="propertyNum"
-                onkeydown="disableFunction();"></textarea>
+                onchange="disableFunction()"></textarea>
             <br>
             <input type="hidden" name="property" id="property" readonly>
             <span><button onclick="getVal();" id="" type="submit" class="btn btn-secondary">Return</button></span>
@@ -154,6 +154,22 @@
     <br><br>
 
     <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+
+    {% for message in messages %}
+        {% if message.tags == 'info' %}
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+            var m = "{{ message }}";
+            swal("Notice: ", m, "info")
+        </script>
+        {% elif message.tags == 'success' %}
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+            var m = "{{ message }}";
+            swal("Success! ", m, "success")
+        </script>
+        {% endif %}
+    {% endfor %}
 
     <script>
         $(document).ready(function () {
