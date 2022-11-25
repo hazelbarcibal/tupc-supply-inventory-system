@@ -122,8 +122,6 @@ body {
   
   #header .logo {
     font-size: 32px; 
-    margin: 0;
-    padding: 0;
     line-height: 1;
     font-weight: 700;
     letter-spacing: 2px;
@@ -258,22 +256,24 @@ body {
   }
   
   /* log-in button */
-  .get-started-btn {
+  .nav-menu .get-started-btn {
     color: #fff;
     border-radius: 25px;
-    padding: 7px 25px 8px 25px;
+    margin-left: 20px;
+    text-align: center;
+    padding: 10px 25px 0px 25px;
     white-space: nowrap;
     transition: 0.3s;
     letter-spacing: 2px;
     text-transform: uppercase;
     font-family: 'Raleway', sans-serif;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: bold;
     display: inline-block;
     border: 2px solid #ffc451;
   }
   
-  .get-started-btn:hover {
+  .nav-menu .get-started-btn:hover {
     background: #ffbb38;
     color: #151617;
   }
@@ -572,88 +572,7 @@ body {
     margin-bottom: 0;
   }
   
-  /*--------------------------------------------------------------
-  # Clients
-  --------------------------------------------------------------*/
-  .clients {
-    padding-top: 20px;
-  }
-  
-  .clients .owl-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 20px;
-  }
-  
-  .clients .owl-item img {
-    width: 70%;
-    opacity: 0.5;
-    transition: 0.3s;
-    -webkit-filter: grayscale(100);
-    filter: grayscale(100);
-  }
-  
-  .clients .owl-item img:hover {
-    -webkit-filter: none;
-    filter: none;
-    opacity: 1;
-  }
-  
-  .clients .owl-nav, .clients .owl-dots {
-    margin-top: 5px;
-    text-align: center;
-  }
-  
-  .clients .owl-dot {
-    display: inline-block;
-    margin: 0 5px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: #ddd !important;
-  }
-  
-  .clients .owl-dot.active {
-    background-color: #ffc451 !important;
-  }
-  
-  /*--------------------------------------------------------------
-  # Features
-  --------------------------------------------------------------*/
-  /* .features {
-    padding-top: 20px;
-  }
-  
-  .features .icon-box {
-    padding-left: 15px;
-  }
-  
-  .features .icon-box h4 {
-    font-size: 20px;
-    font-weight: 700;
-    margin: 5px 0 10px 60px;
-  }
-  
-  .features .icon-box i {
-    font-size: 48px;
-    color: #ffc451;
-  }
-  
-  .features .icon-box p {
-    font-size: 15px;
-    color: #848484;
-    margin-left: 30px;
-    float: left;
-  }
-  
-  .features .image {
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    min-height: 400px;
-  }
-   */
+
   /*--------------------------------------------------------------
   # Services
   --------------------------------------------------------------*/
@@ -1064,25 +983,44 @@ body {
     background: #fff;
     padding: 60px 0;
     display: flex;
-    justify-items: center;
+    justify-content: center;
   }
   
   .team .member {
     margin-bottom: 20px;
     overflow: hidden;
-    border-radius: 5px;
-    background: #ffc451;
-    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+    /* border-radius: 50%; */
+    /* background: #ffc451;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1); */
+  }
+  .team .member .member-img{
+    width: 100%;
+    height: 50%;
+    /* position: relative; */
+    overflow: hidden; 
+    display: flex;
+    justify-items: center;
+    /* margin-left: 30px; */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
   }
   
-  .team .member .member-img {
-    position: relative;
-    overflow: hidden;
+  .team .member .member-img1 {
+    width: 130%;
+    height: 50%;
+    /* position: relative; */
+    overflow: hidden; 
+    display: flex;
+    justify-items: center;
+    /* margin-left: 30px; */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
   }
   
   .team .member .social {
     position: absolute;
     left: 0;
+    margin: 35px;
     bottom: 30px;
     right: 0;
     opacity: 0;
@@ -1093,8 +1031,7 @@ body {
   .team .member .social a {
     transition: color 0.3s;
     color: #151515;
-    margin: 0 3px;
-    padding-top: 7px;
+    padding: 5px;
     border-radius: 4px;
     width: 36px;
     height: 36px;
@@ -1106,41 +1043,43 @@ body {
   
   .team .member .social a:hover {
     color: #fff;
-    background: #ffc451;
+    background: #233142;
   }
   
-  .team .member .social i {
-    font-size: 18px;
-  }
   
   .team .member .member-info {
-    padding: 25px 15px;
+    padding: 25px 15px 25px 15px;
+    background: #ffc451;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
   }
   
   .team .member .member-info h4 {
+    text-align: center;
     font-weight: 700;
     margin-bottom: 5px;
-    font-size: 18px;
+    font-size: 10px;
     color: #151515;
   }
   
   .team .member .member-info span {
     display: block;
-    font-size: 13px;
+    font-size: 9px;
     font-weight: 400;
     color: #070707;
   }
   
   .team .member .member-info p {
     font-style: italic;
-    font-size: 14px;
-    line-height: 26px;
+    font-size: 10px;
+    line-height: 20px;
     color: #777777;
+    text-align: center;
   }
   
   .team .member:hover .social {
-    opacity: 1;
-    bottom: 15px;
+    opacity: 2;
+    bottom: 10px;
   }
   
   /*--------------------------------------------------------------
@@ -1155,7 +1094,7 @@ body {
     font-size: 20px;
     background: #ffc451;
     color: #151515;
-    float: left;
+    float: right;
     width: 44px;
     height: 44px;
     display: flex;
@@ -1163,25 +1102,34 @@ body {
     align-items: center;
     border-radius: 4px;
     transition: all 0.3s ease-in-out;
+    margin-left: 20px;
   }
   
   .contact .info h4 {
-    padding: 0 0 0 60px;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 600;
+    margin-top: 25px;
     margin-bottom: 5px;
     color: #151515;
+    text-align: right;
   }
   
   .contact .info p {
-    padding: 0 0 0 60px;
     margin-bottom: 0;
-    font-size: 14px;
+    font-size: 10px;
     color: #484848;
+    text-align: right;
+  }
+  .contact .info .loc {
+    margin-bottom: 0;
+    font-size: 10px;
+    color: #484848;
+    text-align: right;
+    padding-right: 65px;
   }
   
   .contact .info .email, .contact .info .phone {
-    margin-top: 40px;
+    margin-top: 20px;
   }
   
   .contact .php-email-form {
