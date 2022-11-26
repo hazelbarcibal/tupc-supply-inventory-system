@@ -1,4 +1,4 @@
-{% extends 'task/home.html' %}
+{% extends 'task/dashboard.html' %}
 {% load static %}
 
 
@@ -6,7 +6,6 @@
 {% block content %}
 
 <title> Status Limit </title>
-<link rel="stylesheet" href="{% static 'css/supply-delivery.css' %}">
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
@@ -71,315 +70,437 @@
     .btn1-group button:hover {
         background-color: #4d0d09;
     }
+
+    .kahon {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    background: rgb(255, 255, 255);
+    padding: 32px 25px;
+
+    }
+
+    hr{
+    border: 1px solid ;
+    background-color: black;
+    border-radius: 5px;
+    }
+
 </style>
 
-<section class="home-section">
-    <nav>
-        <div class="sidebar-button">
-            <i class='bx bx-menu sidebarBtn'></i>
-            <div>
-                <label style="padding-top: 10px;">
-                    <h2>Status Limit</h2>
-                </label>
+
+<!----- UPDATE  MODAL ----->
+<div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
             </div>
-        </div>
-    </nav>
-
-    <br>
-
-    <div class="home-content">
-
-        <div class="container" align="center">
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <a type="button" href="#mainstorage" class="btn btn-outline-secondary">Mainstorage</a>
-                <a type="button" href="#nonExisting" class="btn btn-outline-secondary">Non-existing Item</a>
-                <a type="button" href="#limitPerDept" class="btn btn-outline-secondary">Limit Per Department</a>
-            </div>
-        </div>
-        <br>
-
-        <!-- Datatable -->
-        <div class="container" style="width: 98%;" id="mainstorage">
-            <div class="kahon">
-                <h3 align="center">Mainstorage</h3>
-                <hr>
-                <br>
-                <table id="MainStorage" class="table table-striped" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th style="text-align: center;">Unit</th>
-                            <th style="text-align: center;">Quantity</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for x in info %}
-                        <tr class="edittr">
-                            <td>{{x.supplymainstorage_description}}</td>
-                            <td align="center">{{x.supplymainstorage_unit}}</td>
-                            <td align="center">{{x.supplymainstorage_quantity}}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-
-                </table>
-            </div>
-        </div>
-        <br><br>
-
-        <!-- Non Existing Tab -->
-        <div class="container" style="width: 98%;" id="nonExisting">
-            <div class="kahon">
-                <h3>Non-existing Item</h3>
-                <br>
-                <form action="" method="POST" class="row g-3">
+            <div class="modal-body">
+                <!----- UPDATE STATUS FORM ---->
+                <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
                     {% csrf_token %}
 
-                    <div class="col-md-6">
-                        <label>Description:</label>
-                        <input type="text" list="statusItemname" autocomplete="on" name="non-existing_description"
-                            class="form-control" placeholder="Item Name" required>
-                        <datalist id="statusItemname">
-                            <option id="1" value="Blue Ballpen"></option>
-                            <option id="2" value="Black Ballpen"></option>
-                            <option id="3" value="Long Bondpaper"></option>
-                            <option id="4" value="Short Bondpaper"></option>
-                            <option id="5" value="A4 Bondpaper"></option>
-                            <option id="6" value="Long Folder"></option>
-                            <option id="7" value="Short Folder"></option>
-                            <option id="8" value="Expladable Folder"></option>
-                            <option id="9" value="Long Envelope"></option>
-                            <option id="10" value="Short Envelope"></option>
-                            <option id="11" value="Expladable Envelope"></option>
-                            <option id="12" value="Glue"></option>
-                            <option id="13" value="Black Marker"></option>
-                            <option id="14" value="Blue Marker"></option>
-                            <option id="15" value="White Board Marker"></option>
-                            <option id="16" value="Paper Clip"></option>
-                            <option id="17" value="Pencil"></option>
-                            <option id="18" value="Stapler"></option>
-                            <option id="19" value="Packing Tape"></option>
-                            <option id="20" value="Scotch Tape"></option>
-                            <option id="21" value="Tape Dispenser"></option>
-                        </datalist>
+                    <input type="hidden" id="editId" name="limit_id" value="" readonly>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Department:</label>
+                        <input type="text" class="form-control" id="department" name="limit_department" readonly>
                     </div>
-                    <div class="col-md-6">
-                        <label>Unit:</label>
-                        <input type='text' list="statusUnit" autocomplete="on" name="non-existing_unit"
-                            class="form-control" placeholder="Unit" required>
-                        <datalist id="statusUnit">
-                            <option id="1" value="Box"></option>
-                            <option id="2" value="Bundle"></option>
-                            <option id="3" value="Ream"></option>
-                            <option id="4" value="Pcs"></option>
-                        </datalist>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Description:</label>
+                        <input type="text" class="form-control" id="description" name="limit_description" readonly>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Unit:</label>
+                        <input type="text" min="1" class="form-control" id="unit" name="limit_unit" readonly>
                     </div>
 
                     <div class="col-md-6">
-                        <label>Quantity:</label>
-                        <input type='number' name="non-existing_quantity" class="form-control" placeholder="Quantity"
+                        <label class="form-label">Quantity:</label>
+                        <input type="number" min="1" class="form-control" id="quantity" name="limit_quantity"
+                            readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                            class="form-label">Add Quantity:</label>
+                        <input type="number" min="1" class="form-control" id="addquantity" name="limit_addquantity"
                             required>
                     </div>
-                    <div class="col-md-6">
-                        <label>Department:</label>
-                        <input type='text' list="limit" autocomplete="on" name="non-existing_department"
-                            class="form-control" placeholder="Department" required>
-                        <datalist id="limit">
-                            <option id="1" value="OCS_CASHIER_SERVICES"></option>
-                            <option id="2" value="OES_EXTENSION_SERVICES"></option>
-                            <option id="3" value="OGS_GUIDANCE_SERVICES"></option>
-                            <option id="4" value="OHR_HUMAN_RESOURCES"></option>
-                            <option id="5" value="OHS_HEALTH_SERVICES"></option>
-                            <option id="6" value="OIT_INFORMATION_TECHNOLOGY"></option>
-                            <option id="7" value="OSP_JOB_PLACEMENT"></option>
-                            <option id="8" value="OPR_PROCUREMENT"></option>
-                            <option id="9" value="ORE_RESEARCH_AND_EXTENSION"></option>
-                            <option id="10" value="ORS_RESEARCH_SERVICES"></option>
-                            <option id="11" value="OSA_STUDENT_AFFAIRS"></option>
-                            <option id="12" value="OSH_SECURITY_HOUSE"></option>
-                            <option id="13" value="DID_INDUSTRIAL_EDUCATION"></option>
-                            <option id="14" value="DES_ENGINEERING_TECHNOLOGY"></option>
-                            <option id="15" value="DLA_LIBERAL_ARTS"></option>
-                            <option id="16" value="DMS_MATH_AND_SCIENCE"></option>
-                            <option id="17" value="DPECS_PHYSICAL_EDUCATION_CULTURAL_SPORTS"></option>
-                            <option id="18" value="BETEEAP_EXPANDED_TERTIARY_EDUCATION_EQUIVALENCY_AND_ACCREDITATION">
-                            </option>
-                            <option id="19" value="GAD_GENDER_AND_DEVELOPMENT"></option>
-                            <option id="20" value="IDO_INFRASTRUCTURE_DEVELOPMENT_OFFICE"></option>
-                            <option id="21" value="NSTP_NATIONAL_SERVICE_TRAINING_PROGRAM"></option>
-                            <option id="22" value="OAA_ACADEMIC_AFFAIRS"></option>
-                            <option id="23" value="OAD_ADMISSION"></option>
-                            <option id="24" value="OAL_ALUMNI"></option>
-                            <option id="25" value="OAS_ADMIN_SERVICES"></option>
-                            <option id="26" value="OAX_AUXILIARY"></option>
-                            <option id="27" value="BA_BIDS_AND_AWARDS"></option>
-                            <option id="28" value="OBD_BUDGET_DEVELOPMENT"></option>
-                            <option id="29" value="OCD_CAMPUS_DIRECTOR"></option>
-                            <option id="30" value="OCL_CAMPUS_LIBRARY"></option>
-                            <option id="31" value="OCP_CAMPUS_PLANNING"></option>
-                            <option id="32" value="OCR_CAMPUS_REGISTRAR"></option>
-                        </datalist>
-                    </div>
-                    <div class="col-12">
-                        <button type="submit" id="submit" class="btn1" name="new_limit" style="float: right;"
-                            value="Submit"> Submit </button>
+
+                    <div class="modal-footer">
+                        <div class="col-12">
+                            <button style="float: right; " type="submit" name="update_limit" class="btn btn-primary">ADD</button>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
-
-        <br><br>
-        <!-- LIMIT PER DEPT DATATABLE -->
-        <div class="container" style="width: 98%;" id="limitPerDept">
-            <div class="kahon">
-                <h3 align="center">Limit Per Department</h3>
-                <hr>
-                <br>
-                <table id="LimitTable" class="table table-striped" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th style="text-align: center;">Limit no.</th>
-                            <th style="text-align: center;">Description</th>
-                            <th style="text-align: center;">Unit</th>
-                            <th style="text-align: center;">Quantity</th>
-                            <th style="text-align: center;">Department</th>
-                            <th style="text-align: center;">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for x in info1 %}
-                        <tr class="edittr">
-                            <td align="center">{{x.limit_id}}</td>
-                            <td align="center">{{x.limit_description}}</td>
-                            <td align="center">{{x.limit_unit}}</td>
-                            <td align="center">{{x.limit_quantity}}</td>
-                            <td align="center">{{x.limit_department}}</td>
-                            <td align="center">
-                                <button class="btn btn-success editBtn" style="margin-bottom: 10px;"
-                                    name="editBtn">UPDATE</button>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
-    <br><br>
+</div>
 
-    <!----- UPDATE DELIVERY MODAL ----->
-    <div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!----- UPDATE STATUS FORM ---->
-                    <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
-                        {% csrf_token %}
+<script type="text/javascript">
 
-                        <input type="hidden" id="editId" name="limit_id" value="" readonly>
+    $(document).ready(function () {
+        $('.editBtn').on('click', function () {
 
-                        <div class="col-md-12">
-                            <label class="form-label">Department:</label>
-                            <input type="text" class="form-control" id="department" name="limit_department" readonly>
+            $('#openModal').modal('show');
+            $tr = $(this).closest('tr');
+            var data = $tr.children("td").map(function () {
+                return $(this).text();
+            }).get();
+
+            console.log(data);
+            $('h5.modal-title').html('Add Limit for: ' + data[4]);
+            $('#editId').val(data[0]);
+            $('#description').val(data[1]);
+            $('#unit').val(data[2]);
+            $('#quantity').val(data[3]);
+            $('#department').val(data[4]);
+        });
+    });
+
+    $(document).ready(function () {
+        var table = $('#MainStorage').DataTable({
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            responsive: true
+        });
+    });
+
+    $(document).ready(function () {
+        var table = $('#LimitTable').DataTable({
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            responsive: true
+        });
+    });
+
+</script>
+
+{% for message in messages %}
+{% if message.tags == 'info' %}
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    var m = "{{ message }}";
+    swal('Notice: ', m,'info')
+  </script>
+  {% elif message.tags == 'success' %}
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    var m = "{{ message }}";
+    swal("Success! ", m, "success")
+  </script>
+{% endif %}
+{% endfor %}
+
+
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!---------------------------- Main Content ----------------------------------->
+
+     <div id="content" class="main-content">
+
+         <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-dark topnav topbar mb-4 static-top shadow">
+
+            <!-- Sidebar Toggle (Topbar) -->
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                 <i class="fa fa-bars"></i>
+            </button>
+
+
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
+                 
+                <div class="topbar-divider d-none d-sm-block"></div>
+
+                 <!-- Nav Item - User Information -->
+                <li class="nav-item dropdown no-arrow">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, </span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small"></span>
+                        <img class="img-profile rounded-circle"
+                            src="{% static 'img/sb-dashboard/undraw_profile.svg' %}">
+                    </a>
+                     <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                         aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">
+                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                             Update Profile
+                        </a>
+                         
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                             Logout
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+
+        </nav>
+         <!-- End of Topbar -->
+
+         <!-- Logout Modal-->
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
                         </div>
-
-                        <div class="col-md-12">
-                            <label class="form-label">Description:</label>
-                            <input type="text" class="form-control" id="description" name="limit_description" readonly>
-                        </div>
-
-                        <div class="col-md-12">
-                            <label class="form-label">Unit:</label>
-                            <input type="text" min="1" class="form-control" id="unit" name="limit_unit" readonly>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label">Quantity:</label>
-                            <input type="number" min="1" class="form-control" id="quantity" name="limit_quantity"
-                                readonly>
-                        </div>
-
-                        <div class="col-md-6">
-                            <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                                class="form-label">Add Quantity:</label>
-                            <input type="number" min="1" class="form-control" id="addquantity" name="limit_addquantity"
-                                required>
-                        </div>
-
+                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                         <div class="modal-footer">
-                            <div class="col-12">
-                                <button style="float: right; " type="submit" name="update_limit" class="btn btn-primary">ADD</button>
-                            </div>
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" href="">Logout</a>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
+
+
+         <!----------------------------------- Begin Page Content ----------------------------->
+
+       
+         <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="container">
+                  <div class="container" style="margin-bottom: 0;">
+                    <div class="container" style="margin-bottom: 0;">
+                      <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-900">Status Limit</h1>
+                    </div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            <!------------------- Content Row ------------------->
+            <div class="row">
+
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <div class="container">
+                        <div class="kahon">
+                            <h3 align="center">Mainstorage</h3>
+                            <hr>
+                            <br>
+                            <table id="MainStorage" class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;">Description</th>
+                                        <th style="text-align: center;">Unit</th>
+                                        <th style="text-align: center;">Quantity</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for x in info %}
+                                    <tr class="edittr">
+                                        <td align="center">{{x.supplymainstorage_description}}</td>
+                                        <td align="center">{{x.supplymainstorage_unit}}</td>
+                                        <td align="center">{{x.supplymainstorage_quantity}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+
+
+
+            <!------------------- Content Row ------------------->
+            <div class="row">
+
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <div class="container">
+                        <div class="kahon">
+                            <h3>Non-existing Item</h3>
+                            <br>
+                            <form action="" method="POST" class="row g-3">
+                                {% csrf_token %}
+
+                                <div class="col-md-6">
+                                    <label>Description:</label>
+                                    <input type="text" list="statusItemname" autocomplete="on" name="non-existing_description"
+                                        class="form-control" placeholder="Item Name" required>
+                                    <datalist id="statusItemname">
+                                        <option id="1" value="Blue Ballpen"></option>
+                                        <option id="2" value="Black Ballpen"></option>
+                                        <option id="3" value="Long Bondpaper"></option>
+                                        <option id="4" value="Short Bondpaper"></option>
+                                        <option id="5" value="A4 Bondpaper"></option>
+                                        <option id="6" value="Long Folder"></option>
+                                        <option id="7" value="Short Folder"></option>
+                                        <option id="8" value="Expladable Folder"></option>
+                                        <option id="9" value="Long Envelope"></option>
+                                        <option id="10" value="Short Envelope"></option>
+                                        <option id="11" value="Expladable Envelope"></option>
+                                        <option id="12" value="Glue"></option>
+                                        <option id="13" value="Black Marker"></option>
+                                        <option id="14" value="Blue Marker"></option>
+                                        <option id="15" value="White Board Marker"></option>
+                                        <option id="16" value="Paper Clip"></option>
+                                        <option id="17" value="Pencil"></option>
+                                        <option id="18" value="Stapler"></option>
+                                        <option id="19" value="Packing Tape"></option>
+                                        <option id="20" value="Scotch Tape"></option>
+                                        <option id="21" value="Tape Dispenser"></option>
+                                    </datalist>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Unit:</label>
+                                    <input type='text' list="statusUnit" autocomplete="on" name="non-existing_unit"
+                                        class="form-control" placeholder="Unit" required>
+                                    <datalist id="statusUnit">
+                                        <option id="1" value="Box"></option>
+                                        <option id="2" value="Bundle"></option>
+                                        <option id="3" value="Ream"></option>
+                                        <option id="4" value="Pcs"></option>
+                                    </datalist>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label>Quantity:</label>
+                                    <input type='number' name="non-existing_quantity" class="form-control" placeholder="Quantity"
+                                        required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Department:</label>
+                                    <input type='text' list="limit" autocomplete="on" name="non-existing_department"
+                                        class="form-control" placeholder="Department" required>
+                                    <datalist id="limit">
+                                        <option id="1" value="OCS_CASHIER_SERVICES"></option>
+                                        <option id="2" value="OES_EXTENSION_SERVICES"></option>
+                                        <option id="3" value="OGS_GUIDANCE_SERVICES"></option>
+                                        <option id="4" value="OHR_HUMAN_RESOURCES"></option>
+                                        <option id="5" value="OHS_HEALTH_SERVICES"></option>
+                                        <option id="6" value="OIT_INFORMATION_TECHNOLOGY"></option>
+                                        <option id="7" value="OSP_JOB_PLACEMENT"></option>
+                                        <option id="8" value="OPR_PROCUREMENT"></option>
+                                        <option id="9" value="ORE_RESEARCH_AND_EXTENSION"></option>
+                                        <option id="10" value="ORS_RESEARCH_SERVICES"></option>
+                                        <option id="11" value="OSA_STUDENT_AFFAIRS"></option>
+                                        <option id="12" value="OSH_SECURITY_HOUSE"></option>
+                                        <option id="13" value="DID_INDUSTRIAL_EDUCATION"></option>
+                                        <option id="14" value="DES_ENGINEERING_TECHNOLOGY"></option>
+                                        <option id="15" value="DLA_LIBERAL_ARTS"></option>
+                                        <option id="16" value="DMS_MATH_AND_SCIENCE"></option>
+                                        <option id="17" value="DPECS_PHYSICAL_EDUCATION_CULTURAL_SPORTS"></option>
+                                        <option id="18" value="BETEEAP_EXPANDED_TERTIARY_EDUCATION_EQUIVALENCY_AND_ACCREDITATION">
+                                        </option>
+                                        <option id="19" value="GAD_GENDER_AND_DEVELOPMENT"></option>
+                                        <option id="20" value="IDO_INFRASTRUCTURE_DEVELOPMENT_OFFICE"></option>
+                                        <option id="21" value="NSTP_NATIONAL_SERVICE_TRAINING_PROGRAM"></option>
+                                        <option id="22" value="OAA_ACADEMIC_AFFAIRS"></option>
+                                        <option id="23" value="OAD_ADMISSION"></option>
+                                        <option id="24" value="OAL_ALUMNI"></option>
+                                        <option id="25" value="OAS_ADMIN_SERVICES"></option>
+                                        <option id="26" value="OAX_AUXILIARY"></option>
+                                        <option id="27" value="BA_BIDS_AND_AWARDS"></option>
+                                        <option id="28" value="OBD_BUDGET_DEVELOPMENT"></option>
+                                        <option id="29" value="OCD_CAMPUS_DIRECTOR"></option>
+                                        <option id="30" value="OCL_CAMPUS_LIBRARY"></option>
+                                        <option id="31" value="OCP_CAMPUS_PLANNING"></option>
+                                        <option id="32" value="OCR_CAMPUS_REGISTRAR"></option>
+                                    </datalist>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" id="submit" class="btn1" name="new_limit" style="float: right;"
+                                        value="Submit"> Submit </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+
+            <!------------------- Content Row ------------------->
+            <div class="row">
+
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <div class="container">
+                        <div class="kahon">
+                            <h3 align="center">Limit Per Department</h3>
+                            <hr>
+                            <br>
+                            <table id="LimitTable" class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;">Limit no.</th>
+                                        <th style="text-align: center;">Description</th>
+                                        <th style="text-align: center;">Unit</th>
+                                        <th style="text-align: center;">Quantity</th>
+                                        <th style="text-align: center;">Department</th>
+                                        <th style="text-align: center;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for x in info1 %}
+                                    <tr class="edittr">
+                                        <td align="center">{{x.limit_id}}</td>
+                                        <td align="center">{{x.limit_description}}</td>
+                                        <td align="center">{{x.limit_unit}}</td>
+                                        <td align="center">{{x.limit_quantity}}</td>
+                                        <td align="center">{{x.limit_department}}</td>
+                                        <td align="center">
+                                            <button class="btn btn-success editBtn" style="margin-bottom: 10px;"
+                                                name="editBtn">UPDATE</button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+
+
         </div>
+        <!-- /.container-fluid -->
+
     </div>
+    <!-- End of Main Content -->
 
-    <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+     <!------------------------------------ Footer ------------------------------------->
+     <footer class="sticky-footer footer ">
+         <div class="container my-auto">
+             <div class="copyright text-gray-700 text-center my-auto">
+                 <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
+             </div>
+         </div>
+     </footer>
+     <!-- End of Footer -->
 
-    <script type="text/javascript">
+ </div>
+ <!-- End of Content Wrapper -->
 
-        $(document).ready(function () {
-            $('.editBtn').on('click', function () {
-
-                $('#openModal').modal('show');
-                $tr = $(this).closest('tr');
-                var data = $tr.children("td").map(function () {
-                    return $(this).text();
-                }).get();
-
-                console.log(data);
-                $('h5.modal-title').html('Add Limit for: ' + data[4]);
-                $('#editId').val(data[0]);
-                $('#description').val(data[1]);
-                $('#unit').val(data[2]);
-                $('#quantity').val(data[3]);
-                $('#department').val(data[4]);
-            });
-        });
-
-        $(document).ready(function () {
-            var table = $('#MainStorage').DataTable({
-                rowReorder: {
-                    selector: 'td:nth-child(2)'
-                },
-                responsive: true
-            });
-        });
-
-        $(document).ready(function () {
-            var table = $('#LimitTable').DataTable({
-                rowReorder: {
-                    selector: 'td:nth-child(2)'
-                },
-                responsive: true
-            });
-        });
-
-    </script>
-
-    {% for message in messages %}
-    {% if message.tags == 'info' %}
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-        var m = "{{ message }}";
-        swal("Notice: ", m, "info")
-    </script>
-    {% elif message.tags == 'success' %}
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-        var m = "{{ message }}";
-        swal("Success! ", m, "success")
-    </script>
-    {% endif %}
-    {% endfor %}
+</div>
+<!-- End of Page Wrapper -->
 
 
-    {% endblock %}
+{% endblock %}

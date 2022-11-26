@@ -1,0 +1,488 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin-2.css' %}" rel="stylesheet">
+    <link rel="icon" href="{% static 'img/TUP LOGO.png'%}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    
+
+</head>
+
+<body id="page-top" onload="initClock()">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bckgrnd sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+                <div class="sidebar-brand-icon logo-band">
+                    <br>
+                    <!-- <i><img src="{% static 'img/TUP LOGO.png' %}"
+                        style="width:50px; height:50px; padding-left: 5px; padding-top:5px;"></img></i> -->
+                    <div class="row">
+                      <i><img src="{% static 'img/TUP LOGO.png' %}"
+                        style="width:50px; height:50px; padding-left: 5px; padding-top:5px;"></img></i>
+                    </div>
+                    <label><span style="color: red;">Supply</span> <br>Inventory System</label>
+                </div>
+                <!-- <div class="sidebar-brand-text mx-3">Supply Inventory <br>System</div> -->
+            </a>
+            <br>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'inventorysystem-dashboard' %}">
+                  <i class='bx bx-grid-alt'></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class='bx bx-paperclip'></i>
+                    <span>Supplies</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{% url 'inventorysystem-suppliesDeliver' %}">Delivery</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-viewRequestSupply' %}">View Requested Item</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-suppliesWithdraw' %}">Withdraw Supply</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-statusLimit' %}">Status</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class='bx bx-devices'></i>
+                    <span>Equipment</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{% url 'inventorysystem-equipmentDeliver' %}">Delivery</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-viewDeliveryRecords' %}">View Delivery Record</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-equipmentWithdraw' %}">Withdraw Equipment</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-equipmentReturn' %}">Equipment Return</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item  -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'inventorysystem-storageMapping' %}">
+                  <i class='bx bx-map'></i>
+                  <span>Storage Mapping</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Users
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'inventorysystem-adminRegister' %}">
+                <i class="fa-solid fa-user-tie"></i>
+                  <span>Add Admin Account</span></a>
+            </li>
+
+            <!-- Nav Item  -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'inventorysystem-deptRegister' %}">
+                    <i class='bx bx-buildings'></i>
+                    <span>Add Department Account</span></a>
+            </li>
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        {% block content %}
+        <title>Home</title>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+           <!---------------------------- Main Content ----------------------------------->
+
+            <div id="content" class="main-content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-dark topnav topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, </span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-100 small"></span>
+                                <img class="img-profile rounded-circle"
+                                    src="{% static 'img/sb-dashboard/undraw_profile.svg' %}">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Update Profile
+                                </a>
+                                
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+
+                <!----------------------------------- Begin Page Content ----------------------------->
+
+              
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+                    </div>
+
+                    <!------------------- Content Row ------------------->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="font-weight-bold text-dark mb-1">
+                                              <h3>Recent No. of Supplies Requests:</h3></div>
+                                            <div class="mb-0 font-weight-bold text-gray-800">
+                                              <h3>8</h3>
+                                            </div>
+                                            <div class="mb-0 font-weight-bold text-gray-800">
+                                              <a class="card__link" href="#">See More <i class="fas fa-arrow-right"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                          <div class="card h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="font-weight-bold text-dark mb-1">
+                                          <h3>Recent No. of Supplies Withdrawn:</h3></div>
+                                        <div class="mb-0 font-weight-bold text-gray-800">
+                                          <h3>8</h3>
+                                        </div>
+                                        <div class="mb-0 font-weight-bold text-gray-800">
+                                          <a class="card__link" href="#">See More <i class="fas fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                          <div class="card h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="font-weight-bold text-dark mb-1">
+                                          <h3>Recent No. of Equipment Requests:</h3></div>
+                                        <div class="mb-0 font-weight-bold text-gray-800">
+                                          <h3>8</h3>
+                                        </div>
+                                        <div class="mb-0 font-weight-bold text-gray-800">
+                                          <a class="card__link" href="#">See More <i class="fas fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                          <div class="card h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="font-weight-bold text-dark mb-1">
+                                          <h3>Recent No. of Equipment Withdrawn:</h3></div>
+                                        <div class="mb-0 font-weight-bold text-gray-800">
+                                          <h3>8</h3>
+                                        </div>
+                                        <div class="mb-0 font-weight-bold text-gray-800">
+                                          <a class="card__link" href="#">See More <i class="fas fa-arrow-right"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+
+                    <!------------------------------- Content Row ------------------------------------->
+
+                
+
+                    <!-- Content Row -->
+                    <div class="row" >
+
+                        <!-- Content Column -->
+                        <div class="col-lg-6 mb-4">
+
+                            <!--------------------------- Calendar -------------------------->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-dark">Calendar</h6>
+                                </div>
+                                <div class="card-body">
+                                  <div class="calendar calendar-first" id="calendar_first">
+                                    <div class="calendar_header">
+                                      <button class="switch-month switch-left"> <i class="fa fa-chevron-left"></i></button>
+                                      <h2></h2>
+                                      <button class="switch-month switch-right"> <i class="fa fa-chevron-right"></i></button>
+                                    </div>
+                                    <div class="calendar_weekdays"></div>
+                                    <div class="calendar_content"></div>
+                                  </div>
+                                </div>
+                            </div>
+                            
+
+                        </div>
+
+
+                        <div class="col-lg-6 mb-4">
+
+                            <!----------------------- Date & Time ------------------------->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-dark">Date & Time</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="col">
+                                        <div class="container">
+                                          <div class="date">
+                                            <span id="dayname">Day</span>,
+                                            <span id="month">Month</span>
+                                            <span id="daynum">00</span>,
+                                            <span id="year">Year</span>
+                                          </div>
+                                          <div class="time">
+                                            <span id="hour">00</span>:
+                                            <span id="minutes">00</span>:
+                                            <span id="seconds">00</span>
+                                            <span id="period">AM</span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+
+
+            <script>
+
+              //date & time
+              function updateClock() {
+                var now = new Date();
+                var dname = now.getDay();
+                mo = now.getMonth();
+                dnum = now.getDate();
+                yr = now.getFullYear();
+                hr = now.getHours();
+                min = now.getMinutes();
+                sec = now.getSeconds();
+                pr = 'AM';
+      
+                if (hr == 0) {
+                  hr = 12;
+                }
+                if (hr > 12) {
+                  hr = hr - 12;
+                  pr = 'PM';
+                }
+      
+                Number.prototype.pad = function (digits) {
+                  for (var n = this.toString(); n.length < digits; n = 0 + n);
+                  return n;
+                }
+      
+                var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                var week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                var ids = ['dayname', 'month', 'daynum', 'year', 'hour', 'minutes', 'seconds', 'period'];
+                var values = [week[dname], months[mo], dnum.pad(2), yr, hr.pad(2), min.pad(2), sec.pad(2), pr];
+                for (var i = 0; i < ids.length; i++)
+                  document.getElementById(ids[i]).firstChild.nodeValue = values[i];
+              }
+      
+              function initClock() {
+                updateClock();
+                window.setInterval('updateClock()', 1);
+              }
+            </script>
+
+
+            <!------------------------------------ Footer ------------------------------------->
+            <footer class="sticky-footer footer ">
+                <div class="container my-auto">
+                    <div class="copyright text-gray-700 text-center my-auto">
+                        <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/calendar.js' %}"></script>
+
+    {% endblock %}
+
+
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!------------------------------- JAVASCRIPT ----------------------------------------->
+    
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+    
+  
+    <!-- Main JS File -->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+    
+    
+
+
+
+</body>
+
+</html>

@@ -6,7 +6,6 @@
 {% block content %}
 
 <title> Equipment Return </title>
-<link rel="stylesheet" href="{% static 'css/supply-delivery.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
     integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -48,155 +47,278 @@
         font-size: 16px;
         resize: none;
     }
+
+    .kahon {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 10px;
+        background: rgb(255, 255, 255);
+        padding: 32px 25px;
+
+    }
+
+    hr {
+        border: 1px solid;
+        background-color: black;
+        border-radius: 5px;
+    }
 </style>
 
-<section class="home-section">
-    <nav class="nav">
-        <div class="sidebar-button">
-            <i class='bx bx-menu sidebarBtn'></i>
-            <div>
-                <label style="padding-top: 10px;">
-                    <h2>Equipment Return</h2>
-                </label>
+
+
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!---------------------------- Main Content ----------------------------------->
+
+    <div id="content" class="main-content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-dark topnav topbar mb-4 static-top shadow">
+
+            <!-- Sidebar Toggle (Topbar) -->
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+            </button>
+
+
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
+
+                <div class="topbar-divider d-none d-sm-block"></div>
+
+                <!-- Nav Item - User Information -->
+                <li class="nav-item dropdown no-arrow">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, </span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small"></span>
+                        <img class="img-profile rounded-circle"
+                            src="{% static 'img/sb-dashboard/undraw_profile.svg' %}">
+                    </a>
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">
+                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Update Profile
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="">Logout</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
 
-    <div class="home-content" align="center" id="scanning">
-        <div class="container">
-            <br>
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <a type="button" href="#scanning" class="btn btn-outline-secondary">Scanning QR</a>
-                <a type="button" href="#table" class="btn btn-outline-secondary">Returned Equipment Record</a>
+
+        <!----------------------------------- Begin Page Content ----------------------------->
+
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="container">
+                    <div class="container" style="margin-bottom: 0;">
+                        <div class="container" style="margin-bottom: 0;">
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-900">Equipment Return</h1>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
-        </div>
+            <!------------------- Content Row ------------------->
+            <div class="col" align="center">
 
-        <div style="margin: auto;"><br><br>
-            <label style="text-align: center;">
-                <h3>Scanning QR</h3>
-            </label>
-        </div>
-        <div style="margin: auto;">
-            <label style="text-align: center;">
-                <h5>INFO</h5>
-            </label>
-        </div>
-        <br>
-        <div class="container">
-            <a onclick="window.location.reload()"
-                style="text-decoration: underline; font-style: italic; cursor: pointer;">
-                <i class="fa-solid fa-arrows-rotate" style="text-decoration: underline; font-style: italic;">
-                </i> reload
-            </a>
-        </div>
+                <div class="col-md-8 mb-4">
+                    <div class="container">
+                        <div class="container">
+                            <h3>Scanning QR</h3>
+                            <h5>INFO</h5>
+                            <a onclick="window.location.reload()"
+                                style="text-decoration: underline; font-style: italic; cursor: pointer;">
+                                <i class="fa-solid fa-arrows-rotate"
+                                    style="text-decoration: underline; font-style: italic;">
+                                </i> reload
+                            </a>
 
-        <form action="" method="post">
-            {% csrf_token %}
-            <textarea required rows="6" cols="60" name="returnequipment" id="propertyNum"
-                onchange="disableFunction()"></textarea>
-            <br>
-            <input type="hidden" name="property" id="property" readonly>
-            <span><button onclick="getVal();" id="" type="submit" class="btn btn-secondary">Return</button></span>
-        </form>
-        <br>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <textarea required rows="6" cols="60" name="returnequipment" id="propertyNum"
+                                    onchange="disableFunction()"></textarea>
+                                <br>
+                                <input type="hidden" name="property" id="property" readonly>
+                                <span><button onclick="getVal();" id="" type="submit"
+                                        class="btn btn-secondary">Return</button></span>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <!------------------- Content Row ------------------->
+            <div class="row">
+
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <div class="row">
+                        <div class="container">
+                            <div class="container">
+                                <div class="container  mb-4">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <form action="{% url 'export_pdf_equipreturn'%}">
+                                            <button class="btn btn-primary">Convert to PDF</button>
+                                        </form>
+                                        <form action="{% url 'export_excel'%}">
+                                            <button class="btn btn-primary">Export to XLS</button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="container">
+                        <div class="kahon">
+                            <table id="returnTable" class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;">Property No.</th>
+                                        <th style="text-align: center;">Item Name</th>
+                                        <th style="text-align: center;">Description</th>
+                                        <th style="text-align: center;">Brand</th>
+                                        <th style="text-align: center;">Year Acquired</th>
+                                        <th style="text-align: center;">Issued To</th>
+                                        <th style="text-align: center;">Model No.</th>
+                                        <th style="text-align: center;">Serial No.</th>
+                                        <th style="text-align: center;">Certified Correct</th>
+                                        <th style="text-align: center;">Date Return</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for x in info %}
+                                    <tr class="edittr">
+                                        <td align="center">{{x.return_equipment_property_no}}</td>
+                                        <td align="center">{{x.return_equipment_itemname}}</td>
+                                        <td align="center">{{x.return_equipment_description}}</td>
+                                        <td align="center">{{x.return_equipment_brand}}</td>
+                                        <td align="center">{{x.return_equipment_yearacquired}}</td>
+                                        <td align="center">{{x.return_equipment_issued_to}}</td>
+                                        <td align="center">{{x.return_equipment_model_no}}</td>
+                                        <td align="center">{{x.return_equipment_serial_no}}</td>
+                                        <td align="center">{{x.return_equipment_certifiedcorrect}}</td>
+                                        <td align="center">{{x.return_date}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+        <!-- /.container-fluid -->
+
     </div>
+    <!-- End of Main Content -->
 
-    <div class="container home-content btn1-group" style=" width: 98%;">
-        <form action="{% url 'export_pdf_equipreturn'%}">
-            <button class="fa fa-file-pdf-o right" style="font-size:13px;color:rgb(255, 255, 255)"> Save Data As
-                PDF</button>
-        </form>
-        <form action="{% url 'export_excel'%}">
-            <button class="fa fa-file-excel-o right" style="font-size:13px;color:rgb(255, 255, 255)"> Export Data To
-                Excel</button>
-        </form>
-    </div>
-    <br>
-    <div class="container" style=" width: 98%;" id="table">
-        <div class="kahon">
-            <!-- Datatable -->
-            <table id="returnTable" class="table table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th style="text-align: center;">Property No.</th>
-                        <th style="text-align: center;">Item Name</th>
-                        <th style="text-align: center;">Description</th>
-                        <th style="text-align: center;">Brand</th>
-                        <th style="text-align: center;">Year Acquired</th>
-                        <th style="text-align: center;">Issued To</th>
-                        <th style="text-align: center;">Model No.</th>
-                        <th style="text-align: center;">Serial No.</th>
-                        <th style="text-align: center;">Certified Correct</th>
-                        <th style="text-align: center;">Date Return</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for x in info %}
-                    <tr class="edittr">
-                        <td align="center">{{x.return_equipment_property_no}}</td>
-                        <td align="center">{{x.return_equipment_itemname}}</td>
-                        <td align="center">{{x.return_equipment_description}}</td>
-                        <td align="center">{{x.return_equipment_brand}}</td>
-                        <td align="center">{{x.return_equipment_yearacquired}}</td>
-                        <td align="center">{{x.return_equipment_issued_to}}</td>
-                        <td align="center">{{x.return_equipment_model_no}}</td>
-                        <td align="center">{{x.return_equipment_serial_no}}</td>
-                        <td align="center">{{x.return_equipment_certifiedcorrect}}</td>
-                        <td align="center">{{x.return_date}}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+    <!------------------------------------ Footer ------------------------------------->
+    <footer class="sticky-footer footer ">
+        <div class="container my-auto">
+            <div class="copyright text-gray-700 text-center my-auto">
+                <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
+            </div>
         </div>
-    </div>
+    </footer>
+    <!-- End of Footer -->
 
-    <br><br>
+</div>
+<!-- End of Content Wrapper -->
 
-    <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
 
-    {% for message in messages %}
-        {% if message.tags == 'info' %}
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script>
-            var m = "{{ message }}";
-            swal("Notice: ", m, "info")
-        </script>
-        {% elif message.tags == 'success' %}
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script>
-            var m = "{{ message }}";
-            swal("Success! ", m, "success")
-        </script>
-        {% endif %}
-    {% endfor %}
 
-    <script>
-        $(document).ready(function () {
-            var table = $('#returnTable').DataTable({
-                rowReorder: {
-                    selector: 'td:nth-child(2)'
-                },
-                responsive: true
-            });
+
+
+
+{% for message in messages %}
+{% if message.tags == 'info' %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    var m = "{{ message }}";
+    swal("Notice: ", m, "info")
+</script>
+{% elif message.tags == 'success' %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    var m = "{{ message }}";
+    swal("Success! ", m, "success")
+</script>
+{% endif %}
+{% endfor %}
+
+<script>
+    $(document).ready(function () {
+        var table = $('#returnTable').DataTable({
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            responsive: true
         });
+    });
 
-        function getVal() {
+    function getVal() {
 
-            if (document.getElementById('propertyNum').value == '') {
-                alert('Please scan a qr first before returning.');
-            } else {
-                var x = document.getElementById('propertyNum').value;
-                var word = x.split(' ');
-                var property = document.getElementById('propertyNum').innerHTML = word[2];
-                document.getElementById('property').value = property
-            }
-
+        if (document.getElementById('propertyNum').value == '') {
+            alert('Please scan a qr first before returning.');
+        } else {
+            var x = document.getElementById('propertyNum').value;
+            var word = x.split(' ');
+            var property = document.getElementById('propertyNum').innerHTML = word[2];
+            document.getElementById('property').value = property
         }
 
-        function disableFunction() {
-            document.getElementById("propertyNum").disabled = true;
-        }
-    </script>
+    }
 
-    {% endblock %}
+    function disableFunction() {
+        document.getElementById("propertyNum").disabled = true;
+    }
+</script>
+
+{% endblock %}

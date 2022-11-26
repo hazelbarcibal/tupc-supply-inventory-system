@@ -1,11 +1,10 @@
-{% extends 'task/home.html' %}
+{% extends 'task/dashboard.html' %}
 {% load static %}
 
 
 {% block content %}
 
 <title> View Request Supply </title>
-<link rel="stylesheet" href="{% static 'css/supply-delivery.css' %}">
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
@@ -16,62 +15,17 @@
 <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
-<section class="home-section">
-    <nav>
-        <div class="sidebar-button">
-            <i class='bx bx-menu sidebarBtn'></i>
-            <div>
-                <label style="padding-top: 10px;"><h2>Request Supplies</h2></label>
-            </div>
-        </div>
-    </nav>
+<style>
+.kahon {
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+border-radius: 10px;
+background: rgb(255, 255, 255);
+padding: 32px 25px;
 
-<br>
+}
 
+</style>
 
-<div class="container home-content" style='padding-right: 40px;'>
-    <div align="left" style="padding-bottom: 10px; margin: auto; float: right;">
-        <a type="button" href="{% url 'inventorysystem-suppliesWithdraw' %}" class="btn btn-secondary">Withdraw Request</a>
-    </div>
-</div>
-<br><br><br>
-            
-<!-- Datatable --> 
-<div class="container" style="width: 95%;">
-    <div class="kahon">
-        <table id="viewRequestSupplyTable" class="table table-striped" style="width:100%;">
-            <thead>
-                <tr>
-                    <th>Request No.</th>
-                    <th style="text-align: center;">Department</th>
-                    <th style="text-align: center;">Description</th>
-                    <th style="text-align: center;">Unit</th>
-                    <th style="text-align: center;">Request Quantity</th>
-                    <!-- <th style="text-align: center;">MainStorage Quantity</th> -->
-                    <th style="text-align: center;">Date & Time</th>
-                    <th style="text-align: center;">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for x in info %}
-                <tr class="edittr">
-                    <td>{{x.requestsupply_id}}</td>
-                    <td align="center">{{x.request_supply_department}}</td>
-                    <td align="center">{{x.request_supply_description}}</td>
-                    <td align="center">{{x.request_supply_unit}}</td>
-                    <td align="center">{{x.request_supply_quantity}}</td>
-                    <!-- <td align="center">{{x.request_supply_mainstoragequantity}}</td> -->
-                    <td align="center">{{x.current_date}}</td>
-                    <td align="center">
-                        <button class="btn btn-success editBtn" style="margin-bottom: 10px;" name="editBtn">ACCEPT</button>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-    <br><br>
 
 <!----- UPDATE MODAL ----->
 <div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -79,7 +33,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel"></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
         </div>
         <div class="modal-body">
         <!----- UPDATE FORM ---->
@@ -176,5 +132,170 @@
     </script>
     {% endif %}
 {% endfor %}
+
+
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!---------------------------- Main Content ----------------------------------->
+
+     <div id="content" class="main-content">
+
+         <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-dark topnav topbar mb-4 static-top shadow">
+
+            <!-- Sidebar Toggle (Topbar) -->
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                 <i class="fa fa-bars"></i>
+            </button>
+
+
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
+                 
+                <div class="topbar-divider d-none d-sm-block"></div>
+
+                 <!-- Nav Item - User Information -->
+                <li class="nav-item dropdown no-arrow">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, </span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small"></span>
+                        <img class="img-profile rounded-circle"
+                            src="{% static 'img/sb-dashboard/undraw_profile.svg' %}">
+                    </a>
+                     <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                         aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">
+                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                             Update Profile
+                        </a>
+                         
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                             Logout
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+
+        </nav>
+         <!-- End of Topbar -->
+
+         <!-- Logout Modal-->
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" href="">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+         <!----------------------------------- Begin Page Content ----------------------------->
+
+       
+         <div class="container-fluid">
+
+             <!-- Page Heading -->
+             <div class="row">
+                <div class="container">
+                  <div class="container" style="margin-bottom: 0;">
+                    <div class="container" style="margin-bottom: 0;">
+                      <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-900">View Request Supplies</h1>
+                    </div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        class="fas fa-download fa-sm text-white-50"></i> Withdrawn Items</a>
+            </div> -->
+
+             <!------------------- Content Row ------------------->
+             <div class="row">
+
+                 <div class="col-xl-12 col-md-12 mb-4">
+                    <div class="container">
+                        <div class="kahon">
+                            <table id="viewRequestSupplyTable" class="table table-striped" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Request No.</th>
+                                        <th style="text-align: center;">Department</th>
+                                        <th style="text-align: center;">Description</th>
+                                        <th style="text-align: center;">Unit</th>
+                                        <th style="text-align: center;">Request Quantity</th>
+                                        <th style="text-align: center;">Date & Time</th>
+                                        <th style="text-align: center;">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for x in info %}
+                                    <tr class="edittr">
+                                        <td>{{x.requestsupply_id}}</td>
+                                        <td align="center">{{x.request_supply_department}}</td>
+                                        <td align="center">{{x.request_supply_description}}</td>
+                                        <td align="center">{{x.request_supply_unit}}</td>
+                                        <td align="center">{{x.request_supply_quantity}}</td>
+                                        <td align="center">{{x.current_date}}</td>
+                                        <td align="center">
+                                            <button class="btn btn-success editBtn" style="margin-bottom: 10px;" name="editBtn">ACCEPT</button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                 </div>
+
+                 
+             </div>
+
+
+         </div>
+         <!-- /.container-fluid -->
+
+     </div>
+     <!-- End of Main Content -->
+
+     <!------------------------------------ Footer ------------------------------------->
+     <footer class="sticky-footer footer ">
+         <div class="container my-auto">
+             <div class="copyright text-gray-700 text-center my-auto">
+                 <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
+             </div>
+         </div>
+     </footer>
+     <!-- End of Footer -->
+
+ </div>
+ <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+
 
 {% endblock %}

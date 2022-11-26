@@ -1,12 +1,13 @@
-{% extends 'task/home.html' %}
+{% extends 'task/dashboard.html' %}
 {% load static %}
 
 {% block content %}
-<title>Add Department Account</title>
+<title>Add Admin Account</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
     integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" href="{% static 'css/dept-register.css' %}">
+<link href="{% static 'css/dept-register.css' %}" rel="stylesheet">
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -22,107 +23,207 @@
         padding-top: 2em;
     }
 
-    img {
-        padding-top: 50px;
-        height: 100%;
-        width: 100%;
-    }
-
     #checkbox {
         padding-top: 10px;
         padding-left: 45px;
     }
 </style>
 
-<section class="home-section">
-    <nav>
-        <div class="sidebar-button">
-            <i class='bx bx-menu sidebarBtn'></i>
-            <div>
-                <label style="padding-top: 10px;">
-                    <h3>Add Admin Account</h3>
-                </label>
-            </div>
-        </div>
-    </nav>
 
-    <div class="container home-content content">
-        {% for message in messages %}
-        {% if message.tags == 'warning' %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="padding-top: 5px;">
-            <strong>{{ form.errors }}</strong>
-        </div>
-        {% elif message.tags == 'success' %}
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script>
-            var m = "{{ message }}";
-            swal("Account added! ", m, "success")
-        </script>
-        {% endif %}
-        {% endfor %}
+<div id="content-wrapper" class="d-flex flex-column">
 
-        <div class="container">
-            <div class="row">
-                <div class="column" style="float: left;">
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <br>
-                        <h3>Admin User Registration</h3>
+    <!---------------------------- Main Content ----------------------------------->
 
-                        <div class="input-field">
-                            <i class="fas fa-user"></i>
-                            {{form.username}}
-                        </div>
-                        <div class="input-field">
-                            <i class="fa-solid fa-at"></i>
-                            {{form.email}}
-                        </div>
+    <div id="content" class="main-content">
 
-                        <div class="input-field">
-                            <i class="fas fa-lock"></i>
-                            {{form.password1}}
-                        </div>
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-dark topnav topbar mb-4 static-top shadow">
 
-                        <div class="input-field">
-                            <i class="fa-solid fa-rotate-right"></i>
-                            {{form.password2}}
-                        </div>
+            <!-- Sidebar Toggle (Topbar) -->
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+            </button>
 
-                        {{form.adminRole}}
 
-                        <div class="col-12" align="center">
-                            <input type="checkbox" onclick="myFunction()" class="custom-control-input"
-                                id="customControlInline">
-                            <label class="custom-control-label" for="customControlInline">Show password</label>
-                        </div>
-                        <br>
-                        <input type="submit" class="btn" value="Register">
-                    </form>
-                </div>
-                <div class="column">
-                    <div class="container" align="center">
-                        <img src="{% static 'img/add-user.svg' %}" alt="add-admin-user">
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
+
+                <div class="topbar-divider d-none d-sm-block"></div>
+
+                <!-- Nav Item - User Information -->
+                <li class="nav-item dropdown no-arrow">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, </span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small"></span>
+                        <img class="img-profile rounded-circle"
+                            src="{% static 'img/sb-dashboard/undraw_profile.svg' %}">
+                    </a>
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">
+                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Update Profile
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="">Logout</a>
                     </div>
                 </div>
             </div>
         </div>
-        <br><br>
+
+
+        <!----------------------------------- Begin Page Content ----------------------------->
+
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="container">
+                    <div class="container" style="margin-bottom: 0;">
+                        <div class="container" style="margin-bottom: 0;">
+                            <div class="col-xl-12 col-md-12 mb-4">
+                                {% for message in messages %}
+                                {% if message.tags == 'warning' %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert"
+                                    style="padding-top: 5px;">
+                                    <strong>{{ form.errors }}</strong>
+                                </div>
+                                {% elif message.tags == 'success' %}
+                                <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                                <script>
+                                    var m = "{{ message }}";
+                                    swal("Account added! ", m, "success")
+                                </script>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!------------------- Content Row ------------------->
+            <div class="row">
+
+                <div class="col-xl-6 col-md-6 mb-4">
+                    <div class="container">
+                        <div class="container">
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <br>
+                                <h3>Admin User Registration</h3>
+
+                                <div class="input-field">
+                                    <i class="fas fa-user"></i>
+                                    {{form.username}}
+                                </div>
+                                <div class="input-field">
+                                    <i class="fa-solid fa-at"></i>
+                                    {{form.email}}
+                                </div>
+
+                                <div class="input-field">
+                                    <i class="fas fa-lock"></i>
+                                    {{form.password1}}
+                                </div>
+
+                                <div class="input-field">
+                                    <i class="fa-solid fa-rotate-right"></i>
+                                    {{form.password2}}
+                                </div>
+
+                                {{form.adminRole}}
+
+                                <div class="col-12" align="center">
+                                    <input type="checkbox" onclick="myFunction()" class="custom-control-input"
+                                        id="customControlInline">
+                                    <label class="custom-control-label" for="customControlInline">Show password</label>
+                                </div>
+                                <br>
+                                <input type="submit" class="btn" value="Register">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xl-6 col-md-6 mb-4">
+                    <div class="container">
+                        <div class="container">
+                            <img src="{% static 'img/add-user.svg' %}" alt="add-admin-user">
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+        <!-- /.container-fluid -->
+
     </div>
+    <!-- End of Main Content -->
+
+    <!------------------------------------ Footer ------------------------------------->
+    <footer class="sticky-footer footer ">
+        <div class="container my-auto">
+            <div class="copyright text-gray-700 text-center my-auto">
+                <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
 
 
-    <script type="text/javascript">
-        function myFunction() {
-            var x = document.getElementById("regpass");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
+
+<script type="text/javascript">
+    function myFunction() {
+        var x = document.getElementById("regpass");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
         }
+    }
 
-    </script>
-
-</section>
+</script>
 
 
 {% endblock %}

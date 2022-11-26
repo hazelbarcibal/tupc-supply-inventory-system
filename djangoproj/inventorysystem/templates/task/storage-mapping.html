@@ -1,4 +1,4 @@
-{% extends 'task/home.html' %}
+{% extends 'task/dashboard.html' %}
 {% load static %}
 
 
@@ -6,7 +6,6 @@
 {% block content %}
 
 <title> Storage Mapping </title>
-<link rel="stylesheet" href="{% static 'css/supply-delivery.css' %}">
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
@@ -17,64 +16,214 @@
 <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
+<style>
+    .kahon {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 10px;
+        background: rgb(255, 255, 255);
+        padding: 32px 25px;
 
-<script type="text/javascript" src="{% static 'js/llqrcode.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/plusone.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/webqr.js' %}"></script>
+    }
 
-<section class="home-section">
-    <nav>
-        <div class="sidebar-button">
-            <i class='bx bx-menu sidebarBtn'></i>
-            <div>
-                <label style="padding-top: 10px;">
-                    <h2>Storage Mapping</h2>
-                </label>
+    hr {
+        border: 1px solid;
+        background-color: black;
+        border-radius: 5px;
+    }
+</style>
+
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!---------------------------- Main Content ----------------------------------->
+
+    <div id="content" class="main-content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-dark topnav topbar mb-4 static-top shadow">
+
+            <!-- Sidebar Toggle (Topbar) -->
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+            </button>
+
+
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
+
+                <div class="topbar-divider d-none d-sm-block"></div>
+
+                <!-- Nav Item - User Information -->
+                <li class="nav-item dropdown no-arrow">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, </span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small"></span>
+                        <img class="img-profile rounded-circle"
+                            src="{% static 'img/sb-dashboard/undraw_profile.svg' %}">
+                    </a>
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">
+                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Update Profile
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="">Logout</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
 
-    <div class="container home-content" style="width: 98%;">
-        <br>
-        <div class="container" align="center">
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <a type="button" href="#supply" class="btn btn-outline-secondary">Supply</a>
-                <a type="button" href="#equipment" class="btn btn-outline-secondary">Equipment</a>
+
+        <!----------------------------------- Begin Page Content ----------------------------->
+
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="container">
+                    <div class="container" style="margin-bottom: 0;">
+                        <div class="container" style="margin-bottom: 0;">
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-900">Storage Mapping</h1>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
+
+
+
+            <!------------------- Content Row ------------------->
+            <div class="row">
+
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <div class="container">
+                        <div class="kahon">
+                            <h3 align="center">Supply</h3>
+                            <hr>
+                            <table id="supplymappingTable" class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Item No.</th>
+                                        <th>Item Name</th>
+                                        <th>Rack No.</th>
+                                        <th>Layer No.</th>
+                                        <th>Cabinet No.</th>
+                                        <th>Shelf No.</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for x in info %}
+                                    <tr class="edittr">
+                                        <td id="supplyID">{{x.supplyStoragemapping_id}}</td>
+                                        <td>{{x.supplyItemName}}</td>
+                                        <td>{{x.supplyRackNo}}</td>
+                                        <td>{{x.supplyLayerNo}}</td>
+                                        <td>{{x.supplyCabinetNo}}</td>
+                                        <td>{{x.supplyShelfNo}}</td>
+                                        <td><a class="btn btn-success editBtn" name="editBtn">UPDATE</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <!------------------- Content Row ------------------->
+            <div class="row">
+
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <div class="container">
+                        <div class="kahon">
+                            <h3 align="center">Equipment</h3>
+                            <hr>
+                            <table id="equipmentmappingTable" class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Item No.</th>
+                                        <th>Equipment Name</th>
+                                        <th>Location</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for x in info1 %}
+                                    <tr class="edittr">
+                                        <td id="equipmentID">{{x.equipmentStoragemapping_id}}</td>
+                                        <td>{{x.equipmentItemName}}</td>
+                                        <td>{{x.equipmentLocation}}</td>
+                                        <td><a class="btn btn-success editBtn1" name="editBtn1">UPDATE</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
         </div>
-        
-        <br>
-        <div class="kahon" id="supply">
-            <h3 align="center">Supply</h3>
-            <hr>
-            <table id="supplymappingTable" class="table table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Item No.</th>
-                        <th>Item Name</th>
-                        <th>Rack No.</th>
-                        <th>Layer No.</th>
-                        <th>Cabinet No.</th>
-                        <th>Shelf No.</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for x in info %}
-                    <tr class="edittr">
-                        <td id="supplyID">{{x.supplyStoragemapping_id}}</td>
-                        <td>{{x.supplyItemName}}</td>
-                        <td>{{x.supplyRackNo}}</td>
-                        <td>{{x.supplyLayerNo}}</td>
-                        <td>{{x.supplyCabinetNo}}</td>
-                        <td>{{x.supplyShelfNo}}</td>
-                        <td><a class="btn btn-success editBtn" name="editBtn">UPDATE</a></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+        <!-- /.container-fluid -->
+
     </div>
+    <!-- End of Main Content -->
+
+    <!------------------------------------ Footer ------------------------------------->
+    <footer class="sticky-footer footer ">
+        <div class="container my-auto">
+            <div class="copyright text-gray-700 text-center my-auto">
+                <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+
 
     <!----- UPDATE SUPPLY STORAGE MODAL ----->
     <div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -82,7 +231,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
                 </div>
                 <div class="modal-body">
 
@@ -93,28 +244,28 @@
 
                         <div class="col-md-12">
                             <label class="form-label">Item name:</label>
-                            <input type="number" class="form-control" id="itemname" name="supplyItemName" readonly>
+                            <input type="text" class="form-control" id="itemname" name="supplyItemName" readonly>
                         </div>
 
                         <div class="col-md-12">
                             <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
                                 class="form-label">Rack No. :</label>
-                            <input type="number" class="form-control" id="rackno" name="supplyRackNo">
+                            <input type="number" class="form-control" id="rackno" name="supplyRackNo" min="1" required>
                         </div>
                         <div class="col-md-12">
                             <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
                                 class="form-label">Layer No. :</label>
-                            <input type="number" class="form-control" id="layerno" name="supplyLayerNo">
+                            <input type="number" class="form-control" id="layerno" name="supplyLayerNo" min="1" required>
                         </div>
                         <div class="col-md-12">
                             <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
                                 class="form-label">Cabinet No. :</label>
-                            <input type="number" class="form-control" id="cabinetno" name="supplyCabinetNo">
+                            <input type="number" class="form-control" id="cabinetno" name="supplyCabinetNo" min="1" required>
                         </div>
                         <div class="col-md-12">
                             <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
                                 class="form-label">Shelf No. :</label>
-                            <input type="number" class="form-control" id="shelfno" name="supplyShelfNo">
+                            <input type="number" class="form-control" id="shelfno" name="supplyShelfNo" min="1" required>
                         </div>
 
                         <div class="modal-footer">
@@ -151,33 +302,7 @@
         });
     </script>
 
-    <!-- Datatable -->
-    <div class="container home-content" style="width: 98%;" id="equipment">
-        <div class="kahon">
-            <h3 align="center">Equipment</h3>
-            <hr>
-            <table id="equipmentmappingTable" class="table table-striped" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>Item No.</th>
-                        <th>Equipment Name</th>
-                        <th>Location</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for x in info1 %}
-                    <tr class="edittr">
-                        <td id="equipmentID">{{x.equipmentStoragemapping_id}}</td>
-                        <td>{{x.equipmentItemName}}</td>
-                        <td>{{x.equipmentLocation}}</td>
-                        <td><a class="btn btn-success editBtn1" name="editBtn1">UPDATE</a></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
+
 
     <!----- UPDATE SUPPLY STORAGE MODAL ----->
     <div class="modal fade" id="openModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -185,7 +310,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <!----- UPDATE SUPPLY STORAGE FORM ---->
@@ -202,8 +329,7 @@
                         <div class="col-md-12">
                             <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
                                 class="form-label">Location:</label>
-                            <!-- <label class="form-label">Location:</label> -->
-                            <input type="text" class="form-control" id="location" name="equipmentLocation">
+                            <input type="text" class="form-control" id="location" name="equipmentLocation" required>
                         </div>
 
                         <div class="modal-footer">
@@ -240,7 +366,6 @@
         });
     </script>
 
-    <br><br><br><br>
 
     <script>
         $(document).ready(function () {
@@ -261,6 +386,5 @@
         });
     </script>
 
-    </div>
 
-    {% endblock %}
+{% endblock %}

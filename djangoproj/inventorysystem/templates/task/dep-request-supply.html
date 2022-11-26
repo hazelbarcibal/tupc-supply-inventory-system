@@ -1,179 +1,395 @@
 {% load static %}
-
 <!DOCTYPE html>
-
-<html lang="en" dir="ltr">
+<html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="{% static 'css/new.css' %}">
-  <!-- Boxicons CDN Link -->
-  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-  <!-- Bootstrap cdn -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin-2.css' %}" rel="stylesheet">
+    <link rel="icon" href="{% static 'img/TUP LOGO.png'%}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="{% static 'img/TUP LOGO.png'%}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    
+
 </head>
 
-<link rel="stylesheet" type="text/css" href="{% static 'vendor/icofont/icofont.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'vendor/boxicons/css/boxicons.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'vendor/owl.carousel/assets/owl.carousel.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'vendor/venobox/venobox.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'vendor/remixicon/remixicon.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'vendor/aos/aos.css' %}">
-
 <style>
-  .back-to-top {
-    position: fixed;
-    display: none;
-    right: 15px;
-    bottom: 15px;
-    z-index: 99999;
-  }
+    .kahon {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    background: rgb(255, 255, 255);
+    padding: 32px 25px;
 
-  .back-to-top i {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    width: 40px;
-    height: 40px;
-    border-radius: 4px;
-    background: #829D36;
-    color: #ffff;
-    transition: all 0.4s;
-  }
+    }
 
-  .back-to-top i:hover {
-    background: #ffff;
-    color: #829D36;
-  }
-
-  a {
-    text-decoration: none;
-  }
+    hr{
+    border: 1px solid ;
+    background-color: black;
+    border-radius: 5px;
+    }
 </style>
 
+<body id="page-top">
 
-<body>
-  <div class="sidebar">
-    <div class="logo-details">
-      <i><img src="{% static 'img/TUP LOGO.png' %}"
-          style="width:50px; height:50px; padding-left: 5px; padding-top:5px"></img></i>
-      <span id="label" class="logo_name">Supply Inventory System</span>
-    </div>
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
+        <!-- Sidebar -->
+        <ul class="navbar-nav bckgrnd sidebar sidebar-dark accordion" id="accordionSidebar">
 
-    <ul class="nav-links">
-      <br>
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+                <div class="sidebar-brand-icon logo-band">
+                  <br>
+                    <!-- <i><img src="{% static 'img/TUP LOGO.png' %}"
+                        style="width:50px; height:50px; padding-left: 5px; padding-top:5px;"></img></i> -->
+                    <div class="row">
+                      <i><img src="{% static 'img/TUP LOGO.png' %}"
+                        style="width:50px; height:50px; padding-left: 5px; padding-top:5px;"></img></i>
+                    </div>
+                    <label><span style="color: red;">Supply</span> <br>Inventory System</label>
+                </div>
+                <!-- <div class="sidebar-brand-text mx-3">Supply Inventory <br>System</div> -->
+            </a>
+            <br>
 
-      <li>
-        <a class="" href="{% url 'inventorysystem-depRequestSupply' %}" role="button" aria-expanded="false">
-          <i class='bx bx-paperclip'></i>
-          <span id="label2" class="links_name">Request Supply</span>
-        </a>
-      </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
 
-      <li>
-        <a class="" href="{% url 'inventorysystem-depRequestEquipment' %}" role="button" aria-expanded="false">
-          <i class='bx bx-devices'></i>
-          <span id="label2" class="links_name">Request Equipment</span>
-        </a>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Divider -->
+            <hr class="sidebar-divider">
 
-      </li>
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
 
-      <li class="log_out">
-        <a href="{% url 'inventorysystem-usersLogin' %}">
-          <i class='bx bx-log-out'></i>
-          <span class="links_name">Log out</span>
-        </a>
-      </li>
-    </ul>
-  </div>
+            <!-- Nav Item  -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'inventorysystem-depRequestSupply' %}">
+                  <i class='bx bx-paperclip'></i>
+                  <span>Request Supply</span></a>
+            </li>
 
+            <!-- Nav Item  -->
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'inventorysystem-depRequestEquipment' %}">
+                  <i class='bx bx-devices'></i>
+                  <span>Request Equipment</span></a>
+            </li>
 
-  {% block content %}
-  <title> Request Supply </title>
-  <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
-
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
-  <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-
-
-  <section class="home-section">
-    <nav>
-      <div class="sidebar-button">
-        <i class='bx bx-menu sidebarBtn'></i>
-        <div>
-          <label style="padding-top: 10px;">
-            <h2>Request Supply</h2>
-          </label>
-        </div>
-      </div>
-    </nav>
-    <br>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
 
 
-    <div class="container home-content">
-      <div class="container">
-        <div class="col-12">
-          <h4>Welcome, <span style="text-decoration: underline; font-weight: 600;">{{request.user}}</span> !</h4>
-        </div>
-      </div>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
 
-      <br>
-      <div class="container" align="center">
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-          <a type="button" href="#mainstorage" class="btn btn-outline-secondary">Mainstorage</a>
-          <a type="button" href="#requestSupply" class="btn btn-outline-secondary">Request Supply</a>
-          <a type="button" href="#withdrawnItem" class="btn btn-outline-secondary">Withdraw Supply Item</a>
-        </div>
-      </div>
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        {% block content %}
+        <title>Request Supply</title>
+        <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
+      
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
 
-      <br>
-      <div class="container" id="mainstorage">
-        <div class="kahon">
-          <h3 align="center">Mainstorage</h3>
-          <hr>
-          <br>
-          <!-- Datatable -->
-          <table id="MainStorage" class="table table-striped" style="width:100%">
-            <thead>
-              <tr>
-                <th style="text-align: center;">Item no.</th>
-                <th style="text-align: center;">Description</th>
-                <th style="text-align: center;">Unit</th>
-                <th style="text-align: center;">Quantity</th>
-                <th style="text-align: center;">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for x in info1 %}
-              <tr class="edittr">
-                <td align="center">{{x.limit_id}}</td>
-                <td align="center">{{x.limit_description}}</td>
-                <td align="center">{{x.limit_unit}}</td>
-                <td align="center">{{x.limit_quantity}}</td>
-                <td align="center">
-                  <button class="btn btn-success editBtn" style="margin-bottom: 10px;">Request</button>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+           <!---------------------------- Main Content ----------------------------------->
+
+            <div id="content" class="main-content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-dark topnav topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto"> 
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, {{request.user}}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-100 small"></span>
+                                <img class="img-profile rounded-circle"
+                                    src="{% static 'img/sb-dashboard/undraw_profile.svg' %}">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Update Profile
+                                </a>
+                                
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+
+                <!----------------------------------- Begin Page Content ----------------------------->
+
+              
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="row">
+                      <div class="container">
+                        <div class="container" style="margin-bottom: 0;">
+                          <div class="container" style="margin-bottom: 0;">
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                              <h1 class="h3 mb-0 text-gray-900">Request Supply</h1>
+                          </div>
+      
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+
+
+                    <!------------------- Content Row ------------------->
+                    <div class="row">
+
+                      <div class="col-xl-12 col-md-12 mb-4">
+                        <div class="container">
+                          <div class="container">
+                            <div class="kahon">
+                              <h3 align="center">Mainstorage</h3>
+                              <hr>
+                              <br>
+                              <table id="MainStorage" class="table table-striped" style="width:100%">
+                                <thead>
+                                  <tr>
+                                    <th style="text-align: center;">Item no.</th>
+                                    <th style="text-align: center;">Description</th>
+                                    <th style="text-align: center;">Unit</th>
+                                    <th style="text-align: center;">Quantity</th>
+                                    <th style="text-align: center;">Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for x in info1 %}
+                                  <tr class="edittr">
+                                    <td align="center">{{x.limit_id}}</td>
+                                    <td align="center">{{x.limit_description}}</td>
+                                    <td align="center">{{x.limit_unit}}</td>
+                                    <td align="center">{{x.limit_quantity}}</td>
+                                    <td align="center">
+                                      <button class="btn btn-success editBtn" style="margin-bottom: 10px;">Request</button>
+                                    </td>
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+
+                  <!------------------- Content Row ------------------->
+                  <div class="row">
+
+                    <div class="col-xl-12 col-md-12 mb-4">
+                      <div class="container">
+                        <div class="container">
+                          <div class="kahon">
+                            <h3 align="center">Request Supply</h3>
+                            <hr>
+                            <br>
+                            <table id="depRequestTable" class="table table-striped" style="width:100%">
+                              <thead>
+                                <tr>
+                                  <th style="text-align: center;">Description</th>
+                                  <th style="text-align: center;">Unit</th>
+                                  <th style="text-align: center;">Requested Quantity</th>
+                                  <th style="text-align: center;">Accepted Quantity</th>
+                                  <th style="text-align: center;">Status</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for x in info %}
+                                <tr class="edittr">
+                                  <td align="center">{{x.status_supply_description}}</td>
+                                  <td align="center">{{x.status_supply_unit}}</td>
+                                  <td align="center">{{x.status_supply_quantity}}</td>
+                                  <td align="center">{{x.status_supply_acceptquantity}}</td>
+                                  <td align="center">{{x.status_supply_status}}</td>
+                                </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+
+
+
+                  <!------------------- Content Row ------------------->
+                  <div class="row">
+
+                    <div class="col-xl-12 col-md-12 mb-4">
+                      <div class="container">
+
+                        <div class="container">
+                          <div class="kahon">
+                            <h3 align="center">Withdrawn Supply Item</h3>
+                            <hr>
+                            <br>
+                            <table id="depwithdrawnTable" class="table table-striped" style="width:100%">
+                              <thead>
+                                <tr>
+                                  <th style="text-align: center;">Description</th>
+                                  <th style="text-align: center;">Unit</th>
+                                  <th style="text-align: center;">Quantity</th>
+                                  <th style="text-align: center;">Date & Time</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for x in info2 %}
+                                <tr class="edittr">
+                                  <td align="center">{{x.withdraw_supply_description}}</td>
+                                  <td align="center">{{x.withdraw_supply_unit}}</td>
+                                  <td align="center">{{x.withdraw_supply_quantity}}</td>
+                                  <td align="center">{{x.current_date}}</td>
+                                </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      
+                  </div>
+
+
+                    
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+
+            <script>
+              $(document).ready(function () {
+                var table = $('#MainStorage').DataTable({
+                  rowReorder: {
+                    selector: 'td:nth-child(2)'
+                  },
+                  responsive: true
+                });
+              });
+        
+              $(document).ready(function () {
+                var table = $('#depRequestTable').DataTable({
+                  rowReorder: {
+                    selector: 'td:nth-child(2)'
+                  },
+                  responsive: true
+                });
+              });
+        
+              $(document).ready(function () {
+                var table = $('#depwithdrawnTable').DataTable({
+                  rowReorder: {
+                    selector: 'td:nth-child(2)'
+                  },
+                  responsive: true
+                });
+              });
+        
+            </script>
+
+<script type="text/javascript">
+
+  $(document).ready(function () {
+    $('.editBtn').on('click', function () {
+
+      $('#openModal').modal('show');
+      $tr = $(this).closest('tr');
+      var data = $tr.children("td").map(function () {
+        return $(this).text();
+      }).get();
+
+      console.log(data);
+      $('h5.modal-title').html('Request Supply: ' + data[1]);
+      $('#editId').val(data[0]);
+      $('#description').val(data[1]);
+      $('#unit').val(data[2]);
+      $('#quantity').val(data[3]);
+
+    });
+  });
+
+</script>
+
+{% for message in messages %}
+    {% if message.tags == 'info' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+      var m = "{{ message }}";
+      swal("Notice: ", m, "info")
+    </script>
+    {% elif message.tags == 'success' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+      var m = "{{ message }}";
+      swal("Success! ", m, "success")
+    </script>
+    {% endif %}
+    {% endfor %}
 
 
     <!----- UPDATE MODAL ----->
@@ -182,7 +398,9 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel"></h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
           </div>
           <div class="modal-body">
 
@@ -224,171 +442,66 @@
       </div>
     </div>
 
-    <script type="text/javascript">
 
-      $(document).ready(function () {
-        $('.editBtn').on('click', function () {
+            <!------------------------------------ Footer ------------------------------------->
+            <footer class="sticky-footer footer ">
+                <div class="container my-auto">
+                    <div class="copyright text-gray-700 text-center my-auto">
+                        <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
 
-          $('#openModal').modal('show');
-          $tr = $(this).closest('tr');
-          var data = $tr.children("td").map(function () {
-            return $(this).text();
-          }).get();
-
-          console.log(data);
-          $('h5.modal-title').html('Request Supply: ' + data[1]);
-          $('#editId').val(data[0]);
-          $('#description').val(data[1]);
-          $('#unit').val(data[2]);
-          $('#quantity').val(data[3]);
-
-        });
-      });
-
-    </script>
-
-    <div class="container home-content" id="requestSupply">
-      <!-- Datatable -->
-      <div class="container">
-        <div class="kahon">
-          <h3 align="center">Request Supply</h3>
-          <hr>
-          <br>
-          <table id="depRequestTable" class="stripe cell-border hover" style="width:100%">
-            <thead>
-              <tr>
-                <th>Description</th>
-                <th>Unit</th>
-                <th>Requested Quantity</th>
-                <th>Accepted Quantity</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for x in info %}
-              <tr class="edittr">
-                <td>{{x.status_supply_description}}</td>
-                <td>{{x.status_supply_unit}}</td>
-                <td>{{x.status_supply_quantity}}</td>
-                <td>{{x.status_supply_acceptquantity}}</td>
-                <td>{{x.status_supply_status}}</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
         </div>
-      </div>
+        <!-- End of Content Wrapper -->
+
     </div>
+    <!-- End of Page Wrapper -->
 
 
-    <div class="container home-content" id="withdrawnItem">
-      <!-- Datatable -->
-      <div class="container">
-        <div class="kahon">
-          <h3 align="center">Withdrawn Supply Item</h3>
-          <hr>
-          <br>
-          <table id="depwithdrawnTable" class="stripe cell-border hover" style="width:100%">
-            <thead>
-              <tr>
-                <th>Description</th>
-                <th>Unit</th>
-                <th>Quantity</th>
-                <th>Date & Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for x in info2 %}
-              <tr class="edittr">
-                <td>{{x.withdraw_supply_description}}</td>
-                <td>{{x.withdraw_supply_unit}}</td>
-                <td>{{x.withdraw_supply_quantity}}</td>
-                <td>{{x.current_date}}</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
-
-    <br><br><br><br>
-    <script>
-      $(document).ready(function () {
-        var table = $('#MainStorage').DataTable({
-          rowReorder: {
-            selector: 'td:nth-child(2)'
-          },
-          responsive: true
-        });
-      });
-
-      $(document).ready(function () {
-        var table = $('#depRequestTable').DataTable({
-          rowReorder: {
-            selector: 'td:nth-child(2)'
-          },
-          responsive: true
-        });
-      });
-
-      $(document).ready(function () {
-        var table = $('#depwithdrawnTable').DataTable({
-          rowReorder: {
-            selector: 'td:nth-child(2)'
-          },
-          responsive: true
-        });
-      });
-
-    </script>
 
     {% endblock %}
 
-    <script>
-      let sidebar = document.querySelector(".sidebar");
-      let sidebarBtn = document.querySelector(".sidebarBtn");
-      sidebarBtn.onclick = function () {
-        sidebar.classList.toggle("active");
-        if (sidebar.classList.contains("active")) {
-          sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
-        } else
-          sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
-      }
-    </script>
 
-    {% for message in messages %}
-    {% if message.tags == 'info' %}
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-      var m = "{{ message }}";
-      swal("Notice: ", m, "info")
-    </script>
-    {% elif message.tags == 'success' %}
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-      var m = "{{ message }}";
-      swal("Success! ", m, "success")
-    </script>
-    {% endif %}
-    {% endfor %}
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-      crossorigin="anonymous"></script>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!------------------------------- JAVASCRIPT ----------------------------------------->
+    
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
-    <script src="{% static 'vendor/owl.carousel/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-    <script src="{% static 'vendor/venobox/venobox.min.js' %}"></script>
-    <script src="{% static 'vendor/waypoints/jquery.waypoints.min.js' %}"></script>
-    <script src="{% static 'vendor/counterup/counterup.min.js' %}"></script>
-    <script src="{% static 'vendor/aos/aos.js' %}"></script>
-
+    
+  
     <!-- Main JS File -->
-    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+    
+    
+
 
 
 </body>

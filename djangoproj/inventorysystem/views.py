@@ -19,7 +19,10 @@ def home(request):
     return render(request, 'task/home.html')
 
 def index(request):
-    return render(request, 'task/index.html')   
+    return render(request, 'task/index.html')  
+
+def dashboard(request):
+    return render(request, 'task/dashboard.html') 
 
 #--------- LOGIN --------------------
 def usersLogin(request):
@@ -39,7 +42,7 @@ def usersLogin(request):
         (user1 is not None and user1.is_staff):
             login(request, user1)
             messages.success(request, 'Hello ' + username1 + '!')
-            return redirect('inventorysystem-home')
+            return redirect('inventorysystem-dashboard')
         else:
             messages.info(request, 'Invalid credentials. Please try again.') 
 
