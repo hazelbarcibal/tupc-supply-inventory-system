@@ -72,410 +72,409 @@
     }
 
     .kahon {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 10px;
-    background: rgb(255, 255, 255);
-    padding: 32px 25px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 10px;
+        background: rgb(255, 255, 255);
+        padding: 32px 25px;
 
-}
+    }
 
-hr{
-border: 1px solid ;
-background-color: black;
-border-radius: 5px;
-}
+    hr {
+        border: 1px solid;
+        background-color: black;
+        border-radius: 5px;
+    }
 </style>
 
 
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
 
-        <!---------------------------- Main Content ----------------------------------->
+    <!---------------------------- Main Content ----------------------------------->
 
-         <div id="content" class="main-content">
+    <div id="content" class="main-content">
 
-             <!-- Topbar -->
-            <nav class="navbar navbar-expand navbar-dark topnav topbar mb-4 static-top shadow">
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-dark topnav topbar mb-4 static-top shadow">
 
-                <!-- Sidebar Toggle (Topbar) -->
-                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                     <i class="fa fa-bars"></i>
-                </button>
+            <!-- Sidebar Toggle (Topbar) -->
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+            </button>
 
 
-                <!-- Topbar Navbar -->
-                <ul class="navbar-nav ml-auto">
-                     
-                    <div class="topbar-divider d-none d-sm-block"></div>
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
 
-                     <!-- Nav Item - User Information -->
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, </span>
-                            <span class="mr-2 d-none d-lg-inline text-gray-100 small"></span>
-                            <img class="img-profile rounded-circle"
-                                src="{% static 'img/sb-dashboard/undraw_profile.svg' %}">
+                <div class="topbar-divider d-none d-sm-block"></div>
+
+                <!-- Nav Item - User Information -->
+                <li class="nav-item dropdown no-arrow">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, Admin!</span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small"></span>
+                        <img class="img-profile rounded-circle"
+                            src="{% static 'img/sb-dashboard/undraw_profile.svg' %}">
+                    </a>
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">
+                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Update Profile
                         </a>
-                         <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                             aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                 Update Profile
-                            </a>
-                             
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                 Logout
-                            </a>
-                        </div>
-                    </li>
 
-                </ul>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
+                        </a>
+                    </div>
+                </li>
 
-            </nav>
-             <!-- End of Topbar -->
+            </ul>
 
-             <!-- Logout Modal-->
-                <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                            <div class="modal-footer">
-                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                                <a class="btn btn-primary" href="">Logout</a>
-                            </div>
-                        </div>
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="{% url 'inventorysystem-index' %}">Logout</a>
                     </div>
                 </div>
+            </div>
+        </div>
 
 
-             <!----------------------------------- Begin Page Content ----------------------------->
+        <!----------------------------------- Begin Page Content ----------------------------->
 
-           
-             <div class="container-fluid">
 
-                 <!-- Page Heading -->
-                 <div class="row">
-                    <div class="container">
-                      <div class="container" style="margin-bottom: 0;">
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="container">
+                    <div class="container" style="margin-bottom: 0;">
                         <div class="container" style="margin-bottom: 0;">
-                          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-900">Supplies Dlivery</h1>
-                        </div>
-    
-                        </div>
-                      </div>
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-900">Supplies Delivery</h1>
+                            </div>
 
+                        </div>
                     </div>
-                  </div>
 
-                 <!------------------- Content Row ------------------->
-                 <div class="row">
+                </div>
+            </div>
 
-                     <div class="col-xl-12 col-md-12 mb-4">
-                        <div class="container">
-                            <div class="kahon">
-                                <h3 align="center">Mainstorage</h3>
-                                <hr>
-                                <br>
-                                <table id="mainstorage" class="table table-striped" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th style="text-align: center;">Delivery No.</th>
-                                            <th style="text-align: center;">Description</th>
-                                            <th style="text-align: center;">Unit</th>
-                                            <th style="text-align: center;">Mainstorage Quantity</th>
-                                            <th style="text-align: center;">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for x in info1 %}
-                                        <tr class="edittr">
-                                            <td id="deliveryID" align="center">{{x.supplymainstorage_id}}</td>
-                                            <td id="sdescription" align="center">{{x.supplymainstorage_description}}</td>
-                                            <td id="sunit" align="center">{{x.supplymainstorage_unit}}</td>
-                                            <td id="squantity" align="center">{{x.supplymainstorage_quantity}}</td>
-                                            <td align="center">
-                                                <button class="btn btn-success editBtn" style="margin-bottom: 10px;"
-                                                    name="editBtn">UPDATE</button>
-                                            </td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                     </div>
+            <!------------------- Content Row ------------------->
+            <div class="row">
 
-                     
-                 </div>
-
-                <!---------------------- UPDATE MODAL -------------------->
-                <div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel"></h5>
-                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                            
-                                <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
-                                    {% csrf_token %}
-        
-                                    <input type="hidden" id="editId" name="supplymainstorage_id" value="" readonly>
-        
-                                    <div class="col-md-12">
-                                        <label class="form-label">Description:</label>
-                                        <input type="text" class="form-control" id="description"
-                                            name="supplymainstorage_description" readonly>
-                                    </div>
-        
-                                    <div class="col-md-12">
-                                        <label class="form-label">Unit:</label>
-                                        <input type="text" class="form-control" id="unit" name="supplymainstorage_unit"
-                                            readonly>
-                                    </div>
-        
-                                    <div class="col-md-12">
-                                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                                            class="form-label">Add Quantity:</label>
-                                        <input type="number" min="1" class="form-control" id="quantity"
-                                            name="supplymainstorage_RequestQuantity" required>
-                                    </div>
-        
-                                    <div class="modal-footer">
-                                        <div class="col-12">
-                                            <button style="float: right;" type="submit" name="delivery_update" class="btn btn-primary">ADD</button>
-                                        </div>
-                                    </div>
-                                </form>
-        
-                            </div>
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <div class="container">
+                        <div class="kahon">
+                            <h3 align="center">Mainstorage</h3>
+                            <hr>
+                            <br>
+                            <table id="mainstorage" class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;">Delivery No.</th>
+                                        <th style="text-align: center;">Description</th>
+                                        <th style="text-align: center;">Unit</th>
+                                        <th style="text-align: center;">Mainstorage Quantity</th>
+                                        <th style="text-align: center;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for x in info1 %}
+                                    <tr class="edittr">
+                                        <td id="deliveryID" align="center">{{x.supplymainstorage_id}}</td>
+                                        <td id="sdescription" align="center">{{x.supplymainstorage_description}}</td>
+                                        <td id="sunit" align="center">{{x.supplymainstorage_unit}}</td>
+                                        <td id="squantity" align="center">{{x.supplymainstorage_quantity}}</td>
+                                        <td align="center">
+                                            <button class="btn btn-success editBtn" style="margin-bottom: 10px;"
+                                                name="editBtn">UPDATE</button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
 
 
-                <script type="text/javascript">
-                    $(document).ready(function () {
-                        $('.editBtn').on('click', function () {
-        
-                            $('#openModal').modal('show');
-                            $tr = $(this).closest('tr');
-                            var data = $tr.children("td").map(function () {
-                                return $(this).text();
-                            }).get();
-        
-                            console.log(data);
-                            $('h5.modal-title').html('Add Item Delivery for: ' + data[1]);
-                            $('#editId').val(data[0]);
-                            $('#description').val(data[1]);
-                            $('#unit').val(data[2]);
-                        });
-                    });
-                </script>
+            </div>
 
+            <!---------------------- UPDATE MODAL -------------------->
+            <div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"></h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
 
-                 <!------------------------------- Content Row ------------------------------------->
+                            <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
+                                {% csrf_token %}
 
-             
+                                <input type="hidden" id="editId" name="supplymainstorage_id" value="" readonly>
 
-                 <!-- Content Row -->
-                 <div class="row" >
-                    <div class="col-xl-12 col-md-12 mb-4">
-                        <div class="container">
-                            <div class="kahon">
-                                <h3>Deliver New item</h3>
-                                <br>
-                                <form class="row g-3" action="" method="POST">
-                                    {% csrf_token %}
-                                    <div class="col-md-12">
-                                        <label class="form-label">Description: </label>
-                                        {{form.delivery_supply_description}}
-                                        <datalist id="deliveryItemname">
-                                            <option id="1" value="Blue Ballpen"></option>
-                                            <option id="2" value="Black Ballpen"></option>
-                                            <option id="3" value="Long Bondpaper"></option>
-                                            <option id="4" value="Short Bondpaper"></option>
-                                            <option id="5" value="A4 Bondpaper"></option>
-                                            <option id="6" value="Long Folder"></option>
-                                            <option id="7" value="Short Folder"></option>
-                                            <option id="8" value="Expladable Folder"></option>
-                                            <option id="9" value="Long Envelope"></option>
-                                            <option id="10" value="Short Envelope"></option>
-                                            <option id="11" value="Expladable Envelope"></option>
-                                            <option id="12" value="Glue"></option>
-                                            <option id="13" value="Black Marker"></option>
-                                            <option id="14" value="Blue Marker"></option>
-                                            <option id="15" value="White Board Marker"></option>
-                                            <option id="16" value="Paper Clip"></option>
-                                            <option id="17" value="Pencil"></option>
-                                            <option id="18" value="Stapler"></option>
-                                            <option id="19" value="Packing Tape"></option>
-                                            <option id="20" value="Scotch Tape"></option>
-                                            <option id="21" value="Tape Dispenser"></option>
-                                        </datalist>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Unit: </label><br>
-                                        {{form.delivery_supply_unit}}
-                                        <datalist id="deliveryUnit">
-                                            <option id="1" value="Box"></option>
-                                            <option id="2" value="Ream"></option>
-                                            <option id="3" value="Pcs"></option>
-                                            <option id="4" value="Bundle"></option>
-                                            <option id="5" value="Roll"></option>
-                                        </datalist>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Quantity: </label>
-                                        {{form.delivery_supply_quantity}}
-                                    </div>
-                
+                                <div class="col-md-12">
+                                    <label class="form-label">Description:</label>
+                                    <input type="text" class="form-control" id="description"
+                                        name="supplymainstorage_description" readonly>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label class="form-label">Unit:</label>
+                                    <input type="text" class="form-control" id="unit" name="supplymainstorage_unit"
+                                        readonly>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                                        class="form-label">Add Quantity:</label>
+                                    <input type="number" min="1" class="form-control" id="quantity"
+                                        name="supplymainstorage_RequestQuantity" required>
+                                </div>
+
+                                <div class="modal-footer">
                                     <div class="col-12">
-                                        <button type="submit" id="submit" class="btn1" name="delivery_new" style="float: right;"
-                                            value="Submit"> Deliver </button>
+                                        <button style="float: right;" type="submit" name="delivery_update"
+                                            class="btn btn-primary">ADD</button>
                                     </div>
-                                </form>
-                
-                            </div>
-                        </div>
+                                </div>
+                            </form>
 
+                        </div>
                     </div>
-                    
-                 </div>
+                </div>
+            </div>
 
-                 <div class="row">
-                    <div class="col-xl-12 col-md-12 mb-4">
-                        <div class="col-xl-12 col-md-12 mb-4">
-                            <div class="btn-group btn-group-sm" role="group">
-                                <form action="{% url 'export_pdf_suppydelivery'%}">
-                                    <button class="btn btn-sm btn-primary shadow-sm">Convert to PDF</button>
-                                </form>
-                                <form action="{% url 'export_excel'%}">
-                                    <button class="btn btn-sm btn-primary shadow-sm">Export to XLS</button>
-                                </form>
 
-                            </div>
-                            <!-- <div class="container home-content btn1-group">
-                                <form action="{% url 'export_pdf_suppydelivery'%}">
-                                    <button class="fa fa-file-pdf-o right" style="font-size:13px;color:rgb(255, 255, 255)"> Save Data As
-                                        PDF</button>
-                                </form>
-                                <form action="{% url 'export_excel'%}">
-                                    <button class="fa fa-file-excel-o right" style="font-size:13px;color:rgb(255, 255, 255)"> Export Data To
-                                        Excel</button>
-                                </form>
-                            </div> -->
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.editBtn').on('click', function () {
+
+                        $('#openModal').modal('show');
+                        $tr = $(this).closest('tr');
+                        var data = $tr.children("td").map(function () {
+                            return $(this).text();
+                        }).get();
+
+                        console.log(data);
+                        $('h5.modal-title').html('Add Item Delivery for: ' + data[1]);
+                        $('#editId').val(data[0]);
+                        $('#description').val(data[1]);
+                        $('#unit').val(data[2]);
+                    });
+                });
+            </script>
+
+
+            <!------------------------------- Content Row ------------------------------------->
+
+
+
+            <!-- Content Row -->
+            <div class="row">
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <div class="container">
+                        <div class="kahon">
+                            <h3>Deliver New item</h3>
+                            <br>
+                            <form class="row g-3" action="" method="POST">
+                                {% csrf_token %}
+                                <div class="col-md-12">
+                                    <label class="form-label">Description: </label>
+                                    {{form.delivery_supply_description}}
+                                    <datalist id="deliveryItemname">
+                                        <option id="1" value="Blue Ballpen"></option>
+                                        <option id="2" value="Black Ballpen"></option>
+                                        <option id="3" value="Long Bondpaper"></option>
+                                        <option id="4" value="Short Bondpaper"></option>
+                                        <option id="5" value="A4 Bondpaper"></option>
+                                        <option id="6" value="Long Folder"></option>
+                                        <option id="7" value="Short Folder"></option>
+                                        <option id="8" value="Expladable Folder"></option>
+                                        <option id="9" value="Long Envelope"></option>
+                                        <option id="10" value="Short Envelope"></option>
+                                        <option id="11" value="Expladable Envelope"></option>
+                                        <option id="12" value="Glue"></option>
+                                        <option id="13" value="Black Marker"></option>
+                                        <option id="14" value="Blue Marker"></option>
+                                        <option id="15" value="White Board Marker"></option>
+                                        <option id="16" value="Paper Clip"></option>
+                                        <option id="17" value="Pencil"></option>
+                                        <option id="18" value="Stapler"></option>
+                                        <option id="19" value="Packing Tape"></option>
+                                        <option id="20" value="Scotch Tape"></option>
+                                        <option id="21" value="Tape Dispenser"></option>
+                                    </datalist>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Unit: </label><br>
+                                    {{form.delivery_supply_unit}}
+                                    <datalist id="deliveryUnit">
+                                        <option id="1" value="Box"></option>
+                                        <option id="2" value="Ream"></option>
+                                        <option id="3" value="Pcs"></option>
+                                        <option id="4" value="Bundle"></option>
+                                        <option id="5" value="Roll"></option>
+                                    </datalist>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Quantity: </label>
+                                    {{form.delivery_supply_quantity}}
+                                </div>
+
+                                <div class="col-12">
+                                    <button type="submit" id="submit" class="btn1" name="delivery_new"
+                                        style="float: right;" value="Submit"> Deliver </button>
+                                </div>
+                            </form>
+
                         </div>
+                    </div>
 
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-xl-12 col-md-12 mb-4">
+
+                    <div class="row">
                         <div class="container">
-                            <div class="kahon">
-                                <h3 align="center">Delivery Record</h3>
-                                <hr>
-                                <br>
-                                <table id="supplyDeliveryTable" class="table table-striped" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Description</th>
-                                            <th style="text-align: center;">Unit</th>
-                                            <th style="text-align: center;">Delivery Quantity</th>
-                                            <th style="text-align: center;">Remaining</th>
-                                            <th style="text-align: center;">Date & Time</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for x in info %}
-                                        <tr class="edittr">
-                                            <td>{{x.delivery_supply_description}}</td>
-                                            <td align="center">{{x.delivery_supply_unit}}</td>
-                                            <td align="center">{{x.delivery_supply_quantity}}</td>
-                                            <td align="center">{{x.delivery_supply_remaining}}</td>
-                                            <td align="center">{{x.current_date}}</td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
+                            <div class="container">
+                                <div class="container mb-4">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <form action="{% url 'export_pdf_suppydelivery'%}">
+                                            <button class="btn btn-sm btn-primary shadow-sm">Convert to PDF</button>
+                                        </form>
+                                        <form action="{% url 'export_excel'%}">
+                                            <button class="btn btn-sm btn-primary shadow-smy">Export to XLS</button>
+                                        </form>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-
                     </div>
 
-                 </div>
+                    <div class="container">
+                        <div class="kahon">
+                            <h3 align="center">Delivery Record</h3>
+                            <hr>
+                            <br>
+                            <table id="supplyDeliveryTable" class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th style="text-align: center;">Unit</th>
+                                        <th style="text-align: center;">Delivery Quantity</th>
+                                        <th style="text-align: center;">Remaining</th>
+                                        <th style="text-align: center;">Date & Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for x in info %}
+                                    <tr class="edittr">
+                                        <td>{{x.delivery_supply_description}}</td>
+                                        <td align="center">{{x.delivery_supply_unit}}</td>
+                                        <td align="center">{{x.delivery_supply_quantity}}</td>
+                                        <td align="center">{{x.delivery_supply_remaining}}</td>
+                                        <td align="center">{{x.current_date}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-             </div>
-             <!-- /.container-fluid -->
 
-         </div>
-         <!-- End of Main Content -->
+                </div>
 
-         {% for message in messages %}
-        {% if message.tags == 'info' %}
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script>
-            var m = "{{ message }}";
-            swal("Notice: ", m, "info")
-        </script>
-        {% elif message.tags == 'success' %}
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script>
-            var m = "{{ message }}";
-            swal("Success! ", m, "success")
-        </script>
-        {% endif %}
-        {% endfor %}
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+    {% for message in messages %}
+    {% if message.tags == 'info' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        var m = "{{ message }}";
+        swal("Notice: ", m, "info")
+    </script>
+    {% elif message.tags == 'success' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        var m = "{{ message }}";
+        swal("Success! ", m, "success")
+    </script>
+    {% endif %}
+    {% endfor %}
 
 
-        <script type="text/javascript">
-            $(document).ready(function () {
-                var table = $('#supplyDeliveryTable').DataTable({
-                    rowReorder: {
-                        selector: 'td:nth-child(2)'
-                    },
-                    responsive: true
-                });
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var table = $('#supplyDeliveryTable').DataTable({
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
             });
+        });
 
-            $(document).ready(function () {
-                var table = $('#mainstorage').DataTable({
-                    rowReorder: {
-                        selector: 'td:nth-child(2)'
-                    },
-                    responsive: true
-                });
+        $(document).ready(function () {
+            var table = $('#mainstorage').DataTable({
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
             });
+        });
 
-        </script>
+    </script>
 
-         <!------------------------------------ Footer ------------------------------------->
-         <footer class="sticky-footer footer ">
-             <div class="container my-auto">
-                 <div class="copyright text-gray-700 text-center my-auto">
-                     <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
-                 </div>
-             </div>
-         </footer>
-         <!-- End of Footer -->
+    <!------------------------------------ Footer ------------------------------------->
+    <footer class="sticky-footer footer ">
+        <div class="container my-auto">
+            <div class="copyright text-gray-700 text-center my-auto">
+                <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
 
-     </div>
-     <!-- End of Content Wrapper -->
+</div>
+<!-- End of Content Wrapper -->
 
- </div>
- <!-- End of Page Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
 
 
 

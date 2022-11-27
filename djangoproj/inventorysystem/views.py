@@ -839,6 +839,7 @@ def storageMapping(request):
     if request.method == 'POST':
 
         if 'storagesupply_update' in request.POST:
+            item = request.POST.get('supplyItemName')
             locsave = supply_storagemapping()
             locsave.supplyStoragemapping_id = request.POST.get('supplyStoragemapping_id')
             locsave.supplyItemName = request.POST.get('supplyItemName')
@@ -847,7 +848,7 @@ def storageMapping(request):
             locsave.supplyCabinetNo = request.POST.get('supplyCabinetNo')
             locsave.supplyShelfNo = request.POST.get('supplyShelfNo')
             locsave.save()
-            messages.success(request, 'successfully update storage mapping')
+            messages.success(request, 'Successfully updated storage mapping for item ' + item)
             return redirect('inventorysystem-storageMapping')
 
 

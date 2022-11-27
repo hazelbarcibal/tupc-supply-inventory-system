@@ -72,19 +72,18 @@
     }
 
     .kahon {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 10px;
-    background: rgb(255, 255, 255);
-    padding: 32px 25px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 10px;
+        background: rgb(255, 255, 255);
+        padding: 32px 25px;
 
     }
 
-    hr{
-    border: 1px solid ;
-    background-color: black;
-    border-radius: 5px;
+    hr {
+        border: 1px solid;
+        background-color: black;
+        border-radius: 5px;
     }
-
 </style>
 
 
@@ -122,8 +121,7 @@
 
                     <div class="col-md-6">
                         <label class="form-label">Quantity:</label>
-                        <input type="number" min="1" class="form-control" id="quantity" name="limit_quantity"
-                            readonly>
+                        <input type="number" min="1" class="form-control" id="quantity" name="limit_quantity" readonly>
                     </div>
 
                     <div class="col-md-6">
@@ -135,7 +133,8 @@
 
                     <div class="modal-footer">
                         <div class="col-12">
-                            <button style="float: right; " type="submit" name="update_limit" class="btn btn-primary">ADD</button>
+                            <button style="float: right; " type="submit" name="update_limit"
+                                class="btn btn-primary">ADD</button>
                         </div>
                     </div>
                 </form>
@@ -187,17 +186,17 @@
 
 {% for message in messages %}
 {% if message.tags == 'info' %}
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
     var m = "{{ message }}";
-    swal('Notice: ', m,'info')
-  </script>
-  {% elif message.tags == 'success' %}
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script>
+    swal('Notice: ', m, 'info')
+</script>
+{% elif message.tags == 'success' %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
     var m = "{{ message }}";
     swal("Success! ", m, "success")
-  </script>
+</script>
 {% endif %}
 {% endfor %}
 
@@ -206,43 +205,43 @@
 
     <!---------------------------- Main Content ----------------------------------->
 
-     <div id="content" class="main-content">
+    <div id="content" class="main-content">
 
-         <!-- Topbar -->
+        <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-dark topnav topbar mb-4 static-top shadow">
 
             <!-- Sidebar Toggle (Topbar) -->
             <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                 <i class="fa fa-bars"></i>
+                <i class="fa fa-bars"></i>
             </button>
 
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
-                 
+
                 <div class="topbar-divider d-none d-sm-block"></div>
 
-                 <!-- Nav Item - User Information -->
+                <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, </span>
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, Admin!</span>
                         <span class="mr-2 d-none d-lg-inline text-gray-100 small"></span>
                         <img class="img-profile rounded-circle"
                             src="{% static 'img/sb-dashboard/undraw_profile.svg' %}">
                     </a>
-                     <!-- Dropdown - User Information -->
+                    <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                         aria-labelledby="userDropdown">
+                        aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="#">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                             Update Profile
+                            Update Profile
                         </a>
-                         
+
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                             Logout
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
                         </a>
                     </div>
                 </li>
@@ -250,48 +249,48 @@
             </ul>
 
         </nav>
-         <!-- End of Topbar -->
+        <!-- End of Topbar -->
 
-         <!-- Logout Modal-->
-            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" href="">Logout</a>
-                        </div>
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="{% url 'inventorysystem-index' %}">Logout</a>
                     </div>
                 </div>
             </div>
+        </div>
 
 
-         <!----------------------------------- Begin Page Content ----------------------------->
+        <!----------------------------------- Begin Page Content ----------------------------->
 
-       
-         <div class="container-fluid">
+
+        <div class="container-fluid">
 
             <!-- Page Heading -->
             <div class="row">
                 <div class="container">
-                  <div class="container" style="margin-bottom: 0;">
                     <div class="container" style="margin-bottom: 0;">
-                      <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-900">Status Limit</h1>
-                    </div>
+                        <div class="container" style="margin-bottom: 0;">
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-900">Status Limit</h1>
+                            </div>
 
+                        </div>
                     </div>
-                  </div>
 
                 </div>
-              </div>
+            </div>
             <!------------------- Content Row ------------------->
             <div class="row">
 
@@ -324,7 +323,7 @@
                         </div>
                     </div>
                 </div>
-    
+
             </div>
 
 
@@ -342,8 +341,9 @@
 
                                 <div class="col-md-6">
                                     <label>Description:</label>
-                                    <input type="text" list="statusItemname" autocomplete="on" name="non-existing_description"
-                                        class="form-control" placeholder="Item Name" required>
+                                    <input type="text" list="statusItemname" autocomplete="on"
+                                        name="non-existing_description" class="form-control" placeholder="Item Name"
+                                        required>
                                     <datalist id="statusItemname">
                                         <option id="1" value="Blue Ballpen"></option>
                                         <option id="2" value="Black Ballpen"></option>
@@ -382,8 +382,8 @@
 
                                 <div class="col-md-6">
                                     <label>Quantity:</label>
-                                    <input type='number' name="non-existing_quantity" class="form-control" placeholder="Quantity"
-                                        required>
+                                    <input type='number' name="non-existing_quantity" class="form-control"
+                                        placeholder="Quantity" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label>Department:</label>
@@ -407,7 +407,8 @@
                                         <option id="15" value="DLA_LIBERAL_ARTS"></option>
                                         <option id="16" value="DMS_MATH_AND_SCIENCE"></option>
                                         <option id="17" value="DPECS_PHYSICAL_EDUCATION_CULTURAL_SPORTS"></option>
-                                        <option id="18" value="BETEEAP_EXPANDED_TERTIARY_EDUCATION_EQUIVALENCY_AND_ACCREDITATION">
+                                        <option id="18"
+                                            value="BETEEAP_EXPANDED_TERTIARY_EDUCATION_EQUIVALENCY_AND_ACCREDITATION">
                                         </option>
                                         <option id="19" value="GAD_GENDER_AND_DEVELOPMENT"></option>
                                         <option id="20" value="IDO_INFRASTRUCTURE_DEVELOPMENT_OFFICE"></option>
@@ -426,15 +427,15 @@
                                     </datalist>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" id="submit" class="btn1" name="new_limit" style="float: right;"
-                                        value="Submit"> Submit </button>
+                                    <button type="submit" id="submit" class="btn1" name="new_limit"
+                                        style="float: right;" value="Submit"> Submit </button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
 
-                
+
             </div>
 
             <!------------------- Content Row ------------------->
@@ -476,7 +477,7 @@
                         </div>
                     </div>
                 </div>
-    
+
             </div>
 
 
@@ -486,18 +487,18 @@
     </div>
     <!-- End of Main Content -->
 
-     <!------------------------------------ Footer ------------------------------------->
-     <footer class="sticky-footer footer ">
-         <div class="container my-auto">
-             <div class="copyright text-gray-700 text-center my-auto">
-                 <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
-             </div>
-         </div>
-     </footer>
-     <!-- End of Footer -->
+    <!------------------------------------ Footer ------------------------------------->
+    <footer class="sticky-footer footer ">
+        <div class="container my-auto">
+            <div class="copyright text-gray-700 text-center my-auto">
+                <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
 
- </div>
- <!-- End of Content Wrapper -->
+</div>
+<!-- End of Content Wrapper -->
 
 </div>
 <!-- End of Page Wrapper -->

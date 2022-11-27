@@ -4,7 +4,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.index, name='inventorysystem-index'),
-    path('home', views.home, name='inventorysystem-home'),
+    # path('home', views.home, name='inventorysystem-home'),
     path('add-department-account/', views.deptRegister, name='inventorysystem-deptRegister'),
     path('add-admin-account/', views.adminRegister, name='inventorysystem-adminRegister'),
     path('login/', views.usersLogin, name='inventorysystem-usersLogin'),

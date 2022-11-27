@@ -89,7 +89,7 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, </span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, Admin!</span>
                         <span class="mr-2 d-none d-lg-inline text-gray-100 small"></span>
                         <img class="img-profile rounded-circle"
                             src="{% static 'img/sb-dashboard/undraw_profile.svg' %}">
@@ -129,7 +129,7 @@
                     <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="">Logout</a>
+                        <a class="btn btn-primary" href="{% url 'inventorysystem-index' %}">Logout</a>
                     </div>
                 </div>
             </div>
@@ -193,16 +193,17 @@
             <div class="row">
 
                 <div class="col-xl-12 col-md-12 mb-4">
+                    
                     <div class="row">
                         <div class="container">
                             <div class="container">
-                                <div class="container  mb-4">
+                                <div class="container mb-4">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <form action="{% url 'export_pdf_equipreturn'%}">
-                                            <button class="btn btn-primary">Convert to PDF</button>
+                                            <button class="btn btn-sm btn-primary shadow-sm">Convert to PDF</button>
                                         </form>
                                         <form action="{% url 'export_excel'%}">
-                                            <button class="btn btn-primary">Export to XLS</button>
+                                            <button class="btn btn-sm btn-primary shadow-sm">Export to XLS</button>
                                         </form>
 
                                     </div>
@@ -211,6 +212,7 @@
                         </div>
 
                     </div>
+                       
                     <div class="container">
                         <div class="kahon">
                             <table id="returnTable" class="table table-striped" style="width:100%">

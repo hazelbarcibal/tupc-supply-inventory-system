@@ -15,48 +15,44 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
 <style>
-  .btn1{
-      background-color: #ad413a;
-      border: 1px solid black;
-      border-radius: 5px;
-      color: white;
-      padding: 10px 24px; 
-      cursor: pointer; 
-  
-  }
-  
-  .col-md-12 input{
-      border: solid #3E3E3E 1.5px;
-  }
-  
-  
-  .col-md-6 input{
-      border: solid #3E3E3E 1.5px;
-  }
-  
-  .btn1:hover {
-      text-decoration: none;
-      background: #9c2e26;
-      color: white;
-  }
-  
+    .btn1 {
+        background-color: #ad413a;
+        border: 1px solid black;
+        border-radius: 5px;
+        color: white;
+        padding: 10px 24px;
+        cursor: pointer;
 
-  
+    }
+
+    .col-md-12 input {
+        border: solid #3E3E3E 1.5px;
+    }
 
 
-.kahon {
-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-border-radius: 10px;
-background: rgb(255, 255, 255);
-padding: 32px 25px;
+    .col-md-6 input {
+        border: solid #3E3E3E 1.5px;
+    }
 
-}
+    .btn1:hover {
+        text-decoration: none;
+        background: #9c2e26;
+        color: white;
+    }
 
-hr{
-border: 1px solid ;
-background-color: black;
-border-radius: 5px;
-}
+    .kahon {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 10px;
+        background: rgb(255, 255, 255);
+        padding: 32px 25px;
+
+    }
+
+    hr {
+        border: 1px solid;
+        background-color: black;
+        border-radius: 5px;
+    }
 </style>
 
 
@@ -64,67 +60,70 @@ border-radius: 5px;
 <!----- UPDATE DELIVERY MODAL ----->
 <div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"></h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <div class="modal-body">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
 
-        <!----- UPDATE STATUS FORM ---->
+                <!----- UPDATE STATUS FORM ---->
 
-            <form action = "" method = "POST" class="row g-3" enctype="multipart/form-data">
-                {% csrf_token %}
+                <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
+                    {% csrf_token %}
 
-                <input type="hidden" id="editId" name="acceptSupplyRequests_id" value="" readonly>
+                    <input type="hidden" id="editId" name="acceptSupplyRequests_id" value="" readonly>
 
-                <div class="col-md-12">
-                    <label class="form-label">Department:</label>
-                    <input type="text" class="form-control" id="department" name="arequest_supply_department" readonly>
-                </div>
-
-                <div class="col-md-12">
-                    <label class="form-label">Description:</label>
-                    <input type="text" class="form-control" id="description" name="arequest_supply_description" readonly>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label">Unit:</label>
-                    <input type="text" min="1" class="form-control" id="unit" name="arequest_supply_unit" readonly>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label">Quantity:</label>
-                    <input type="number" min="1" class="form-control" id="quantity" name="arequest_supply_quantity" readonly>
-                </div>
-
-                <div class="modal-footer">
-                    <div class="col-12">
-                        <button style="float: right;" type="submit" class="btn btn-primary">OK</button>
+                    <div class="col-md-12">
+                        <label class="form-label">Department:</label>
+                        <input type="text" class="form-control" id="department" name="arequest_supply_department"
+                            readonly>
                     </div>
-                </div>
-            </form>
 
+                    <div class="col-md-12">
+                        <label class="form-label">Description:</label>
+                        <input type="text" class="form-control" id="description" name="arequest_supply_description"
+                            readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Unit:</label>
+                        <input type="text" min="1" class="form-control" id="unit" name="arequest_supply_unit" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Quantity:</label>
+                        <input type="number" min="1" class="form-control" id="quantity" name="arequest_supply_quantity"
+                            readonly>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="col-12">
+                            <button style="float: right;" type="submit" class="btn btn-primary">OK</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
         </div>
-      </div>
     </div>
 </div>
 
 <script type="text/javascript">
 
-    $(document).ready(function(){
-        $('.editBtn').on('click', function(){
+    $(document).ready(function () {
+        $('.editBtn').on('click', function () {
 
             $('#openModal').modal('show');
-            $tr =$(this).closest('tr');
-            var data= $tr.children("td").map(function(){
-            return $(this).text();
+            $tr = $(this).closest('tr');
+            var data = $tr.children("td").map(function () {
+                return $(this).text();
             }).get();
 
             console.log(data);
-            $('h5.modal-title').html('Change Withdrawing Status for: '+ data[1]);
+            $('h5.modal-title').html('Change Withdrawing Status for: ' + data[1]);
             $('#editId').val(data[0]);
             $('#department').val(data[1]);
             $('#description').val(data[2]);
@@ -138,8 +137,8 @@ border-radius: 5px;
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        var table = $('#supplyWithdrawTable').DataTable( {
+    $(document).ready(function () {
+        var table = $('#supplyWithdrawTable').DataTable({
             rowReorder: {
                 selector: 'td:nth-child(2)'
             },
@@ -147,8 +146,8 @@ border-radius: 5px;
         });
     });
 
-    $(document).ready(function() {
-        var table = $('#depwithdrawnTable').DataTable( {
+    $(document).ready(function () {
+        var table = $('#depwithdrawnTable').DataTable({
             rowReorder: {
                 selector: 'td:nth-child(2)'
             },
@@ -159,17 +158,17 @@ border-radius: 5px;
 
 {% for message in messages %}
 {% if message.tags == 'info' %}
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
     var m = "{{ message }}";
-    swal('Notice: ', m,'info')
-  </script>
-  {% elif message.tags == 'success' %}
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script>
+    swal('Notice: ', m, 'info')
+</script>
+{% elif message.tags == 'success' %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
     var m = "{{ message }}";
     swal("Transaction Complete! ", m, "success")
-  </script>
+</script>
 {% endif %}
 {% endfor %}
 
@@ -180,43 +179,43 @@ border-radius: 5px;
 
     <!---------------------------- Main Content ----------------------------------->
 
-     <div id="content" class="main-content">
+    <div id="content" class="main-content">
 
-         <!-- Topbar -->
+        <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-dark topnav topbar mb-4 static-top shadow">
 
             <!-- Sidebar Toggle (Topbar) -->
             <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                 <i class="fa fa-bars"></i>
+                <i class="fa fa-bars"></i>
             </button>
 
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
-                 
+
                 <div class="topbar-divider d-none d-sm-block"></div>
 
-                 <!-- Nav Item - User Information -->
+                <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, </span>
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, Admin!</span>
                         <span class="mr-2 d-none d-lg-inline text-gray-100 small"></span>
                         <img class="img-profile rounded-circle"
                             src="{% static 'img/sb-dashboard/undraw_profile.svg' %}">
                     </a>
-                     <!-- Dropdown - User Information -->
+                    <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                         aria-labelledby="userDropdown">
+                        aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="#">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                             Update Profile
+                            Update Profile
                         </a>
-                         
+
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                             Logout
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
                         </a>
                     </div>
                 </li>
@@ -224,48 +223,48 @@ border-radius: 5px;
             </ul>
 
         </nav>
-         <!-- End of Topbar -->
+        <!-- End of Topbar -->
 
-         <!-- Logout Modal-->
-            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" href="">Logout</a>
-                        </div>
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="{% url 'inventorysystem-index' %}">Logout</a>
                     </div>
                 </div>
             </div>
+        </div>
 
 
-         <!----------------------------------- Begin Page Content ----------------------------->
+        <!----------------------------------- Begin Page Content ----------------------------->
 
-       
-         <div class="container-fluid">
+
+        <div class="container-fluid">
 
             <!-- Page Heading -->
             <div class="row">
                 <div class="container">
-                  <div class="container" style="margin-bottom: 0;">
                     <div class="container" style="margin-bottom: 0;">
-                      <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-900">Supplies Withdraw</h1>
-                    </div>
+                        <div class="container" style="margin-bottom: 0;">
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-900">Supplies Withdraw</h1>
+                            </div>
 
+                        </div>
                     </div>
-                  </div>
 
                 </div>
-              </div>
+            </div>
 
             <!------------------- Content Row ------------------->
             <div class="row">
@@ -297,7 +296,8 @@ border-radius: 5px;
                                         <td align="center">{{x.arequest_supply_quantity}}</td>
                                         <td align="center">{{x.arequest_supply_status}}</td>
                                         <td align="center">
-                                            <button class="btn btn-success editBtn" style="margin-bottom: 10px;" name="editBtn">WITHDRAW</button>
+                                            <button class="btn btn-success editBtn" style="margin-bottom: 10px;"
+                                                name="editBtn">WITHDRAW</button>
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -306,7 +306,7 @@ border-radius: 5px;
                         </div>
                     </div>
                 </div>
-    
+
             </div>
 
 
@@ -315,18 +315,22 @@ border-radius: 5px;
             <div class="row">
 
                 <div class="col-xl-12 col-md-12 mb-4">
-                    <div class="col-xl-12 col-md-12 mb-4">
-                        <div class="btn-group btn-group-sm" role="group">
-                            <form action="{% url 'export_pdf_suppywithdraw'%}">
-                                <button class="btn btn-primary">Convert to PDF</button>
-                            </form>
-                            <form action="{% url 'export_excel'%}">
-                                <button class="btn btn-primary">Export to XLS</button>
-                            </form>
-                            
-                        </div>
+                    <div class="row">
+                        <div class="container">
+                            <div class="container">
+                                <div class="container mb-4">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <form action="{% url 'export_pdf_suppywithdraw'%}">
+                                            <button class="btn btn-sm btn-primary shadow-sm">Convert to PDF</button>
+                                        </form>
+                                        <form action="{% url 'export_excel'%}">
+                                            <button class="btn btn-sm btn-primary shadow-sm">Export to XLS</button>
+                                        </form>
 
-                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="container">
@@ -344,22 +348,22 @@ border-radius: 5px;
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {% for x in info1 %}
-                                <tr class="edittr">
-                                    <td align="center">{{x.withdraw_supply_department}}</td>
-                                    <td align="center">{{x.withdraw_supply_description}}</td>
-                                    <td align="center">{{x.withdraw_supply_unit}}</td>
-                                    <td align="center">{{x.withdraw_supply_quantity}}</td>
-                                    <td align="center">{{x.current_date}}</td>
-                                </tr>
-                                {% endfor %}
+                                    {% for x in info1 %}
+                                    <tr class="edittr">
+                                        <td align="center">{{x.withdraw_supply_department}}</td>
+                                        <td align="center">{{x.withdraw_supply_description}}</td>
+                                        <td align="center">{{x.withdraw_supply_unit}}</td>
+                                        <td align="center">{{x.withdraw_supply_quantity}}</td>
+                                        <td align="center">{{x.current_date}}</td>
+                                    </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
 
-                
+
             </div>
 
 
@@ -369,18 +373,18 @@ border-radius: 5px;
     </div>
     <!-- End of Main Content -->
 
-     <!------------------------------------ Footer ------------------------------------->
-     <footer class="sticky-footer footer ">
-         <div class="container my-auto">
-             <div class="copyright text-gray-700 text-center my-auto">
-                 <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
-             </div>
-         </div>
-     </footer>
-     <!-- End of Footer -->
+    <!------------------------------------ Footer ------------------------------------->
+    <footer class="sticky-footer footer ">
+        <div class="container my-auto">
+            <div class="copyright text-gray-700 text-center my-auto">
+                <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
 
- </div>
- <!-- End of Content Wrapper -->
+</div>
+<!-- End of Content Wrapper -->
 
 </div>
 <!-- End of Page Wrapper -->

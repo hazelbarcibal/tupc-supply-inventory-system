@@ -18,10 +18,10 @@
     <link href="{% static 'css/sb-admin-2.css' %}" rel="stylesheet">
     <link rel="icon" href="{% static 'img/TUP LOGO.png'%}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    
+
 
 </head>
 
@@ -40,8 +40,8 @@
                     <!-- <i><img src="{% static 'img/TUP LOGO.png' %}"
                         style="width:50px; height:50px; padding-left: 5px; padding-top:5px;"></img></i> -->
                     <div class="row">
-                      <i><img src="{% static 'img/TUP LOGO.png' %}"
-                        style="width:50px; height:50px; padding-left: 5px; padding-top:5px;"></img></i>
+                        <i><img src="{% static 'img/TUP LOGO.png' %}"
+                                style="width:50px; height:50px; padding-left: 5px; padding-top:5px;"></img></i>
                     </div>
                     <label><span style="color: red;">Supply</span> <br>Inventory System</label>
                 </div>
@@ -55,7 +55,7 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'inventorysystem-dashboard' %}">
-                  <i class='bx bx-grid-alt'></i>
+                    <i class='bx bx-grid-alt'></i>
                     <span>Dashboard</span>
                 </a>
             </li>
@@ -78,7 +78,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{% url 'inventorysystem-suppliesDeliver' %}">Delivery</a>
-                        <a class="collapse-item" href="{% url 'inventorysystem-viewRequestSupply' %}">View Requested Item</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-viewRequestSupply' %}">View Requested
+                            Item</a>
                         <a class="collapse-item" href="{% url 'inventorysystem-suppliesWithdraw' %}">Withdraw Supply</a>
                         <a class="collapse-item" href="{% url 'inventorysystem-statusLimit' %}">Status</a>
                     </div>
@@ -96,8 +97,10 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{% url 'inventorysystem-equipmentDeliver' %}">Delivery</a>
-                        <a class="collapse-item" href="{% url 'inventorysystem-viewDeliveryRecords' %}">View Delivery Record</a>
-                        <a class="collapse-item" href="{% url 'inventorysystem-equipmentWithdraw' %}">Withdraw Equipment</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-viewDeliveryRecords' %}">View Delivery
+                            Record</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-equipmentWithdraw' %}">Withdraw
+                            Equipment</a>
                         <a class="collapse-item" href="{% url 'inventorysystem-equipmentReturn' %}">Equipment Return</a>
                     </div>
                 </div>
@@ -105,9 +108,9 @@
 
             <!-- Nav Item  -->
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'inventorysystem-storageMapping' %}">
-                  <i class='bx bx-map'></i>
-                  <span>Storage Mapping</span></a>
+                <a class="nav-link" href="{% url 'inventorysystem-storageMapping' %}">
+                    <i class='bx bx-map'></i>
+                    <span>Storage Mapping</span></a>
             </li>
 
             <!-- Divider -->
@@ -120,9 +123,9 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'inventorysystem-adminRegister' %}">
-                <i class="fa-solid fa-user-tie"></i>
-                  <span>Add Admin Account</span></a>
+                <a class="nav-link" href="{% url 'inventorysystem-adminRegister' %}">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>Add Admin Account</span></a>
             </li>
 
             <!-- Nav Item  -->
@@ -150,7 +153,7 @@
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
-           <!---------------------------- Main Content ----------------------------------->
+            <!---------------------------- Main Content ----------------------------------->
 
             <div id="content" class="main-content">
 
@@ -172,7 +175,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, </span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, Admin!</span>
                                 <span class="mr-2 d-none d-lg-inline text-gray-100 small"></span>
                                 <img class="img-profile rounded-circle"
                                     src="{% static 'img/sb-dashboard/undraw_profile.svg' %}">
@@ -184,7 +187,7 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Update Profile
                                 </a>
-                                
+
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -201,7 +204,7 @@
 
                 <!----------------------------------- Begin Page Content ----------------------------->
 
-              
+
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
@@ -221,12 +224,14 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="font-weight-bold text-dark mb-1">
-                                              <h3>Recent No. of Supplies Requests:</h3></div>
-                                            <div class="mb-0 font-weight-bold text-gray-800">
-                                              <h3>8</h3>
+                                                <h3>Recent No. of Supplies Requests:</h3>
                                             </div>
                                             <div class="mb-0 font-weight-bold text-gray-800">
-                                              <a class="card__link" href="#">See More <i class="fas fa-arrow-right"></i></a>
+                                                <h3>8</h3>
+                                            </div>
+                                            <div class="mb-0 font-weight-bold text-gray-800">
+                                                <a class="card__link" href="#">See More <i
+                                                        class="fas fa-arrow-right"></i></a>
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -239,81 +244,87 @@
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                          <div class="card h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="font-weight-bold text-dark mb-1">
-                                          <h3>Recent No. of Supplies Withdrawn:</h3></div>
-                                        <div class="mb-0 font-weight-bold text-gray-800">
-                                          <h3>8</h3>
+                            <div class="card h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="font-weight-bold text-dark mb-1">
+                                                <h3>Recent No. of Supplies Withdrawn:</h3>
+                                            </div>
+                                            <div class="mb-0 font-weight-bold text-gray-800">
+                                                <h3>8</h3>
+                                            </div>
+                                            <div class="mb-0 font-weight-bold text-gray-800">
+                                                <a class="card__link" href="#">See More <i
+                                                        class="fas fa-arrow-right"></i></a>
+                                            </div>
                                         </div>
-                                        <div class="mb-0 font-weight-bold text-gray-800">
-                                          <a class="card__link" href="#">See More <i class="fas fa-arrow-right"></i></a>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
                                         </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         </div>
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                          <div class="card h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="font-weight-bold text-dark mb-1">
-                                          <h3>Recent No. of Equipment Requests:</h3></div>
-                                        <div class="mb-0 font-weight-bold text-gray-800">
-                                          <h3>8</h3>
+                            <div class="card h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="font-weight-bold text-dark mb-1">
+                                                <h3>Recent No. of Equipment Requests:</h3>
+                                            </div>
+                                            <div class="mb-0 font-weight-bold text-gray-800">
+                                                <h3>8</h3>
+                                            </div>
+                                            <div class="mb-0 font-weight-bold text-gray-800">
+                                                <a class="card__link" href="#">See More <i
+                                                        class="fas fa-arrow-right"></i></a>
+                                            </div>
                                         </div>
-                                        <div class="mb-0 font-weight-bold text-gray-800">
-                                          <a class="card__link" href="#">See More <i class="fas fa-arrow-right"></i></a>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
                                         </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         </div>
 
                         <!-- Pending Requests Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                          <div class="card h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="font-weight-bold text-dark mb-1">
-                                          <h3>Recent No. of Equipment Withdrawn:</h3></div>
-                                        <div class="mb-0 font-weight-bold text-gray-800">
-                                          <h3>8</h3>
+                            <div class="card h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="font-weight-bold text-dark mb-1">
+                                                <h3>Recent No. of Equipment Withdrawn:</h3>
+                                            </div>
+                                            <div class="mb-0 font-weight-bold text-gray-800">
+                                                <h3>8</h3>
+                                            </div>
+                                            <div class="mb-0 font-weight-bold text-gray-800">
+                                                <a class="card__link" href="#">See More <i
+                                                        class="fas fa-arrow-right"></i></a>
+                                            </div>
                                         </div>
-                                        <div class="mb-0 font-weight-bold text-gray-800">
-                                          <a class="card__link" href="#">See More <i class="fas fa-arrow-right"></i></a>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
                                         </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         </div>
                     </div>
 
 
                     <!------------------------------- Content Row ------------------------------------->
 
-                
+
 
                     <!-- Content Row -->
-                    <div class="row" >
+                    <div class="row">
 
                         <!-- Content Column -->
                         <div class="col-lg-6 mb-4">
@@ -324,18 +335,20 @@
                                     <h6 class="m-0 font-weight-bold text-dark">Calendar</h6>
                                 </div>
                                 <div class="card-body">
-                                  <div class="calendar calendar-first" id="calendar_first">
-                                    <div class="calendar_header">
-                                      <button class="switch-month switch-left"> <i class="fa fa-chevron-left"></i></button>
-                                      <h2></h2>
-                                      <button class="switch-month switch-right"> <i class="fa fa-chevron-right"></i></button>
+                                    <div class="calendar calendar-first" id="calendar_first">
+                                        <div class="calendar_header">
+                                            <button class="switch-month switch-left"> <i
+                                                    class="fa fa-chevron-left"></i></button>
+                                            <h2></h2>
+                                            <button class="switch-month switch-right"> <i
+                                                    class="fa fa-chevron-right"></i></button>
+                                        </div>
+                                        <div class="calendar_weekdays"></div>
+                                        <div class="calendar_content"></div>
                                     </div>
-                                    <div class="calendar_weekdays"></div>
-                                    <div class="calendar_content"></div>
-                                  </div>
                                 </div>
                             </div>
-                            
+
 
                         </div>
 
@@ -350,20 +363,20 @@
                                 <div class="card-body">
                                     <div class="col">
                                         <div class="container">
-                                          <div class="date">
-                                            <span id="dayname">Day</span>,
-                                            <span id="month">Month</span>
-                                            <span id="daynum">00</span>,
-                                            <span id="year">Year</span>
-                                          </div>
-                                          <div class="time">
-                                            <span id="hour">00</span>:
-                                            <span id="minutes">00</span>:
-                                            <span id="seconds">00</span>
-                                            <span id="period">AM</span>
-                                          </div>
+                                            <div class="date">
+                                                <span id="dayname">Day</span>,
+                                                <span id="month">Month</span>
+                                                <span id="daynum">00</span>,
+                                                <span id="year">Year</span>
+                                            </div>
+                                            <div class="time">
+                                                <span id="hour">00</span>:
+                                                <span id="minutes">00</span>:
+                                                <span id="seconds">00</span>
+                                                <span id="period">AM</span>
+                                            </div>
                                         </div>
-                                      </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -381,43 +394,43 @@
 
             <script>
 
-              //date & time
-              function updateClock() {
-                var now = new Date();
-                var dname = now.getDay();
-                mo = now.getMonth();
-                dnum = now.getDate();
-                yr = now.getFullYear();
-                hr = now.getHours();
-                min = now.getMinutes();
-                sec = now.getSeconds();
-                pr = 'AM';
-      
-                if (hr == 0) {
-                  hr = 12;
+                //date & time
+                function updateClock() {
+                    var now = new Date();
+                    var dname = now.getDay();
+                    mo = now.getMonth();
+                    dnum = now.getDate();
+                    yr = now.getFullYear();
+                    hr = now.getHours();
+                    min = now.getMinutes();
+                    sec = now.getSeconds();
+                    pr = 'AM';
+
+                    if (hr == 0) {
+                        hr = 12;
+                    }
+                    if (hr > 12) {
+                        hr = hr - 12;
+                        pr = 'PM';
+                    }
+
+                    Number.prototype.pad = function (digits) {
+                        for (var n = this.toString(); n.length < digits; n = 0 + n);
+                        return n;
+                    }
+
+                    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                    var week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                    var ids = ['dayname', 'month', 'daynum', 'year', 'hour', 'minutes', 'seconds', 'period'];
+                    var values = [week[dname], months[mo], dnum.pad(2), yr, hr.pad(2), min.pad(2), sec.pad(2), pr];
+                    for (var i = 0; i < ids.length; i++)
+                        document.getElementById(ids[i]).firstChild.nodeValue = values[i];
                 }
-                if (hr > 12) {
-                  hr = hr - 12;
-                  pr = 'PM';
+
+                function initClock() {
+                    updateClock();
+                    window.setInterval('updateClock()', 1);
                 }
-      
-                Number.prototype.pad = function (digits) {
-                  for (var n = this.toString(); n.length < digits; n = 0 + n);
-                  return n;
-                }
-      
-                var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-                var week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-                var ids = ['dayname', 'month', 'daynum', 'year', 'hour', 'minutes', 'seconds', 'period'];
-                var values = [week[dname], months[mo], dnum.pad(2), yr, hr.pad(2), min.pad(2), sec.pad(2), pr];
-                for (var i = 0; i < ids.length; i++)
-                  document.getElementById(ids[i]).firstChild.nodeValue = values[i];
-              }
-      
-              function initClock() {
-                updateClock();
-                window.setInterval('updateClock()', 1);
-              }
             </script>
 
 
@@ -425,7 +438,8 @@
             <footer class="sticky-footer footer ">
                 <div class="container my-auto">
                     <div class="copyright text-gray-700 text-center my-auto">
-                        <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
+                        <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights
+                            Reserved.</span>
                     </div>
                 </div>
             </footer>
@@ -463,7 +477,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="">Logout</a>
+                    <a class="btn btn-primary" href="{% url 'inventorysystem-index' %}">Logout</a>
                 </div>
             </div>
         </div>
@@ -471,15 +485,15 @@
 
 
     <!------------------------------- JAVASCRIPT ----------------------------------------->
-    
+
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
-    
-  
+
+
     <!-- Main JS File -->
     <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
-    
-    
+
+
 
 
 

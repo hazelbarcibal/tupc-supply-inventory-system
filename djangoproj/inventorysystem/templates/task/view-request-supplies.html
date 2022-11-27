@@ -16,86 +16,90 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
 <style>
-.kahon {
-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-border-radius: 10px;
-background: rgb(255, 255, 255);
-padding: 32px 25px;
+    .kahon {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 10px;
+        background: rgb(255, 255, 255);
+        padding: 32px 25px;
 
-}
-
+    }
 </style>
 
 
 <!----- UPDATE MODAL ----->
 <div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel"></h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <div class="modal-body">
-        <!----- UPDATE FORM ---->
-            <form action = "" method = "POST" class="row g-3" enctype="multipart/form-data">
-                {% csrf_token %}
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!----- UPDATE FORM ---->
+                <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
+                    {% csrf_token %}
 
-                <input type="hidden" id="editId" name="requestsupply_id" value="" readonly>
+                    <input type="hidden" id="editId" name="requestsupply_id" value="" readonly>
 
-                <div class="col-md-12">
-                    <label class="form-label">Department:</label>
-                    <input type="text" class="form-control" id="department" name="request_supply_department" readonly>
-                </div>
-
-                <div class="col-md-12">
-                    <label class="form-label">Description:</label>
-                    <input type="text" class="form-control" id="description" name="request_supply_description" readonly>
-                </div>
-
-                <div class="col-md-12">
-                    <label class="form-label">Unit:</label>
-                    <input type="text" min="1" class="form-control" id="unit" name="request_supply_unit" readonly>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label">Requested Quantity:</label>
-                    <input type="number" min="1" class="form-control" id="requestquantity" name="request_supply_quantity" readonly>
-                </div>
-
-                <div class="col-md-6">
-                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Accept Quantity:</label>
-                    <input type="number" min="1" class="form-control" id="acceptquantity" name="request_supply_acceptquantity" required>
-                </div>
-
-
-                <div class="modal-footer">
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Accept Request</button>
+                    <div class="col-md-12">
+                        <label class="form-label">Department:</label>
+                        <input type="text" class="form-control" id="department" name="request_supply_department"
+                            readonly>
                     </div>
-                </div>
-            </form>
 
+                    <div class="col-md-12">
+                        <label class="form-label">Description:</label>
+                        <input type="text" class="form-control" id="description" name="request_supply_description"
+                            readonly>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Unit:</label>
+                        <input type="text" min="1" class="form-control" id="unit" name="request_supply_unit" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Requested Quantity:</label>
+                        <input type="number" min="1" class="form-control" id="requestquantity"
+                            name="request_supply_quantity" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                            class="form-label">Accept Quantity:</label>
+                        <input type="number" min="1" class="form-control" id="acceptquantity"
+                            name="request_supply_acceptquantity" required>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Accept Request</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
         </div>
-      </div>
     </div>
 </div>
 
 
 <script type="text/javascript">
 
-    $(document).ready(function(){
-        $('.editBtn').on('click', function(){
+    $(document).ready(function () {
+        $('.editBtn').on('click', function () {
 
             $('#openModal').modal('show');
-            $tr =$(this).closest('tr');
-            var data= $tr.children("td").map(function(){
-            return $(this).text();
+            $tr = $(this).closest('tr');
+            var data = $tr.children("td").map(function () {
+                return $(this).text();
             }).get();
 
             console.log(data);
-            $('h5.modal-title').html('Accept Request for: '+ data[1]);
+            $('h5.modal-title').html('Accept Request for: ' + data[1]);
             $('#editId').val(data[0]);
             $('#department').val(data[1]);
             $('#description').val(data[2]);
@@ -105,32 +109,32 @@ padding: 32px 25px;
         });
     });
 
-    $(document).ready(function() {
-        var table = $('#viewRequestSupplyTable').DataTable( {
+    $(document).ready(function () {
+        var table = $('#viewRequestSupplyTable').DataTable({
             rowReorder: {
                 selector: 'td:nth-child(2)'
             },
             responsive: true
-        } );
-    } );
-    
+        });
+    });
+
 </script>
 
 
 {% for message in messages %}
-    {% if message.tags == 'info' %}
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-        var m = "{{ message }}";
-        swal("Notice: ", m, "info")
-    </script>
-    {% elif message.tags == 'success' %}
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
+{% if message.tags == 'info' %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    var m = "{{ message }}";
+    swal("Notice: ", m, "info")
+</script>
+{% elif message.tags == 'success' %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
     var m = "{{ message }}";
     swal("Success! ", m, "success")
-    </script>
-    {% endif %}
+</script>
+{% endif %}
 {% endfor %}
 
 
@@ -138,43 +142,43 @@ padding: 32px 25px;
 
     <!---------------------------- Main Content ----------------------------------->
 
-     <div id="content" class="main-content">
+    <div id="content" class="main-content">
 
-         <!-- Topbar -->
+        <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-dark topnav topbar mb-4 static-top shadow">
 
             <!-- Sidebar Toggle (Topbar) -->
             <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                 <i class="fa fa-bars"></i>
+                <i class="fa fa-bars"></i>
             </button>
 
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
-                 
+
                 <div class="topbar-divider d-none d-sm-block"></div>
 
-                 <!-- Nav Item - User Information -->
+                <!-- Nav Item - User Information -->
                 <li class="nav-item dropdown no-arrow">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, </span>
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, Admin!</span>
                         <span class="mr-2 d-none d-lg-inline text-gray-100 small"></span>
                         <img class="img-profile rounded-circle"
                             src="{% static 'img/sb-dashboard/undraw_profile.svg' %}">
                     </a>
-                     <!-- Dropdown - User Information -->
+                    <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                         aria-labelledby="userDropdown">
+                        aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="#">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                             Update Profile
+                            Update Profile
                         </a>
-                         
+
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                             Logout
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
                         </a>
                     </div>
                 </li>
@@ -182,59 +186,59 @@ padding: 32px 25px;
             </ul>
 
         </nav>
-         <!-- End of Topbar -->
+        <!-- End of Topbar -->
 
-         <!-- Logout Modal-->
-            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" href="">Logout</a>
-                        </div>
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="{% url 'inventorysystem-index' %}">Logout</a>
                     </div>
                 </div>
             </div>
+        </div>
 
 
-         <!----------------------------------- Begin Page Content ----------------------------->
+        <!----------------------------------- Begin Page Content ----------------------------->
 
-       
-         <div class="container-fluid">
 
-             <!-- Page Heading -->
-             <div class="row">
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
                 <div class="container">
-                  <div class="container" style="margin-bottom: 0;">
                     <div class="container" style="margin-bottom: 0;">
-                      <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-900">View Request Supplies</h1>
-                    </div>
+                        <div class="container" style="margin-bottom: 0;">
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-900">View Request Supplies</h1>
+                            </div>
 
+                        </div>
                     </div>
-                  </div>
 
                 </div>
-              </div>
+            </div>
 
-              <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                         class="fas fa-download fa-sm text-white-50"></i> Withdrawn Items</a>
             </div> -->
 
-             <!------------------- Content Row ------------------->
-             <div class="row">
+            <!------------------- Content Row ------------------->
+            <div class="row">
 
-                 <div class="col-xl-12 col-md-12 mb-4">
+                <div class="col-xl-12 col-md-12 mb-4">
                     <div class="container">
                         <div class="kahon">
                             <table id="viewRequestSupplyTable" class="table table-striped" style="width:100%;">
@@ -259,7 +263,8 @@ padding: 32px 25px;
                                         <td align="center">{{x.request_supply_quantity}}</td>
                                         <td align="center">{{x.current_date}}</td>
                                         <td align="center">
-                                            <button class="btn btn-success editBtn" style="margin-bottom: 10px;" name="editBtn">ACCEPT</button>
+                                            <button class="btn btn-success editBtn" style="margin-bottom: 10px;"
+                                                name="editBtn">ACCEPT</button>
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -267,30 +272,30 @@ padding: 32px 25px;
                             </table>
                         </div>
                     </div>
-                 </div>
-
-                 
-             </div>
+                </div>
 
 
-         </div>
-         <!-- /.container-fluid -->
+            </div>
 
-     </div>
-     <!-- End of Main Content -->
 
-     <!------------------------------------ Footer ------------------------------------->
-     <footer class="sticky-footer footer ">
-         <div class="container my-auto">
-             <div class="copyright text-gray-700 text-center my-auto">
-                 <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
-             </div>
-         </div>
-     </footer>
-     <!-- End of Footer -->
+        </div>
+        <!-- /.container-fluid -->
 
- </div>
- <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Main Content -->
+
+    <!------------------------------------ Footer ------------------------------------->
+    <footer class="sticky-footer footer ">
+        <div class="container my-auto">
+            <div class="copyright text-gray-700 text-center my-auto">
+                <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
 
 </div>
 <!-- End of Page Wrapper -->

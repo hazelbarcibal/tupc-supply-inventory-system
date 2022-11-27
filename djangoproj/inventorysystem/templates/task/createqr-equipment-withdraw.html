@@ -216,7 +216,7 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, </span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, Admin!</span>
                         <span class="mr-2 d-none d-lg-inline text-gray-100 small"></span>
                         <img class="img-profile rounded-circle"
                             src="{% static 'img/sb-dashboard/undraw_profile.svg' %}">
@@ -256,7 +256,7 @@
                     <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="">Logout</a>
+                        <a class="btn btn-primary" href="{% url 'inventorysystem-index' %}">Logout</a>
                     </div>
                 </div>
             </div>
@@ -345,9 +345,11 @@
                                     {{form.arequest_equipment_certifiedcorrect}}
                                 </div>
                                 <div class="col-md-4">
-                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">QR
+                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                                        class="form-label">QR
                                         Size: </label>
-                                    <select id="qrSize" class="form-select" required style="border: solid #3E3E3E 1.5px;">
+                                    <select id="qrSize" class="form-select" required
+                                        style="border: solid #3E3E3E 1.5px;">
                                         <option id="0">76x76</option>
                                         <option id="1">150x150</option>
                                         <option id="2">250x250</option>
@@ -380,7 +382,8 @@
                             <p>
                             <h4><i style="color: rgb(0, 0, 0);">--- QR will appear below ---</i></h4>
                             </p>
-                            <p><small><i style="color: rgb(0, 0, 0);">To save the QR, kindly right click on the image and click 'Save
+                            <p><small><i style="color: rgb(0, 0, 0);">To save the QR, kindly right click on the image
+                                        and click 'Save
                                         image'</i></small></p>
                         </div>
                         <hr style="width:35%; margin: auto; color: black; border: 1px solid;" align="center">
