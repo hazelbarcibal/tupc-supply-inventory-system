@@ -37,6 +37,15 @@ class AdminUpdateForm(forms.ModelForm):
         model = CustomUser
         fields = ['username', 'email']
 
+class DeptUpdateForm(forms.ModelForm):
+    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Username', 'class': 'form-control'}))
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'form-control'}))
+
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email']
+        
+
 #-------------- DELIVERY SUPPLIES ---------------
 class deliverySupplyForm(forms.ModelForm):
     delivery_supply_description = forms.CharField(required=True, widget=forms.TextInput(

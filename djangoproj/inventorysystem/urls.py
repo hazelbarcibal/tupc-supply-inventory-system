@@ -10,7 +10,9 @@ urlpatterns = [
     path('login/', views.usersLogin, name='inventorysystem-usersLogin'),
     path('dashboard/', views.dashboard, name='inventorysystem-dashboard'),
     path('update-admin-profile/', views.adminProfileUpdate, name='inventorysystem-adminProfileUpdate'),
+    path('update-dept-profile/', views.deptProfileUpdate, name='inventorysystem-deptProfileUpdate'),
 
+    # path('password-change/', views.passwordChange, name='inventorysystem-passwordChange'),
     path('password-reset/', auth_views.PasswordResetView.as_view(), name='reset_password'),
     path('password-reset-sent/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
