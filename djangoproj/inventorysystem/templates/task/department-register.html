@@ -13,15 +13,6 @@
 
 
 <style>
-    .content {
-        max-width: 80%;
-        margin: auto;
-    }
-
-    .column {
-        padding-top: 2em;
-    }
-
 
     #checkbox {
         padding-top: 10px;
@@ -63,7 +54,7 @@
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, Admin!</span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, {{label.username}}!</span>
                         <span class="mr-2 d-none d-lg-inline text-gray-100 small"></span>
                         <img class="img-profile rounded-circle"
                             src="{% static 'img/sb-dashboard/undraw_profile.svg' %}">
@@ -71,7 +62,7 @@
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{% url 'inventorysystem-adminProfileUpdate' %}">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Update Profile
                         </a>
@@ -223,13 +214,17 @@
 
                                 {{form.adminRole}}
 
-                                <div class="col-12" align="center">
-                                    <input type="checkbox" onclick="myFunction()" class="custom-control-input"
-                                        id="customControlInline">
-                                    <label class="custom-control-label" for="customControlInline">Show password</label>
+                                <div class="row" align="left" style="float: left;">
+                                    <div class="col-xl-12 col-md-12">
+                                        <input class="form-check-input" onclick="myFunction()" type="checkbox" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Show password
+                                        </label>
+                                    </div>
                                 </div>
                                 <br>
-                                <input type="submit" class="btn" value="Register">
+                                <input type="submit" class="btn1" value="Register">
+                                <br>
                             </form>
                         </div>
                     </div>

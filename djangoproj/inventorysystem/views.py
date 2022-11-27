@@ -15,14 +15,19 @@ from django.template.loader import render_to_string
 from weasyprint import HTML 
 import tempfile
 
-def home(request):
-    return render(request, 'task/home.html')
+# def home(request):
+#     return render(request, 'task/home.html')
 
 def index(request):
     return render(request, 'task/index.html')  
 
 def dashboard(request):
-    return render(request, 'task/dashboard.html') 
+    label = request.user
+
+    context = {
+        'label': label,
+    }
+    return render(request, 'task/dashboard.html', context) 
 
 #--------- LOGIN --------------------
 def usersLogin(request):
@@ -57,6 +62,7 @@ def usersLogin(request):
 
 
 def deptRegister(request):
+    label = request.user
     form = DeptRegisterForm()
 
     if request.method == "POST":
@@ -80,12 +86,14 @@ def deptRegister(request):
 
     context = {
         'form': form,
+        'label': label,
     }
 
     return render(request, 'task/department-register.html', context)
 
 
 def adminRegister(request):
+    label = request.user
     form = AdminRegisterForm()
     if request.method == "POST":
         form = DeptRegisterForm(request.POST)
@@ -105,12 +113,46 @@ def adminRegister(request):
 
     context = {
         'form': form,
+        'label': label,
     }
+
     return render(request, 'task/admin-register.html', context)
 
+def adminProfileUpdate(request):
+    label = request.user
+    if request.method == 'POST':
+        user_form = AdminUpdateForm(request.POST, instance=request.user)
+        email = request.POST.get('email')
+        username = request.POST.get('username')
+        # profile_form = AdminUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if user_form.is_valid():
+            # if username is not None and email is not None == label:
+            #     messages.info(request, 'No changes submitted.')
+            
+            if CustomUser.objects.filter(username = username).filter(email = email).exists() == False:
+                user_form.save()
+                # profile_form.save()
+                messages.success(request, 'Your profile is successfully updated.')
+                return redirect(to='inventorysystem-adminProfileUpdate')
+            
+            else:
+                messages.info(request, 'No changes submitted or has duplicate record on the database. Please try again.')
+                return redirect(to='inventorysystem-adminProfileUpdate')
+    else:
+        user_form = AdminUpdateForm(instance=request.user)
+        # profile_form = AdminUpdateForm(instance=request.user.adminProfileUpdate)
+
+    context = {
+        'user_form': user_form,
+        'label': label,
+    }
+
+    return render(request, 'task/updateAdminProfile.html', context)
 
 #------------------- DELIVERY SUPPLIES -----------------------------
 def suppliesDeliver(request):
+    label = request.user
     info = deliverysupply.objects.all()
     info1 = supplymainstorage.objects.all()
     form = deliverySupplyForm()
@@ -189,6 +231,7 @@ def suppliesDeliver(request):
         'form': form,
         'info': info,
         'info1': info1,
+        'label': label,
     }
 
     return render(request, 'task/supplies-delivery.html', context)
@@ -196,6 +239,7 @@ def suppliesDeliver(request):
 
 #------------------- STATUS LIMIT SUPPLIES -----------------------------
 def statusLimit(request):
+    label = request.user
     info = supplymainstorage.objects.all()
     info1 = limitrecords.objects.all()
     if request.method == 'POST':
@@ -261,12 +305,14 @@ def statusLimit(request):
     context = {
         'info': info,
         'info1': info1,
+        'label': label,
     }
     return render(request, 'task/status-limit.html', context)
 
 
 #------------------- ADMIN VIEW REQUEST SUPPLIES -----------------------------
 def viewRequestSupply(request):
+    label = request.user
     info = requestsupply.objects.all()
     # info1 = supplymainstorage.objects.filter()
     
@@ -333,7 +379,7 @@ def viewRequestSupply(request):
             messages.info(request, 'This item does not have enough stock in the main storage,'+ ' Mainstorage Remaining: ' + number)
     context = {
         'info': info,
-        # 'info1': info1,
+        'label': label,
 
     }
     return render(request, 'task/view-request-supplies.html', context)
@@ -412,6 +458,7 @@ def depRequestSupply(request):
 
 #------------------- WITHDRAW SUPPLIES -----------------------------
 def suppliesWithdraw(request):
+    label = request.user
     info = acceptSupplyRequests.objects.all()
     info1 = withdrawsupply.objects.all()
 
@@ -457,12 +504,14 @@ def suppliesWithdraw(request):
     context = {
         'info': info,
         'info1': info1,
+        'label': label,
     }
     return render(request, 'task/supplies-withdraw.html', context)
 
 
 #------------------- DELIVERY EQUIPMENTS -----------------------------
 def equipmentDeliver(request):
+    label = request.user
     info = equipmentmainstorage.objects.all()
     info3 = equipmentmainstorage.objects.filter(equipmentmainstorage_quantity = 0).delete()
     info1 = deliveryequipment.objects.all()
@@ -587,6 +636,7 @@ def equipmentDeliver(request):
         'info1': info1,
         'info2': info2,
         'info3': info3,
+        'label': label,
 
     }
     return render(request, 'task/equipment-delivery.html', context)
@@ -595,10 +645,12 @@ def equipmentDeliver(request):
 
 #------------------- ADMIN VIEW REQUEST EQUIPMENTS -----------------------------
 def viewDeliveryRecords(request):
+    label = request.user
     info = deliveryequipment.objects.all()
     context = {
         'info': info,
-        }
+        'label': label,
+    }
     return render(request, 'task/view-delivery-records.html', context) 
 
 # def viewRequestEquipment(request):
@@ -696,15 +748,19 @@ def depRequestEquipment(request):
 
 #------------------- WITHDRAW EQUIPMENTS -----------------------------
 def equipmentWithdraw(request):
+    label = request.user
     info = acceptEquipmentRequests.objects.all()
     info1 = withdrawequipment.objects.all()
     context = {
         'info': info,
         'info1': info1,
+        'label': label,
     }
     return render(request, 'task/equipment-withdraw.html', context)
 
+
 def createqrequipmentWithdraw(request, pk):
+    label = request.user
     data = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk)
     form = withdrawEquipmentForm(request.POST or None, instance=data)
     if request.method == 'POST':
@@ -791,12 +847,14 @@ def createqrequipmentWithdraw(request, pk):
     context = {
         'data': data,
         'form': form,
+        'label': label,
     }
 
     return render(request, 'task/createqr-equipment-withdraw.html', context)
 
 #------------------- RETURN EQUIPMENTS -----------------------------
 def equipmentReturn(request):
+    label = request.user
     info = returnequipment.objects.all()
     if request.method == 'POST':
         data = request.POST.get('property')
@@ -826,13 +884,15 @@ def equipmentReturn(request):
 
 
     context = {
-        'info': info
+        'info': info,
+        'label': label,
     }
     return render(request, 'task/equipment-return.html', context)
 
 
 #------------------- STORAGE MAPPING -----------------------------
 def storageMapping(request):
+    label = request.user
     info = supply_storagemapping.objects.all()
     info1 = equipment_storagemapping.objects.all()
 
@@ -854,7 +914,8 @@ def storageMapping(request):
 
     context = {
         'info': info,
-        'info1': info1
+        'info1': info1,
+        'label': label,
     }
 
     return render(request, 'task/storage-mapping.html', context)

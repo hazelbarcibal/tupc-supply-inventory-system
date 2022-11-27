@@ -2,11 +2,10 @@
 {% load static %}
 
 {% block content %}
-<title>Add Admin Account</title>
+<title>Update Profile</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
     integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link href="{% static 'css/dept-register.css' %}" rel="stylesheet">
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -14,10 +13,60 @@
 
 
 <style>
-    #checkbox {
-        padding-top: 10px;
-        padding-left: 45px;
+    .kahon {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 10px;
+        background: rgb(255, 255, 255);
+        padding: 32px 25px;
+
     }
+
+    hr {
+        border: 1px solid;
+        background-color: black;
+        border-radius: 5px;
+    }
+
+    .form-control:focus {
+    box-shadow: none;
+    border-color: #BA68C8
+}
+
+.profile-button {
+    background: rgb(99, 39, 120);
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: #682773
+}
+
+.profile-button:focus {
+    background: #682773;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #682773;
+    box-shadow: none
+}
+
+.back:hover {
+    color: #682773;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 11px
+}
+
+.add-experience:hover {
+    background: #BA68C8;
+    color: #fff;
+    cursor: pointer;
+    border: solid 1px #BA68C8
+}
 </style>
 
 
@@ -53,7 +102,7 @@
                     <!-- Dropdown - User Information -->
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="{% url 'inventorysystem-adminProfileUpdate' %}">
+                        <a class="dropdown-item" href="#">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Update Profile
                         </a>
@@ -102,22 +151,7 @@
                 <div class="container">
                     <div class="container" style="margin-bottom: 0;">
                         <div class="container" style="margin-bottom: 0;">
-                            <div class="col-xl-12 col-md-12 mb-4">
-                                {% for message in messages %}
-                                {% if message.tags == 'warning' %}
-                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert"
-                                    style="padding-top: 5px;">
-                                    <strong>{{ form.errors }}</strong>
-                                </div>
-                                {% elif message.tags == 'success' %}
-                                <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-                                <script>
-                                    var m = "{{ message }}";
-                                    swal("Account added! ", m, "success")
-                                </script>
-                                {% endif %}
-                                {% endfor %}
-                            </div>
+                            
 
                         </div>
                     </div>
@@ -127,64 +161,59 @@
 
 
             <!------------------- Content Row ------------------->
-            <div class="row">
+            <!-- <div class="row">
 
-                <div class="col-xl-6 col-md-6 mb-4">
+
+                <div class="col-xl-12 col-md-12 mb-4">
                     <div class="container">
-                        <div class="container">
-                            <form action="" method="post">
-                                {% csrf_token %}
-                                <br>
-                                <h3>Admin User Registration</h3>
+                        <div class="kahon">
+                            
+                        </div>
+                    </div>
+                </div>
 
-                                <div class="input-field">
-                                    <i class="fas fa-user"></i>
-                                    {{form.username}}
-                                </div>
-                                <div class="input-field">
-                                    <i class="fa-solid fa-at"></i>
-                                    {{form.email}}
-                                </div>
 
-                                <div class="input-field">
-                                    <i class="fas fa-lock"></i>
-                                    {{form.password1}}
-                                </div>
+            </div> -->
 
-                                <div class="input-field">
-                                    <i class="fa-solid fa-rotate-right"></i>
-                                    {{form.password2}}
-                                </div>
-
-                                {{form.adminRole}}
-
-                                <div class="row" align="left" style="float: left;">
-                                    <div class="col-xl-12 col-md-12">
-                                        <input class="form-check-input" onclick="myFunction()" type="checkbox" id="flexCheckDefault">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                            Show password
-                                        </label>
+            <div class="container col-md-8 rounded kahon mb-5">
+                <div class="row">
+                    <div class="col-md-4 border-right">
+                        <div class="d-flex flex-column align-items-center text-center p-2">
+                            <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                            <span class="font-weight-bold">{{label.username}}</span>
+                            <span class="text-black-50">{{label.email}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="p-3 py-5">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="text-right">Update Profile</h4>
+                            </div>
+                           
+                            <div class="row mt-3">
+                                <form action="" method="post" class="row mt-3">
+                                    {% csrf_token %}
+                                    <div class="col-md-12">
+                                        <label class="labels">Username</label>
+                                        {{user_form.username}}
                                     </div>
-                                </div>
-                                <br>
-                                <input type="submit" class="btn1" value="Register">
-                                <br>
-                            </form>
+                                    <div class="col-md-12">
+                                        <label class="labels">Email address</label>
+                                        {{user_form.email}}
+                                    </div>
+                                    <div class="mt-5">
+                                        <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
+                                    </div>
+                                </form>
+                            </div>
+                            
                         </div>
                     </div>
+                    
                 </div>
-
-
-                <div class="col-xl-4 col-md-4 mb-4">
-                    <div class="container">
-                        <div class="container">
-                            <img src="{% static 'img/add-user.svg' %}" alt="add-admin-user">
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
+
+
 
 
         </div>
@@ -219,6 +248,23 @@
     }
 
 </script>
+
+
+{% for message in messages %}
+{% if message.tags == 'info' %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    var m = "{{ message }}";
+    swal("Notice: ", m, "info")
+</script>
+{% elif message.tags == 'success' %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    var m = "{{ message }}";
+    swal("Success! ", m, "success")
+</script>
+{% endif %}
+{% endfor %}
 
 
 {% endblock %}

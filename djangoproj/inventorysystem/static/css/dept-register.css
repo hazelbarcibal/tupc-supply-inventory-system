@@ -1,15 +1,3 @@
-.column {
-    float: left;
-    width: 50%;
-
-}
-  
-.row:after {
-content: "";
-display: table;
-clear: both;
-}
-
 form{
     display: flex;
     flex-direction: column;
@@ -65,9 +53,7 @@ form{
     font-weight: 500;
 }
 
-.btn{
-top: 0;
-left: 50%;
+.btn1{
 color: black;
 border-radius: 25px;
 padding: 7px 25px 8px 25px;
@@ -75,25 +61,18 @@ white-space: nowrap;
 transition: 0.3s;
 letter-spacing: 1px;
 text-transform: uppercase;
-text-decoration: none;
 font-family: 'Raleway', sans-serif;
 font-size: 15px;
-font-weight: bolder;
 display: inline-block;
 border: 2px solid #a7241b;
 background: transparent;
+font-weight: bold;
 
 }
 
-.btn:hover {
+.btn1:hover {
 text-decoration: none;
 background: #9c2e26;
 color: white;
 }
 
-div.kahon {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background: rgb(255, 255, 255) !important;
-    padding: 32px 25px;
-    height: inherit;
-}
