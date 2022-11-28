@@ -89,15 +89,17 @@
     <table class="Table-Content" >
       <thead class="thead_1">
         <tr>
+          <th>Department</th>
           <th>Description</th>
           <th>Unit</th>
           <th>Withdraw Quantity</th>
-          <th>Date&time</th>
+          <th>Date & Time</th>
         </tr>
       </thead>
       <tbody>
         {% for y in Supplywithdraw %}
         <tr>
+          <td>{{y.withdraw_supply_department}}</td>
           <td>{{y.withdraw_supply_description}}</td>
           <td>{{y.withdraw_supply_unit}}</td>
           <td>{{y.withdraw_supply_quantity}}</td>

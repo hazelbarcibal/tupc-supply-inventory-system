@@ -178,11 +178,11 @@ def deptProfileUpdate(request):
                 user_form.save()
                 # profile_form.save()
                 messages.success(request, 'Your profile is successfully updated.')
-                return redirect(to='inventorysystem-adminProfileUpdate')
+                return redirect(to='inventorysystem-deptProfileUpdate')
             
             else:
                 messages.info(request, 'No changes submitted or has duplicate record on the database. Please try again.')
-                return redirect(to='inventorysystem-adminProfileUpdate')
+                return redirect(to='inventorysystem-deptProfileUpdate')
     else:
         user_form = DeptUpdateForm(instance=request.user)
         # profile_form = DeptUpdateForm(instance=request.user.adminProfileUpdate)
@@ -1141,7 +1141,6 @@ def export_pdf_suppydelivery(request):
         output.flush()
         output = open(output.name, 'rb')
         response.write(output.read())
-
     
     return response
 

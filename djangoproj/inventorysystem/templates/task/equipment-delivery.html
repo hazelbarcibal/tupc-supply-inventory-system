@@ -89,9 +89,9 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
                     </div>
                     <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
@@ -184,6 +184,7 @@
                                         <th>Request No.</th>
                                         <th style="text-align: center;">Department</th>
                                         <th style="text-align: center;">Item Name</th>
+                                        <th style="text-align: center;">Description</th>
                                         <th style="text-align: center;">Request Quantity</th>
                                         <th style="text-align: center;">Date & Time</th>
                                         <th style="text-align: center;">Action</th>
@@ -195,6 +196,7 @@
                                         <td>{{x.requestequipment_id}}</td>
                                         <td align="center">{{x.request_equipment_department}}</td>
                                         <td align="center">{{x.request_equipment_itemname}}</td>
+                                        <td align="center">{{x.request_equipment_description}}</td>
                                         <td align="center">{{x.request_equipment_quantity}}</td>
                                         <td align="center">{{x.current_date}}</td>
                                         <td>
@@ -240,7 +242,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
@@ -320,7 +324,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
@@ -346,9 +352,8 @@
                     </div>
 
                     <div class="col-md-12">
-                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                            class="form-label">Description:</label>
-                        <input type="text" class="form-control" id="description" name="request_equipment_description"
+                        <label class="form-label">Description:</label>
+                        <input type="text" class="form-control" id="description1" name="request_equipment_description"
                             required>
                     </div>
 
@@ -396,8 +401,8 @@
             $('#editId1').val(data[0]);
             $('#department').val(data[1]);
             $('#itemname1').val(data[2]);
-            $('#mainquantity').val(data[5]);
-            $('#requestquantity').val(data[3]);
+            $('#description1').val(data[3]);
+            $('#requestquantity').val(data[4]);
         });
     });
 
