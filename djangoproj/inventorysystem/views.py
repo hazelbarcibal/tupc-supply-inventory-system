@@ -102,6 +102,7 @@ def deptRegister(request):
             form = DeptRegisterForm(request.POST)
             if form.is_valid():
                 dept = request.POST.get('department')
+                email = request.POST.get('email')
 
                 if dept == '':
                     messages.info(request, 'Please add a department office.')
@@ -112,6 +113,10 @@ def deptRegister(request):
                 else:
                     form.save()
                     messages.success(request, 'Account was created for ' + dept)
+                    subject = 'Account Registration'
+                    message = "Good day! \nYour account has been successfully registered " + dept + "! \nYou can now access your account by logging in to the website. Thank you!" 
+                    recipient = email 
+                    send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
                     return redirect('inventorysystem-deptRegister')
             else:
                 messages.warning(request, form.errors)
@@ -139,7 +144,8 @@ def adminRegister(request):
             form = DeptRegisterForm(request.POST)
             if form.is_valid():
                 getRole = request.POST.get('adminRole')
-                username = request.POST.get('username')  
+                username = request.POST.get('username') 
+                email = request.POST.get('email') 
 
                 if getRole == 'admin':
                     form.instance.is_admin = True
@@ -147,6 +153,10 @@ def adminRegister(request):
     
                     form.save()
                     messages.success(request, 'Account was created for ' + username)
+                    subject = 'Account Registration'
+                    message = "Good day! \nYour account has been successfully registered " + username + "! \nYou can now access your account by logging in to the website. Thank you!" 
+                    recipient = email 
+                    send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
                     return redirect('inventorysystem-adminRegister')
             else:
                 messages.warning(request, form.errors)
@@ -176,15 +186,14 @@ def adminProfileUpdate(request):
             # profile_form = AdminUpdateForm(request.POST, request.FILES, instance=request.user.profile)
 
             if user_form.is_valid():
-                # # if username is not None and email is not None:
-                # #     messages.info(request, 'No changes submitted.')         
-                # if email == email and username == username:
-                #     messages.info(request, 'No changes submitted.')
-
                 if CustomUser.objects.filter(username = username).filter(email = email).exists() == False:
                     user_form.save()
                     # profile_form.save()
                     messages.success(request, 'Your profile is successfully updated.')
+                    subject = 'Update Profile'
+                    message = "Good day "+ username + "! \nYour account has been successfully updated! \nYou can now access your account by logging in to the website. Thank you!" 
+                    recipient = email 
+                    send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
                     return redirect(to='inventorysystem-adminProfileUpdate')
                 
                 else:
@@ -217,17 +226,21 @@ def deptProfileUpdate(request):
             # profile_form = DeptUpdateForm(request.POST, request.FILES, instance=request.user.profile)
 
             if user_form.is_valid():
-                if username is not None and email is not None == username and email:
-                    messages.info(request, 'No changes submitted.')
+                # if username is not None and email is not None == username and email:
+                #     messages.info(request, 'No changes submitted.')
                 
-                elif CustomUser.objects.filter(username = username).filter(email = email).exists() == False:
+                if CustomUser.objects.filter(username = username).filter(email = email).exists() == False:
                     user_form.save()
                     # profile_form.save()
                     messages.success(request, 'Your profile is successfully updated.')
+                    subject = 'Update Profile'
+                    message = "Good day "+ username + "! \nYour account has been successfully updated! \nYou can now access your account by logging in to the website. Thank you!" 
+                    recipient = email 
+                    send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
                     return redirect(to='inventorysystem-adminProfileUpdate')
                 
                 else:
-                    messages.info(request, 'No changes submitted or has duplicate record on the database. Please try again.')
+                    messages.info(request, 'Existing record. Please try again.')
                     return redirect(to='inventorysystem-adminProfileUpdate')
         else:
             user_form = DeptUpdateForm(instance=request.user)
