@@ -7,12 +7,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import datetime
 import xlwt
+import os
 
 from django.core.mail import send_mail
 from django.conf import settings
 
 from django.template.loader import render_to_string
-from weasyprint import HTML 
+from weasyprint import HTML , CSS 
 import tempfile
 
 # def home(request):
@@ -1133,8 +1134,8 @@ def export_pdf_suppydelivery(request):
 
 
     html_string = render_to_string('task/pdf-output-supplydelivery.html' ,{'Supplydelivery': supply})
-    html = HTML(string=html_string)
-    result = html.write_pdf()
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
+    result = html.write_pdf(presentational_hints=True)
 
     with tempfile.NamedTemporaryFile(delete=False) as output:
         output.write(result)
@@ -1153,8 +1154,8 @@ def export_pdf_suppywithdraw(request):
 
 
     html_string = render_to_string('task/pdf-output-supplywithdraw.html' ,{'Supplywithdraw': supply})
-    html = HTML(string=html_string)
-    result = html.write_pdf()
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
+    result = html.write_pdf(presentational_hints=True)
 
     with tempfile.NamedTemporaryFile(delete=False) as output:
         output.write(result)
@@ -1174,8 +1175,8 @@ def export_pdf_equipdelivery(request):
 
 
     html_string = render_to_string('task/pdf-output-equipdelivery.html' ,{'Equipdelivery': supply})
-    html = HTML(string=html_string)
-    result = html.write_pdf()
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
+    result = html.write_pdf(presentational_hints=True)
 
     with tempfile.NamedTemporaryFile(delete=False) as output:
         output.write(result)
@@ -1195,8 +1196,8 @@ def export_pdf_equipwithdraw(request):
 
 
     html_string = render_to_string('task/pdf-output-equipwithdraw.html' ,{'Equipwithdraw': supply})
-    html = HTML(string=html_string)
-    result = html.write_pdf()
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
+    result = html.write_pdf(presentational_hints=True)
 
     with tempfile.NamedTemporaryFile(delete=False) as output:
         output.write(result)
@@ -1216,8 +1217,8 @@ def export_pdf_equipreturn(request):
 
 
     html_string = render_to_string('task/pdf-output-equipreturn.html' ,{'EquipReturn': supply})
-    html = HTML(string=html_string)
-    result = html.write_pdf()
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
+    result = html.write_pdf(presentational_hints=True)
 
     with tempfile.NamedTemporaryFile(delete=False) as output:
         output.write(result)

@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 
 <html lang="en" dir="ltr">
@@ -7,6 +8,7 @@
 <head>
 
   <meta charset="UTF-8">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/TUP LOGO.png' %}">
   <link rel="stylesheet" href="{% static 'css/outputpdf.css' %}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
@@ -43,17 +45,20 @@
 </head>
 
 <body>
+
   <div class="container1">
     <div class="header">
       <div class="col-md-12">
         <table>
           <thead>
             <tr>
-              <th style="width: 10%; ">
-                  <img src="../../static/img/TUP LOGO.png" style="width: 100%;">
+              <th >
+                <div >
+                  <img style="width: 60px; height: 60px;" src="../../static/img/TUP LOGO.png" class="img-fluid" >
+                </div>
               </th>
               <th style="width: 90%; " align="center; ">
-
+                
                 <p>Technological University of the Philippines Cavite <br>
                   Cavite Campus<br>
                   Carlos Q. Trinidad Avenue, Salawag, Dasmariñas City, Cavite, Philippines <br>
@@ -64,8 +69,7 @@
             </tr>
           </thead>
         </table>
-        <i><img src="{% static 'img/TUP LOGO.png' %}"
-            style="width:50px; height:50px; padding-left: 5px; padding-top:5px"></img></i>
+
         <table>
           <thead>
             <style>
@@ -104,6 +108,9 @@
         {% endfor %}
       </tbody>
     </table>
+    <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
+      <img src="{% static 'img/first-icon.svg' %}" class="img-fluid" alt="">
+    </div>
 </body>
 
 </html>
