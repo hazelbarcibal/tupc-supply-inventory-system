@@ -3,7 +3,7 @@ from .models import *
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-#from django.http import HttpResponse, HttpResponseRedirect, response
+from django.views.decorators.cache import cache_control
 from django.contrib import messages
 import datetime
 import xlwt
@@ -16,20 +16,32 @@ from django.template.loader import render_to_string
 from weasyprint import HTML , CSS 
 import tempfile
 
-# def home(request):
-#     return render(request, 'task/home.html')
-
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def index(request):
     return render(request, 'task/index.html')  
 
-@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def dashboard(request):
-    label = request.user
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_admin) or \
+        (request.user.is_authenticated and request.user.is_staff):
+        
+        label = request.user
 
-    context = {
-        'label': label,
-    }
-    return render(request, 'task/dashboard.html', context) 
+        context = {
+            'label': label,
+        }
+        return render(request, 'task/dashboard.html', context) 
+    else:
+        return redirect('inventorysystem-usersLogin')
+
+
+def logoutUser(request):
+    logout(request)
+
+    return redirect('inventorysystem-usersLogin')
+
 
 # def passwordChange(request):
 
@@ -37,685 +49,758 @@ def dashboard(request):
 
 
 #--------- LOGIN --------------------
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def usersLogin(request):
-    if request.method == "POST":
-        username1 = request.POST.get('logname')
-        password1 = request.POST.get('logpass1')
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_admin) or \
+        (request.user.is_authenticated and request.user.is_staff):
+        return redirect('inventorysystem-dashboard')
+    elif request.user.is_authenticated and request.user.is_active:
+        return redirect('inventorysystem-depRequestSupply')
+    else:
+        if request.method == "POST":
+            username1 = request.POST.get('logname')
+            password1 = request.POST.get('logpass1')
 
-        username2 = request.POST.get('logusername')
-        email = request.POST.get('email')
-        password2 = request.POST.get('logpass2')
+            username2 = request.POST.get('logusername')
+            email = request.POST.get('email')
+            password2 = request.POST.get('logpass2')
 
-        user1 = authenticate(request, username=username1, password=password1)
-        user2 = authenticate(request, username=username2, email=email,  password=password2)
+            user1 = authenticate(request, username=username1, password=password1)
+            user2 = authenticate(request, username=username2, email=email,  password=password2)
 
-        if (user1 is not None and user1.is_superuser) or \
-        (user1 is not None and user1.is_admin) or \
-        (user1 is not None and user1.is_staff):
-            login(request, user1)
-            messages.success(request, 'Hello ' + username1 + '!')
-            return redirect('inventorysystem-dashboard')
-        else:
-            messages.info(request, 'Invalid credentials. Please try again.') 
+            if (user1 is not None and user1.is_superuser) or \
+            (user1 is not None and user1.is_admin) or \
+            (user1 is not None and user1.is_staff):
+                login(request, user1)
+                messages.success(request, 'Hello ' + username1 + '!')
+                return redirect('inventorysystem-dashboard')
+            else:
+                messages.info(request, 'Invalid credentials. Please try again.') 
 
-        if user2 is not None and user2.is_active:
-            login(request, user2)
-            messages.success(request, 'Hello ' + username2 + '!')
-            return redirect('inventorysystem-depRequestSupply')
-        else:
-            messages.info(request, 'Invalid credentials. Please try again.')  
+            if user2 is not None and user2.is_active:
+                login(request, user2)
+                messages.success(request, 'Hello ' + username2 + '!')
+                return redirect('inventorysystem-depRequestSupply')
+            else:
+                messages.info(request, 'Invalid credentials. Please try again.')  
 
-    return render(request, 'task/usersLogin.html')
+        return render(request, 'task/usersLogin.html')
 
 
-@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def deptRegister(request):
-    label = request.user
-    form = DeptRegisterForm()
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_admin) or \
+        (request.user.is_authenticated and request.user.is_staff):
+        
+        label = request.user
+        form = DeptRegisterForm()
 
-    if request.method == "POST":
-        form = DeptRegisterForm(request.POST)
-        if form.is_valid():
-            dept = request.POST.get('department')
+        if request.method == "POST":
+            form = DeptRegisterForm(request.POST)
+            if form.is_valid():
+                dept = request.POST.get('department')
 
-            
-            if dept == '':
-                messages.info(request, 'Please add a department office.')
+                if dept == '':
+                    messages.info(request, 'Please add a department office.')
 
-            elif CustomUser.objects.filter(department = dept).exists() == True:
-                messages.info(request, 'There is already an existing account for ' + dept)
+                elif CustomUser.objects.filter(department = dept).exists() == True:
+                    messages.info(request, 'There is already an existing account for ' + dept)
 
+                else:
+                    form.save()
+                    messages.success(request, 'Account was created for ' + dept)
+                    return redirect('inventorysystem-deptRegister')
             else:
-                form.save()
-                messages.success(request, 'Account was created for ' + dept)
-                return redirect('inventorysystem-deptRegister')
-        else:
-            messages.warning(request, form.errors)
+                messages.warning(request, form.errors)
 
-    context = {
-        'form': form,
-        'label': label,
-    }
+        context = {
+            'form': form,
+            'label': label,
+        }
 
-    return render(request, 'task/department-register.html', context)
+        return render(request, 'task/department-register.html', context)
+    else:
+        return redirect('inventorysystem-usersLogin')
 
 
-@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def adminRegister(request):
-    label = request.user
-    form = AdminRegisterForm()
-    if request.method == "POST":
-        form = DeptRegisterForm(request.POST)
-        if form.is_valid():
-            getRole = request.POST.get('adminRole')
-            username = request.POST.get('username')  
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_admin) or \
+        (request.user.is_authenticated and request.user.is_staff):
+        
+        label = request.user
+        form = AdminRegisterForm()
+        if request.method == "POST":
+            form = DeptRegisterForm(request.POST)
+            if form.is_valid():
+                getRole = request.POST.get('adminRole')
+                username = request.POST.get('username')  
 
-            if getRole == 'admin':
-                form.instance.is_admin = True
-                form.instance.is_staff = True
- 
-                form.save()
-                messages.success(request, 'Account was created for ' + username)
-                return redirect('inventorysystem-adminRegister')
-        else:
-            messages.warning(request, form.errors)
+                if getRole == 'admin':
+                    form.instance.is_admin = True
+                    form.instance.is_staff = True
+    
+                    form.save()
+                    messages.success(request, 'Account was created for ' + username)
+                    return redirect('inventorysystem-adminRegister')
+            else:
+                messages.warning(request, form.errors)
 
-    context = {
-        'form': form,
-        'label': label,
-    }
+        context = {
+            'form': form,
+            'label': label,
+        }
 
-    return render(request, 'task/admin-register.html', context)
+        return render(request, 'task/admin-register.html', context)
+    else:
+        return redirect('inventorysystem-usersLogin')
 
 
-@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def adminProfileUpdate(request):
-    label = request.user
-    if request.method == 'POST':
-        user_form = AdminUpdateForm(request.POST, instance=request.user)
-        email = request.POST.get('email')
-        username = request.POST.get('username')
-        # profile_form = AdminUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_admin) or \
+        (request.user.is_authenticated and request.user.is_staff):
+        
+        label = request.user
+        if request.method == 'POST':
+            user_form = AdminUpdateForm(request.POST, instance=request.user)
+            email = request.POST.get('email')
+            username = request.POST.get('username')
+            # profile_form = AdminUpdateForm(request.POST, request.FILES, instance=request.user.profile)
 
-        if user_form.is_valid():
-            # if username is not None and email is not None == label:
-            #     messages.info(request, 'No changes submitted.')
-            
-            if CustomUser.objects.filter(username = username).filter(email = email).exists() == False:
-                user_form.save()
-                # profile_form.save()
-                messages.success(request, 'Your profile is successfully updated.')
-                return redirect(to='inventorysystem-adminProfileUpdate')
-            
-            else:
-                messages.info(request, 'No changes submitted or has duplicate record on the database. Please try again.')
-                return redirect(to='inventorysystem-adminProfileUpdate')
+            if user_form.is_valid():
+                # # if username is not None and email is not None:
+                # #     messages.info(request, 'No changes submitted.')         
+                # if email == email and username == username:
+                #     messages.info(request, 'No changes submitted.')
+
+                if CustomUser.objects.filter(username = username).filter(email = email).exists() == False:
+                    user_form.save()
+                    # profile_form.save()
+                    messages.success(request, 'Your profile is successfully updated.')
+                    return redirect(to='inventorysystem-adminProfileUpdate')
+                
+                else:
+                    messages.info(request, 'Existing record. Please try again.')
+                    return redirect(to='inventorysystem-adminProfileUpdate')
+        else:
+            user_form = AdminUpdateForm(instance=request.user)
+            # profile_form = AdminUpdateForm(instance=request.user.adminProfileUpdate)
+
+        context = {
+            'user_form': user_form,
+            'label': label,
+        }
+
+        return render(request, 'task/updateAdminProfile.html', context)
     else:
-        user_form = AdminUpdateForm(instance=request.user)
-        # profile_form = AdminUpdateForm(instance=request.user.adminProfileUpdate)
-
-    context = {
-        'user_form': user_form,
-        'label': label,
-    }
-
-    return render(request, 'task/updateAdminProfile.html', context)
+        return redirect('inventorysystem-usersLogin')
 
 
-@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def deptProfileUpdate(request):
-    label = request.user
-    if request.method == 'POST':
-        user_form = DeptUpdateForm(request.POST, instance=request.user)
-        email = request.POST.get('email')
-        username = request.POST.get('username')
-        # profile_form = DeptUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+    if (request.user.is_authenticated and request.user.is_active):
+        
+        label = request.user
+        if request.method == 'POST':
+            user_form = DeptUpdateForm(request.POST, instance=request.user)
+            email = request.POST.get('email')
+            username = request.POST.get('username')
+            # profile_form = DeptUpdateForm(request.POST, request.FILES, instance=request.user.profile)
 
-        if user_form.is_valid():
-            # if username is not None and email is not None == label:
-            #     messages.info(request, 'No changes submitted.')
-            
-            if CustomUser.objects.filter(username = username).filter(email = email).exists() == False:
-                user_form.save()
-                # profile_form.save()
-                messages.success(request, 'Your profile is successfully updated.')
-                return redirect(to='inventorysystem-deptProfileUpdate')
-            
-            else:
-                messages.info(request, 'No changes submitted or has duplicate record on the database. Please try again.')
-                return redirect(to='inventorysystem-deptProfileUpdate')
+            if user_form.is_valid():
+                if username is not None and email is not None == username and email:
+                    messages.info(request, 'No changes submitted.')
+                
+                elif CustomUser.objects.filter(username = username).filter(email = email).exists() == False:
+                    user_form.save()
+                    # profile_form.save()
+                    messages.success(request, 'Your profile is successfully updated.')
+                    return redirect(to='inventorysystem-adminProfileUpdate')
+                
+                else:
+                    messages.info(request, 'No changes submitted or has duplicate record on the database. Please try again.')
+                    return redirect(to='inventorysystem-adminProfileUpdate')
+        else:
+            user_form = DeptUpdateForm(instance=request.user)
+            # profile_form = DeptUpdateForm(instance=request.user.adminProfileUpdate)
+
+        context = {
+            'user_form': user_form,
+            'label': label,
+        }
+        return render(request, 'task/updateDeptProfile.html', context)
     else:
-        user_form = DeptUpdateForm(instance=request.user)
-        # profile_form = DeptUpdateForm(instance=request.user.adminProfileUpdate)
-
-    context = {
-        'user_form': user_form,
-        'label': label,
-    }
-    return render(request, 'task/updateDeptProfile.html', context)
+        return redirect('inventorysystem-usersLogin')
 
 
 
 #------------------- DELIVERY SUPPLIES -----------------------------
-
-@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def suppliesDeliver(request):
-    label = request.user
-    info = deliverysupply.objects.all()
-    info1 = supplymainstorage.objects.all()
-    form = deliverySupplyForm()
-    if request.method == 'POST':
-        form = deliverySupplyForm(request.POST)
-        description = request.POST.get('delivery_supply_description')
-        unit = request.POST.get('delivery_supply_unit')
-        quantity = request.POST.get('delivery_supply_quantity')
-        update_description = request.POST.get('supplymainstorage_description')
-        add_quantity = request.POST.get('supplymainstorage_RequestQuantity')
-        update_unit = request.POST.get('supplymainstorage_unit')
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_admin) or \
+        (request.user.is_authenticated and request.user.is_staff):
+        
+        label = request.user
+        info = deliverysupply.objects.all()
+        info1 = supplymainstorage.objects.all()
+        form = deliverySupplyForm()
+        if request.method == 'POST':
+            form = deliverySupplyForm(request.POST)
+            description = request.POST.get('delivery_supply_description')
+            unit = request.POST.get('delivery_supply_unit')
+            quantity = request.POST.get('delivery_supply_quantity')
+            update_description = request.POST.get('supplymainstorage_description')
+            add_quantity = request.POST.get('supplymainstorage_RequestQuantity')
+            update_unit = request.POST.get('supplymainstorage_unit')
 
-        if 'delivery_new' in request.POST:
-            if supplymainstorage.objects.filter(supplymainstorage_description = description).exists() == False:
-                if int(quantity) > 0:
-                        delivery_record = deliverysupply()
-                        delivery_record.delivery_supply_description = description
-                        delivery_record.delivery_supply_unit = unit
-                        delivery_record.delivery_supply_quantity = quantity
-                        delivery_record.delivery_supply_remaining = quantity
-                        delivery_record.save()
-                        storageupdate = supplymainstorage()
-                        storageupdate.supplymainstorage_description = description
-                        storageupdate.supplymainstorage_unit = unit
-                        storageupdate.supplymainstorage_quantity = quantity
-                        storageupdate.save()
-                        mapping = supply_storagemapping()
-                        mapping.supplyItemName = description
-                        mapping.supplyRackNo = 0
-                        mapping.supplyLayerNo = 0
-                        mapping.supplyCabinetNo = 0
-                        mapping.supplyShelfNo = 0
-                        mapping.save()
-                        messages.success(request, 'Record created for ' + description)
-                        return redirect('inventorysystem-suppliesDeliver')
-                else:
-                        messages.info(request, "invalid quantity")
-                        return redirect('inventorysystem-suppliesDeliver')
+            if 'delivery_new' in request.POST:
+                if supplymainstorage.objects.filter(supplymainstorage_description = description).exists() == False:
+                    if int(quantity) > 0:
+                            delivery_record = deliverysupply()
+                            delivery_record.delivery_supply_description = description
+                            delivery_record.delivery_supply_unit = unit
+                            delivery_record.delivery_supply_quantity = quantity
+                            delivery_record.delivery_supply_remaining = quantity
+                            delivery_record.save()
+                            storageupdate = supplymainstorage()
+                            storageupdate.supplymainstorage_description = description
+                            storageupdate.supplymainstorage_unit = unit
+                            storageupdate.supplymainstorage_quantity = quantity
+                            storageupdate.save()
+                            mapping = supply_storagemapping()
+                            mapping.supplyItemName = description
+                            mapping.supplyRackNo = 0
+                            mapping.supplyLayerNo = 0
+                            mapping.supplyCabinetNo = 0
+                            mapping.supplyShelfNo = 0
+                            mapping.save()
+                            messages.success(request, 'Record created for ' + description)
+                            return redirect('inventorysystem-suppliesDeliver')
+                    else:
+                            messages.info(request, "invalid quantity")
+                            return redirect('inventorysystem-suppliesDeliver')
 
-            elif supplymainstorage.objects.filter(supplymainstorage_description = description).exists() == True:
-                messages.info(request, 'Description: '  + description + ' already exist ')
+                elif supplymainstorage.objects.filter(supplymainstorage_description = description).exists() == True:
+                    messages.info(request, 'Description: '  + description + ' already exist ')
+                    
+                    return redirect('inventorysystem-suppliesDeliver')
+
+            elif 'delivery_update' in request.POST:
+
+                if int(add_quantity) > 0:
+
+                    getdata1 = supplymainstorage.objects.get(supplymainstorage_description = update_description)
                 
-                return redirect('inventorysystem-suppliesDeliver')
+                    update_record = deliverysupply()
+                    update_record.delivery_supply_description = getdata1.supplymainstorage_description
+                    update_record.delivery_supply_unit = getdata1.supplymainstorage_unit
+                    adding = int(getdata1.supplymainstorage_quantity) + int(add_quantity)
+                    update_record.delivery_supply_quantity = add_quantity
+                    update_record.delivery_supply_remaining = adding
+                    update_record.save()
 
-        elif 'delivery_update' in request.POST:
+                    update_delivery = supplymainstorage()
+                    update_delivery.supplymainstorage_id = getdata1.supplymainstorage_id
+                    update_delivery.supplymainstorage_description = update_description
+                    update_delivery.supplymainstorage_unit = update_unit
+                    adding1 = int(getdata1.supplymainstorage_quantity) + int(add_quantity)
+                    update_delivery.supplymainstorage_quantity = adding1
+                    supplymainstorage.objects.filter(supplymainstorage_description = update_description).filter(supplymainstorage_unit = update_unit).delete()
+                    update_delivery.save()
 
-            if int(add_quantity) > 0:
+                    messages.success(request, 'Record updated for: ' + str(getdata1.supplymainstorage_description))
+                    return redirect('inventorysystem-suppliesDeliver')
 
-                getdata1 = supplymainstorage.objects.get(supplymainstorage_description = update_description)
-            
-                update_record = deliverysupply()
-                update_record.delivery_supply_description = getdata1.supplymainstorage_description
-                update_record.delivery_supply_unit = getdata1.supplymainstorage_unit
-                adding = int(getdata1.supplymainstorage_quantity) + int(add_quantity)
-                update_record.delivery_supply_quantity = add_quantity
-                update_record.delivery_supply_remaining = adding
-                update_record.save()
+            else:
+                messages.info(request, "invalid quantity")
 
-                update_delivery = supplymainstorage()
-                update_delivery.supplymainstorage_id = getdata1.supplymainstorage_id
-                update_delivery.supplymainstorage_description = update_description
-                update_delivery.supplymainstorage_unit = update_unit
-                adding1 = int(getdata1.supplymainstorage_quantity) + int(add_quantity)
-                update_delivery.supplymainstorage_quantity = adding1
-                supplymainstorage.objects.filter(supplymainstorage_description = update_description).filter(supplymainstorage_unit = update_unit).delete()
-                update_delivery.save()
+        
+        context = {
+            'form': form,
+            'info': info,
+            'info1': info1,
+            'label': label,
+        }
 
-                messages.success(request, 'Record updated for: ' + str(getdata1.supplymainstorage_description))
-                return redirect('inventorysystem-suppliesDeliver')
-
-        else:
-            messages.info(request, "invalid quantity")
-
-    
-    context = {
-        'form': form,
-        'info': info,
-        'info1': info1,
-        'label': label,
-    }
-
-    return render(request, 'task/supplies-delivery.html', context)
+        return render(request, 'task/supplies-delivery.html', context)
+    else:
+        return redirect('inventorysystem-usersLogin')
 
 
 
 #------------------- STATUS LIMIT SUPPLIES -----------------------------
-
-@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def statusLimit(request):
-    label = request.user
-    info = supplymainstorage.objects.all()
-    info1 = limitrecords.objects.all()
-    if request.method == 'POST':
-        description = request.POST.get('non-existing_description')
-        unit = request.POST.get('non-existing_unit')
-        quantity = request.POST.get('non-existing_quantity')
-        department = request.POST.get('non-existing_department')
-        update_limit_department = request.POST.get('limit_department')
-        update_limit_description = request.POST.get('limit_description')
-        update_limit_unit = request.POST.get('limit_unit')
-        update_limit_quantity = request.POST.get('limit_quantity')
-        update_limit_addquantity = request.POST.get('limit_addquantity')
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_admin) or \
+        (request.user.is_authenticated and request.user.is_staff):
+        
+        label = request.user
+        info = supplymainstorage.objects.all()
+        info1 = limitrecords.objects.all()
+        if request.method == 'POST':
+            description = request.POST.get('non-existing_description')
+            unit = request.POST.get('non-existing_unit')
+            quantity = request.POST.get('non-existing_quantity')
+            department = request.POST.get('non-existing_department')
+            update_limit_department = request.POST.get('limit_department')
+            update_limit_description = request.POST.get('limit_description')
+            update_limit_unit = request.POST.get('limit_unit')
+            update_limit_quantity = request.POST.get('limit_quantity')
+            update_limit_addquantity = request.POST.get('limit_addquantity')
 
-        if 'new_limit' in request.POST:
+            if 'new_limit' in request.POST:
 
-            if supplymainstorage.objects.filter(supplymainstorage_description = description).filter(supplymainstorage_unit = unit).exists() == True:
-                if int(request.POST.get('non-existing_quantity')) > 0:
-                    if CustomUser.objects.filter(department = department).exists() == True:
+                if supplymainstorage.objects.filter(supplymainstorage_description = description).filter(supplymainstorage_unit = unit).exists() == True:
+                    if int(request.POST.get('non-existing_quantity')) > 0:
+                        if CustomUser.objects.filter(department = department).exists() == True:
 
-                        if limitrecords.objects.filter(limit_description = description).filter(limit_department = department).filter(limit_unit = unit).exists() == False:
-                                limit = limitrecords()
-                                limit.limit_description = description
-                                limit.limit_unit = unit
-                                limit.limit_quantity = quantity
-                                limit.limit_department = department
-                                limit.save()    
-                                messages.success(request, 'Record created for ' + description)
+                            if limitrecords.objects.filter(limit_description = description).filter(limit_department = department).filter(limit_unit = unit).exists() == False:
+                                    limit = limitrecords()
+                                    limit.limit_description = description
+                                    limit.limit_unit = unit
+                                    limit.limit_quantity = quantity
+                                    limit.limit_department = department
+                                    limit.save()    
+                                    messages.success(request, 'Record created for ' + description)
 
 
-                        elif limitrecords.objects.filter(limit_description = description).filter(limit_department = department).filter(limit_unit = unit).exists() == True:
-                                messages.info(request, "Item name: " +  description + " with a unit: " + unit + " is existing in the department: " + department)
+                            elif limitrecords.objects.filter(limit_description = description).filter(limit_department = department).filter(limit_unit = unit).exists() == True:
+                                    messages.info(request, "Item name: " +  description + " with a unit: " + unit + " is existing in the department: " + department)
 
-                    elif CustomUser.objects.filter(department = department).exists() == False:
-                        messages.info(request, "no available account for this department")
+                        elif CustomUser.objects.filter(department = department).exists() == False:
+                            messages.info(request, "no available account for this department")
 
+                    else:
+                        messages.info(request, "invalid quantity")
+                        
+                elif  supplymainstorage.objects.filter(supplymainstorage_description = description).filter(supplymainstorage_unit = unit).exists() == False:
+                    messages.info(request, "No Existing item name: " +  description +  " with a unit: " + unit + " in supply mainstorage")
+
+            if 'update_limit' in request.POST:
+                
+                getdata = limitrecords.objects.get(limit_description = update_limit_description)
+                if int(update_limit_addquantity) > 0:
+                    update_record = limitrecords()
+                    update_record.limit_id = getdata.limit_id
+                    update_record.limit_description = update_limit_description
+                    update_record.limit_unit = update_limit_unit
+                    update_record.limit_department = update_limit_department
+                    adding = int(getdata.limit_quantity) + int(update_limit_addquantity)
+                    update_record.limit_quantity = adding
+                    limitrecords.objects.filter(limit_id = getdata.limit_id).delete()
+                    update_record.save()
+
+
+                    messages.success(request, 'Record updated for Itemname: ' + update_limit_description +  " with a unit: " + update_limit_unit + " into department: " + update_limit_department)
+                    return redirect('inventorysystem-statusLimit')
                 else:
                     messages.info(request, "invalid quantity")
-                    
-            elif  supplymainstorage.objects.filter(supplymainstorage_description = description).filter(supplymainstorage_unit = unit).exists() == False:
-                messages.info(request, "No Existing item name: " +  description +  " with a unit: " + unit + " in supply mainstorage")
-
-        if 'update_limit' in request.POST:
-            
-            getdata = limitrecords.objects.get(limit_description = update_limit_description)
-            if int(update_limit_addquantity) > 0:
-                update_record = limitrecords()
-                update_record.limit_id = getdata.limit_id
-                update_record.limit_description = update_limit_description
-                update_record.limit_unit = update_limit_unit
-                update_record.limit_department = update_limit_department
-                adding = int(getdata.limit_quantity) + int(update_limit_addquantity)
-                update_record.limit_quantity = adding
-                limitrecords.objects.filter(limit_id = getdata.limit_id).delete()
-                update_record.save()
 
 
-                messages.success(request, 'Record updated for Itemname: ' + update_limit_description +  " with a unit: " + update_limit_unit + " into department: " + update_limit_department)
-                return redirect('inventorysystem-statusLimit')
-            else:
-                messages.info(request, "invalid quantity")
-
-
-    context = {
-        'info': info,
-        'info1': info1,
-        'label': label,
-    }
-    return render(request, 'task/status-limit.html', context)
+        context = {
+            'info': info,
+            'info1': info1,
+            'label': label,
+        }
+        return render(request, 'task/status-limit.html', context)
+    else:
+        return redirect('inventorysystem-usersLogin')
 
 
 
 #------------------- ADMIN VIEW REQUEST SUPPLIES -----------------------------
-
-@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def viewRequestSupply(request):
-    label = request.user
-    info = requestsupply.objects.all()
-    # info1 = supplymainstorage.objects.filter()
-    
-    if request.method == 'POST':
-        request_id = request.POST.get('requestsupply_id')
-        request_department = request.POST.get('request_supply_department')
-        request_unit = request.POST.get('request_supply_unit')
-        request_description = request.POST.get('request_supply_description')
-        request_quantity = request.POST.get('request_supply_quantity')
-        request_accept_quantity = request.POST.get('request_supply_acceptquantity')
-        getdata1 = requestsupply.objects.get(requestsupply_id = request_id).requestsupply_id
-        getdata2 = requestsupply.objects.get(requestsupply_id = request_id)
-        getdata3 = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_quantity
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_admin) or \
+        (request.user.is_authenticated and request.user.is_staff):
 
-        if int(request_accept_quantity) > int(request_quantity):
+        label = request.user
+        info = requestsupply.objects.all()
+        # info1 = supplymainstorage.objects.filter()
+        
+        if request.method == 'POST':
+            request_id = request.POST.get('requestsupply_id')
+            request_department = request.POST.get('request_supply_department')
+            request_unit = request.POST.get('request_supply_unit')
+            request_description = request.POST.get('request_supply_description')
+            request_quantity = request.POST.get('request_supply_quantity')
+            request_accept_quantity = request.POST.get('request_supply_acceptquantity')
+            getdata1 = requestsupply.objects.get(requestsupply_id = request_id).requestsupply_id
+            getdata2 = requestsupply.objects.get(requestsupply_id = request_id)
+            getdata3 = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_quantity
 
-                messages.info(request, 'Your accepted quantity is greater than with the requested quantity')
+            if int(request_accept_quantity) > int(request_quantity):
+
+                    messages.info(request, 'Your accepted quantity is greater than with the requested quantity')
+                    return redirect('inventorysystem-viewRequestSupply')
+
+
+            elif int(request_accept_quantity) > int(getdata3):
+
+                    messages.info(request, 'Not enough quantity for this item.')
+                    return redirect('inventorysystem-viewRequestSupply')       
+
+            elif int(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity) > int(request_accept_quantity) or int(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity) == int(request_accept_quantity):
+                accept = acceptSupplyRequests()
+                accept.acceptSupplyRequests_id = request_id
+                accept.arequest_supply_department = request_department
+                accept.arequest_supply_description = request_description
+                accept.arequest_supply_unit = request_unit
+                accept.arequest_supply_quantity = request_accept_quantity
+                accept.arequest_supply_status = "Ready for pick-up"
+                # data1 = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
+                # subject = "Supply Department"
+                # message = "Your Item is ready for pick up"
+                # get1 = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
+                # get2 = str(requestsupply.objects.get(requestsupply_id = getdata).request_supply_department)
+                # depinfo = str(requestsupply.objects.get(requestsupply_id = getdata1).request_supply_department)
+                # print(depinfo)
+                # recipient = str(CustomUser.objects.get(department= get2).email)
+                # # email field ng bawat department
+                # send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
+                requestsupply.objects.filter(requestsupply_id = getdata1).delete()       
+                status = statusSupplyRequest()
+                status.statusSupplyRequests_id = request_id
+                status.status_supply_description = request_description
+                status.status_supply_unit = request_unit
+                status.status_supply_quantity = request_quantity
+                status.status_supply_remaining = limitrecords.objects.get(limit_id = getdata1).limit_quantity
+                status.status_supply_acceptquantity = request_accept_quantity
+                status.status_supply_department = request_department
+                status.status_supply_status = "Ready for pick-up"  
+                statusSupplyRequest.objects.filter(statusSupplyRequests_id = getdata1).delete()  
+                messages.success(request, 'request accepted')
+                accept.save()
+                status.save()
+            
                 return redirect('inventorysystem-viewRequestSupply')
 
 
-        elif int(request_accept_quantity) > int(getdata3):
+            else:
+                number = str(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity)
+                messages.info(request, 'This item does not have enough stock in the main storage,'+ ' Mainstorage Remaining: ' + number)
+        context = {
+            'info': info,
+            'label': label,
 
-                messages.info(request, 'Not enough quantity for this item.')
-                return redirect('inventorysystem-viewRequestSupply')       
-
-        elif int(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity) > int(request_accept_quantity) or int(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity) == int(request_accept_quantity):
-            accept = acceptSupplyRequests()
-            accept.acceptSupplyRequests_id = request_id
-            accept.arequest_supply_department = request_department
-            accept.arequest_supply_description = request_description
-            accept.arequest_supply_unit = request_unit
-            accept.arequest_supply_quantity = request_accept_quantity
-            accept.arequest_supply_status = "Ready for pick-up"
-            # data1 = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
-            # subject = "Supply Department"
-            # message = "Your Item is ready for pick up"
-            # get1 = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
-            # get2 = str(requestsupply.objects.get(requestsupply_id = getdata).request_supply_department)
-            # depinfo = str(requestsupply.objects.get(requestsupply_id = getdata1).request_supply_department)
-            # print(depinfo)
-            # recipient = str(CustomUser.objects.get(department= get2).email)
-            # # email field ng bawat department
-            # send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
-            requestsupply.objects.filter(requestsupply_id = getdata1).delete()       
-            status = statusSupplyRequest()
-            status.statusSupplyRequests_id = request_id
-            status.status_supply_description = request_description
-            status.status_supply_unit = request_unit
-            status.status_supply_quantity = request_quantity
-            status.status_supply_remaining = limitrecords.objects.get(limit_id = getdata1).limit_quantity
-            status.status_supply_acceptquantity = request_accept_quantity
-            status.status_supply_department = request_department
-            status.status_supply_status = "Ready for pick-up"  
-            statusSupplyRequest.objects.filter(statusSupplyRequests_id = getdata1).delete()  
-            messages.success(request, 'request accepted')
-            accept.save()
-            status.save()
-          
-            return redirect('inventorysystem-viewRequestSupply')
-
-
-        else:
-            number = str(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity)
-            messages.info(request, 'This item does not have enough stock in the main storage,'+ ' Mainstorage Remaining: ' + number)
-    context = {
-        'info': info,
-        'label': label,
-
-    }
-    return render(request, 'task/view-request-supplies.html', context)
+        }
+        return render(request, 'task/view-request-supplies.html', context)
+    else:
+        return redirect('inventorysystem-usersLogin')
 
 
 #------------------- DEPARTMENT REQUEST SUPPLIES -----------------------------
-
-@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def depRequestSupply(request):
-    info1 = limitrecords.objects.all().filter(limit_department = request.user)
-    info = statusSupplyRequest.objects.all().filter(status_supply_department = request.user)
-    info2 = withdrawsupply.objects.all().filter(withdraw_supply_department = request.user)
-    if request.method == 'POST':
-        request_id = request.POST.get('limit_id')
-        request_description = request.POST.get('request_description')
-        request_unit = request.POST.get('request_unit')
-        request_quantity = request.POST.get('request_quantity')
-        request_addquantity = request.POST.get('request_addquantity')
-        # requestingID = limitrecords.objects.get(limit_description = request_description).limit_id
-        
-        if statusSupplyRequest.objects.filter(status_supply_description = request.POST.get('request_description')).filter(status_supply_department = request.user).exists() == True:
+    if (request.user.is_authenticated and request.user.is_active):
+
+        info1 = limitrecords.objects.all().filter(limit_department = request.user)
+        info = statusSupplyRequest.objects.all().filter(status_supply_department = request.user)
+        info2 = withdrawsupply.objects.all().filter(withdraw_supply_department = request.user)
+        if request.method == 'POST':
+            request_id = request.POST.get('limit_id')
+            request_description = request.POST.get('request_description')
+            request_unit = request.POST.get('request_unit')
+            request_quantity = request.POST.get('request_quantity')
+            request_addquantity = request.POST.get('request_addquantity')
+            # requestingID = limitrecords.objects.get(limit_description = request_description).limit_id
             
-                messages.info(request, 'You already have a request for this item.')
-                return redirect('inventorysystem-depRequestSupply')
-
-        elif int(request_addquantity) == 0:
-                messages.info(request, 'Not enough quantity for this item.')
-                return redirect('inventorysystem-depRequestSupply')
-
-        elif int(request_addquantity) > int(request_quantity):
-                messages.info(request, 'Not enough quantity for this item.')
-                return redirect('inventorysystem-depRequestSupply')
-
-        elif int(request_addquantity) <= 0:
-                messages.info(request, 'Check the available quantity')
-                return redirect('inventorysystem-depRequestSupply')
-
-        elif statusSupplyRequest.objects.filter(status_supply_description = request.POST.get('request_description')).filter(status_supply_department = request.user).exists() == False:
-    
-                # if limitrecords.objects.filter(limit_id = requestingID).exists() == True:
-                #     getdata3 = limitrecords.objects.get(limit_id = requestingID)
-                    requesting = requestsupply()
-                    requesting.requestsupply_id = request_id
-                    requesting.request_supply_description = request_description
-                    requesting.request_supply_unit = request_unit
-                    requesting.request_supply_quantity = request_addquantity
-                    requesting.request_supply_remaining = request_quantity
-                    requesting.request_supply_department = str(request.user)
-                    requesting.request_supply_status = "pending"
-                    status = statusSupplyRequest()
-                    status.status_supply_description = request_description
-                    status.status_supply_unit = request_unit
-                    status.status_supply_quantity = request_addquantity
-                    status.status_supply_remaining = request_quantity
-                    status.status_supply_department = request.user
-                    status.status_supply_status = "pending"
-                    requesting.save()
-                    status.save()
-
-                    messages.success(request, 'Request Successful for itemname ')
-                    # # subject = str(limitrecords.objects.get(limit_id = requestingID).limit_department)
-                    # # message = "New Request"
-                    # # depinfo = str(CustomUser.objects.get(is_superuser=True).email)
-                    # # # limitrecords.objects.get(limit_id = requestID).limit_department
-                    # # # str(CustomUser.objects.get(department= depinfo).email)
-                    # # print(depinfo)
-                    # # recipient = depinfo
-                    # # # email ni sir gascon 
-                    # # send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
+            if statusSupplyRequest.objects.filter(status_supply_description = request.POST.get('request_description')).filter(status_supply_department = request.user).exists() == True:
+                
+                    messages.info(request, 'You already have a request for this item.')
                     return redirect('inventorysystem-depRequestSupply')
 
-    context = {
-        'info1': info1,
-        'info': info,
-        'info2': info2,
-    }   
-    return render(request, 'task/dep-request-supply.html', context)
+            elif int(request_addquantity) == 0:
+                    messages.info(request, 'Not enough quantity for this item.')
+                    return redirect('inventorysystem-depRequestSupply')
+
+            elif int(request_addquantity) > int(request_quantity):
+                    messages.info(request, 'Not enough quantity for this item.')
+                    return redirect('inventorysystem-depRequestSupply')
+
+            elif int(request_addquantity) <= 0:
+                    messages.info(request, 'Check the available quantity')
+                    return redirect('inventorysystem-depRequestSupply')
+
+            elif statusSupplyRequest.objects.filter(status_supply_description = request.POST.get('request_description')).filter(status_supply_department = request.user).exists() == False:
+        
+                    # if limitrecords.objects.filter(limit_id = requestingID).exists() == True:
+                    #     getdata3 = limitrecords.objects.get(limit_id = requestingID)
+                        requesting = requestsupply()
+                        requesting.requestsupply_id = request_id
+                        requesting.request_supply_description = request_description
+                        requesting.request_supply_unit = request_unit
+                        requesting.request_supply_quantity = request_addquantity
+                        requesting.request_supply_remaining = request_quantity
+                        requesting.request_supply_department = str(request.user)
+                        requesting.request_supply_status = "pending"
+                        status = statusSupplyRequest()
+                        status.status_supply_description = request_description
+                        status.status_supply_unit = request_unit
+                        status.status_supply_quantity = request_addquantity
+                        status.status_supply_remaining = request_quantity
+                        status.status_supply_department = request.user
+                        status.status_supply_status = "pending"
+                        requesting.save()
+                        status.save()
+
+                        messages.success(request, 'Request Successful for itemname ')
+                        # # subject = str(limitrecords.objects.get(limit_id = requestingID).limit_department)
+                        # # message = "New Request"
+                        # # depinfo = str(CustomUser.objects.get(is_superuser=True).email)
+                        # # # limitrecords.objects.get(limit_id = requestID).limit_department
+                        # # # str(CustomUser.objects.get(department= depinfo).email)
+                        # # print(depinfo)
+                        # # recipient = depinfo
+                        # # # email ni sir gascon 
+                        # # send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
+                        return redirect('inventorysystem-depRequestSupply')
+
+        context = {
+            'info1': info1,
+            'info': info,
+            'info2': info2,
+        }   
+        return render(request, 'task/dep-request-supply.html', context)
+    else:
+        return redirect('inventorysystem-usersLogin')
 
 
 
 #------------------- WITHDRAW SUPPLIES -----------------------------
-
-@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def suppliesWithdraw(request):
-    label = request.user
-    info = acceptSupplyRequests.objects.all()
-    info1 = withdrawsupply.objects.all()
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_admin) or \
+        (request.user.is_authenticated and request.user.is_staff):
 
-    if request.method == 'POST':
-        getdata = request.POST.get('acceptSupplyRequests_id')
-        withdraw_department = request.POST.get('arequest_supply_department')
-        withdraw_description = request.POST.get('arequest_supply_description')
-        withdraw_unit = request.POST.get('arequest_supply_unit')
-        withdraw_quantity = request.POST.get('arequest_supply_quantity')
-        getdata1 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata).acceptSupplyRequests_id
+        label = request.user
+        info = acceptSupplyRequests.objects.all()
+        info1 = withdrawsupply.objects.all()
 
-        update_storage = supplymainstorage()
-        getdata2 = supplymainstorage.objects.get(supplymainstorage_description = withdraw_description)
-        update_storage.supplymainstorage_description = withdraw_description
-        update_storage.supplymainstorage_unit = withdraw_unit
-        update_storage.supplymainstorage_id = getdata2.supplymainstorage_id
-        update_storage.supplymainstorage_quantity = int(getdata2.supplymainstorage_quantity) - int(withdraw_quantity)
-        supplymainstorage.objects.filter(supplymainstorage_description = withdraw_description).delete()
-        update_storage.save()
+        if request.method == 'POST':
+            getdata = request.POST.get('acceptSupplyRequests_id')
+            withdraw_department = request.POST.get('arequest_supply_department')
+            withdraw_description = request.POST.get('arequest_supply_description')
+            withdraw_unit = request.POST.get('arequest_supply_unit')
+            withdraw_quantity = request.POST.get('arequest_supply_quantity')
+            getdata1 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata).acceptSupplyRequests_id
 
-        update_limit = limitrecords()
-        update_limit.limit_id = getdata
-        update_limit.limit_description = withdraw_description
-        update_limit.limit_unit = withdraw_unit
-        update_limit.limit_department = withdraw_department
-        limitqty = limitrecords.objects.get(limit_id = getdata1).limit_quantity      
-        update_limit.limit_quantity = int(limitqty) - int(withdraw_quantity)
-        # limitrecords.objects.filter(limit_description = withdraw_description).filter(limit_department = withdraw_department).delete()
-        update_limit.save()
+            update_storage = supplymainstorage()
+            getdata2 = supplymainstorage.objects.get(supplymainstorage_description = withdraw_description)
+            update_storage.supplymainstorage_description = withdraw_description
+            update_storage.supplymainstorage_unit = withdraw_unit
+            update_storage.supplymainstorage_id = getdata2.supplymainstorage_id
+            update_storage.supplymainstorage_quantity = int(getdata2.supplymainstorage_quantity) - int(withdraw_quantity)
+            supplymainstorage.objects.filter(supplymainstorage_description = withdraw_description).delete()
+            update_storage.save()
 
-        accept = withdrawsupply()
-        accept.withdraw_supply_department = withdraw_department
-        accept.withdraw_supply_description = withdraw_description
-        accept.withdraw_supply_unit = withdraw_unit
-        accept.withdraw_supply_quantity = withdraw_quantity
-        accept.withdraw_supply_remaining = supplymainstorage.objects.get(supplymainstorage_description = withdraw_description).supplymainstorage_quantity
-        acceptSupplyRequests.objects.filter(acceptSupplyRequests_id = getdata1).delete()
-        statusSupplyRequest.objects.filter(status_supply_department = withdraw_department).filter(status_supply_description = withdraw_description).delete()        
-        accept.save()
+            update_limit = limitrecords()
+            update_limit.limit_id = getdata
+            update_limit.limit_description = withdraw_description
+            update_limit.limit_unit = withdraw_unit
+            update_limit.limit_department = withdraw_department
+            limitqty = limitrecords.objects.get(limit_id = getdata1).limit_quantity      
+            update_limit.limit_quantity = int(limitqty) - int(withdraw_quantity)
+            # limitrecords.objects.filter(limit_description = withdraw_description).filter(limit_department = withdraw_department).delete()
+            update_limit.save()
 
-        messages.success(request, 'successfully withdraw')
-        return redirect('inventorysystem-suppliesWithdraw')
-    context = {
-        'info': info,
-        'info1': info1,
-        'label': label,
-    }
-    return render(request, 'task/supplies-withdraw.html', context)
+            accept = withdrawsupply()
+            accept.withdraw_supply_department = withdraw_department
+            accept.withdraw_supply_description = withdraw_description
+            accept.withdraw_supply_unit = withdraw_unit
+            accept.withdraw_supply_quantity = withdraw_quantity
+            accept.withdraw_supply_remaining = supplymainstorage.objects.get(supplymainstorage_description = withdraw_description).supplymainstorage_quantity
+            acceptSupplyRequests.objects.filter(acceptSupplyRequests_id = getdata1).delete()
+            statusSupplyRequest.objects.filter(status_supply_department = withdraw_department).filter(status_supply_description = withdraw_description).delete()        
+            accept.save()
+
+            messages.success(request, 'successfully withdraw')
+            return redirect('inventorysystem-suppliesWithdraw')
+        context = {
+            'info': info,
+            'info1': info1,
+            'label': label,
+        }
+        return render(request, 'task/supplies-withdraw.html', context)
+    else:
+        return redirect('inventorysystem-usersLogin')
 
 
 #------------------- DELIVERY EQUIPMENTS -----------------------------
-
-@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def equipmentDeliver(request):
-    label = request.user
-    info = equipmentmainstorage.objects.all()
-    info3 = equipmentmainstorage.objects.filter(equipmentmainstorage_quantity = 0).delete()
-    info1 = deliveryequipment.objects.all()
-    info2 = requestequipment.objects.all()
-    form = deliveryEquipmentForm()
-    if request.method == 'POST':
-        form = deliveryEquipmentForm(request.POST)
-        # itemname = request.POST.get('delivery_equipment_itemname')
-        # description = request.POST.get('delivery_equipment_description')
-        # brand = request.POST.get('delivery_equipment_brand')
-        # quantity = request.POST.get('delivery_equipment_quantity')
-        # update_itemname = request.POST.get('equipmentmainstorage_itemName')
-        # update_description = request.POST.get('equipmentmainstorage_description')
-        # update_brand = request.POST.get('equipmentmainstorage_brand')
-        # update_quantity = request.POST.get('equipmentmainstorage_RequestQuantity')
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_admin) or \
+        (request.user.is_authenticated and request.user.is_staff):
 
-        if 'delivery_dep' in request.POST:
+        label = request.user
+        info = equipmentmainstorage.objects.all()
+        info3 = equipmentmainstorage.objects.filter(equipmentmainstorage_quantity = 0).delete()
+        info1 = deliveryequipment.objects.all()
+        info2 = requestequipment.objects.all()
+        form = deliveryEquipmentForm()
+        if request.method == 'POST':
+            form = deliveryEquipmentForm(request.POST)
+            # itemname = request.POST.get('delivery_equipment_itemname')
+            # description = request.POST.get('delivery_equipment_description')
+            # brand = request.POST.get('delivery_equipment_brand')
+            # quantity = request.POST.get('delivery_equipment_quantity')
+            # update_itemname = request.POST.get('equipmentmainstorage_itemName')
+            # update_description = request.POST.get('equipmentmainstorage_description')
+            # update_brand = request.POST.get('equipmentmainstorage_brand')
+            # update_quantity = request.POST.get('equipmentmainstorage_RequestQuantity')
 
-            request_id = request.POST.get('requestequipment_id')
-            request_department = request.POST.get('request_equipment_department')
-            request_itemname = request.POST.get('request_equipment_itemname')
-            request_quantity = request.POST.get('request_equipment_quantity')
-            request_description = request.POST.get('request_equipment_description')
-            request_brand = request.POST.get('request_equipment_brand')
-            request_acceptquantity = request.POST.get('request_equipment_acceptquantity')
-            getdata = requestequipment.objects.get(requestequipment_id=request_id).requestequipment_id
+            if 'delivery_dep' in request.POST:
 
-            if int(request_acceptquantity) > int(request_quantity):
+                request_id = request.POST.get('requestequipment_id')
+                request_department = request.POST.get('request_equipment_department')
+                request_itemname = request.POST.get('request_equipment_itemname')
+                request_quantity = request.POST.get('request_equipment_quantity')
+                request_description = request.POST.get('request_equipment_description')
+                request_brand = request.POST.get('request_equipment_brand')
+                request_acceptquantity = request.POST.get('request_equipment_acceptquantity')
+                getdata = requestequipment.objects.get(requestequipment_id=request_id).requestequipment_id
 
-                messages.info(request, 'request quantity is less than to accept quantity')
-                return redirect('inventorysystem-equipmentDeliver')
-            
-            elif int(request_acceptquantity) < int(request_quantity) or int(request_acceptquantity) == int(request_quantity):
-                if equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = request_itemname).exists() == False:
-                    accept = acceptEquipmentRequests()
-                    accept.acceptEquipmentRequests_id = getdata
-                    accept.arequest_equipment_itemname = request_itemname
-                    accept.arequest_equipment_issued_to = request_department
-                    accept.arequest_equipment_description = request_description
-                    accept.arequest_equipment_brand = request_brand
-                    accept.arequest_equipment_quantity = request_acceptquantity
-                    accept.arequest_equipment_status = "Ready for pick-up"
-                    accept.arequest_equipment_remaining = 0
-                    accept.arequest_equipment_property_no = 0
-                    requestequipment.objects.filter(requestequipment_id = getdata).delete()
-                    storage = equipmentmainstorage()  
-                    storage.equipmentmainstorage_itemName = request_itemname
-                    storage.equipmentmainstorage_description = request_description
-                    storage.equipmentmainstorage_brand = request_brand
-                    storage.equipmentmainstorage_remaining = request_acceptquantity
-                    storage.equipmentmainstorage_quantity = request_acceptquantity
-                    storage.save()
-                    delivery_record1 = deliveryequipment()
-                    delivery_record1.delivery_equipment_itemname = request_itemname
-                    delivery_record1.delivery_equipment_description = request_description
-                    delivery_record1.delivery_equipment_brand = request_brand
-                    delivery_record1.delivery_equipment_quantity = request_acceptquantity
-                    delivery_record1.delivery_equipment_remaining = request_acceptquantity
-                    delivery_record1.save()
-                    status = statusEquipmentRequest()
-                    status.statusEquipmentRequests_id = getdata
-                    status.status_equipment_itemname = request_itemname
-                    status.status_equipment_description = request_description
-                    status.status_equipment_brand = request_brand
-                    status.status_equipment_quantity = request_quantity
-                    status.status_equipment_acceptquantity = request_acceptquantity
-                    status.status_equipment_department = request_department
-                    status.status_equipment_status = "Ready for pick-up"  
-                    status.status_equipment_remaining = 0  
-                    statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete()  
-                    accept.save()
-                    status.save()
-                    messages.success(request, 'request accepted')
+                if int(request_acceptquantity) > int(request_quantity):
+
+                    messages.info(request, 'request quantity is less than to accept quantity')
                     return redirect('inventorysystem-equipmentDeliver')
+                
+                elif int(request_acceptquantity) < int(request_quantity) or int(request_acceptquantity) == int(request_quantity):
+                    if equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = request_itemname).exists() == False:
+                        accept = acceptEquipmentRequests()
+                        accept.acceptEquipmentRequests_id = getdata
+                        accept.arequest_equipment_itemname = request_itemname
+                        accept.arequest_equipment_issued_to = request_department
+                        accept.arequest_equipment_description = request_description
+                        accept.arequest_equipment_brand = request_brand
+                        accept.arequest_equipment_quantity = request_acceptquantity
+                        accept.arequest_equipment_status = "Ready for pick-up"
+                        accept.arequest_equipment_remaining = 0
+                        accept.arequest_equipment_property_no = 0
+                        requestequipment.objects.filter(requestequipment_id = getdata).delete()
+                        storage = equipmentmainstorage()  
+                        storage.equipmentmainstorage_itemName = request_itemname
+                        storage.equipmentmainstorage_description = request_description
+                        storage.equipmentmainstorage_brand = request_brand
+                        storage.equipmentmainstorage_remaining = request_acceptquantity
+                        storage.equipmentmainstorage_quantity = request_acceptquantity
+                        storage.save()
+                        delivery_record1 = deliveryequipment()
+                        delivery_record1.delivery_equipment_itemname = request_itemname
+                        delivery_record1.delivery_equipment_description = request_description
+                        delivery_record1.delivery_equipment_brand = request_brand
+                        delivery_record1.delivery_equipment_quantity = request_acceptquantity
+                        delivery_record1.delivery_equipment_remaining = request_acceptquantity
+                        delivery_record1.save()
+                        status = statusEquipmentRequest()
+                        status.statusEquipmentRequests_id = getdata
+                        status.status_equipment_itemname = request_itemname
+                        status.status_equipment_description = request_description
+                        status.status_equipment_brand = request_brand
+                        status.status_equipment_quantity = request_quantity
+                        status.status_equipment_acceptquantity = request_acceptquantity
+                        status.status_equipment_department = request_department
+                        status.status_equipment_status = "Ready for pick-up"  
+                        status.status_equipment_remaining = 0  
+                        statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete()  
+                        accept.save()
+                        status.save()
+                        messages.success(request, 'request accepted')
+                        return redirect('inventorysystem-equipmentDeliver')
 
-                elif equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = request_itemname).exists() == True:
+                    elif equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = request_itemname).exists() == True:
 
-                    accept = acceptEquipmentRequests()
-                    accept.acceptEquipmentRequests_id = getdata
-                    accept.arequest_equipment_itemname = request_itemname
-                    accept.arequest_equipment_issued_to = request_department
-                    accept.arequest_equipment_description = request_description
-                    accept.arequest_equipment_brand = request_brand
-                    accept.arequest_equipment_quantity = request_acceptquantity
-                    accept.arequest_equipment_status = "Ready for pick-up"
-                    accept.arequest_equipment_remaining = 0
-                    accept.arequest_equipment_property_no = 0
-                    requestequipment.objects.filter(requestequipment_id = getdata).delete()
-                    storage = equipmentmainstorage()  
-                    storage.equipmentmainstorage_itemName = equipmentmainstorage_itemName
-                    storage.equipmentmainstorage_description = request_description
-                    storage.equipmentmainstorage_brand = request_brand
-                    storage.equipmentmainstorage_remaining = int(equipmentmainstorage.objects.get(equipmentmainstorage_itemName = request_itemname).equipmentmainstorage_quantity) + int(request_acceptquantity)
-                    storage.equipmentmainstorage_quantity = request_acceptquantity
-                    delivery_record1 = deliveryequipment()
-                    delivery_record1.delivery_equipment_itemname = request_itemname
-                    delivery_record1.delivery_equipment_description = request_description
-                    delivery_record1.delivery_equipment_brand = request_brand
-                    delivery_record1.delivery_equipment_quantity = request_acceptquantity
-                    delivery_record1.delivery_equipment_remaining = int(equipmentmainstorage.objects.get(equipmentmainstorage_itemName = request_itemname).equipmentmainstorage_quantity) + int(request_acceptquantity)
-                    status = statusEquipmentRequest()
-                    status.statusEquipmentRequests_id = getdata
-                    status.status_equipment_itemname = request_itemname
-                    status.status_equipment_description = request_description
-                    status.status_equipment_brand = request_brand
-                    status.status_equipment_quantity = request_quantity
-                    status.status_equipment_acceptquantity = request_acceptquantity
-                    status.status_equipment_department = request_department
-                    status.status_equipment_status = "Ready for pick-up"  
-                    status.status_equipment_remaining = 0  
-                    statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete()  
-                    accept.save()
-                    status.save()
-                    messages.success(request, 'request accepted')
-                    return redirect('inventorysystem-equipmentDeliver')
+                        accept = acceptEquipmentRequests()
+                        accept.acceptEquipmentRequests_id = getdata
+                        accept.arequest_equipment_itemname = request_itemname
+                        accept.arequest_equipment_issued_to = request_department
+                        accept.arequest_equipment_description = request_description
+                        accept.arequest_equipment_brand = request_brand
+                        accept.arequest_equipment_quantity = request_acceptquantity
+                        accept.arequest_equipment_status = "Ready for pick-up"
+                        accept.arequest_equipment_remaining = 0
+                        accept.arequest_equipment_property_no = 0
+                        requestequipment.objects.filter(requestequipment_id = getdata).delete()
+                        storage = equipmentmainstorage()  
+                        storage.equipmentmainstorage_itemName = equipmentmainstorage_itemName
+                        storage.equipmentmainstorage_description = request_description
+                        storage.equipmentmainstorage_brand = request_brand
+                        storage.equipmentmainstorage_remaining = int(equipmentmainstorage.objects.get(equipmentmainstorage_itemName = request_itemname).equipmentmainstorage_quantity) + int(request_acceptquantity)
+                        storage.equipmentmainstorage_quantity = request_acceptquantity
+                        delivery_record1 = deliveryequipment()
+                        delivery_record1.delivery_equipment_itemname = request_itemname
+                        delivery_record1.delivery_equipment_description = request_description
+                        delivery_record1.delivery_equipment_brand = request_brand
+                        delivery_record1.delivery_equipment_quantity = request_acceptquantity
+                        delivery_record1.delivery_equipment_remaining = int(equipmentmainstorage.objects.get(equipmentmainstorage_itemName = request_itemname).equipmentmainstorage_quantity) + int(request_acceptquantity)
+                        status = statusEquipmentRequest()
+                        status.statusEquipmentRequests_id = getdata
+                        status.status_equipment_itemname = request_itemname
+                        status.status_equipment_description = request_description
+                        status.status_equipment_brand = request_brand
+                        status.status_equipment_quantity = request_quantity
+                        status.status_equipment_acceptquantity = request_acceptquantity
+                        status.status_equipment_department = request_department
+                        status.status_equipment_status = "Ready for pick-up"  
+                        status.status_equipment_remaining = 0  
+                        statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete()  
+                        accept.save()
+                        status.save()
+                        messages.success(request, 'request accepted')
+                        return redirect('inventorysystem-equipmentDeliver')
 
+        context = {
+            'form': form,
+            'info': info,
+            'info1': info1,
+            'info2': info2,
+            'info3': info3,
+            'label': label,
 
-
-    context = {
-        'form': form,
-        'info': info,
-        'info1': info1,
-        'info2': info2,
-        'info3': info3,
-        'label': label,
-
-    }
-    return render(request, 'task/equipment-delivery.html', context)
+        }
+        return render(request, 'task/equipment-delivery.html', context)
+    else:
+        return redirect('inventorysystem-usersLogin')
 
 
 
 #------------------- ADMIN VIEW REQUEST EQUIPMENTS -----------------------------
-
-@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def viewDeliveryRecords(request):
-    label = request.user
-    info = deliveryequipment.objects.all()
-    context = {
-        'info': info,
-        'label': label,
-    }
-    return render(request, 'task/view-delivery-records.html', context) 
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_admin) or \
+        (request.user.is_authenticated and request.user.is_staff):
+
+        label = request.user
+        info = deliveryequipment.objects.all()
+        context = {
+            'info': info,
+            'label': label,
+        }
+        return render(request, 'task/view-delivery-records.html', context)
+    else:
+        return redirect('inventorysystem-usersLogin') 
 
 # def viewRequestEquipment(request):
 #     info = requestequipment.objects.all()
@@ -771,51 +856,55 @@ def viewDeliveryRecords(request):
 
 
 #------------------- DEPARTMENT REQUEST EQUIPMENTS -----------------------------
-
-@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def depRequestEquipment(request):
-    info = equipmentmainstorage.objects.all()
-    info1  = statusEquipmentRequest.objects.all().filter(status_equipment_department = request.user)
-    info2 = withdrawequipment.objects.all().filter(withdraw_equipment_issued_to = request.user)
+    if (request.user.is_authenticated and request.user.is_acive):
 
-    if request.method == 'POST':
-        if int(request.POST.get('non_existing_equipment_quantity')) > 0:
-            if statusEquipmentRequest.objects.filter(status_equipment_itemname = request.POST.get('non_existing_equipment_itemname')).filter(status_equipment_department = request.user).exists() == False:
-                requesting = requestequipment()
-                requesting.request_equipment_itemname = request.POST.get('non_existing_equipment_itemname')
-                requesting.request_equipment_quantity = request.POST.get('non_existing_equipment_quantity')
-                requesting.request_equipment_department = str(request.user)
-                requesting.request_equipment_description = request.POST.get('non_existing_equipment_description')
-                requesting.request_equipment_status = "pending"
-                status = statusEquipmentRequest()
-                status.status_equipment_itemname = request.POST.get('non_existing_equipment_itemname')
-                status.status_equipment_quantity = request.POST.get('non_existing_equipment_quantity')
-                status.status_equipment_department = str(request.user)
-                status.status_equipment_description = request.POST.get('non_existing_equipment_description')
-                status.status_equipment_status = "pending"
-                requesting.save()
-                status.save()
-                messages.success(request, "Successfully Requested")
-                return redirect('inventorysystem-depRequestEquipment')
+        info = equipmentmainstorage.objects.all()
+        info1  = statusEquipmentRequest.objects.all().filter(status_equipment_department = request.user)
+        info2 = withdrawequipment.objects.all().filter(withdraw_equipment_issued_to = request.user)
 
-            elif statusEquipmentRequest.objects.filter(status_equipment_itemname = request.POST.get('non_existing_equipment_itemname')).filter(status_equipment_department = request.user).exists() == True:
-                messages.info(request, 'You already have a request for this item.')
-                return redirect('inventorysystem-depRequestEquipment')
-                
-        else:
-            messages.info(request, "invalid quantity")
-    context = {
-        'info': info,
-        'info1': info1,
-        'info2': info2,
-    }
-    return render(request, 'task/dep-request-equipment.html', context)
+        if request.method == 'POST':
+            if int(request.POST.get('non_existing_equipment_quantity')) > 0:
+                if statusEquipmentRequest.objects.filter(status_equipment_itemname = request.POST.get('non_existing_equipment_itemname')).filter(status_equipment_department = request.user).exists() == False:
+                    requesting = requestequipment()
+                    requesting.request_equipment_itemname = request.POST.get('non_existing_equipment_itemname')
+                    requesting.request_equipment_quantity = request.POST.get('non_existing_equipment_quantity')
+                    requesting.request_equipment_department = str(request.user)
+                    requesting.request_equipment_description = request.POST.get('non_existing_equipment_description')
+                    requesting.request_equipment_status = "pending"
+                    status = statusEquipmentRequest()
+                    status.status_equipment_itemname = request.POST.get('non_existing_equipment_itemname')
+                    status.status_equipment_quantity = request.POST.get('non_existing_equipment_quantity')
+                    status.status_equipment_department = str(request.user)
+                    status.status_equipment_description = request.POST.get('non_existing_equipment_description')
+                    status.status_equipment_status = "pending"
+                    requesting.save()
+                    status.save()
+                    messages.success(request, "Successfully Requested")
+                    return redirect('inventorysystem-depRequestEquipment')
+
+                elif statusEquipmentRequest.objects.filter(status_equipment_itemname = request.POST.get('non_existing_equipment_itemname')).filter(status_equipment_department = request.user).exists() == True:
+                    messages.info(request, 'You already have a request for this item.')
+                    return redirect('inventorysystem-depRequestEquipment')
+                    
+            else:
+                messages.info(request, "invalid quantity")
+        context = {
+            'info': info,
+            'info1': info1,
+            'info2': info2,
+        }
+        return render(request, 'task/dep-request-equipment.html', context)
+    else:
+        return redirect('inventorysystem-usersLogin')
 
 
 
 #------------------- WITHDRAW EQUIPMENTS -----------------------------
-
-@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def equipmentWithdraw(request):
     label = request.user
     info = acceptEquipmentRequests.objects.all()
@@ -827,172 +916,189 @@ def equipmentWithdraw(request):
     }
     return render(request, 'task/equipment-withdraw.html', context)
 
-
+@cache_control(no_cache = True, must_revalidate = True, no_store = True)
 def createqrequipmentWithdraw(request, pk):
-    label = request.user
-    data = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk)
-    form = withdrawEquipmentForm(request.POST or None, instance=data)
-    if request.method == 'POST':
-        getdata4 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk).acceptEquipmentRequests_id
-        getdata5 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id = getdata4)
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_admin) or \
+        (request.user.is_authenticated and request.user.is_staff):
+        label = request.user
+        data = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk)
+        form = withdrawEquipmentForm(request.POST or None, instance=data)
+        if request.method == 'POST':
+            getdata4 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk).acceptEquipmentRequests_id
+            getdata5 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id = getdata4)
 
-        if equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = request.POST.get('arequest_equipment_itemname')).exists() == True or int(equipmentmainstorage.objects.get(equipmentmainstorage_itemName = request.POST.get('arequest_equipment_itemname')).equipmentmainstorage_quantity) != int(0):
+            if equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = request.POST.get('arequest_equipment_itemname')).exists() == True or int(equipmentmainstorage.objects.get(equipmentmainstorage_itemName = request.POST.get('arequest_equipment_itemname')).equipmentmainstorage_quantity) != int(0):
 
-            update_storage = equipmentmainstorage()
-            getdata = equipmentmainstorage.objects.get(equipmentmainstorage_itemName = getdata5.arequest_equipment_itemname)
-            update_storage.equipmentmainstorage_description = getdata5.arequest_equipment_description
-            update_storage.equipmentmainstorage_itemName = getdata5.arequest_equipment_itemname        
-            update_storage.equipmentmainstorage_id = getdata.equipmentmainstorage_id
-            update_storage.equipmentmainstorage_quantity = int(getdata.equipmentmainstorage_quantity) - int(1)
-            getdata6 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk).acceptEquipmentRequests_id
-            getdata7 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id = getdata6).arequest_equipment_itemname
-            equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = getdata7).delete()
-            update_storage.save()
+                update_storage = equipmentmainstorage()
+                getdata = equipmentmainstorage.objects.get(equipmentmainstorage_itemName = getdata5.arequest_equipment_itemname)
+                update_storage.equipmentmainstorage_description = getdata5.arequest_equipment_description
+                update_storage.equipmentmainstorage_itemName = getdata5.arequest_equipment_itemname        
+                update_storage.equipmentmainstorage_id = getdata.equipmentmainstorage_id
+                update_storage.equipmentmainstorage_quantity = int(getdata.equipmentmainstorage_quantity) - int(1)
+                getdata6 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk).acceptEquipmentRequests_id
+                getdata7 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id = getdata6).arequest_equipment_itemname
+                equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = getdata7).delete()
+                update_storage.save()
 
-            data1 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk).acceptEquipmentRequests_id
+                data1 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk).acceptEquipmentRequests_id
 
-            if int(acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id = data1).arequest_equipment_quantity) == 1:
-                accept = withdrawequipment()
-                getdata2 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk).acceptEquipmentRequests_id
-                accept.withdraw_equipment_property_no = request.POST.get('arequest_equipment_property_no')
-                accept.withdraw_equipment_itemname = request.POST.get('arequest_equipment_itemname')
-                accept.withdraw_equipment_description = request.POST.get('arequest_equipment_description')
-                accept.withdraw_equipment_brand = request.POST.get('arequest_equipment_brand')
-                accept.withdraw_equipment_yearacquired = request.POST.get('arequest_equipment_yearacquired')
-                accept.withdraw_equipment_issued_to = request.POST.get('arequest_equipment_issued_to')
-                accept.withdraw_equipment_model_no = request.POST.get('arequest_equipment_model_no')
-                accept.withdraw_equipment_serial_no = request.POST.get('arequest_equipment_serial_no')
-                accept.withdraw_equipment_certifiedcorrect = request.POST.get('arequest_equipment_certifiedcorrect')
-                accept.withdraw_equipment_status = "withdrawn"
-                acceptEquipmentRequests.objects.filter(acceptEquipmentRequests_id = data1).delete()
-                statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata2).delete()         
-                acceptEquipmentRequests.objects.filter(acceptEquipmentRequests_id = data1).delete()
-                statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata2).delete()
-                accept.save()
-                messages.success(request, 'successfully withdraw')
-                return redirect('inventorysystem-equipmentWithdraw')
-
-
-            elif int(acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id = data1).arequest_equipment_quantity) > 1:
-
-                accept = withdrawequipment() 
-                getdata2 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk).acceptEquipmentRequests_id
-                accept.withdraw_equipment_property_no = request.POST.get('arequest_equipment_property_no')
-                accept.withdraw_equipment_itemname = request.POST.get('arequest_equipment_itemname')
-                accept.withdraw_equipment_description = request.POST.get('arequest_equipment_description')
-                accept.withdraw_equipment_brand = request.POST.get('arequest_equipment_brand')
-                accept.withdraw_equipment_yearacquired = request.POST.get('arequest_equipment_yearacquired')
-                accept.withdraw_equipment_issued_to = request.POST.get('arequest_equipment_issued_to')
-                accept.withdraw_equipment_model_no = request.POST.get('arequest_equipment_model_no')
-                accept.withdraw_equipment_serial_no = request.POST.get('arequest_equipment_serial_no')
-                accept.withdraw_equipment_certifiedcorrect = request.POST.get('arequest_equipment_certifiedcorrect')
-                accept.withdraw_equipment_status = "withdrawn"
-                acceptEquipmentRequests.objects.filter(acceptEquipmentRequests_id = data1).delete()
-                # statusdep = statusEquipmentRequest() 
-                # statusdep.statusEquipmentRequests_id = statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata2)
-                # statusdep.status_equipment_itemname = request.POST.get('arequest_equipment_itemname')
-                # statusdep.status_equipment_brand = request.POST.get('arequest_equipment_brand')
-                # statusdep.status_equipment_quantity = int(getdata5.arequest_equipment_quantity) - 1
-                # statusdep.status_equipment_description = request.POST.get('arequest_equipment_description')
-                # statusdep.status_equipment_status = "ready for pickup"
-                # statusdep.save()
+                if int(acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id = data1).arequest_equipment_quantity) == 1:
+                    accept = withdrawequipment()
+                    getdata2 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk).acceptEquipmentRequests_id
+                    accept.withdraw_equipment_property_no = request.POST.get('arequest_equipment_property_no')
+                    accept.withdraw_equipment_itemname = request.POST.get('arequest_equipment_itemname')
+                    accept.withdraw_equipment_description = request.POST.get('arequest_equipment_description')
+                    accept.withdraw_equipment_brand = request.POST.get('arequest_equipment_brand')
+                    accept.withdraw_equipment_yearacquired = request.POST.get('arequest_equipment_yearacquired')
+                    accept.withdraw_equipment_issued_to = request.POST.get('arequest_equipment_issued_to')
+                    accept.withdraw_equipment_model_no = request.POST.get('arequest_equipment_model_no')
+                    accept.withdraw_equipment_serial_no = request.POST.get('arequest_equipment_serial_no')
+                    accept.withdraw_equipment_certifiedcorrect = request.POST.get('arequest_equipment_certifiedcorrect')
+                    accept.withdraw_equipment_status = "withdrawn"
+                    acceptEquipmentRequests.objects.filter(acceptEquipmentRequests_id = data1).delete()
+                    statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata2).delete()         
+                    acceptEquipmentRequests.objects.filter(acceptEquipmentRequests_id = data1).delete()
+                    statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata2).delete()
+                    accept.save()
+                    messages.success(request, 'successfully withdraw')
+                    return redirect('inventorysystem-equipmentWithdraw')
 
 
-                not_delete = acceptEquipmentRequests()
-                not_delete.acceptEquipmentRequests_id = getdata4
-                not_delete.arequest_equipment_itemname = getdata5.arequest_equipment_itemname
-                not_delete.arequest_equipment_description = getdata5.arequest_equipment_description
-                not_delete.arequest_equipment_brand = getdata5.arequest_equipment_brand
-                not_delete.arequest_equipment_quantity = int(getdata5.arequest_equipment_quantity) - 1
-                not_delete.arequest_equipment_status = getdata5.arequest_equipment_status
-                not_delete.arequest_equipment_issued_to = getdata5.arequest_equipment_issued_to
-                not_delete.current_date = getdata5.current_date
-                not_delete.save()
-                accept.save()
-                messages.success(request, 'Successfully withdrawn.')
-                return redirect('inventorysystem-equipmentWithdraw')
+                elif int(acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id = data1).arequest_equipment_quantity) > 1:
 
-            
-    context = {
-        'data': data,
-        'form': form,
-        'label': label,
-    }
+                    accept = withdrawequipment() 
+                    getdata2 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk).acceptEquipmentRequests_id
+                    accept.withdraw_equipment_property_no = request.POST.get('arequest_equipment_property_no')
+                    accept.withdraw_equipment_itemname = request.POST.get('arequest_equipment_itemname')
+                    accept.withdraw_equipment_description = request.POST.get('arequest_equipment_description')
+                    accept.withdraw_equipment_brand = request.POST.get('arequest_equipment_brand')
+                    accept.withdraw_equipment_yearacquired = request.POST.get('arequest_equipment_yearacquired')
+                    accept.withdraw_equipment_issued_to = request.POST.get('arequest_equipment_issued_to')
+                    accept.withdraw_equipment_model_no = request.POST.get('arequest_equipment_model_no')
+                    accept.withdraw_equipment_serial_no = request.POST.get('arequest_equipment_serial_no')
+                    accept.withdraw_equipment_certifiedcorrect = request.POST.get('arequest_equipment_certifiedcorrect')
+                    accept.withdraw_equipment_status = "withdrawn"
+                    acceptEquipmentRequests.objects.filter(acceptEquipmentRequests_id = data1).delete()
+                    # statusdep = statusEquipmentRequest() 
+                    # statusdep.statusEquipmentRequests_id = statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata2)
+                    # statusdep.status_equipment_itemname = request.POST.get('arequest_equipment_itemname')
+                    # statusdep.status_equipment_brand = request.POST.get('arequest_equipment_brand')
+                    # statusdep.status_equipment_quantity = int(getdata5.arequest_equipment_quantity) - 1
+                    # statusdep.status_equipment_description = request.POST.get('arequest_equipment_description')
+                    # statusdep.status_equipment_status = "ready for pickup"
+                    # statusdep.save()
 
-    return render(request, 'task/createqr-equipment-withdraw.html', context)
+
+                    not_delete = acceptEquipmentRequests()
+                    not_delete.acceptEquipmentRequests_id = getdata4
+                    not_delete.arequest_equipment_itemname = getdata5.arequest_equipment_itemname
+                    not_delete.arequest_equipment_description = getdata5.arequest_equipment_description
+                    not_delete.arequest_equipment_brand = getdata5.arequest_equipment_brand
+                    not_delete.arequest_equipment_quantity = int(getdata5.arequest_equipment_quantity) - 1
+                    not_delete.arequest_equipment_status = getdata5.arequest_equipment_status
+                    not_delete.arequest_equipment_issued_to = getdata5.arequest_equipment_issued_to
+                    not_delete.current_date = getdata5.current_date
+                    not_delete.save()
+                    accept.save()
+                    messages.success(request, 'Successfully withdrawn.')
+                    return redirect('inventorysystem-equipmentWithdraw')
+
+                
+        context = {
+            'data': data,
+            'form': form,
+            'label': label,
+        }
+
+        return render(request, 'task/createqr-equipment-withdraw.html', context)
+    else:
+        return redirect('inventorysystem-usersLogin')
 
 
 #------------------- RETURN EQUIPMENTS -----------------------------
-
-@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def equipmentReturn(request):
-    label = request.user
-    info = returnequipment.objects.all()
-    if request.method == 'POST':
-        data = request.POST.get('property')
-        if returnequipment.objects.filter(return_equipment_property_no = data).exists() == True:
-            messages.info(request, 'This equipment was already returned.')
-            return redirect('inventorysystem-equipmentReturn')
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_admin) or \
+        (request.user.is_authenticated and request.user.is_staff):
+        
+        label = request.user
+        info = returnequipment.objects.all()
+        if request.method == 'POST':
+            data = request.POST.get('property')
+            if returnequipment.objects.filter(return_equipment_property_no = data).exists() == True:
+                messages.info(request, 'This equipment was already returned.')
+                return redirect('inventorysystem-equipmentReturn')
 
-        elif withdrawequipment.objects.filter(withdraw_equipment_property_no = data).exists() == True:
-            getdata = withdrawequipment.objects.get(withdraw_equipment_property_no = data)
-            return1 = returnequipment()
-            return1.return_equipment_property_no = getdata.withdraw_equipment_property_no
-            return1.return_equipment_itemname = getdata.withdraw_equipment_itemname
-            return1.return_equipment_description = getdata.withdraw_equipment_description
-            return1.return_equipment_brand = getdata.withdraw_equipment_brand
-            return1.return_equipment_yearacquired = getdata.withdraw_equipment_yearacquired
-            return1.return_equipment_issued_to = getdata.withdraw_equipment_issued_to
-            return1.return_equipment_model_no = getdata.withdraw_equipment_model_no
-            return1.return_equipment_serial_no = getdata.withdraw_equipment_serial_no
-            return1.return_equipment_certifiedcorrect = getdata.withdraw_equipment_certifiedcorrect
-            return1.save()
-            messages.success(request, 'Equipment returned sucessfully.')
-            return redirect('inventorysystem-equipmentReturn')
-            
-        else: 
-            messages.info(request, 'Non-existing equipment record. Please scan a valid one.')
-            return redirect('inventorysystem-equipmentReturn')
+            elif withdrawequipment.objects.filter(withdraw_equipment_property_no = data).exists() == True:
+                getdata = withdrawequipment.objects.get(withdraw_equipment_property_no = data)
+                return1 = returnequipment()
+                return1.return_equipment_property_no = getdata.withdraw_equipment_property_no
+                return1.return_equipment_itemname = getdata.withdraw_equipment_itemname
+                return1.return_equipment_description = getdata.withdraw_equipment_description
+                return1.return_equipment_brand = getdata.withdraw_equipment_brand
+                return1.return_equipment_yearacquired = getdata.withdraw_equipment_yearacquired
+                return1.return_equipment_issued_to = getdata.withdraw_equipment_issued_to
+                return1.return_equipment_model_no = getdata.withdraw_equipment_model_no
+                return1.return_equipment_serial_no = getdata.withdraw_equipment_serial_no
+                return1.return_equipment_certifiedcorrect = getdata.withdraw_equipment_certifiedcorrect
+                return1.save()
+                messages.success(request, 'Equipment returned sucessfully.')
+                return redirect('inventorysystem-equipmentReturn')
+                
+            else: 
+                messages.info(request, 'Non-existing equipment record. Please scan a valid one.')
+                return redirect('inventorysystem-equipmentReturn')
 
 
-    context = {
-        'info': info,
-        'label': label,
-    }
-    return render(request, 'task/equipment-return.html', context)
+        context = {
+            'info': info,
+            'label': label,
+        }
+        return render(request, 'task/equipment-return.html', context)
+    else:
+        return redirect('inventorysystem-usersLogin')
 
 
 #------------------- STORAGE MAPPING -----------------------------
-
-@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def storageMapping(request):
-    label = request.user
-    info = supply_storagemapping.objects.all()
-    info1 = equipment_storagemapping.objects.all()
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_admin) or \
+        (request.user.is_authenticated and request.user.is_staff):
 
-    if request.method == 'POST':
+        label = request.user
+        info = supply_storagemapping.objects.all()
+        info1 = equipment_storagemapping.objects.all()
 
-        if 'storagesupply_update' in request.POST:
-            item = request.POST.get('supplyItemName')
-            locsave = supply_storagemapping()
-            locsave.supplyStoragemapping_id = request.POST.get('supplyStoragemapping_id')
-            locsave.supplyItemName = request.POST.get('supplyItemName')
-            locsave.supplyRackNo = request.POST.get('supplyRackNo')
-            locsave.supplyLayerNo = request.POST.get('supplyLayerNo')
-            locsave.supplyCabinetNo = request.POST.get('supplyCabinetNo')
-            locsave.supplyShelfNo = request.POST.get('supplyShelfNo')
-            locsave.save()
-            messages.success(request, 'Successfully updated storage mapping for item ' + item)
-            return redirect('inventorysystem-storageMapping')
+        if request.method == 'POST':
+
+            if 'storagesupply_update' in request.POST:
+                item = request.POST.get('supplyItemName')
+                locsave = supply_storagemapping()
+                locsave.supplyStoragemapping_id = request.POST.get('supplyStoragemapping_id')
+                locsave.supplyItemName = request.POST.get('supplyItemName')
+                locsave.supplyRackNo = request.POST.get('supplyRackNo')
+                locsave.supplyLayerNo = request.POST.get('supplyLayerNo')
+                locsave.supplyCabinetNo = request.POST.get('supplyCabinetNo')
+                locsave.supplyShelfNo = request.POST.get('supplyShelfNo')
+                locsave.save()
+                messages.success(request, 'Successfully updated storage mapping for item ' + item)
+                return redirect('inventorysystem-storageMapping')
 
 
-    context = {
-        'info': info,
-        'info1': info1,
-        'label': label,
-    }
+        context = {
+            'info': info,
+            'info1': info1,
+            'label': label,
+        }
 
-    return render(request, 'task/storage-mapping.html', context)
+        return render(request, 'task/storage-mapping.html', context)
+    else:
+        return redirect('inventorysystem-usersLogin')
 
 
 #------------------- EXPORT EXCEL FILE -----------------------------

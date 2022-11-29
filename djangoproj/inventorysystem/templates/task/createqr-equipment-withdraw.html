@@ -83,114 +83,6 @@
     }
 </style>
 
-<!-- <section class="home-section">
-    <nav>
-        <div class="sidebar-button">
-            <i class='bx bx-menu sidebarBtn'></i>
-            <div>
-                <label style="padding-top: 10px;">
-                    <h2>Withdraw Equipment</h2>
-                </label>
-            </div>
-        </div>
-    </nav>
-
-    <br><br><br><br><br>
-    <div class="container" style="width: 97%;">
-        <div class="kahon">
-            <form class="row g-3" action="" method="post" name="form">
-                {% csrf_token %}
-                <div class="col-md-4">
-                    <label class="form-label">Issued to:</label>
-                    {{form.arequest_equipment_issued_to}}
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Item Name: </label>
-                    {{form.arequest_equipment_itemname}}
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Brand: </label>
-                    {{form.arequest_equipment_brand}}
-                </div>
-                <div class="col-md-12">
-                    <label class="form-label">Description: </label>
-                    {{form.arequest_equipment_description}}
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Quantity: </label>
-                    {{form.arequest_equipment_quantity}}
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Remaining: </label>
-                    {{form.arequest_equipment_remaining}}
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">Date and Time: </label>
-                    {{form.current_date}}
-                </div>
-                <div class="col-md-4">
-                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                        class="form-label">Property No: </label>
-                    {{form.arequest_equipment_property_no}}
-                </div>
-                <div class="col-md-4">
-                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                        class="form-label">Year Acquired: </label>
-                    {{form.arequest_equipment_yearacquired}}
-                </div>
-                <div class="col-md-4">
-                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                        class="form-label">Model No: </label>
-                    {{form.arequest_equipment_model_no}}
-                </div>
-                <div class="col-md-4">
-                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                        class="form-label">Serial No: </label>
-                    {{form.arequest_equipment_serial_no}}
-                </div>
-                <div class="col-md-4">
-                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                        class="form-label">Certified Correct: </label>
-                    {{form.arequest_equipment_certifiedcorrect}}
-                </div>
-                <div class="col-md-4">
-                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">QR
-                        Size: </label>
-                    <select id="qrSize" class="form-select" required style="border: solid #3E3E3E 1.5px;">
-                        <option id="0">76x76</option>
-                        <option id="1">150x150</option>
-                        <option id="2">250x250</option>
-                        <option id="3">350x350</option>
-                        <option id="4">450x450</option>
-                    </select>
-                </div>
-                <div class="col-12">
-                    <button id="submit" disabled style="float: right;" type="submit"
-                        class="btn btn-primary">Withdraw</button>
-                </div>
-            </form>
-            <div class="row" style="padding-left: 12px; padding-top: 10px;">
-                <button class="btn1" id="createBtn" onclick="create()">Create QR</button>
-            </div>
-        </div>
-    </div>
-    <br><br>
-    <div class="container" style="text-align: center; color: rgb(0, 0, 0);">
-        <p>
-        <h4><i style="color: rgb(0, 0, 0);">--- QR will appear below ---</i></h4>
-        </p>
-        <p><small><i style="color: rgb(0, 0, 0);">To save the QR, kindly right click on the image and click 'Save
-                    image'</i></small></p>
-    </div>
-    <hr style="width:35%; margin: auto; color: black; border: 1px solid;" align="center">
-
-    <br>
- 
-
-    <div id="qrimage" align='center'></div>
-    <br><br><br>
-
-</section> -->
 
 <div id="content-wrapper" class="d-flex flex-column">
 
@@ -256,7 +148,7 @@
                     <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="{% url 'inventorysystem-index' %}">Logout</a>
+                        <a class="btn btn-primary" href="{% url 'inventorysystem-logout' %}">Logout</a>
                     </div>
                 </div>
             </div>
