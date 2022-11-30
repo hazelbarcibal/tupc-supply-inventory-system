@@ -201,6 +201,8 @@
                                     </datalist>
                                 </div>
 
+                                <input type="hidden" name="deptRole" id="deptRole" value="department" readonly>
+
 
                                 <div class="input-field">
                                     <i class="fas fa-lock"></i>
@@ -212,8 +214,6 @@
                                     {{form.password2}}
                                 </div>
 
-                                {{form.adminRole}}
-
                                 <div class="row" align="left" style="float: left;">
                                     <div class="col-xl-12 col-md-12">
                                         <input class="form-check-input" onclick="myFunction()" type="checkbox" id="flexCheckDefault">
@@ -223,7 +223,7 @@
                                     </div>
                                 </div>
                                 <br>
-                                <input type="submit" class="btn1" value="Register">
+                                <input type="submit" onclick="getVal()" class="btn1" value="Register">
                                 <br>
                             </form>
                         </div>
@@ -274,6 +274,12 @@
             x.type = "password";
         }
     }
+
+    $(document).ready(function () {
+        function getVal(){
+            document.getElementById('deptRole').value;
+        }
+    });
 
 </script>
 

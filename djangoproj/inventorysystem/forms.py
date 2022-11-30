@@ -14,7 +14,7 @@ class DeptRegisterForm(UserCreationForm):
 
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'password1', 'password2', 'department']
+        fields = ['username', 'email', 'password1', 'password2', 'department', 'is_department']
 
 
 class AdminRegisterForm(UserCreationForm):
@@ -22,11 +22,10 @@ class AdminRegisterForm(UserCreationForm):
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
     password1 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Password', 'id': 'regpass'}))
     password2 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Retype Password', 'id': 'regpass'}))
-    adminRole = forms.CharField(required=False, widget=forms.HiddenInput(attrs={'value': 'admin'}))
 
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'password1', 'password2',  'is_staff', 'is_admin', 'adminRole']
+        fields = ['username', 'email', 'password1', 'password2',  'is_staff', 'is_admin']
 
         
 class AdminUpdateForm(forms.ModelForm):

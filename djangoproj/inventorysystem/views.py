@@ -30,8 +30,7 @@ def index(request):
 @login_required(login_url='inventorysystem-usersLogin')
 def dashboard(request):
     if (request.user.is_authenticated and request.user.is_superuser) or \
-        (request.user.is_authenticated and request.user.is_admin) or \
-        (request.user.is_authenticated and request.user.is_staff):
+        (request.user.is_authenticated and request.user.is_admin):
         
         label = request.user
 
@@ -87,10 +86,9 @@ def password_reset_request(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def usersLogin(request):
     if (request.user.is_authenticated and request.user.is_superuser) or \
-        (request.user.is_authenticated and request.user.is_admin) or \
-        (request.user.is_authenticated and request.user.is_staff):
+        (request.user.is_authenticated and request.user.is_admin):
         return redirect('inventorysystem-dashboard')
-    elif request.user.is_authenticated and request.user.is_active:
+    elif request.user.is_authenticated and request.user.is_department:
         return redirect('inventorysystem-depRequestSupply')
     else:
         if request.method == "POST":
@@ -98,22 +96,21 @@ def usersLogin(request):
             password1 = request.POST.get('logpass1')
 
             username2 = request.POST.get('logusername')
-            email = request.POST.get('email')
+            # email2 = request.POST.get('email2')
             password2 = request.POST.get('logpass2')
 
             user1 = authenticate(request, username=username1, password=password1)
-            user2 = authenticate(request, username=username2, email=email,  password=password2)
+            user2 = authenticate(request, username=username2, password=password2)
 
             if (user1 is not None and user1.is_superuser) or \
-            (user1 is not None and user1.is_admin) or \
-            (user1 is not None and user1.is_staff):
+            (user1 is not None and user1.is_admin):
                 login(request, user1)
                 messages.success(request, 'Hello ' + username1 + '!')
                 return redirect('inventorysystem-dashboard')
             else:
                 messages.info(request, 'Invalid credentials. Please try again.') 
 
-            if user2 is not None and user2.is_active:
+            if user2 is not None and user2.is_department:
                 login(request, user2)
                 messages.success(request, 'Hello ' + username2 + '!')
                 return redirect('inventorysystem-depRequestSupply')
@@ -127,8 +124,7 @@ def usersLogin(request):
 @login_required(login_url='inventorysystem-usersLogin')
 def deptRegister(request):
     if (request.user.is_authenticated and request.user.is_superuser) or \
-        (request.user.is_authenticated and request.user.is_admin) or \
-        (request.user.is_authenticated and request.user.is_staff):
+        (request.user.is_authenticated and request.user.is_admin):
         
         label = request.user
         form = DeptRegisterForm()
@@ -136,6 +132,7 @@ def deptRegister(request):
         if request.method == "POST":
             form = DeptRegisterForm(request.POST)
             if form.is_valid():
+                role = request.POST.get('deptRole')
                 dept = request.POST.get('department')
                 email = request.POST.get('email')
 
@@ -145,7 +142,9 @@ def deptRegister(request):
                 elif CustomUser.objects.filter(department = dept).exists() == True:
                     messages.info(request, 'There is already an existing account for ' + dept)
 
-                else:
+                elif role == 'department':
+                    form.instance.is_department = True
+
                     form.save()
                     messages.success(request, 'Account was created for ' + dept)
                     subject = 'Account Registration'
@@ -170,8 +169,7 @@ def deptRegister(request):
 @login_required(login_url='inventorysystem-usersLogin')
 def adminRegister(request):
     if (request.user.is_authenticated and request.user.is_superuser) or \
-        (request.user.is_authenticated and request.user.is_admin) or \
-        (request.user.is_authenticated and request.user.is_staff):
+        (request.user.is_authenticated and request.user.is_admin):
         
         label = request.user
         form = AdminRegisterForm()
@@ -210,8 +208,7 @@ def adminRegister(request):
 @login_required(login_url='inventorysystem-usersLogin')
 def adminProfileUpdate(request):
     if (request.user.is_authenticated and request.user.is_superuser) or \
-        (request.user.is_authenticated and request.user.is_admin) or \
-        (request.user.is_authenticated and request.user.is_staff):
+        (request.user.is_authenticated and request.user.is_admin):
         
         label = request.user
         if request.method == 'POST':
@@ -251,7 +248,7 @@ def adminProfileUpdate(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
 def deptProfileUpdate(request):
-    if (request.user.is_authenticated and request.user.is_active):
+    if (request.user.is_authenticated and request.user.is_department):
         
         label = request.user
         if request.method == 'POST':
@@ -296,8 +293,7 @@ def deptProfileUpdate(request):
 @login_required(login_url='inventorysystem-usersLogin')
 def suppliesDeliver(request):
     if (request.user.is_authenticated and request.user.is_superuser) or \
-        (request.user.is_authenticated and request.user.is_admin) or \
-        (request.user.is_authenticated and request.user.is_staff):
+        (request.user.is_authenticated and request.user.is_admin):
         
         label = request.user
         info = deliverysupply.objects.all()
@@ -392,8 +388,7 @@ def suppliesDeliver(request):
 @login_required(login_url='inventorysystem-usersLogin')
 def statusLimit(request):
     if (request.user.is_authenticated and request.user.is_superuser) or \
-        (request.user.is_authenticated and request.user.is_admin) or \
-        (request.user.is_authenticated and request.user.is_staff):
+        (request.user.is_authenticated and request.user.is_admin):
         
         label = request.user
         info = supplymainstorage.objects.all()
@@ -474,8 +469,7 @@ def statusLimit(request):
 @login_required(login_url='inventorysystem-usersLogin')
 def viewRequestSupply(request):
     if (request.user.is_authenticated and request.user.is_superuser) or \
-        (request.user.is_authenticated and request.user.is_admin) or \
-        (request.user.is_authenticated and request.user.is_staff):
+        (request.user.is_authenticated and request.user.is_admin):
 
         label = request.user
         info = requestsupply.objects.all()
@@ -556,7 +550,7 @@ def viewRequestSupply(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
 def depRequestSupply(request):
-    if (request.user.is_authenticated and request.user.is_active):
+    if (request.user.is_authenticated and request.user.is_department):
 
         info1 = limitrecords.objects.all().filter(limit_department = request.user)
         info = statusSupplyRequest.objects.all().filter(status_supply_department = request.user)
@@ -636,8 +630,7 @@ def depRequestSupply(request):
 @login_required(login_url='inventorysystem-usersLogin')
 def suppliesWithdraw(request):
     if (request.user.is_authenticated and request.user.is_superuser) or \
-        (request.user.is_authenticated and request.user.is_admin) or \
-        (request.user.is_authenticated and request.user.is_staff):
+        (request.user.is_authenticated and request.user.is_admin):
 
         label = request.user
         info = acceptSupplyRequests.objects.all()
@@ -697,8 +690,7 @@ def suppliesWithdraw(request):
 @login_required(login_url='inventorysystem-usersLogin')
 def equipmentDeliver(request):
     if (request.user.is_authenticated and request.user.is_superuser) or \
-        (request.user.is_authenticated and request.user.is_admin) or \
-        (request.user.is_authenticated and request.user.is_staff):
+        (request.user.is_authenticated and request.user.is_admin):
 
         label = request.user
         info = equipmentmainstorage.objects.all()
@@ -837,8 +829,7 @@ def equipmentDeliver(request):
 @login_required(login_url='inventorysystem-usersLogin')
 def viewDeliveryRecords(request):
     if (request.user.is_authenticated and request.user.is_superuser) or \
-        (request.user.is_authenticated and request.user.is_admin) or \
-        (request.user.is_authenticated and request.user.is_staff):
+        (request.user.is_authenticated and request.user.is_admin):
 
         label = request.user
         info = deliveryequipment.objects.all()
@@ -907,7 +898,7 @@ def viewDeliveryRecords(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
 def depRequestEquipment(request):
-    if (request.user.is_authenticated and request.user.is_acive):
+    if (request.user.is_authenticated and request.user.is_department):
 
         info = equipmentmainstorage.objects.all()
         info1  = statusEquipmentRequest.objects.all().filter(status_equipment_department = request.user)
@@ -954,21 +945,26 @@ def depRequestEquipment(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
 def equipmentWithdraw(request):
-    label = request.user
-    info = acceptEquipmentRequests.objects.all()
-    info1 = withdrawequipment.objects.all()
-    context = {
-        'info': info,
-        'info1': info1,
-        'label': label,
-    }
-    return render(request, 'task/equipment-withdraw.html', context)
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_admin):
+        
+        label = request.user
+        info = acceptEquipmentRequests.objects.all()
+        info1 = withdrawequipment.objects.all()
+        context = {
+            'info': info,
+            'info1': info1,
+            'label': label,
+        }
+        return render(request, 'task/equipment-withdraw.html', context)
+    else:
+        return redirect('inventorysystem-usersLogin')
 
 @cache_control(no_cache = True, must_revalidate = True, no_store = True)
 def createqrequipmentWithdraw(request, pk):
     if (request.user.is_authenticated and request.user.is_superuser) or \
-        (request.user.is_authenticated and request.user.is_admin) or \
-        (request.user.is_authenticated and request.user.is_staff):
+        (request.user.is_authenticated and request.user.is_admin):
+
         label = request.user
         data = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk)
         form = withdrawEquipmentForm(request.POST or None, instance=data)
@@ -1069,8 +1065,7 @@ def createqrequipmentWithdraw(request, pk):
 @login_required(login_url='inventorysystem-usersLogin')
 def equipmentReturn(request):
     if (request.user.is_authenticated and request.user.is_superuser) or \
-        (request.user.is_authenticated and request.user.is_admin) or \
-        (request.user.is_authenticated and request.user.is_staff):
+        (request.user.is_authenticated and request.user.is_admin):
         
         label = request.user
         info = returnequipment.objects.all()
@@ -1115,8 +1110,7 @@ def equipmentReturn(request):
 @login_required(login_url='inventorysystem-usersLogin')
 def storageMapping(request):
     if (request.user.is_authenticated and request.user.is_superuser) or \
-        (request.user.is_authenticated and request.user.is_admin) or \
-        (request.user.is_authenticated and request.user.is_staff):
+        (request.user.is_authenticated and request.user.is_admin):
 
         label = request.user
         info = supply_storagemapping.objects.all()

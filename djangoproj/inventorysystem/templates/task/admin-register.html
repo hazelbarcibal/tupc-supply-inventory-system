@@ -156,7 +156,7 @@
                                     {{form.password2}}
                                 </div>
 
-                                {{form.adminRole}}
+                                <input type="hidden" name="adminRole" id="adminRole" value="admin" readonly>
 
                                 <div class="row" align="left" style="float: left;">
                                     <div class="col-xl-12 col-md-12">
@@ -167,7 +167,7 @@
                                     </div>
                                 </div>
                                 <br>
-                                <input type="submit" class="btn1" value="Register">
+                                <input type="submit" onclick="getVal()" class="btn1" value="Register">
                                 <br>
                             </form>
                         </div>
@@ -217,6 +217,12 @@
             x.type = "password";
         }
     }
+
+    $(document).ready(function () {
+        function getVal(){
+            document.getElementById('adminRole').value;
+        }
+    });
 
 </script>
 
