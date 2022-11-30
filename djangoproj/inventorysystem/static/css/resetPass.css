@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Raleway', sans-serif;
+}
+
+body{
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    background: url("../img/campus.jpg") center;
+    background-size: cover;
+    margin: 0;
+    padding: 0 0 0 0;
+
+}
+
+div.overlay{
+    background-color: rgba(0, 0, 0, 0.3);
+    position: relative;
+    background-size: cover;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0 0 0 0;
+}
+
+
+.overlay-form{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: rgba(0, 0, 0, 0.5); 
+    color: #fff;
+}
+
+hr.line{
+    border: 2px solid;
+}
+  
+div.form{
+    width: 550px;
+    height: 100px;
+}
+

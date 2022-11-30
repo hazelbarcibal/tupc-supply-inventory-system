@@ -12,11 +12,15 @@ urlpatterns = [
     path('update-admin-profile/', views.adminProfileUpdate, name='inventorysystem-adminProfileUpdate'),
     path('update-dept-profile/', views.deptProfileUpdate, name='inventorysystem-deptProfileUpdate'),
 
-    # path('password-change/', views.passwordChange, name='inventorysystem-passwordChange'),
-    path('password-reset/', auth_views.PasswordResetView.as_view(), name='reset_password'),
-    path('password-reset-sent/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
-    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    # path('password-reset/', views.password_reset_request, name='inventorysystem-passwordChange'),
+    # path('password-reset-done/', views.password_reset_done, name='inventorysystem-passwordResetDone'),
+    # # path('password-reset/', auth_views.PasswordResetView.as_view(), name='reset_password'),
+    # # path('password-reset-sent/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    # path('reset/<uidb64>/<token>/', views.password_reset_confirm, name='inventorysystem-passwordResetConfirm'),
+    # path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+
+    path("password-reset/", views.password_reset_request, name="inventorysystem-passwordChange"),
+
 #---------- PATH FOR SUPPLIES ----------------------
     path('supplies-delivery/', views.suppliesDeliver, name='inventorysystem-suppliesDeliver'),
     path('status-limit/', views.statusLimit, name='inventorysystem-statusLimit'),
