@@ -78,10 +78,9 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{% url 'inventorysystem-suppliesDeliver' %}">Delivery</a>
-                        <a class="collapse-item" href="{% url 'inventorysystem-viewRequestSupply' %}">View Requested
-                            Item</a>
-                        <a class="collapse-item" href="{% url 'inventorysystem-suppliesWithdraw' %}">Withdraw Supply</a>
-                        <a class="collapse-item" href="{% url 'inventorysystem-statusLimit' %}">Status</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-viewRequestSupply' %}">Requested Supplies</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-suppliesWithdraw' %}">Withdrawn Supplies</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-statusLimit' %}">Limit Supplies</a>
                     </div>
                 </div>
             </li>
@@ -97,11 +96,9 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{% url 'inventorysystem-equipmentDeliver' %}">Delivery</a>
-                        <a class="collapse-item" href="{% url 'inventorysystem-viewDeliveryRecords' %}">View Delivery
-                            Record</a>
-                        <a class="collapse-item" href="{% url 'inventorysystem-equipmentWithdraw' %}">Withdraw
-                            Equipment</a>
-                        <a class="collapse-item" href="{% url 'inventorysystem-equipmentReturn' %}">Equipment Return</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-viewDeliveryRecords' %}">Delivery Records</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-equipmentWithdraw' %}">Withdrawn Equipments</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-equipmentReturn' %}">Returned Equipments</a>
                     </div>
                 </div>
             </li>
@@ -227,8 +224,7 @@
                                                 <h3>Recent No. of Supplies Requests:</h3>
                                             </div>
                                             <div class="mb-0 font-weight-bold text-gray-800">
-                                                <input type="hidden" style="font-size: 20px; width: 60px; margin-left: 15px;">
-                                                <br><br>
+                                                <p style="font-size: 30px; width: 60px; margin-left: 15px;">{{label1}}</p>  
                                             </div>
                                             <div class="mb-0 font-weight-bold text-gray-800">
                                                 <a class="card__link" href="{% url 'inventorysystem-viewRequestSupply' %}">See More <i
@@ -253,8 +249,7 @@
                                                 <h3>Recent No. of Supplies Withdrawn:</h3>
                                             </div>
                                             <div class="mb-0 font-weight-bold text-gray-800">
-                                                <input type="hidden" style="font-size: 20px; width: 60px; margin-left: 15px;">
-                                                <br><br>
+                                                <p style="font-size: 30px; width: 60px; margin-left: 15px;">{{label2}}</p>
                                             </div>
                                             <div class="mb-0 font-weight-bold text-gray-800">
                                                 <a class="card__link" href="{% url 'inventorysystem-suppliesWithdraw' %}">See More <i
@@ -279,8 +274,7 @@
                                                 <h3>Recent No. of Equipment Requests:</h3>
                                             </div>
                                             <div class="mb-0 font-weight-bold text-gray-800">
-                                                <input type="hidden" style="font-size: 20px; width: 60px; margin-left: 15px;">
-                                                <br><br>
+                                                <p style="font-size: 30px; width: 60px; margin-left: 15px;">{{label3}}</p>
                                             </div>
                                             <div class="mb-0 font-weight-bold text-gray-800">
                                                 <a class="card__link" href="{% url 'inventorysystem-equipmentDeliver' %}">See More <i
@@ -305,8 +299,7 @@
                                                 <h3>Recent No. of Equipment Withdrawn:</h3>
                                             </div>
                                             <div class="mb-0 font-weight-bold text-gray-800">
-                                                <input type="hidden" style="font-size: 20px; width: 60px; margin-left: 15px;">
-                                                <br><br>
+                                                <p style="font-size: 30px; width: 60px; margin-left: 15px;">{{label4}}</p>
                                             </div>
                                             <div class="mb-0 font-weight-bold text-gray-800">
                                                 <a class="card__link" href="{% url 'inventorysystem-equipmentWithdraw' %}">See More <i

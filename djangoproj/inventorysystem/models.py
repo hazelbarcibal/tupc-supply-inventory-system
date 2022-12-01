@@ -177,14 +177,14 @@ class acceptEquipmentRequests(models.Model):
 class withdrawequipment(models.Model):
 
     withdrawequipment_id = models.AutoField(primary_key=True)
-    withdraw_equipment_property_no = models.CharField(null = True, max_length=50, verbose_name='withdraw_equipment_property_no')
+    withdraw_equipment_property_no = models.CharField(unique = True, max_length=50, verbose_name='withdraw_equipment_property_no')
     withdraw_equipment_itemname = models.CharField(max_length=50, verbose_name='withdraw_equipment_itemname')
     withdraw_equipment_description = models.CharField(max_length=255, verbose_name='withdraw_equipment_description')
     withdraw_equipment_brand = models.CharField(max_length=50, verbose_name='withdraw_equipment_brand')
     withdraw_equipment_yearacquired = models.CharField(max_length=50, verbose_name='withdraw_yearacquired')
     withdraw_equipment_issued_to = models.CharField(max_length=50, verbose_name='withdraw_equipment_issued_to')
-    withdraw_equipment_model_no = models.CharField(max_length=50, verbose_name='withdraw_equipment_model_no')
-    withdraw_equipment_serial_no = models.CharField(null = True, max_length=50, verbose_name='withdraw_equipment_serial_no')
+    withdraw_equipment_model_no = models.CharField(unique = True, max_length=50, verbose_name='withdraw_equipment_model_no')
+    withdraw_equipment_serial_no = models.CharField(unique = True, null = True, max_length=50, verbose_name='withdraw_equipment_serial_no')
     withdraw_equipment_certifiedcorrect = models.CharField(max_length=50, verbose_name='withdraw_equipment_certifiedcorrect')
     current_date = models.DateTimeField(default=now, verbose_name='withdraw_current_date')
     withdraw_equipment_status = models.CharField(max_length=50, verbose_name='withdraw_equipment_status')

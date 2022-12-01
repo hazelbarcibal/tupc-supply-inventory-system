@@ -207,8 +207,8 @@
                                         <td id="sunit" align="center">{{x.supplymainstorage_unit}}</td>
                                         <td id="squantity" align="center">{{x.supplymainstorage_quantity}}</td>
                                         <td align="center">
-                                            <button class="fa-sharp fa-solid fa-edit btn btn-success editBtn1" style="margin-bottom: 10px; font-size: 12px;"
-                                                    name="editBtn"> EDIT</button>
+                                            <!-- <button class="fa-sharp fa-solid fa-edit btn btn-success editBtn1" style="margin-bottom: 10px; font-size: 12px;"
+                                                    name="editBtn"> EDIT</button> -->
                                             <button class="fa-sharp fa-solid fa-plus btn btn-warning editBtn" style="margin-bottom: 10px; font-size: 12px;"
                                                     name="editBtn"> ADD</button>
                                         </td>
@@ -288,29 +288,29 @@
                             <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
                                 {% csrf_token %}
 
-                                <input type="hidden" id="editId1" name="supplymainstorage_id" value="" readonly>
+                                <input type="hidden" id="editId1" name="supplymainstorage_editid" value="" readonly>
 
                                 <div class="col-md-12">
                                     <label class="form-label">Description:</label>
                                     <input type="text" class="form-control" id="description1"
-                                        name="supplymainstorage_description" >
+                                        name="supplymainstorage_editdescription" >
                                 </div>
 
                                 <div class="col-md-12">
                                     <label class="form-label">Unit:</label>
-                                    <input type="text" class="form-control" id="unit1" name="supplymainstorage_unit">
+                                    <input type="text" class="form-control" id="unit1" name="supplymainstorage_editunit">
                                 </div>
 
                                 <div class="col-md-12">
                                     <label class="form-label">Mainstorage Quantity:</label>
-                                    <input type="text" class="form-control" id="mainstoragequantity1" name="mainstorage_quantity"
+                                    <input type="text" class="form-control" id="mainstoragequantity1" name="mainstorage_editquantity"
                                         readonly>
                                 </div>
 
 
                                 <div class="modal-footer">
                                     <div class="col-12">
-                                        <button style="float: right;" type="submit" name="delivery_update"
+                                        <button style="float: right;" type="submit" name="delivery_edit"
                                             class="btn btn-primary"> UPDATE</button>
                                     </div>
                                 </div>
@@ -370,7 +370,7 @@
                 <div class="col-xl-12 col-md-12 mb-4">
                     <div class="container">
                         <div class="kahon">
-                            <h3>Deliver New item</h3>
+                            <h3>Deliver New Item</h3>
                             <br>
                             <form class="row g-3" action="" method="POST">
                                 {% csrf_token %}
@@ -454,7 +454,7 @@
 
                     <div class="container">
                         <div class="kahon">
-                            <h3 align="center">Delivery Record</h3>
+                            <h3 align="center">Delivery Records</h3>
                             <hr>
                             <br>
                             <table id="supplyDeliveryTable" class="table table-striped" style="width:100%">
