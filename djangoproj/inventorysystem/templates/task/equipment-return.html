@@ -228,6 +228,7 @@
                                         <th style="text-align: center;">Serial No.</th>
                                         <th style="text-align: center;">Certified Correct</th>
                                         <th style="text-align: center;">Date Return</th>
+                                        <th style="text-align: center;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -243,6 +244,7 @@
                                         <td align="center">{{x.return_equipment_serial_no}}</td>
                                         <td align="center">{{x.return_equipment_certifiedcorrect}}</td>
                                         <td align="center">{{x.return_date}}</td>
+                                        <td><a class="btn btn-success editBtn" name="editBtn" style="font-size: 13px;">DISPOSE</a></td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -253,6 +255,110 @@
 
 
             </div>
+
+
+            <!----- UPDATE RETURN EQUIPMENT MODAL ----->
+<div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <!----- UPDATE SUPPLY STORAGE FORM ---->
+                <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" id="editId" name="supplyStoragemapping_id" value="" readonly>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Property No.:</label>
+                        <input type="text" class="form-control" id="propertyNo" name="returnPropertyNo" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Item Name:</label>
+                        <input type="text" class="form-control" id="itemname" name="returnItemName" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Description:</label>
+                        <input type="text" class="form-control" id="description" name="returnDescription" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Brand:</label>
+                        <input type="text" class="form-control" id="brand" name="returnBrand" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Year Acquired:</label>
+                        <input type="text" class="form-control" id="yearacquired" name="returnYearAcquired" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Issued To:</label>
+                        <input type="text" class="form-control" id="issuedto" name="returnIssuedTo" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Model No:</label>
+                        <input type="text" class="form-control" id="modelno" name="returnModelNo" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Serial No:</label>
+                        <input type="text" class="form-control" id="serialno" name="returnSerialNo" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Certified Correct:</label>
+                        <input type="text" class="form-control" id="certifiedcorrect" name="returnCertifiedCorrect" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Date return:</label>
+                        <input type="text" class="form-control" id="datereturn" name="returnDate" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                            class="form-label">Location:</label>
+                        <input type="text" class="form-control" id="location" name="supplyLocation" min="1" required>
+                    </div>
+  
+                    <div class="modal-footer">
+                        <div class="col-12">
+                            <button type="submit" name="storagesupply_update" class="btn btn-primary">DISPOSE</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.editBtn').on('click', function () {
+
+            $('#openModal').modal('show');
+            $tr = $(this).closest('tr');
+            var data = $tr.children("td").map(function () {
+                return $(this).text();
+            }).get();
+
+            console.log(data);
+            $('h5.modal-title').html('Dispose Equipment: ' + data[1]);
+            $('#editId').val(data[0]);
+            $('#propertyNo').val(data[1]);
+            $('#itemname').val(data[2]);
+            $('#description').val(data[3]);
+            $('#brand').val(data[4]);
+            $('#yearacquired').val(data[5]);
+            $('#issuedto').val(data[6]);
+            $('#modelno').val(data[7]);
+            $('#serialno').val(data[8]);
+            $('#certifiedcorrect').val(data[9]);
+            $('#datereturn').val(data[10]);
+            $('#location').val(data[11]);
+        });
+    });
+</script>
 
 
         </div>

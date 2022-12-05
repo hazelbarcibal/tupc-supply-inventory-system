@@ -778,10 +778,10 @@ def equipmentDeliver(request):
                         delivery_record1.delivery_equipment_quantity = request_acceptquantity
                         delivery_record1.delivery_equipment_remaining = request_acceptquantity
                         delivery_record1.save()
-                        mapping = equipment_storagemapping()
-                        mapping.equipmentItemName = request_itemname
-                        mapping.equipmentLocation = ""
-                        mapping.save()
+                        # mapping = equipment_storagemapping()
+                        # mapping.equipmentItemName = request_itemname
+                        # mapping.equipmentLocation = ""
+                        # mapping.save()
                         status = statusEquipmentRequest()
                         status.statusEquipmentRequests_id = getdata
                         status.status_equipment_itemname = request_itemname
@@ -829,10 +829,10 @@ def equipmentDeliver(request):
                         delivery_record1.delivery_equipment_brand = request_brand
                         delivery_record1.delivery_equipment_quantity = request_acceptquantity
                         delivery_record1.delivery_equipment_remaining = int(equipmentmainstorage.objects.get(equipmentmainstorage_itemName = request_itemname).equipmentmainstorage_quantity) + int(request_acceptquantity)
-                        mapping = equipment_storagemapping()
-                        mapping.equipmentItemName = request_itemname
-                        mapping.equipmentLocation = ""
-                        mapping.save()
+                        # mapping = equipment_storagemapping()
+                        # mapping.equipmentItemName = request_itemname
+                        # mapping.equipmentLocation = ""
+                        # mapping.save()
                         status = statusEquipmentRequest()
                         status.statusEquipmentRequests_id = getdata
                         status.status_equipment_itemname = request_itemname
@@ -1175,32 +1175,32 @@ def storageMapping(request):
         (request.user.is_authenticated and request.user.is_admin):
 
         label = request.user
-        info = supply_storagemapping.objects.all()
-        info1 = equipment_storagemapping.objects.all()
+        info = supplymainstorage.objects.all()
+        info1 = equipment_disposal.objects.all()
 
         if request.method == 'POST':
 
             if 'storagesupply_update' in request.POST:
                 item = request.POST.get('supplyItemName')
-                locsave = supply_storagemapping()
-                locsave.supplyStoragemapping_id = request.POST.get('supplyStoragemapping_id')
-                locsave.supplyItemName = request.POST.get('supplyItemName')
-                locsave.supplyRackNo = request.POST.get('supplyRackNo')
-                locsave.supplyLayerNo = request.POST.get('supplyLayerNo')
-                locsave.supplyCabinetNo = request.POST.get('supplyCabinetNo')
-                locsave.supplyShelfNo = request.POST.get('supplyShelfNo')
+                locsave = supplymainstorage()
+                locsave.supplymainstorage_id = request.POST.get('supplymainstorage_id')
+                locsave.supplymainstorage_description = request.POST.get('supplyItemName')
+                locsave.supplymainstorage_supplyRackNo = request.POST.get('supplyRackNo')
+                locsave.supplymainstorage_supplyLayerNo = request.POST.get('supplyLayerNo')
+                locsave.supplymainstorage_supplyCabinetNo = request.POST.get('supplyCabinetNo')
+                locsave.supplymainstorage_supplyShelfNo = request.POST.get('supplyShelfNo')
                 locsave.save()
                 messages.success(request, 'Successfully updated storage mapping for item ' + item)
                 return redirect('inventorysystem-storageMapping')
 
-            if 'storageequipment_update' in request.POST:
-                loc = equipment_storagemapping()
-                loc.equipmentStoragemapping_id = request.POST.get('equipmentStoragemapping_id')
-                loc.equipmentItemName = request.POST.get('equipmentItemName')
-                loc.equipmentLocation = request.POST.get('equipmentLocation')
-                loc.save()
-                messages.success(request, 'Successfully updated storage mapping for equipment ' + request.POST.get('equipmentItemName'))
-                return redirect('inventorysystem-storageMapping')
+            # if 'storageequipment_update' in request.POST:
+            #     loc = equipment_disposal()
+            #     loc.equipmentStoragemapping_id = request.POST.get('equipmentStoragemapping_id')
+            #     loc.equipmentItemName = request.POST.get('equipmentItemName')
+            #     loc.equipmentLocation = request.POST.get('equipmentLocation')
+            #     loc.save()
+            #     messages.success(request, 'Successfully updated storage mapping for equipment ' + request.POST.get('equipmentItemName'))
+            #     return redirect('inventorysystem-storageMapping')
 
 
         context = {

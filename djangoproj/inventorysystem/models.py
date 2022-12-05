@@ -4,13 +4,6 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.timezone import now
 
 
-UNITS= [
-    ('Box', 'Box'),
-    ('Bundle', 'Bundle'),
-    ('Pcs', 'Pcs'),
-    ('Ream', 'Ream'),
-    ]
-
 class CustomUser(AbstractUser):
     username = models.CharField(max_length=30, verbose_name='username', unique=True, default='')
     department = models.CharField(max_length=250, verbose_name='department', null=True)
@@ -38,6 +31,10 @@ class deliverysupply(models.Model):
     delivery_supply_unit = models.CharField(max_length=50, verbose_name='delivery_supply_unit')
     delivery_supply_quantity = models.DecimalField(max_digits=6, decimal_places= 0, verbose_name='delivery_supply_quantity')
     delivery_supply_remaining = models.DecimalField(null=True, max_digits=6, decimal_places= 0, verbose_name='delivery_supply_remaining')
+    delivery_supplyRackNo = models.CharField(null= True, max_length=50, verbose_name='Supply Rack')
+    delivery_supplyLayerNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply Layer')
+    delivery_supplyCabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply Cabinet')
+    delivery_supplyShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply Shelf')
     current_date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name= 'delivery_current_date')
 
     class Meta:
@@ -90,6 +87,10 @@ class supplymainstorage(models.Model):
     supplymainstorage_quantity = models.DecimalField(max_digits=50, decimal_places=0, verbose_name='supplymainstorage_quantity')
     supplymainstorage_remaining = models.DecimalField(null=True, max_digits=50, decimal_places=0, verbose_name='supplymainstorage_remaining')
     supplymainstorage_RequestQuantity = models.DecimalField(null=True, max_digits=50, decimal_places=0, verbose_name='supplymainstorage_RequestQuantity')
+    supplymainstorage_supplyRackNo = models.CharField(null= True, max_length=50, verbose_name='Supply_Rack')
+    supplymainstorage_supplyLayerNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply_Layer')
+    supplymainstorage_supplyCabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply_Cabinet')
+    supplymainstorage_supplyShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply_Shelf')
     
     class Meta:
         db_table = "supplymainstorage"
@@ -195,6 +196,7 @@ class withdrawequipment(models.Model):
 class returnequipment(models.Model):
 
     returnequipment_id = models.AutoField(primary_key=True)
+    return_equipment_location = models.CharField(unique=True, max_length=50, verbose_name='return_equipment_location')
     return_equipment_property_no = models.CharField(unique=True, max_length=50, verbose_name='return_equipment_property_no')
     return_equipment_itemname = models.CharField(max_length=50, verbose_name='return_equipment_itemname')
     return_equipment_description = models.CharField(max_length=255, verbose_name='return_equipment_description')
@@ -252,16 +254,24 @@ class supply_storagemapping(models.Model):
     supplyCabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply Cabinet')
     supplyShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply Shelf')
 
-
     class Meta:
         db_table = "supply_StorageMapping"
 
-class equipment_storagemapping(models.Model):
+class equipment_disposal(models.Model):
 
-    equipmentStoragemapping_id = models.AutoField(primary_key=True)
-    equipmentItemName = models.CharField(max_length=50, verbose_name='Equipment ItemName')
-    equipmentLocation = models.CharField(max_length=50, verbose_name='Equipment Location')
+    equipmentDisposal_id = models.AutoField(primary_key=True)
+    dispose_equipment_location = models.CharField(unique=True, max_length=50, verbose_name='dispose_equipment_location')
+    dispose_equipment_property_no = models.CharField(unique=True, max_length=50, verbose_name='dispose_equipment_property_no')
+    dispose_equipment_itemname = models.CharField(max_length=50, verbose_name='dispose_equipment_itemname')
+    dispose_equipment_description = models.CharField(max_length=255, verbose_name='dispose_equipment_description')
+    dispose_equipment_brand = models.CharField(max_length=50, verbose_name='dispose_equipment_brand')
+    dispose_equipment_yearacquired = models.CharField(max_length=50, verbose_name='dispose_yearacquired')
+    dispose_equipment_issued_to = models.CharField(max_length=50, verbose_name='dispose_equipment_issued_to')
+    dispose_equipment_model_no = models.CharField(max_length=50, verbose_name='dispose_equipment_model_no')
+    dispose_equipment_serial_no = models.CharField(unique=True, max_length=50, verbose_name='dispose_equipment_serial_no')
+    dispose_equipment_certifiedcorrect = models.CharField(max_length=50, verbose_name='dispose_equipment_certifiedcorrect')
+    dispose_date = models.DateTimeField(default=now, verbose_name='dispose_date')
 
 
     class Meta:
-        db_table = "equipment_StorageMapping"
+        db_table = "equipment_disposal"

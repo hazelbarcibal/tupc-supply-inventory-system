@@ -321,6 +321,71 @@
                 </div>
             </div>
 
+            <!---------------------- DELIVER MODAL -------------------->
+            <!-- <div class="modal fade" id="openModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <input type="hidden" id="editId2" name="delivery_id" value="" readonly>
+
+                            <div class="col-md-12">
+                                <label class="form-label">Description:</label>
+                                <input type="text" class="form-control" id="description2"
+                                    name="delivery_description" >
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Unit:</label>
+                                <input type="text" class="form-control" id="unit2" name="delivery_unit">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Quantity:</label>
+                                <input type="text" class="form-control" id="deliveryquantity" name="delivery_quantity"
+                                    readonly>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label class="form-label">Rack No:</label>
+                                <input type="number" class="form-control" id="deliveryrackno" name="delivery_rackno">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Layer No:</label>
+                                <input type="number" class="form-control" id="deliverylayerno" name="delivery_layerno">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Cabinet No:</label>
+                                <input type="number" class="form-control" id="deliverycabinet" name="delivery_cabinet">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Shelf No:</label>
+                                <input type="number" class="form-control" id="deliveryshelfno" name="delivery_shelfno">
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <div class="col-12">
+                                    <button style="float: right;" type="submit" name="delivery_edit"
+                                        class="btn btn-primary"> UPDATE</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
 
 
             <script type="text/javascript">
@@ -358,6 +423,28 @@
                         $('#mainstoragequantity1').val(data[3]);
                     });
                 });
+
+                // $(document).ready(function () {
+                //     $('.editBtn2').on('click', function () {
+
+                //         $('#openModal2').modal('show');
+                //         $tr = $(this).closest('tr');
+                //         var data = $tr.children("td").map(function () {
+                //             return $(this).text();
+                //         }).get();
+
+                //         console.log(data);
+                //         $('h5.modal-title').html('Edit Item Delivery');
+                //         $('#editId2').val(data[0]);
+                //         $('#description2').val(data[1]);
+                //         $('#unit2').val(data[2]);
+                //         $('#deliveryquantity').val(data[3]);
+                //         $('#deliveryrackno').val(data[4]);
+                //         $('#deliverylayerno').val(data[5]);
+                //         $('#deliverycabinetno').val(data[6]);
+                //         $('#deliveryshelfno').val(data[7]);
+                //     });
+                // });
             </script>
 
 
@@ -415,6 +502,26 @@
                                 <div class="col-md-6">
                                     <label class="form-label">Quantity: </label>
                                     {{form.delivery_supply_quantity}}
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label">Rack No: </label>
+                                    {{form.delivery_supplyRackNo}}
+                                </div>
+                                
+                                <div class="col-md-3">
+                                    <label class="form-label">Layer No: </label>
+                                    {{form.delivery_supplyLayerNo}}
+                                </div>
+                                
+                                <div class="col-md-3">
+                                    <label class="form-label">Cabinet No: </label>
+                                    {{form.delivery_supplyCabinetNo}}
+                                </div>
+                                
+                                <div class="col-md-3">
+                                    <label class="form-label">Shelf No: </label>
+                                    {{form.delivery_supplyShelfNo}}
                                 </div>
 
                                 <div class="col-12">

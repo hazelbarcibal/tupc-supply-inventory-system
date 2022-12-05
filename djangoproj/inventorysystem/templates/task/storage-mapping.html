@@ -138,7 +138,7 @@
                                 <thead>
                                     <tr>
                                         <th style="text-align: center;">Item No.</th>
-                                        <th style="text-align: center;">Item Name</th>
+                                        <th style="text-align: center;">Description</th>
                                         <th style="text-align: center;">Rack No.</th>
                                         <th style="text-align: center;">Layer No.</th>
                                         <th style="text-align: center;">Cabinet No.</th>
@@ -149,12 +149,12 @@
                                 <tbody>
                                     {% for x in info %}
                                     <tr class="edittr">
-                                        <td align="center" id="supplyID">{{x.supplyStoragemapping_id}}</td>
-                                        <td align="center">{{x.supplyItemName}}</td>
-                                        <td align="center">{{x.supplyRackNo}}</td>
-                                        <td align="center">{{x.supplyLayerNo}}</td>
-                                        <td align="center">{{x.supplyCabinetNo}}</td>
-                                        <td align="center">{{x.supplyShelfNo}}</td>
+                                        <td align="center" id="supplyID">{{x.supplymainstorage_id}}</td>
+                                        <td align="center">{{x.supplymainstorage_description}}</td>
+                                        <td align="center">{{x.supplymainstorage_supplyRackNo}}</td>
+                                        <td align="center">{{x.supplymainstorage_supplyLayerNo}}</td>
+                                        <td align="center">{{x.supplymainstorage_supplyCabinetNo}}</td>
+                                        <td align="center">{{x.supplymainstorage_supplyShelfNo}}</td>
                                         <td align="center"><a class="btn btn-success editBtn" name="editBtn" 
                                             style="font-size: 13px; "> UPDATE</a></td>
                                         <i class=""></i>
@@ -176,24 +176,38 @@
                 <div class="col-xl-12 col-md-12 mb-4">
                     <div class="container">
                         <div class="kahon">
-                            <h3 align="center">Equipment</h3>
+                            <h3 align="center">Dispose Equipment</h3>
                             <hr>
                             <table id="equipmentmappingTable" class="table table-striped" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Item No.</th>
-                                        <th>Equipment Name</th>
-                                        <th>Location</th>
-                                        <th>Action</th>
+                                        <th style="text-align: center;">Location.</th>
+                                        <th style="text-align: center;">Property No.</th>
+                                        <th style="text-align: center;">Item Name</th>
+                                        <th style="text-align: center;">Description</th>
+                                        <th style="text-align: center;">Brand</th>
+                                        <th style="text-align: center;">Year Acquired</th>
+                                        <th style="text-align: center;">Issued To</th>
+                                        <th style="text-align: center;">Model No.</th>
+                                        <th style="text-align: center;">Serial No.</th>
+                                        <th style="text-align: center;">Certified Correct</th>
+                                        <th style="text-align: center;">Date Disposed</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for x in info1 %}
                                     <tr class="edittr">
-                                        <td id="equipmentID">{{x.equipmentStoragemapping_id}}</td>
-                                        <td>{{x.equipmentItemName}}</td>
-                                        <td>{{x.equipmentLocation}}</td>
-                                        <td><a class="btn btn-success editBtn1" name="editBtn1" style="font-size: 13px;">UPDATE</a></td>
+                                        <td align="center">{{x.dispose_equipment_location}}</td>
+                                        <td align="center">{{x.dispose_equipment_property_no}}</td>
+                                        <td align="center">{{x.dispose_equipment_itemname}}</td>
+                                        <td align="center">{{x.dispose_equipment_description}}</td>
+                                        <td align="center">{{x.dispose_equipment_brand}}</td>
+                                        <td align="center">{{x.dispose_equipment_yearacquired}}</td>
+                                        <td align="center">{{x.dispose_equipment_issued_to}}</td>
+                                        <td align="center">{{x.dispose_equipment_model_no}}</td>
+                                        <td align="center">{{x.dispose_equipment_serial_no}}</td>
+                                        <td align="center">{{x.dispose_equipment_certifiedcorrect}}</td>
+                                        <td align="center">{{x.dispose_date}}</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -307,7 +321,7 @@
 
 
 
-<!----- UPDATE SUPPLY STORAGE MODAL ----->
+<!-- --- UPDATE SUPPLY STORAGE MODAL ---
 <div class="modal fade" id="openModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -318,10 +332,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!----- UPDATE SUPPLY STORAGE FORM ---->
+                --- UPDATE SUPPLY STORAGE FORM --
                 <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <input type="hidden" id="editId1" name="equipmentStoragemapping_id" value="" readonly>
+                    <input type="hidden" id="editId1" name="equipmentDisposal_id" value="" readonly>
 
                     <div class="col-md-12">
                         <label class="form-label">Equipment name:</label>
@@ -348,7 +362,7 @@
 <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
 
 
-<script type="text/javascript">
+ <script type="text/javascript">
     $(document).ready(function () {
         $('.editBtn1').on('click', function () {
 
@@ -365,7 +379,7 @@
             $('#location').val(data[2]);
         });
     });
-</script>
+</script> -->
 
 
 <script>
@@ -378,7 +392,7 @@
         });
     });
     $(document).ready(function () {
-        var table = $('#equipmentmappingTable').DataTable({
+        var table = $('#equipmentdisposalTable').DataTable({
             rowReorder: {
                 selector: 'td:nth-child(2)'
             },

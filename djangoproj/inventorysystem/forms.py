@@ -59,9 +59,22 @@ class deliverySupplyForm(forms.ModelForm):
     delivery_supply_remaining = forms.DecimalField(required=True,  widget=forms.NumberInput(
             attrs={'class': 'form-control', 'placeholder': 'Remaining',}))   
 
+    delivery_supplyRackNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
+            attrs={'class': 'form-control', 'placeholder': 'Rack No.', 'min': 1,}))   
+
+    delivery_supplyLayerNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
+            attrs={'class': 'form-control', 'placeholder': 'Layer No.', 'min': 1,})) 
+
+    delivery_supplyCabinetNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
+            attrs={'class': 'form-control', 'placeholder': 'Cabinet No.', 'min': 1,})) 
+
+    delivery_supplyShelfNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
+            attrs={'class': 'form-control', 'placeholder': 'Shelf No.', 'min': 1,})) 
+
     class Meta:
         model = deliverysupply
-        fields = [ 'delivery_supply_description',  'delivery_supply_unit', 'delivery_supply_quantity', 'delivery_supply_remaining']
+        fields = [ 'delivery_supply_description',  'delivery_supply_unit', 'delivery_supply_quantity', 'delivery_supply_remaining', 'delivery_supplyRackNo',
+                        'delivery_supplyLayerNo', 'delivery_supplyCabinetNo', 'delivery_supplyShelfNo']
 
 
 class updateDeliverySupplyForm(forms.ModelForm):
@@ -369,15 +382,15 @@ class supply_storageForm(forms.ModelForm):
 equipmentItemName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ItemName'}))
 equipmentLocation = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Location', 'min': 1,}))
 
-class equipment_storageForm(forms.ModelForm):
+# class equipment_disposalForm(forms.ModelForm):
     
-    def __init__(self, *args, **kwargs):
-        super(equipment_storageForm, self).__init__(*args, **kwargs)
-        instance = getattr(self, 'instance', None)
-        if instance and instance.pk:
-            self.fields['equipmentItemName'].widget.attrs['readonly'] = True
+#     def __init__(self, *args, **kwargs):
+#         super(equipment_disposalForm, self).__init__(*args, **kwargs)
+#         instance = getattr(self, 'instance', None)
+#         if instance and instance.pk:
+#             self.fields['equipmentItemName'].widget.attrs['readonly'] = True
 
 
-    class Meta:
-        model = equipment_storagemapping
-        fields = ['equipmentItemName', 'equipmentLocation']
+#     class Meta:
+#         model = equipment_disposal
+#         fields = ['equipmentItemName', 'equipmentLocation']
