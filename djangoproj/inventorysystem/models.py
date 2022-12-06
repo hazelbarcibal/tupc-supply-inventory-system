@@ -51,6 +51,10 @@ class requestsupply(models.Model):
     request_supply_status = models.CharField(max_length=50, verbose_name='request_supply_status')
     request_supply_mainstoragequantity = models.DecimalField(null=True, max_digits=6, decimal_places=0, max_length=50, verbose_name='request_supply_mainstoragequantity')
     request_supply_acceptquantity = models.DecimalField(null=True, max_digits=6, decimal_places=0, max_length=50, verbose_name='request_supply_acceptquantity')
+    request_supply_supplyRackNo = models.CharField(null= True, max_length=50, verbose_name='request_supply_Rack')
+    request_supply_supplyLayerNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='request_supply_Layer')
+    request_supply_supplyCabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='request_supply_Cabinet')
+    request_supply_supplyShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='request_supply_Shelf')
     current_date = models.DateTimeField(default=now, verbose_name= 'request_current_date')
 
     class Meta:

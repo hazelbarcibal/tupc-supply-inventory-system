@@ -317,6 +317,10 @@ def suppliesDeliver(request):
             update_description = request.POST.get('supplymainstorage_description')
             add_quantity = request.POST.get('supplymainstorage_RequestQuantity')
             update_unit = request.POST.get('supplymainstorage_unit')
+            rackno = request.POST.get('delivery_supplyRackNo')
+            layerno = request.POST.get('delivery_supplyLayerNo')
+            cabinetno = request.POST.get('delivery_supplyCabinetNo')
+            shelfno = request.POST.get('delivery_supplyShelfNo')
 
             if 'delivery_new' in request.POST:
                 if supplymainstorage.objects.filter(supplymainstorage_description = description).exists() == False:
@@ -331,14 +335,18 @@ def suppliesDeliver(request):
                             storageupdate.supplymainstorage_description = description
                             storageupdate.supplymainstorage_unit = unit
                             storageupdate.supplymainstorage_quantity = quantity
+                            storageupdate.supplymainstorage_supplyRackNo = rackno
+                            storageupdate.supplymainstorage_supplyLayerNo = layerno
+                            storageupdate.supplymainstorage_supplyCabinetNo = cabinetno
+                            storageupdate.supplymainstorage_supplyShelfNo = shelfno
                             storageupdate.save()
-                            mapping = supply_storagemapping()
-                            mapping.supplyItemName = description
-                            mapping.supplyRackNo = 0
-                            mapping.supplyLayerNo = 0
-                            mapping.supplyCabinetNo = 0
-                            mapping.supplyShelfNo = 0
-                            mapping.save()
+                            # mapping = supply_storagemapping()
+                            # mapping.supplyItemName = description
+                            # mapping.supplyRackNo = 0
+                            # mapping.supplyLayerNo = 0
+                            # mapping.supplyCabinetNo = 0
+                            # mapping.supplyShelfNo = 0
+                            # mapping.save()
                             messages.success(request, 'Record created for ' + description)
                             return redirect('inventorysystem-suppliesDeliver')
                     else:
@@ -370,6 +378,10 @@ def suppliesDeliver(request):
                     update_delivery.supplymainstorage_unit = update_unit
                     adding1 = int(getdata1.supplymainstorage_quantity) + int(add_quantity)
                     update_delivery.supplymainstorage_quantity = adding1
+                    update_delivery.supplymainstorage_supplyRackNo = supplymainstorage.objects.get(supplymainstorage_id = getdata1.supplymainstorage_id).supplymainstorage_supplyRackNo
+                    update_delivery.supplymainstorage_supplyLayerNo = supplymainstorage.objects.get(supplymainstorage_id = getdata1.supplymainstorage_id).supplymainstorage_supplyLayerNo
+                    update_delivery.supplymainstorage_supplyCabinetNo = supplymainstorage.objects.get(supplymainstorage_id = getdata1.supplymainstorage_id).supplymainstorage_supplyCabinetNo
+                    update_delivery.supplymainstorage_supplyShelfNo = supplymainstorage.objects.get(supplymainstorage_id = getdata1.supplymainstorage_id).supplymainstorage_supplyShelfNo
                     supplymainstorage.objects.filter(supplymainstorage_description = update_description).filter(supplymainstorage_unit = update_unit).delete()
                     update_delivery.save()
 
@@ -620,6 +632,10 @@ def depRequestSupply(request):
                         requesting.request_supply_quantity = request_addquantity
                         requesting.request_supply_remaining = request_quantity
                         requesting.request_supply_department = str(request.user)
+                        requesting.request_supply_supplyRackNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyRackNo
+                        requesting.request_supply_supplyLayerNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyLayerNo
+                        requesting.request_supply_supplyCabinetNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyCabinetNo
+                        requesting.request_supply_supplyShelfNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyShelfNo
                         requesting.request_supply_status = "pending"
                         status = statusSupplyRequest()
                         status.status_supply_description = request_description
@@ -676,6 +692,10 @@ def suppliesWithdraw(request):
             update_storage.supplymainstorage_unit = withdraw_unit
             update_storage.supplymainstorage_id = getdata2.supplymainstorage_id
             update_storage.supplymainstorage_quantity = int(getdata2.supplymainstorage_quantity) - int(withdraw_quantity)
+            update_storage.supplymainstorage_supplyRackNo = supplymainstorage.objects.get(supplymainstorage_id = getdata2.supplymainstorage_id).supplymainstorage_supplyRackNo
+            update_storage.supplymainstorage_supplyLayerNo = supplymainstorage.objects.get(supplymainstorage_id = getdata2.supplymainstorage_id).supplymainstorage_supplyLayerNo
+            update_storage.supplymainstorage_supplyCabinetNo = supplymainstorage.objects.get(supplymainstorage_id = getdata2.supplymainstorage_id).supplymainstorage_supplyCabinetNo
+            update_storage.supplymainstorage_supplyShelfNo = supplymainstorage.objects.get(supplymainstorage_id = getdata2.supplymainstorage_id).supplymainstorage_supplyShelfNo
             supplymainstorage.objects.filter(supplymainstorage_description = withdraw_description).delete()
             update_storage.save()
 
@@ -1185,10 +1205,13 @@ def storageMapping(request):
                 locsave = supplymainstorage()
                 locsave.supplymainstorage_id = request.POST.get('supplymainstorage_id')
                 locsave.supplymainstorage_description = request.POST.get('supplyItemName')
+                locsave.supplymainstorage_unit = supplymainstorage.objects.get(supplymainstorage_description = request.POST.get('supplyItemName')).supplymainstorage_unit
+                locsave.supplymainstorage_quantity = supplymainstorage.objects.get(supplymainstorage_description = request.POST.get('supplyItemName')).supplymainstorage_quantity
                 locsave.supplymainstorage_supplyRackNo = request.POST.get('supplyRackNo')
                 locsave.supplymainstorage_supplyLayerNo = request.POST.get('supplyLayerNo')
                 locsave.supplymainstorage_supplyCabinetNo = request.POST.get('supplyCabinetNo')
                 locsave.supplymainstorage_supplyShelfNo = request.POST.get('supplyShelfNo')
+                supplymainstorage.objects.filter(supplymainstorage_id = request.POST.get('supplymainstorage_id')).delete()
                 locsave.save()
                 messages.success(request, 'Successfully updated storage mapping for item ' + item)
                 return redirect('inventorysystem-storageMapping')
