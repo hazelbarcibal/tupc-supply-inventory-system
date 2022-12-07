@@ -60,16 +60,16 @@ class deliverySupplyForm(forms.ModelForm):
             attrs={'class': 'form-control', 'placeholder': 'Remaining',}))   
 
     delivery_supplyRackNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'Rack No.', 'min': 1,}))   
+            attrs={'class': 'form-control', 'placeholder': 'Rack No.', }))   
 
     delivery_supplyLayerNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'Layer No.', 'min': 1,})) 
+            attrs={'class': 'form-control', 'placeholder': 'Layer No.',})) 
 
     delivery_supplyCabinetNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'Cabinet No.', 'min': 1,})) 
+            attrs={'class': 'form-control', 'placeholder': 'Cabinet No.', })) 
 
     delivery_supplyShelfNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'Shelf No.', 'min': 1,})) 
+            attrs={'class': 'form-control', 'placeholder': 'Shelf No.',})) 
 
     class Meta:
         model = deliverysupply
