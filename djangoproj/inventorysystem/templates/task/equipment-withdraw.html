@@ -162,9 +162,42 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
+            <!------------------- Email Equipment ------------------->
+            <div class="row">
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <div class="container">
+                        <div class="kahon">
+                            <table id="viewRequestSupplyTable" class="table table-striped" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Request No.</th>
+                                        <th style="text-align: center;">Department</th>
+                                        <th style="text-align: center;">Accepted Quantity</th>
+                                        <th style="text-align: center;">Date & Time</th>
+                                        <th style="text-align: center;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for x in info2 %}
+                                    <tr class="edittr">
+                                        <td>{{x.emailequipment_id}}</td>
+                                        <td align="center">{{x.emailequipment_department}}</td>
+                                        <td align="center">{{x.emailequipment_acceptedquantity}}</td>
+                                        <td align="center">{{x.current_date}}</td>
+                                        <td align="center">
+                                            <button class="btn btn-success editBtn" style="margin-bottom: 10px;"
+                                                name="editBtn">EMAIL</button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <br><br><br>
             <!------------------- Content Row ------------------->

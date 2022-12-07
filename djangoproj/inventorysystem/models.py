@@ -279,3 +279,25 @@ class equipment_disposal(models.Model):
 
     class Meta:
         db_table = "equipment_disposal"
+
+class supply_email(models.Model):
+
+    emailsupply_id = models.AutoField(primary_key=True)
+    emailsupply_department = models.CharField(unique=True, max_length=50, verbose_name='emailsupply_department')
+    emailsupply_acceptedquantity = models.CharField(unique=True, max_length=50, verbose_name='emailsupply_acceptedquantity')
+    current_date = models.DateTimeField(default=now, verbose_name='current_date')
+
+
+    class Meta:
+        db_table = "supply_email"
+
+class equipment_email(models.Model):
+
+    emailequipment_id = models.AutoField(primary_key=True)
+    emailequipment_department = models.CharField(unique=True, max_length=50, verbose_name='emailequipment_department')
+    emailequipment_acceptedquantity = models.CharField(unique=True, max_length=50, verbose_name='emailequipment_acceptedquantity')
+    current_date = models.DateTimeField(default=now, verbose_name='current_date')
+
+
+    class Meta:
+        db_table = "equipment_email"

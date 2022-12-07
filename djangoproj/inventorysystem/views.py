@@ -508,7 +508,7 @@ def viewRequestSupply(request):
 
         label = request.user
         info = requestsupply.objects.all()
-        # info1 = supplymainstorage.objects.filter()
+        info1 = supply_email.objects.all()
         
         if request.method == 'POST':
             request_id = request.POST.get('requestsupply_id')
@@ -580,6 +580,7 @@ def viewRequestSupply(request):
         context = {
             'info': info,
             'label': label,
+            'info1': info1,
 
         }
         return render(request, 'task/view-request-supplies.html', context)
@@ -1024,9 +1025,11 @@ def equipmentWithdraw(request):
         label = request.user
         info = acceptEquipmentRequests.objects.all()
         info1 = withdrawequipment.objects.all()
+        info2 = equipment_email.objects.all()
         context = {
             'info': info,
             'info1': info1,
+            'info2': info2,
             'label': label,
         }
         return render(request, 'task/equipment-withdraw.html', context)
