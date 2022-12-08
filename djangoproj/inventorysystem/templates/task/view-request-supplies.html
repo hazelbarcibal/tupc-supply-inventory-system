@@ -103,7 +103,7 @@
 
                     <div class="modal-footer">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Accept Request</button>
+                            <button type="submit" name = "acceptbtn"class="btn btn-primary">Accept Request</button>
                         </div>
                     </div>
                 </form>
@@ -373,19 +373,25 @@
 
                                 <div class="col-md-12">
                                     <label class="form-label">Department:</label>
-                                    <input type="text" class="form-control" id="department1" name="request_supply_department"
+                                    <input type="text" class="form-control" id="department1" name="email_supply_department"
                                         readonly>
                                 </div>
 
                                 <div class="col-md-12">
                                     <label class="form-label">Accepted Quantity:</label>
                                     <input type="number" min="1" class="form-control" id="acceptedquantity1"
-                                        name="request_supply_quantity" readonly>
+                                        name="email_supply_quantity" readonly>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label class="form-label">Date Accepted:</label>
+                                    <input type="text" class="form-control" id="dateaccepted"
+                                        name="email_supply_date" readonly>
                                 </div>
 
                                 <div class="modal-footer">
                                     <div class="col-12">
-                                        <button type="submit" style="float: right;" class="btn btn-primary">Email</button>
+                                        <button type="submit" name="emailBtn1" style="float: right;" class="btn btn-primary">Email</button>
                                     </div>
                                 </div>
                             </form>
@@ -412,6 +418,7 @@
                         $('#editId1').val(data[0]);
                         $('#department1').val(data[1]);
                         $('#acceptedquantity1').val(data[2]);
+                        $('#dateaccepted').val(data[3]);
                     });
                 });
 

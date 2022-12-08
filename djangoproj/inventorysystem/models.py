@@ -108,7 +108,7 @@ class acceptSupplyRequests(models.Model):
     arequest_supply_quantity = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='arequest_supply_quantity')
     arequest_supply_remaining = models.DecimalField(null=True, max_digits=6,decimal_places=0, verbose_name='arequest_supply_remaining')
     arequest_supply_status = models.CharField(max_length=50, verbose_name='arequest_supply_status')
-    current_date = models.DateTimeField(default=now, verbose_name= 'arequest_current_date')
+    current_date = models.CharField(max_length=50, verbose_name='currentdate')
 
     class Meta:
         db_table = ('acceptSupplyRequests')
@@ -283,9 +283,9 @@ class equipment_disposal(models.Model):
 class supply_email(models.Model):
 
     emailsupply_id = models.AutoField(primary_key=True)
-    emailsupply_department = models.CharField(unique=True, max_length=50, verbose_name='emailsupply_department')
-    emailsupply_acceptedquantity = models.CharField(unique=True, max_length=50, verbose_name='emailsupply_acceptedquantity')
-    current_date = models.DateTimeField(default=now, verbose_name='current_date')
+    emailsupply_department = models.CharField( max_length=50, verbose_name='emailsupply_department')
+    emailsupply_acceptedquantity = models.CharField( max_length=50, verbose_name='emailsupply_acceptedquantity')
+    current_date = models.CharField( max_length=50, verbose_name='currentdate')
 
 
     class Meta:
@@ -296,7 +296,7 @@ class equipment_email(models.Model):
     emailequipment_id = models.AutoField(primary_key=True)
     emailequipment_department = models.CharField(unique=True, max_length=50, verbose_name='emailequipment_department')
     emailequipment_acceptedquantity = models.CharField(unique=True, max_length=50, verbose_name='emailequipment_acceptedquantity')
-    current_date = models.DateTimeField(default=now, verbose_name='current_date')
+    current_date = models.DateField(default=now, verbose_name='current_date')
 
 
     class Meta:

@@ -388,16 +388,20 @@ def suppliesDeliver(request):
                     messages.success(request, 'Record updated for: ' + str(getdata1.supplymainstorage_description))
                     return redirect('inventorysystem-suppliesDeliver')
 
-            # elif 'delivery_edit' in request.POST:
+            elif 'delivery_edit' in request.POST:
+                if limitrecords.objects.filter(limit_description = supplymainstorage.objects.get(supplymainstorage_id = request.POST.get('supplymainstorage_editid')).supplymainstorage_description).exists() == False:
 
-            #         update_delivery1 = supplymainstorage()
-            #         update_delivery1.supplymainstorage_id = request.POST.get('supplymainstorage_editid')
-            #         update_delivery1.supplymainstorage_description = request.POST.get('supplymainstorage_editdescription')
-            #         update_delivery1.supplymainstorage_unit = request.POST.get('supplymainstorage_editunit')
-            #         update_delivery1.supplymainstorage_quantity = request.POST.get('mainstorage_editquantity')
-            #         supplymainstorage.objects.filter(supplymainstorage_description = request.POST.get('supplymainstorage_editdescription')).filter(supplymainstorage_unit = request.POST.get('supplymainstorage_editunit')).delete()
-            #         update_delivery1.save()
-            #         messages.success(request, 'Record for ' + request.POST.get('supplymainstorage_editdescription') + ' has been updated.')
+                    update_delivery1 = supplymainstorage()
+                    update_delivery1.supplymainstorage_id = request.POST.get('supplymainstorage_editid')
+                    update_delivery1.supplymainstorage_description = request.POST.get('supplymainstorage_editdescription')
+                    update_delivery1.supplymainstorage_unit = request.POST.get('supplymainstorage_editunit')
+                    update_delivery1.supplymainstorage_quantity = request.POST.get('mainstorage_editquantity')
+                    supplymainstorage.objects.filter(supplymainstorage_description = request.POST.get('supplymainstorage_editdescription')).filter(supplymainstorage_unit = request.POST.get('supplymainstorage_editunit')).delete()
+                    update_delivery1.save()
+                    messages.success(request, 'Record for ' + request.POST.get('supplymainstorage_editdescription') + ' has been updated.')
+
+                elif limitrecords.objects.filter(limit_description = supplymainstorage.objects.get(supplymainstorage_id = request.POST.get('supplymainstorage_editid')).supplymainstorage_description).exists() == True:
+                    messages.info(request, "this item is existing in limit records")
 
             else:
                 messages.info(request, "invalid quantity")
@@ -517,74 +521,82 @@ def viewRequestSupply(request):
             request_description = request.POST.get('request_supply_description')
             request_quantity = request.POST.get('request_supply_quantity')
             request_accept_quantity = request.POST.get('request_supply_acceptquantity')
-            getdata1 = requestsupply.objects.get(requestsupply_id = request_id).requestsupply_id
-            getdata2 = requestsupply.objects.get(requestsupply_id = request_id)
-            getdata3 = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_quantity
 
-            if int(request_accept_quantity) > int(request_quantity):
 
-                    messages.info(request, 'Your accepted quantity is greater than with the requested quantity')
+            if 'acceptbtn' in request.POST:
+                getdata1 = requestsupply.objects.get(requestsupply_id = request_id).requestsupply_id
+                getdata2 = requestsupply.objects.get(requestsupply_id = request_id)
+                getdata3 = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_quantity
+                if int(request_accept_quantity) > int(request_quantity):
+
+                        messages.info(request, 'Your accepted quantity is greater than with the requested quantity')
+                        return redirect('inventorysystem-viewRequestSupply')
+
+
+                elif int(request_accept_quantity) > int(getdata3):
+
+                        messages.info(request, 'Not enough quantity for this item.')
+                        return redirect('inventorysystem-viewRequestSupply')       
+
+                elif int(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity) > int(request_accept_quantity) or int(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity) == int(request_accept_quantity):
+                    accept = acceptSupplyRequests()
+                    accept.acceptSupplyRequests_id = request_id
+                    accept.arequest_supply_department = request_department
+                    accept.arequest_supply_description = request_description
+                    accept.arequest_supply_unit = request_unit
+                    accept.arequest_supply_quantity = request_accept_quantity
+                    accept.arequest_supply_status = "Ready for pick-up"
+                    accept.current_date = datetime.date.today()
+                    requestsupply.objects.filter(requestsupply_id = getdata1).delete()       
+                    status = statusSupplyRequest()
+                    status.statusSupplyRequests_id = request_id
+                    status.status_supply_description = request_description
+                    status.status_supply_unit = request_unit
+                    status.status_supply_quantity = request_quantity
+                    status.status_supply_remaining = limitrecords.objects.get(limit_id = getdata1).limit_quantity
+                    status.status_supply_acceptquantity = request_accept_quantity
+                    status.status_supply_department = request_department
+                    status.status_supply_status = "Ready for pick-up" 
+                    statusSupplyRequest.objects.filter(status_supply_department = request_department).filter(status_supply_description = request_description).delete()  
+                    messages.success(request, 'request accepted')
+                    accept.save()
+                    status.save()
+
+                    if supply_email.objects.filter(emailsupply_department = request_department).filter(current_date = datetime.date.today()).exists() == True:
+                        emaildept = supply_email()
+                        emaildept.emailsupply_id = supply_email.objects.get(emailsupply_department = request_department).emailsupply_id
+                        emaildept.emailsupply_department = request_department
+                        emailqty = supply_email.objects.get(emailsupply_department = request_department).emailsupply_acceptedquantity
+                        emaildept.emailsupply_acceptedquantity = int(emailqty) + int(1)
+                        emaildept.current_date = datetime.date.today()
+                        supply_email.objects.filter(emailsupply_department = request_department).delete()
+                        emaildept.save()
+
+                    elif supply_email.objects.filter(emailsupply_department = request_department).filter(current_date = datetime.date.today()).exists() == False:
+                        emaildept1 = supply_email()
+                        emaildept1.emailsupply_department = request_department
+                        emaildept1.emailsupply_acceptedquantity = 1
+                        emaildept1.current_date = datetime.date.today()
+                        emaildept1.save()
+
                     return redirect('inventorysystem-viewRequestSupply')
 
 
-            elif int(request_accept_quantity) > int(getdata3):
-
-                    messages.info(request, 'Not enough quantity for this item.')
-                    return redirect('inventorysystem-viewRequestSupply')       
-
-            elif int(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity) > int(request_accept_quantity) or int(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity) == int(request_accept_quantity):
-                accept = acceptSupplyRequests()
-                accept.acceptSupplyRequests_id = request_id
-                accept.arequest_supply_department = request_department
-                accept.arequest_supply_description = request_description
-                accept.arequest_supply_unit = request_unit
-                accept.arequest_supply_quantity = request_accept_quantity
-                accept.arequest_supply_status = "Ready for pick-up"
-                requestsupply.objects.filter(requestsupply_id = getdata1).delete()       
-                status = statusSupplyRequest()
-                status.statusSupplyRequests_id = request_id
-                status.status_supply_description = request_description
-                status.status_supply_unit = request_unit
-                status.status_supply_quantity = request_quantity
-                status.status_supply_remaining = limitrecords.objects.get(limit_id = getdata1).limit_quantity
-                status.status_supply_acceptquantity = request_accept_quantity
-                status.status_supply_department = request_department
-                status.status_supply_status = "Ready for pick-up" 
-                statusSupplyRequest.objects.filter(status_supply_department = request_department).filter(status_supply_description = request_description).delete()  
-                messages.success(request, 'request accepted')
-                # subject = "SUPPLY DEPARTMENT ADMIN"
-                # message = "Your request " + request_description + " with quantity of " + request_quantity + " has been accepted. Please pick up ASAP"
-                # depinfo = str(CustomUser.objects.get(department=str(request_department)).email)
-                # print(depinfo)
-                # recipient = depinfo
-                # send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
-                accept.save()
-                status.save()
-
-                if supply_email.objects.filter(emailsupply_department = request_department).exists() == True:
-                    emaildept = supply_email()
-                    emaildept.emailsupply_id = supply_email.objects.get(emailsupply_department = request_department).emailsupply_id
-                    emaildept.emailsupply_department = request_department
-                    emailqty = supply_email.objects.get(emailsupply_department = request_department).emailsupply_acceptedquantity
-                    emaildept.emailsupply_acceptedquantity = int(emailqty) + int(1)
-                    supply_email.objects.filter(emailsupply_department = request_department).delete()
-                    emaildept.save()
-
-                elif supply_email.objects.filter(emailsupply_department = request_department).exists() == False:
-                    emaildept1 = supply_email()
-                    emaildept1.emailsupply_department = request_department
-                    emaildept1.emailsupply_acceptedquantity = 1
-                    emaildept1.save()
-
-                return redirect('inventorysystem-viewRequestSupply')
+                else:
+                    number = str(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity)
+                    messages.info(request, 'This item does not have enough stock in the main storage,'+ ' Mainstorage Remaining: ' + number)
 
 
-            else:
-                number = str(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity)
-                messages.info(request, 'This item does not have enough stock in the main storage,'+ ' Mainstorage Remaining: ' + number)
+            elif 'emailBtn1' in request.POST:
 
-
-            # if 'emailBtn' in request.POST:
+                subject = "SUPPLY DEPARTMENT ADMIN"
+                message = "Your item is ready for pickup"
+                depinfo = str(CustomUser.objects.get(department=str(request.POST.get('email_supply_department'))).email)
+                print(depinfo)
+                recipient = depinfo
+                send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
+                supply_email.objects.filter(emailsupply_department = request.POST.get('email_supply_department')).filter(current_date = request.POST.get('email_supply_date')).delete()
+                messages.success(request, 'successfully sent')
 
         context = {
             'info': info,
@@ -696,41 +708,47 @@ def suppliesWithdraw(request):
             withdraw_quantity = request.POST.get('arequest_supply_quantity')
             getdata1 = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata).acceptSupplyRequests_id
 
-            update_storage = supplymainstorage()
-            getdata2 = supplymainstorage.objects.get(supplymainstorage_description = withdraw_description)
-            update_storage.supplymainstorage_description = withdraw_description
-            update_storage.supplymainstorage_unit = withdraw_unit
-            update_storage.supplymainstorage_id = getdata2.supplymainstorage_id
-            update_storage.supplymainstorage_quantity = int(getdata2.supplymainstorage_quantity) - int(withdraw_quantity)
-            update_storage.supplymainstorage_supplyRackNo = supplymainstorage.objects.get(supplymainstorage_id = getdata2.supplymainstorage_id).supplymainstorage_supplyRackNo
-            update_storage.supplymainstorage_supplyLayerNo = supplymainstorage.objects.get(supplymainstorage_id = getdata2.supplymainstorage_id).supplymainstorage_supplyLayerNo
-            update_storage.supplymainstorage_supplyCabinetNo = supplymainstorage.objects.get(supplymainstorage_id = getdata2.supplymainstorage_id).supplymainstorage_supplyCabinetNo
-            update_storage.supplymainstorage_supplyShelfNo = supplymainstorage.objects.get(supplymainstorage_id = getdata2.supplymainstorage_id).supplymainstorage_supplyShelfNo
-            supplymainstorage.objects.filter(supplymainstorage_description = withdraw_description).delete()
-            update_storage.save()
+            if supply_email.objects.filter(emailsupply_department = withdraw_department).exists() == False:
 
-            update_limit = limitrecords()
-            update_limit.limit_id = getdata
-            update_limit.limit_description = withdraw_description
-            update_limit.limit_unit = withdraw_unit
-            update_limit.limit_department = withdraw_department
-            limitqty = limitrecords.objects.get(limit_id = getdata1).limit_quantity      
-            update_limit.limit_quantity = int(limitqty) - int(withdraw_quantity)
-            # limitrecords.objects.filter(limit_description = withdraw_description).filter(limit_department = withdraw_department).delete()
-            update_limit.save()
+                update_storage = supplymainstorage()
+                getdata2 = supplymainstorage.objects.get(supplymainstorage_description = withdraw_description)
+                update_storage.supplymainstorage_description = withdraw_description
+                update_storage.supplymainstorage_unit = withdraw_unit
+                update_storage.supplymainstorage_id = getdata2.supplymainstorage_id
+                update_storage.supplymainstorage_quantity = int(getdata2.supplymainstorage_quantity) - int(withdraw_quantity)
+                update_storage.supplymainstorage_supplyRackNo = supplymainstorage.objects.get(supplymainstorage_id = getdata2.supplymainstorage_id).supplymainstorage_supplyRackNo
+                update_storage.supplymainstorage_supplyLayerNo = supplymainstorage.objects.get(supplymainstorage_id = getdata2.supplymainstorage_id).supplymainstorage_supplyLayerNo
+                update_storage.supplymainstorage_supplyCabinetNo = supplymainstorage.objects.get(supplymainstorage_id = getdata2.supplymainstorage_id).supplymainstorage_supplyCabinetNo
+                update_storage.supplymainstorage_supplyShelfNo = supplymainstorage.objects.get(supplymainstorage_id = getdata2.supplymainstorage_id).supplymainstorage_supplyShelfNo
+                supplymainstorage.objects.filter(supplymainstorage_description = withdraw_description).delete()
+                update_storage.save()
 
-            accept = withdrawsupply()
-            accept.withdraw_supply_department = withdraw_department
-            accept.withdraw_supply_description = withdraw_description
-            accept.withdraw_supply_unit = withdraw_unit
-            accept.withdraw_supply_quantity = withdraw_quantity
-            accept.withdraw_supply_remaining = supplymainstorage.objects.get(supplymainstorage_description = withdraw_description).supplymainstorage_quantity
-            acceptSupplyRequests.objects.filter(acceptSupplyRequests_id = getdata1).delete()
-            statusSupplyRequest.objects.filter(status_supply_department = withdraw_department).filter(status_supply_description = withdraw_description).delete()        
-            accept.save()
+                update_limit = limitrecords()
+                update_limit.limit_id = getdata
+                update_limit.limit_description = withdraw_description
+                update_limit.limit_unit = withdraw_unit
+                update_limit.limit_department = withdraw_department
+                limitqty = limitrecords.objects.get(limit_id = getdata1).limit_quantity      
+                update_limit.limit_quantity = int(limitqty) - int(withdraw_quantity)
+                # limitrecords.objects.filter(limit_description = withdraw_description).filter(limit_department = withdraw_department).delete()
+                update_limit.save()
 
-            messages.success(request, 'successfully withdraw')
-            return redirect('inventorysystem-suppliesWithdraw')
+                accept = withdrawsupply()
+                accept.withdraw_supply_department = withdraw_department
+                accept.withdraw_supply_description = withdraw_description
+                accept.withdraw_supply_unit = withdraw_unit
+                accept.withdraw_supply_quantity = withdraw_quantity
+                accept.withdraw_supply_remaining = supplymainstorage.objects.get(supplymainstorage_description = withdraw_description).supplymainstorage_quantity
+                acceptSupplyRequests.objects.filter(acceptSupplyRequests_id = getdata1).delete()
+                statusSupplyRequest.objects.filter(status_supply_department = withdraw_department).filter(status_supply_description = withdraw_description).delete()        
+                accept.save()
+
+                messages.success(request, 'successfully withdraw')
+                return redirect('inventorysystem-suppliesWithdraw')
+
+            elif supply_email.objects.filter(emailsupply_department = withdraw_department).exists() == True:
+                messages.info(request, 'please email the department.')
+                return redirect('inventorysystem-suppliesWithdraw')
         context = {
             'info': info,
             'info1': info1,
