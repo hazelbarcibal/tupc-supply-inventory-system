@@ -137,7 +137,6 @@
                             <table id="supplymappingTable" class="table table-striped" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: center;">Item No.</th>
                                         <th style="text-align: center;">Description</th>
                                         <th style="text-align: center;">Rack No.</th>
                                         <th style="text-align: center;">Layer No.</th>
@@ -149,7 +148,6 @@
                                 <tbody>
                                     {% for x in info %}
                                     <tr class="edittr">
-                                        <td align="center" id="supplyID">{{x.supplymainstorage_id}}</td>
                                         <td align="center">{{x.supplymainstorage_description}}</td>
                                         <td align="center">{{x.supplymainstorage_supplyRackNo}}</td>
                                         <td align="center">{{x.supplymainstorage_supplyLayerNo}}</td>
@@ -267,23 +265,23 @@
                     <div class="col-md-12">
                         <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
                             class="form-label">Rack No. :</label>
-                        <input type="number" class="form-control" id="rackno" name="supplyRackNo" min="1" required>
+                        <input type="number" class="form-control" id="rackno" name="supplyRackNo" required>
                     </div>
                     <div class="col-md-12">
                         <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
                             class="form-label">Layer No. :</label>
-                        <input type="number" class="form-control" id="layerno" name="supplyLayerNo" min="1" required>
+                        <input type="number" class="form-control" id="layerno" name="supplyLayerNo"  required>
                     </div>
                     <div class="col-md-12">
                         <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
                             class="form-label">Cabinet No. :</label>
-                        <input type="number" class="form-control" id="cabinetno" name="supplyCabinetNo" min="1"
+                        <input type="number" class="form-control" id="cabinetno" name="supplyCabinetNo" 
                             required>
                     </div>
                     <div class="col-md-12">
                         <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
                             class="form-label">Shelf No. :</label>
-                        <input type="number" class="form-control" id="shelfno" name="supplyShelfNo" min="1" required>
+                        <input type="number" class="form-control" id="shelfno" name="supplyShelfNo"  required>
                     </div>
 
                     <div class="modal-footer">

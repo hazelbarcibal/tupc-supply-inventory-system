@@ -34,7 +34,7 @@ def dashboard(request):
         
         label = request.user
         label1 = int(requestsupply.objects.all().count())
-        label2 = int(deliverysupply.objects.all().count())
+        label2 = int(withdrawsupply.objects.all().count())
         label3 = int(requestequipment.objects.all().count())
         label4 = int(withdrawequipment.objects.all().count())
 
@@ -540,16 +540,6 @@ def viewRequestSupply(request):
                 accept.arequest_supply_unit = request_unit
                 accept.arequest_supply_quantity = request_accept_quantity
                 accept.arequest_supply_status = "Ready for pick-up"
-                # data1 = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
-                # subject = "Supply Department"
-                # message = "Your Item is ready for pick up"
-                # get1 = requestsupply.objects.get(requestsupply_id=pk).requestsupply_id
-                # get2 = str(requestsupply.objects.get(requestsupply_id = getdata).request_supply_department)
-                # depinfo = str(requestsupply.objects.get(requestsupply_id = getdata1).request_supply_department)
-                # print(depinfo)
-                # recipient = str(CustomUser.objects.get(department= get2).email)
-                # # email field ng bawat department
-                # send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
                 requestsupply.objects.filter(requestsupply_id = getdata1).delete()       
                 status = statusSupplyRequest()
                 status.statusSupplyRequests_id = request_id
@@ -562,21 +552,40 @@ def viewRequestSupply(request):
                 status.status_supply_status = "Ready for pick-up" 
                 statusSupplyRequest.objects.filter(status_supply_department = request_department).filter(status_supply_description = request_description).delete()  
                 messages.success(request, 'request accepted')
-                subject = "SUPPLY DEPARTMENT ADMIN"
-                message = "Your request " + request_description + " with quantity of " + request_quantity + " has been accepted. Please pick up ASAP"
-                depinfo = str(CustomUser.objects.get(department=str(request_department)).email)
-                print(depinfo)
-                recipient = depinfo
-                send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
+                # subject = "SUPPLY DEPARTMENT ADMIN"
+                # message = "Your request " + request_description + " with quantity of " + request_quantity + " has been accepted. Please pick up ASAP"
+                # depinfo = str(CustomUser.objects.get(department=str(request_department)).email)
+                # print(depinfo)
+                # recipient = depinfo
+                # send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
                 accept.save()
                 status.save()
-            
+
+                if supply_email.objects.filter(emailsupply_department = request_department).exists() == True:
+                    emaildept = supply_email()
+                    emaildept.emailsupply_id = supply_email.objects.get(emailsupply_department = request_department).emailsupply_id
+                    emaildept.emailsupply_department = request_department
+                    emailqty = supply_email.objects.get(emailsupply_department = request_department).emailsupply_acceptedquantity
+                    emaildept.emailsupply_acceptedquantity = int(emailqty) + int(1)
+                    supply_email.objects.filter(emailsupply_department = request_department).delete()
+                    emaildept.save()
+
+                elif supply_email.objects.filter(emailsupply_department = request_department).exists() == False:
+                    emaildept1 = supply_email()
+                    emaildept1.emailsupply_department = request_department
+                    emaildept1.emailsupply_acceptedquantity = 1
+                    emaildept1.save()
+
                 return redirect('inventorysystem-viewRequestSupply')
 
 
             else:
                 number = str(supplymainstorage.objects.get(supplymainstorage_description = getdata2.request_supply_description).supplymainstorage_quantity)
                 messages.info(request, 'This item does not have enough stock in the main storage,'+ ' Mainstorage Remaining: ' + number)
+
+
+            # if 'emailBtn' in request.POST:
+
         context = {
             'info': info,
             'label': label,
@@ -1214,7 +1223,7 @@ def storageMapping(request):
                 locsave.supplymainstorage_supplyLayerNo = request.POST.get('supplyLayerNo')
                 locsave.supplymainstorage_supplyCabinetNo = request.POST.get('supplyCabinetNo')
                 locsave.supplymainstorage_supplyShelfNo = request.POST.get('supplyShelfNo')
-                supplymainstorage.objects.filter(supplymainstorage_id = request.POST.get('supplymainstorage_id')).delete()
+                supplymainstorage.objects.filter(supplymainstorage_description = request.POST.get('supplyItemName')).delete()
                 locsave.save()
                 messages.success(request, 'Successfully updated storage mapping for item ' + item)
                 return redirect('inventorysystem-storageMapping')
