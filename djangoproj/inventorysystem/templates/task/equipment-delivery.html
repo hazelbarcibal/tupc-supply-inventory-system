@@ -212,10 +212,41 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
-
+            <!------------------- Email Equipment ------------------->
+            <div class="row">
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <div class="container">
+                        <div class="kahon">
+                            <table id="emailEquipmentTable" class="table table-striped" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Request No.</th>
+                                        <th style="text-align: center;">Department</th>
+                                        <th style="text-align: center;">Accepted Quantity</th>
+                                        <th style="text-align: center;">Date & Time</th>
+                                        <th style="text-align: center;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for x in info4 %}
+                                    <tr class="edittr">
+                                        <td>{{x.emailequipment_id}}</td>
+                                        <td align="center">{{x.emailequipment_department}}</td>
+                                        <td align="center">{{x.emailequipment_acceptedquantity}}</td>
+                                        <td align="center">{{x.current_date}}</td>
+                                        <td align="center">
+                                            <button class="btn btn-success editBtn" style="margin-bottom: 10px;"
+                                                name="editBtn">EMAIL</button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
         <!-- /.container-fluid -->
@@ -236,91 +267,9 @@
 </div>
 <!-- End of Content Wrapper -->
 
-
-
-<!----- UPDATE DELIVERY MODAL ----->
-<div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"></h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
-                    {% csrf_token %}
-
-                    <input type="hidden" id="editId" name="equipmentmainstorage_id" value="" readonly>
-
-                    <div class="col-md-6">
-                        <label class="form-label">Item Name:</label>
-                        <input type="text" class="form-control" id="itemname" name="equipmentmainstorage_itemName"
-                            readonly>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label">Description:</label>
-                        <input type="text" class="form-control" id="description" name="equipmentmainstorage_description"
-                            readonly>
-                    </div>
-
-                    <div class="col-md-12">
-                        <label class="form-label">Brand:</label>
-                        <input type="text" class="form-control" id="brand" name="equipmentmainstorage_brand" readonly>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label">Quantity:</label>
-                        <input type="number" min="1" class="form-control" id="quantity"
-                            name="equipmentmainstorage_quantity" readonly>
-                    </div>
-
-                    <div class="col-md-6">
-                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                            class="form-label">Add Quantity:</label>
-                        <input type="number" min="1" class="form-control" id="addquantity"
-                            name="equipmentmainstorage_RequestQuantity" required>
-                    </div>
-
-                    <div class="modal-footer">
-                        <div class="col-12">
-                            <button style="float: right;" type="submit" name="delivery_equipment_update"
-                                class="btn btn-primary">ADD</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.editBtn').on('click', function () {
-
-            $('#openModal').modal('show');
-            $tr = $(this).closest('tr');
-            var data = $tr.children("td").map(function () {
-                return $(this).text();
-            }).get();
-
-            console.log(data);
-            $('h5.modal-title').html('Add Item Delivery for: ' + data[1]);
-            $('#editId').val(data[0]);
-            $('#itemname').val(data[1]);
-            $('#description').val(data[2]);
-            $('#brand').val(data[3]);
-            $('#quantity').val(data[4]);
-        });
-    });
-</script>
 <br>
 
-
-
-
+   <!----- REQUEST MODAL ----->
 <div class="modal fade" id="openModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -410,48 +359,129 @@
 
 </script>
 
-<br><br>
+    <!----- EMAIL MODAL ----->
+    <div class="modal fade" id="openModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!----- UPDATE FORM ---->
+                <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
+                    {% csrf_token %}
 
-<a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
-<br><br>
+                    <input type="hidden" id="editId2" name="emailsupply_id" value="" readonly>
 
-{% for message in messages %}
-{% if message.tags == 'info' %}
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-    var m = "{{ message }}";
-    swal("Notice: ", m, "info")
-</script>
-{% elif message.tags == 'success' %}
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-    var m = "{{ message }}";
-    swal("Success! ", m, "success")
-</script>
-{% endif %}
-{% endfor %}
+                    <div class="col-md-12">
+                        <label class="form-label">Department:</label>
+                        <input type="text" class="form-control" id="department2" name="request_supply_department"
+                            readonly>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Accepted Quantity:</label>
+                        <input type="number" min="1" class="form-control" id="acceptedquantity2"
+                            name="request_supply_quantity" readonly>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="col-12">
+                            <button type="submit" style="float: right;" class="btn btn-primary">Email</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
-<script>
+<script type="text/javascript">
 
     $(document).ready(function () {
-        var table = $('#equipMainstorage').DataTable({
+        $('.emailBtn').on('click', function () {
+
+            $('#openModal2').modal('show');
+            $tr = $(this).closest('tr');
+            var data = $tr.children("td").map(function () {
+                return $(this).text();
+            }).get();
+
+            console.log(data);
+            $('h5.modal-title').html('Email Request for: ' + data[1]);
+            $('#editId2').val(data[0]);
+            $('#department2').val(data[1]);
+            $('#acceptedquantity2').val(data[2]);
+        });
+    });
+
+    $(document).ready(function () {
+        var table = $('#emailSupplyTable').DataTable({
             rowReorder: {
                 selector: 'td:nth-child(2)'
             },
             responsive: true
         });
     });
-    $(document).ready(function () {
-        var table = $('#equipDeliveryTable').DataTable({
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            },
-            responsive: true
-        });
-    });
 
 </script>
+
+    
+<br><br>
+
+    <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+    <br><br>
+
+    {% for message in messages %}
+    {% if message.tags == 'info' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        var m = "{{ message }}";
+        swal("Notice: ", m, "info")
+    </script>
+    {% elif message.tags == 'success' %}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        var m = "{{ message }}";
+        swal("Success! ", m, "success")
+    </script>
+    {% endif %}
+    {% endfor %}
+
+
+    <script>
+
+        $(document).ready(function () {
+            var table = $('#equipMainstorage').DataTable({
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
+            });
+        });
+        $(document).ready(function () {
+            var table = $('#equipDeliveryTable').DataTable({
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
+            });
+        });
+        $(document).ready(function () {
+            var table = $('#emailEquipmentTable').DataTable({
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
+            });
+        });
+
+    </script>
 </div>
 
 

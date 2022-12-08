@@ -753,6 +753,7 @@ def equipmentDeliver(request):
         info3 = equipmentmainstorage.objects.filter(equipmentmainstorage_quantity = 0).delete()
         info1 = deliveryequipment.objects.all()
         info2 = requestequipment.objects.all()
+        info4 = equipment_email.objects.all()
         form = deliveryEquipmentForm()
         if request.method == 'POST':
             form = deliveryEquipmentForm(request.POST)
@@ -891,6 +892,7 @@ def equipmentDeliver(request):
             'info1': info1,
             'info2': info2,
             'info3': info3,
+            'info4': info4,
             'label': label,
 
         }
@@ -1034,11 +1036,9 @@ def equipmentWithdraw(request):
         label = request.user
         info = acceptEquipmentRequests.objects.all()
         info1 = withdrawequipment.objects.all()
-        info2 = equipment_email.objects.all()
         context = {
             'info': info,
             'info1': info1,
-            'info2': info2,
             'label': label,
         }
         return render(request, 'task/equipment-withdraw.html', context)

@@ -324,7 +324,7 @@
                 <div class="col-xl-12 col-md-12 mb-4">
                     <div class="container">
                         <div class="kahon">
-                            <table id="viewRequestSupplyTable" class="table table-striped" style="width:100%;">
+                            <table id="emailSupplyTable" class="table table-striped" style="width:100%;">
                                 <thead>
                                     <tr>
                                         <th>Request No.</th>
@@ -342,7 +342,7 @@
                                         <td align="center">{{x.emailsupply_acceptedquantity}}</td>
                                         <td align="center">{{x.current_date}}</td>
                                         <td align="center">
-                                            <button class="btn btn-success" style="margin-bottom: 10px;"
+                                            <button class="btn btn-success emailBtn" style="margin-bottom: 10px;"
                                                 name="emailBtn">EMAIL</button>
                                         </td>
                                     </tr>
@@ -353,6 +353,78 @@
                     </div>
                 </div>
             </div>
+
+                        <!----- UPDATE MODAL ----->
+            <div class="modal fade" id="openModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"></h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!----- UPDATE FORM ---->
+                            <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <input type="hidden" id="editId1" name="emailsupply_id" value="" readonly>
+
+                                <div class="col-md-12">
+                                    <label class="form-label">Department:</label>
+                                    <input type="text" class="form-control" id="department1" name="request_supply_department"
+                                        readonly>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label class="form-label">Accepted Quantity:</label>
+                                    <input type="number" min="1" class="form-control" id="acceptedquantity1"
+                                        name="request_supply_quantity" readonly>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <div class="col-12">
+                                        <button type="submit" style="float: right;" class="btn btn-primary">Email</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <script type="text/javascript">
+
+                $(document).ready(function () {
+                    $('.emailBtn').on('click', function () {
+
+                        $('#openModal1').modal('show');
+                        $tr = $(this).closest('tr');
+                        var data = $tr.children("td").map(function () {
+                            return $(this).text();
+                        }).get();
+
+                        console.log(data);
+                        $('h5.modal-title').html('Email Request for: ' + data[1]);
+                        $('#editId1').val(data[0]);
+                        $('#department1').val(data[1]);
+                        $('#acceptedquantity1').val(data[2]);
+                    });
+                });
+
+                $(document).ready(function () {
+                    var table = $('#emailSupplyTable').DataTable({
+                        rowReorder: {
+                            selector: 'td:nth-child(2)'
+                        },
+                        responsive: true
+                    });
+                });
+
+            </script>
 
         </div>
         <!-- /.container-fluid -->
@@ -375,8 +447,6 @@
 
 </div>
 <!-- End of Page Wrapper -->
-
-
 
 
 {% endblock %}
