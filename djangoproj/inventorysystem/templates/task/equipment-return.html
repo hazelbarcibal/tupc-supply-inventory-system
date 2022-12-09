@@ -177,7 +177,7 @@
                                     onchange="disableFunction()"></textarea>
                                 <br>
                                 <input type="hidden" name="property" id="property" readonly>
-                                <span><button onclick="getVal();" id="" type="submit"
+                                <span><button onclick="getVal();" id="" type="submit" name = "returnBtn"
                                         class="btn btn-secondary">Return</button></span>
                             </form>
 
@@ -272,58 +272,58 @@
                 <!----- UPDATE SUPPLY STORAGE FORM ---->
                 <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <input type="hidden" id="editId" name="supplyStoragemapping_id" value="" readonly>
+                    <input type="hidden" id="editId" name="disposal_id" value="" readonly>
 
                     <div class="col-md-6">
                         <label class="form-label">Property No.:</label>
-                        <input type="text" class="form-control" id="propertyNo" name="returnPropertyNo" readonly>
+                        <input type="text" class="form-control" id="propertyNo" name="disposedPropertyNo" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Item Name:</label>
-                        <input type="text" class="form-control" id="itemname" name="returnItemName" readonly>
+                        <input type="text" class="form-control" id="itemname" name="disposedItemName" readonly>
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label">Description:</label>
-                        <input type="text" class="form-control" id="description" name="returnDescription" readonly>
+                        <input type="text" class="form-control" id="description" name="disposedDescription" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Brand:</label>
-                        <input type="text" class="form-control" id="brand" name="returnBrand" readonly>
+                        <input type="text" class="form-control" id="brand" name="disposedBrand" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Year Acquired:</label>
-                        <input type="text" class="form-control" id="yearacquired" name="returnYearAcquired" readonly>
+                        <input type="text" class="form-control" id="yearacquired" name="disposedYearAcquired" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Issued To:</label>
-                        <input type="text" class="form-control" id="issuedto" name="returnIssuedTo" readonly>
+                        <input type="text" class="form-control" id="issuedto" name="disposedIssuedTo" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Model No:</label>
-                        <input type="text" class="form-control" id="modelno" name="returnModelNo" readonly>
+                        <input type="text" class="form-control" id="modelno" name="disposedModelNo" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Serial No:</label>
-                        <input type="text" class="form-control" id="serialno" name="returnSerialNo" readonly>
+                        <input type="text" class="form-control" id="serialno" name="disposedSerialNo" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Certified Correct:</label>
-                        <input type="text" class="form-control" id="certifiedcorrect" name="returnCertifiedCorrect" readonly>
+                        <input type="text" class="form-control" id="certifiedcorrect" name="disposedCertifiedCorrect" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Date return:</label>
-                        <input type="text" class="form-control" id="datereturn" name="returnDate" readonly>
+                        <input type="text" class="form-control" id="datereturn" name="disposed_returnDate" readonly>
                     </div>
                     <div class="col-md-12">
                         <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
                             class="form-label">Location:</label>
-                        <input type="text" class="form-control" id="location" name="supplyLocation" min="1" required>
+                        <input type="text" class="form-control" id="location" name="disposedLocation" min="1" required>
                     </div>
   
                     <div class="modal-footer">
                         <div class="col-12">
-                            <button type="submit" name="storagesupply_update" class="btn btn-primary">DISPOSE</button>
+                            <button type="submit" name="disposedBtn" class="btn btn-primary">DISPOSE</button>
                         </div>
                     </div>
                 </form>
@@ -345,16 +345,16 @@
             console.log(data);
             $('h5.modal-title').html('Dispose Equipment: ' + data[1]);
             $('#editId').val(data[0]);
-            $('#propertyNo').val(data[1]);
-            $('#itemname').val(data[2]);
-            $('#description').val(data[3]);
-            $('#brand').val(data[4]);
-            $('#yearacquired').val(data[5]);
-            $('#issuedto').val(data[6]);
-            $('#modelno').val(data[7]);
-            $('#serialno').val(data[8]);
-            $('#certifiedcorrect').val(data[9]);
-            $('#datereturn').val(data[10]);
+            $('#propertyNo').val(data[0]);
+            $('#itemname').val(data[1]);
+            $('#description').val(data[2]);
+            $('#brand').val(data[3]);
+            $('#yearacquired').val(data[4]);
+            $('#issuedto').val(data[5]);
+            $('#modelno').val(data[6]);
+            $('#serialno').val(data[7]);
+            $('#certifiedcorrect').val(data[8]);
+            $('#datereturn').val(data[9]);
             $('#location').val(data[11]);
         });
     });

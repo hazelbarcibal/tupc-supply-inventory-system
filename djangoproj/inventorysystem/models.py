@@ -95,6 +95,7 @@ class supplymainstorage(models.Model):
     supplymainstorage_supplyLayerNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply_Layer')
     supplymainstorage_supplyCabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply_Cabinet')
     supplymainstorage_supplyShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply_Shelf')
+    current_date = models.DateTimeField(default=now, verbose_name='supplymainstorage_current_date')
     
     class Meta:
         db_table = "supplymainstorage"
@@ -200,7 +201,7 @@ class withdrawequipment(models.Model):
 class returnequipment(models.Model):
 
     returnequipment_id = models.AutoField(primary_key=True)
-    return_equipment_location = models.CharField(unique=True, max_length=50, verbose_name='return_equipment_location')
+    return_equipment_location = models.CharField(null = True, max_length=50, verbose_name='return_equipment_location')
     return_equipment_property_no = models.CharField(unique=True, max_length=50, verbose_name='return_equipment_property_no')
     return_equipment_itemname = models.CharField(max_length=50, verbose_name='return_equipment_itemname')
     return_equipment_description = models.CharField(max_length=255, verbose_name='return_equipment_description')
@@ -210,7 +211,8 @@ class returnequipment(models.Model):
     return_equipment_model_no = models.CharField(max_length=50, verbose_name='return_equipment_model_no')
     return_equipment_serial_no = models.CharField(unique=True, max_length=50, verbose_name='return_equipment_serial_no')
     return_equipment_certifiedcorrect = models.CharField(max_length=50, verbose_name='return_equipment_certifiedcorrect')
-    return_date = models.DateTimeField(default=now, verbose_name='return_date')
+    dispose_date = models.DateTimeField(default=now, verbose_name='return_date')
+    return_date = models.CharField(max_length=50, verbose_name='return_date')
     
     class Meta:
         db_table = "returnequipment"
@@ -296,7 +298,7 @@ class equipment_email(models.Model):
     emailequipment_id = models.AutoField(primary_key=True)
     emailequipment_department = models.CharField(unique=True, max_length=50, verbose_name='emailequipment_department')
     emailequipment_acceptedquantity = models.CharField(unique=True, max_length=50, verbose_name='emailequipment_acceptedquantity')
-    current_date = models.DateField(default=now, verbose_name='current_date')
+    current_date = models.CharField( max_length=50, verbose_name='currentdate')
 
 
     class Meta:

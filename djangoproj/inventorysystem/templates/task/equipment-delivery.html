@@ -130,7 +130,7 @@
                 </div>
             </div>
 
-            <!------------------- Content Row ------------------->
+            <!-- ----------------- Content Row -----------------
             <div class="row">
 
                 <div class="col-xl-12 col-md-12 mb-4">
@@ -165,7 +165,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> -->
 
 
 
@@ -236,8 +236,8 @@
                                         <td align="center">{{x.emailequipment_acceptedquantity}}</td>
                                         <td align="center">{{x.current_date}}</td>
                                         <td align="center">
-                                            <button class="btn btn-success editBtn" style="margin-bottom: 10px;"
-                                                name="editBtn">EMAIL</button>
+                                            <button class="btn btn-success emailBtn" style="margin-bottom: 10px;"
+                                                name="emailBtn">EMAIL</button>
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -374,23 +374,29 @@
                 <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
                     {% csrf_token %}
 
-                    <input type="hidden" id="editId2" name="emailsupply_id" value="" readonly>
+                    <input type="hidden" id="editId2" name="emailequipment_id" value="" readonly>
 
                     <div class="col-md-12">
                         <label class="form-label">Department:</label>
-                        <input type="text" class="form-control" id="department2" name="request_supply_department"
+                        <input type="text" class="form-control" id="department2" name="email_equipment_department"
                             readonly>
                     </div>
 
                     <div class="col-md-12">
                         <label class="form-label">Accepted Quantity:</label>
                         <input type="number" min="1" class="form-control" id="acceptedquantity2"
-                            name="request_supply_quantity" readonly>
+                            name="email_equipment_quantity" readonly>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Date Accepted:</label>
+                        <input type="text" class="form-control" id="dateaccepted"
+                            name="email_equipment_date" readonly>
                     </div>
 
                     <div class="modal-footer">
                         <div class="col-12">
-                            <button type="submit" style="float: right;" class="btn btn-primary">Email</button>
+                            <button type="submit" name="emailBtn1" style="float: right;" class="btn btn-primary">Email</button>
                         </div>
                     </div>
                 </form>
@@ -417,6 +423,7 @@
             $('#editId2').val(data[0]);
             $('#department2').val(data[1]);
             $('#acceptedquantity2').val(data[2]);
+            $('#dateaccepted').val(data[3]);
         });
     });
 
