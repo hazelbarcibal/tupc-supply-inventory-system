@@ -805,6 +805,7 @@ def equipmentDeliver(request):
                         accept.arequest_equipment_remaining = 0
                         accept.arequest_equipment_property_no = 0
                         requestequipment.objects.filter(requestequipment_id = getdata).delete()
+                        accept.save()
                         storage = equipmentmainstorage()  
                         storage.equipmentmainstorage_itemName = request_itemname
                         storage.equipmentmainstorage_description = request_description
@@ -831,6 +832,7 @@ def equipmentDeliver(request):
                         status.status_equipment_status = "Ready for pick-up"  
                         status.status_equipment_remaining = 0  
                         statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete()
+                        status.save()
 
                         
                         if equipment_email.objects.filter(emailequipment_department = request_department).filter(current_date = datetime.date.today()).exists() == True:
@@ -853,76 +855,76 @@ def equipmentDeliver(request):
 
                         return redirect('inventorysystem-equipmentDeliver')
 
-                    # elif equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = request_itemname).exists() == True:
+                    elif equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = request_itemname).exists() == True:
 
-                    #     accept = acceptEquipmentRequests()
-                    #     accept.acceptEquipmentRequests_id = getdata
-                    #     accept.arequest_equipment_itemname = request_itemname
-                    #     accept.arequest_equipment_issued_to = request_department
-                    #     accept.arequest_equipment_description = request_description
-                    #     accept.arequest_equipment_brand = request_brand
-                    #     accept.arequest_equipment_quantity = request_acceptquantity
-                    #     accept.arequest_equipment_status = "Ready for pick-up"
-                    #     accept.arequest_equipment_remaining = 0
-                    #     accept.arequest_equipment_property_no = 0
-                    #     accept.current_date = datetime.date.today()
-                    #     requestequipment.objects.filter(requestequipment_id = getdata).delete()
-                    #     storage = equipmentmainstorage()  
-                    #     storage.equipmentmainstorage_itemName = equipmentmainstorage_itemName
-                    #     storage.equipmentmainstorage_description = request_description
-                    #     storage.equipmentmainstorage_brand = request_brand
-                    #     storage.equipmentmainstorage_remaining = int(equipmentmainstorage.objects.get(equipmentmainstorage_itemName = request_itemname).equipmentmainstorage_quantity) + int(request_acceptquantity)
-                    #     storage.equipmentmainstorage_quantity = request_acceptquantity
-                    #     delivery_record1 = deliveryequipment()
-                    #     delivery_record1.delivery_equipment_itemname = request_itemname
-                    #     delivery_record1.delivery_equipment_description = request_description
-                    #     delivery_record1.delivery_equipment_brand = request_brand
-                    #     delivery_record1.delivery_equipment_quantity = request_acceptquantity
-                    #     delivery_record1.delivery_equipment_remaining = int(equipmentmainstorage.objects.get(equipmentmainstorage_itemName = request_itemname).equipmentmainstorage_quantity) + int(request_acceptquantity)
-                    #     # mapping = equipment_storagemapping()
-                    #     # mapping.equipmentItemName = request_itemname
-                    #     # mapping.equipmentLocation = ""
-                    #     # mapping.save()
-                    #     status = statusEquipmentRequest()
-                    #     status.statusEquipmentRequests_id = getdata
-                    #     status.status_equipment_itemname = request_itemname
-                    #     status.status_equipment_description = request_description
-                    #     status.status_equipment_brand = request_brand
-                    #     status.status_equipment_quantity = request_quantity
-                    #     status.status_equipment_acceptquantity = request_acceptquantity
-                    #     status.status_equipment_department = request_department
-                    #     status.status_equipment_status = "Ready for pick-up"  
-                    #     status.status_equipment_remaining = 0  
-                    #     statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete() 
-                    #     subject = "SUPPLY DEPARTMENT ADMIN"
-                    #     message = "Your request " + request_itemname + " with quantity of " + request_quantity + " has been accepted. Please pick up ASAP"
-                    #     depinfo = str(CustomUser.objects.get(department=str(request_department)).email)
-                    #     print(depinfo)
-                    #     recipient = depinfo
-                    #     send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)  
-                    #     accept.save()
-                    #     status.save()
-                    #     messages.success(request, 'request accepted')
+                        accept = acceptEquipmentRequests()
+                        accept.acceptEquipmentRequests_id = getdata
+                        accept.arequest_equipment_itemname = request_itemname
+                        accept.arequest_equipment_issued_to = request_department
+                        accept.arequest_equipment_description = request_description
+                        accept.arequest_equipment_brand = request_brand
+                        accept.arequest_equipment_quantity = request_acceptquantity
+                        accept.arequest_equipment_status = "Ready for pick-up"
+                        accept.arequest_equipment_remaining = 0
+                        accept.arequest_equipment_property_no = 0
+                        accept.current_date = datetime.date.today()
+                        requestequipment.objects.filter(requestequipment_id = getdata).delete()
+                        storage = equipmentmainstorage()  
+                        storage.equipmentmainstorage_itemName = equipmentmainstorage_itemName
+                        storage.equipmentmainstorage_description = request_description
+                        storage.equipmentmainstorage_brand = request_brand
+                        storage.equipmentmainstorage_remaining = int(equipmentmainstorage.objects.get(equipmentmainstorage_itemName = request_itemname).equipmentmainstorage_quantity) + int(request_acceptquantity)
+                        storage.equipmentmainstorage_quantity = request_acceptquantity
+                        delivery_record1 = deliveryequipment()
+                        delivery_record1.delivery_equipment_itemname = request_itemname
+                        delivery_record1.delivery_equipment_description = request_description
+                        delivery_record1.delivery_equipment_brand = request_brand
+                        delivery_record1.delivery_equipment_quantity = request_acceptquantity
+                        delivery_record1.delivery_equipment_remaining = int(equipmentmainstorage.objects.get(equipmentmainstorage_itemName = request_itemname).equipmentmainstorage_quantity) + int(request_acceptquantity)
+                        # mapping = equipment_storagemapping()
+                        # mapping.equipmentItemName = request_itemname
+                        # mapping.equipmentLocation = ""
+                        # mapping.save()
+                        status = statusEquipmentRequest()
+                        status.statusEquipmentRequests_id = getdata
+                        status.status_equipment_itemname = request_itemname
+                        status.status_equipment_description = request_description
+                        status.status_equipment_brand = request_brand
+                        status.status_equipment_quantity = request_quantity
+                        status.status_equipment_acceptquantity = request_acceptquantity
+                        status.status_equipment_department = request_department
+                        status.status_equipment_status = "Ready for pick-up"  
+                        status.status_equipment_remaining = 0  
+                        statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete() 
+                        subject = "SUPPLY DEPARTMENT ADMIN"
+                        message = "Your request " + request_itemname + " with quantity of " + request_quantity + " has been accepted. Please pick up ASAP"
+                        depinfo = str(CustomUser.objects.get(department=str(request_department)).email)
+                        print(depinfo)
+                        recipient = depinfo
+                        send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)  
+                        accept.save()
+                        status.save()
+                        messages.success(request, 'request accepted')
 
-                    #     if equipment_email.objects.filter(emailequipment_department = request_department).filter(current_date = datetime.date.today()).exists() == True:
-                    #         emaildept = equipment_email()
-                    #         emaildept.emailequipment_id = equipment_email.objects.get(emailequipment_department = request_department).emailequipment_id
-                    #         emaildept.emailequipment_department = request_department
-                    #         emailqty = equipment_email.objects.get(emailequipment_department = request_department).emailequipment_acceptedquantity
-                    #         emaildept.emailequipment_acceptedquantity = int(emailqty) + int(1)
-                    #         emaildept.current_date = datetime.date.today()
-                    #         equipment_email.objects.filter(emailequipment_department = request_department).delete()
-                    #         emaildept.save()
+                        if equipment_email.objects.filter(emailequipment_department = request_department).filter(current_date = datetime.date.today()).exists() == True:
+                            emaildept = equipment_email()
+                            emaildept.emailequipment_id = equipment_email.objects.get(emailequipment_department = request_department).emailequipment_id
+                            emaildept.emailequipment_department = request_department
+                            emailqty = equipment_email.objects.get(emailequipment_department = request_department).emailequipment_acceptedquantity
+                            emaildept.emailequipment_acceptedquantity = int(emailqty) + int(1)
+                            emaildept.current_date = datetime.date.today()
+                            equipment_email.objects.filter(emailequipment_department = request_department).delete()
+                            emaildept.save()
 
-                    #     elif equipment_email.objects.filter(emailequipment_department = request_department).filter(current_date = datetime.date.today()).exists() == False:
-                    #         emaildept1 = equipment_email()
-                    #         emaildept1.emailequipment_department = request_department
-                    #         emaildept1.emailequipment_acceptedquantity = 1
-                    #         emaildept1.current_date = datetime.date.today()
-                    #         emaildept1.save()
-                    #         messages.success(request, 'request accepted')
+                        elif equipment_email.objects.filter(emailequipment_department = request_department).filter(current_date = datetime.date.today()).exists() == False:
+                            emaildept1 = equipment_email()
+                            emaildept1.emailequipment_department = request_department
+                            emaildept1.emailequipment_acceptedquantity = 1
+                            emaildept1.current_date = datetime.date.today()
+                            emaildept1.save()
+                            messages.success(request, 'request accepted')
 
-                    #     return redirect('inventorysystem-equipmentDeliver')
+                        return redirect('inventorysystem-equipmentDeliver')
 
             elif 'emailBtn1' in request.POST:
 
