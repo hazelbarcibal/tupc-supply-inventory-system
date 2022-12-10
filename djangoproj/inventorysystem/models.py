@@ -266,7 +266,7 @@ class supply_storagemapping(models.Model):
 class equipment_disposal(models.Model):
 
     equipmentDisposal_id = models.AutoField(primary_key=True)
-    dispose_equipment_location = models.CharField(unique=True, max_length=50, verbose_name='dispose_equipment_location')
+    dispose_equipment_location = models.CharField(null=True, max_length=50, verbose_name='dispose_equipment_location')
     dispose_equipment_property_no = models.CharField(unique=True, max_length=50, verbose_name='dispose_equipment_property_no')
     dispose_equipment_itemname = models.CharField(max_length=50, verbose_name='dispose_equipment_itemname')
     dispose_equipment_description = models.CharField(max_length=255, verbose_name='dispose_equipment_description')
