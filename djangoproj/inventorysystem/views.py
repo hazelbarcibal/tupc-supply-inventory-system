@@ -23,6 +23,7 @@ from weasyprint import HTML , CSS
 import tempfile
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def index(request):
     return render(request, 'task/index.html')  
 

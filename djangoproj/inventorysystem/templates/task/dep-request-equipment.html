@@ -23,6 +23,7 @@
         color: white;
         padding: 10px 24px;
         cursor: pointer;
+        text-decoration: none;
 
     }
 
@@ -56,51 +57,6 @@
     }
 </style>
 
-{% for message in messages %}
-{% if message.tags == 'info' %}
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-    var m = "{{ message }}";
-    swal("Notice: ", m, "info")
-</script>
-{% elif message.tags == 'success' %}
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-    var m = "{{ message }}";
-    swal("Success! ", m, "success")
-</script>
-{% endif %}
-{% endfor %}
-
-<script>
-
-    $(document).ready(function () {
-        var table = $('#MainStorage').DataTable({
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            },
-            responsive: true
-        });
-    });
-
-    $(document).ready(function () {
-        var table = $('#depRequestTable').DataTable({
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            },
-            responsive: true
-        });
-    });
-    $(document).ready(function () {
-        var table = $('#depwithdrawnTable').DataTable({
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            },
-            responsive: true
-        });
-    });
-
-</script>
 
 
 <!-- Content Wrapper -->
@@ -186,7 +142,7 @@
                                 <br>
                                 <form action="" method="POST" class="row g-3">
                                     {% csrf_token %}
-                                    <div class="col-md-12">
+                                    <div class="col-md-12" style="text-align: left;">
                                         <label>Item Name:</label>
                                         <input list="requestItemname" type="text" name="non_existing_equipment_itemname"
                                             class="form-control" placeholder="Item Name" required>
@@ -200,21 +156,29 @@
                                         </datalist>
                                     </div>
                                     <br>
-                                    <div class="col-md-12">
+                                    <div class="col-md-12" style="text-align: left;">
                                         <label>Quantity:</label>
                                         <input type='number' min="1" name="non_existing_equipment_quantity"
                                             class="form-control" placeholder="Quantity" required>
                                     </div>
                                     <br>
-                                    <div class="col-md-12">
+                                    <div class="col-md-12" style="text-align: left;">
                                         <label>Description:</label>
                                         <input type='text' name="non_existing_equipment_description"
                                             class="form-control" placeholder="Description" required>
                                     </div>
                                     <br>
-                                    <div class="col-12">
-                                        <button type="submit" id="submit" class="btn1" style="float: right;"> Request
-                                        </button>
+                                    
+                                    <div class="col-12" style="text-align: left;">
+                                        <p><i style="color: red;"><b>**Note: </b>Kindly double check the informations before submitting.</i></p>   
+                                    </div>
+
+                                    <div class="col-12" >
+                                        <a class="btn1" style="float: right;" href="#" data-toggle="modal" data-target="#confirmModal">
+                                            Request
+                                        </a>
+                                        <!-- <button type="submit" id="submit" class="btn1" style="float: right;"> Request
+                                        </button> -->
                                     </div>
                                     <br>
                                     <br>
@@ -225,6 +189,28 @@
                 </div>
 
             </div>
+
+
+            <!---------------------- CONFIRMATION MODAL -------------------->
+            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Request Equipment</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Are you sure you want to request? Click 'Confirm' to continue.</div>
+                        <div class="modal-footer">
+                            <a class="btn btn-primary" href="{% url 'inventorysystem-suppliesDeliver' %}">Cancel</a>
+                            <button class="btn btn-success" id="confirmBtn" type="button" data-dismiss="modal">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <!------------------- Content Row ------------------->
             <div class="row">
@@ -335,6 +321,60 @@
 </div>
 <!-- End of Page Wrapper -->
 
+
+{% for message in messages %}
+{% if message.tags == 'info' %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    var m = "{{ message }}";
+    swal("Notice: ", m, "info")
+</script>
+{% elif message.tags == 'success' %}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    var m = "{{ message }}";
+    swal("Success! ", m, "success")
+</script>
+{% endif %}
+{% endfor %}
+
+<script>
+
+    $(document).ready(function () {
+        var table = $('#MainStorage').DataTable({
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            responsive: true
+        });
+    });
+
+    $(document).ready(function () {
+        var table = $('#depRequestTable').DataTable({
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            responsive: true
+        });
+    });
+    $(document).ready(function () {
+        var table = $('#depwithdrawnTable').DataTable({
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            responsive: true
+        });
+    });
+
+    $('#confirmBtn').click(function () {
+                var aaa = $(this);
+                aaa.prop('disabled', true);
+                setTimeout(function () {
+                    aaa.prop('disabled', false);
+                }, 5000);
+        });
+
+</script>
 
 
 
