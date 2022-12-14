@@ -225,7 +225,7 @@
             </div>
 
             <!---------------------- CONFIRMATION MODAL -------------------->
-            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            <!-- <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -256,7 +256,7 @@
                         
                         
                 </div>
-            </div>
+            </div> -->
 
 
 
@@ -566,9 +566,9 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <a class="btn1" style="float: right;" onclick="getval()" name="delivery_new" href="#" data-toggle="modal" data-target="#confirmModal">Deliver</a>
-                                    <!-- <button type="submit" id="submit" class="btn1" name="delivery_new"
-                                        style="float: right;" value="Submit"> Deliver </button> -->
+                                    <!-- <a class="btn1" style="float: right;" onclick="getval()" name="delivery_new" href="#" data-toggle="modal" data-target="#confirmModal">Deliver</a> -->
+                                    <button type="submit" id="submit" class="btn1" name="delivery_new"
+                                        style="float: right;" value="Submit"> Deliver </button>
                                 </div>
                             </form>
 
@@ -686,32 +686,25 @@
                 }, 5000);
         });
 
-        function getval(){
-            var a = document.getElementById('delivery_supply_description').value;
-            var b = document.getElementById('delivery_supply_unit').value;
-            var c = document.getElementById('delivery_supply_quantity').value;
-            var d = document.getElementById('delivery_supplyRackNo').value;
-            var e = document.getElementById('delivery_supplyLayerNo').value;
-            var f = document.getElementById('delivery_supplyCabinetNo').value;
-            var g = document.getElementById('delivery_supplyShelfNo').value;
+        // para makuha yung value sa form papunta don sa confirm modal
+        // function getval(){
+        //     var a = document.getElementById('delivery_supply_description').value;
+        //     var b = document.getElementById('delivery_supply_unit').value;
+        //     var c = document.getElementById('delivery_supply_quantity').value;
+        //     var d = document.getElementById('delivery_supplyRackNo').value;
+        //     var e = document.getElementById('delivery_supplyLayerNo').value;
+        //     var f = document.getElementById('delivery_supplyCabinetNo').value;
+        //     var g = document.getElementById('delivery_supplyShelfNo').value;
 
-            document.getElementById('description').value = a;
-            document.getElementById('unit').value = b;
-            document.getElementById('quantity').value = c;
-            document.getElementById('rackNo').value = d;
-            document.getElementById('layerNo').value = e;
-            document.getElementById('cabinetNo').value = f;
-            document.getElementById('shelfNo').value = g;
+        //     document.getElementById('description').value = a;
+        //     document.getElementById('unit').value = b;
+        //     document.getElementById('quantity').value = c;
+        //     document.getElementById('rackNo').value = d;
+        //     document.getElementById('layerNo').value = e;
+        //     document.getElementById('cabinetNo').value = f;
+        //     document.getElementById('shelfNo').value = g;
 
-            // var h = document.getElementById('description').value = a;
-            // var j = document.getElementById('unit').value = b;
-            // var k = document.getElementById('quantity').value = c;
-            // var l = document.getElementById('rackNo').value = d;
-            // var m = document.getElementById('layerNo').value = e;
-            // var n = document.getElementById('cabinetNo').value = f;
-            // var o = document.getElementById('shelfNo').value = g;
-            // console.log(h + j + k + l + m + n + o);
-        }
+        // }
 
 
     </script>

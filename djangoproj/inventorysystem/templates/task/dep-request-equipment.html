@@ -145,7 +145,7 @@
                                     <div class="col-md-12" style="text-align: left;">
                                         <label>Item Name:</label>
                                         <input list="requestItemname" type="text" name="non_existing_equipment_itemname"
-                                            class="form-control" placeholder="Item Name" required>
+                                            class="form-control" placeholder="Item Name" id="ItemName" required>
                                         <datalist id="requestItemname">
                                             <option id="1" value="Aircon"></option>
                                             <option id="2" value="Computer"></option>
@@ -159,13 +159,13 @@
                                     <div class="col-md-12" style="text-align: left;">
                                         <label>Quantity:</label>
                                         <input type='number' min="1" name="non_existing_equipment_quantity"
-                                            class="form-control" placeholder="Quantity" required>
+                                            class="form-control" placeholder="Quantity" id="Quantity" required>
                                     </div>
                                     <br>
                                     <div class="col-md-12" style="text-align: left;">
                                         <label>Description:</label>
                                         <input type='text' name="non_existing_equipment_description"
-                                            class="form-control" placeholder="Description" required>
+                                            class="form-control" placeholder="Description" id="Description" required>
                                     </div>
                                     <br>
                                     
@@ -174,11 +174,11 @@
                                     </div>
 
                                     <div class="col-12" >
-                                        <a class="btn1" style="float: right;" href="#" data-toggle="modal" data-target="#confirmModal">
+                                        <!-- <a class="btn1" style="float: right;" onclick="getVal()" href="#" data-toggle="modal" data-target="#confirmModal">
                                             Request
-                                        </a>
-                                        <!-- <button type="submit" id="submit" class="btn1" style="float: right;"> Request
-                                        </button> -->
+                                        </a> -->
+                                        <button type="submit" id="submit" class="btn1" style="float: right;"> Request
+                                        </button>
                                     </div>
                                     <br>
                                     <br>
@@ -192,24 +192,35 @@
 
 
             <!---------------------- CONFIRMATION MODAL -------------------->
-            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            <!-- <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Request Equipment</h5>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
+                    <form action="" method="POST" class="row g-3">
+                        {% csrf_token %}
+
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Request Equipment</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">Are you sure you want to request? Click 'Confirm' to continue.</div>
+
+                            <input type="hidden" name="itemname" id="itemname" value="">
+                            <input type="hidden" name="quantity" id="quantity" value="">
+                            <input type="hidden" name="description" id="description" value="">
+
+                            <div class="modal-footer">
+                                <a class="btn btn-primary" href="{% url 'inventorysystem-suppliesDeliver' %}">Cancel</a>
+                                <button class="btn btn-success" name="" id="confirmBtn" type="submit" data-dismiss="modal">Confirm</button>
+                            </div>
                         </div>
-                        <div class="modal-body">Are you sure you want to request? Click 'Confirm' to continue.</div>
-                        <div class="modal-footer">
-                            <a class="btn btn-primary" href="{% url 'inventorysystem-suppliesDeliver' %}">Cancel</a>
-                            <button class="btn btn-success" id="confirmBtn" type="button" data-dismiss="modal">Confirm</button>
-                        </div>
-                    </div>
+
+                    </form>
+                    
                 </div>
-            </div>
+            </div> -->
 
 
             <!------------------- Content Row ------------------->
@@ -372,7 +383,19 @@
                 setTimeout(function () {
                     aaa.prop('disabled', false);
                 }, 5000);
-        });
+    });
+
+    // para makuha yung value sa form papunta don sa confirm modal
+    // function getVal() {
+    //     var a = document.getElementById('ItemName').value;
+    //     var b = document.getElementById('Quantity').value;
+    //     var c = document.getElementById('Description').value;
+
+    //     document.getElementById('itemname').value = a;
+    //     document.getElementById('quantity').value = b;
+    //     document.getElementById('description').value = c;
+
+    // }
 
 </script>
 

@@ -218,7 +218,7 @@
                           <td align="center">{{x.limit_unit}}</td>
                           <td align="center">{{x.limit_quantity}}</td>
                           <td align="center">
-                            <button class="btn btn-success editBtn" style="margin-bottom: 10px;">Request</button>
+                            <button class="btn btn-success editBtn" id="delayBtn" style="margin-bottom: 10px;">Request</button>
                           </td>
                         </tr>
                         {% endfor %}
@@ -369,6 +369,14 @@
             $('#quantity').val(data[3]);
 
           });
+        });
+
+        $('#delayBtn').click(function () {
+                var aaa = $(this);
+                aaa.prop('disabled', true);
+                setTimeout(function () {
+                    aaa.prop('disabled', false);
+                }, 3000);
         });
 
       </script>
