@@ -48,28 +48,28 @@ class DeptUpdateForm(forms.ModelForm):
 #-------------- DELIVERY SUPPLIES ---------------
 class deliverySupplyForm(forms.ModelForm):
     delivery_supply_description = forms.CharField(required=True, widget=forms.TextInput(
-            attrs={'list': 'deliveryItemname', 'class': 'form-control', 'placeholder': 'Description', 'autocomplete': 'on'}))
+            attrs={'list': 'deliveryItemname', 'class': 'form-control', 'placeholder': 'Description', 'autocomplete': 'on', 'id': 'delivery_supply_description'}))
 
     delivery_supply_unit = forms.CharField(required=True, widget=forms.TextInput(
-            attrs={'list': 'deliveryUnit', 'class': 'form-control', 'placeholder': 'Unit', 'autocomplete': 'on',}))
+            attrs={'list': 'deliveryUnit', 'class': 'form-control', 'placeholder': 'Unit', 'autocomplete': 'on', 'id': 'delivery_supply_unit'}))
 
     delivery_supply_quantity = forms.DecimalField(required=True,  widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'Quantity', 'min': 1,}))   
+            attrs={'class': 'form-control', 'placeholder': 'Quantity', 'min': 1, 'id': 'delivery_supply_quantity'}))   
 
     delivery_supply_remaining = forms.DecimalField(required=True,  widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'Remaining',}))   
+            attrs={'class': 'form-control', 'placeholder': 'Remaining', 'id': 'delivery_supply_remaining'}))   
 
     delivery_supplyRackNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'Rack No.', }))   
+            attrs={'class': 'form-control', 'placeholder': 'Rack No.', 'min': 0, 'id': 'delivery_supplyRackNo'}))   
 
     delivery_supplyLayerNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'Layer No.',})) 
+            attrs={'class': 'form-control', 'placeholder': 'Layer No.', 'min': 0, 'id': 'delivery_supplyLayerNo'})) 
 
     delivery_supplyCabinetNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'Cabinet No.', })) 
+            attrs={'class': 'form-control', 'placeholder': 'Cabinet No.', 'min': 0, 'id': 'delivery_supplyCabinetNo'})) 
 
     delivery_supplyShelfNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'Shelf No.',})) 
+            attrs={'class': 'form-control', 'placeholder': 'Shelf No.', 'min': 0, 'id': 'delivery_supplyShelfNo'})) 
 
     class Meta:
         model = deliverysupply
