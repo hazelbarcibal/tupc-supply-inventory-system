@@ -340,13 +340,6 @@ def suppliesDeliver(request):
                             storageupdate.supplymainstorage_supplyCabinetNo = cabinetno
                             storageupdate.supplymainstorage_supplyShelfNo = shelfno
                             storageupdate.save()
-                            # mapping = supply_storagemapping()
-                            # mapping.supplyItemName = description
-                            # mapping.supplyRackNo = 0
-                            # mapping.supplyLayerNo = 0
-                            # mapping.supplyCabinetNo = 0
-                            # mapping.supplyShelfNo = 0
-                            # mapping.save()
                             messages.success(request, 'Record created for ' + description)
                             return redirect('inventorysystem-suppliesDeliver')
                     else:
@@ -590,7 +583,7 @@ def viewRequestSupply(request):
             elif 'emailBtn1' in request.POST:
 
                 subject = "SUPPLY DEPARTMENT ADMIN"
-                message = "Good day! \nYour request has been accepted. Please pick up the item/s as soon as possible. Thankyou. \nKind regards,\nSupply Admin"
+                message = "Good day! \n\nYour request has been accepted. Please pick up the item/s as soon as possible. Thankyou. \n\nKind regards,\nSupply Admin"
                 depinfo = str(CustomUser.objects.get(department=str(request.POST.get('email_supply_department'))).email)
                 print(depinfo)
                 recipient = depinfo
@@ -618,13 +611,14 @@ def depRequestSupply(request):
         info1 = limitrecords.objects.all().filter(limit_department = request.user)
         info = statusSupplyRequest.objects.all().filter(status_supply_department = request.user)
         info2 = withdrawsupply.objects.all().filter(withdraw_supply_department = request.user)
+
         if request.method == 'POST':
+
             request_id = request.POST.get('limit_id')
             request_description = request.POST.get('request_description')
             request_unit = request.POST.get('request_unit')
             request_quantity = request.POST.get('request_quantity')
             request_addquantity = request.POST.get('request_addquantity')
-            # requestingID = limitrecords.objects.get(limit_description = request_description).limit_id
             
             if statusSupplyRequest.objects.filter(status_supply_description = request.POST.get('request_description')).filter(status_supply_department = request.user).exists() == True:
                 
@@ -632,21 +626,22 @@ def depRequestSupply(request):
                     return redirect('inventorysystem-depRequestSupply')
 
             elif int(request_addquantity) == 0:
+
                     messages.info(request, 'Not enough quantity for this item.')
                     return redirect('inventorysystem-depRequestSupply')
 
             elif int(request_addquantity) > int(request_quantity):
+
                     messages.info(request, 'Not enough quantity for this item.')
                     return redirect('inventorysystem-depRequestSupply')
 
             elif int(request_addquantity) <= 0:
+
                     messages.info(request, 'Check the available quantity')
                     return redirect('inventorysystem-depRequestSupply')
 
             elif statusSupplyRequest.objects.filter(status_supply_description = request.POST.get('request_description')).filter(status_supply_department = request.user).exists() == False:
         
-                    # if limitrecords.objects.filter(limit_id = requestingID).exists() == True:
-                    #     getdata3 = limitrecords.objects.get(limit_id = requestingID)
                         requesting = requestsupply()
                         requesting.requestsupply_id = request_id
                         requesting.request_supply_description = request_description
@@ -671,11 +666,12 @@ def depRequestSupply(request):
 
                         messages.success(request, 'Request Successful for itemname ')
                         subject = str(request.user)
-                        message = str(request.user) + " request a " + request_description +  " with quantity of " + request_addquantity
+                        message = "Good day!\n\nI have requested item in supply. Please see the details in the website. Thank you!\n\nKind regards,\n"+ str(request.user)
                         depinfo = str(CustomUser.objects.get(department=str(request.user)).email)
                         print(depinfo)
                         recipient = settings.EMAIL_HOST_USER
                         send_mail(subject, message, depinfo, [recipient], fail_silently=False)
+
                         return redirect('inventorysystem-depRequestSupply')
 
         context = {
@@ -730,7 +726,6 @@ def suppliesWithdraw(request):
                 update_limit.limit_department = withdraw_department
                 limitqty = limitrecords.objects.get(limit_id = getdata1).limit_quantity      
                 update_limit.limit_quantity = int(limitqty) - int(withdraw_quantity)
-                # limitrecords.objects.filter(limit_description = withdraw_description).filter(limit_department = withdraw_department).delete()
                 update_limit.save()
 
                 accept = withdrawsupply()
@@ -793,7 +788,6 @@ def equipmentDeliver(request):
                     return redirect('inventorysystem-equipmentDeliver')
                 
                 elif int(request_acceptquantity) < int(request_quantity) or int(request_acceptquantity) == int(request_quantity):
-                    # if equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = request_itemname).exists() == False:
                         accept = acceptEquipmentRequests()
                         accept.acceptEquipmentRequests_id = getdata
                         accept.arequest_equipment_itemname = request_itemname
@@ -856,81 +850,10 @@ def equipmentDeliver(request):
 
                         return redirect('inventorysystem-equipmentDeliver')
 
-                    # elif equipmentmainstorage.objects.filter(equipmentmainstorage_itemName = request_itemname).exists() == True:
-
-                    #     accept = acceptEquipmentRequests()
-                    #     accept.acceptEquipmentRequests_id = getdata
-                    #     accept.arequest_equipment_itemname = request_itemname
-                    #     accept.arequest_equipment_issued_to = request_department
-                    #     accept.arequest_equipment_description = request_description
-                    #     accept.arequest_equipment_brand = request_brand
-                    #     accept.arequest_equipment_quantity = request_acceptquantity
-                    #     accept.arequest_equipment_status = "Ready for pick-up"
-                    #     accept.arequest_equipment_remaining = 0
-                    #     accept.arequest_equipment_property_no = 0
-                    #     accept.current_date = datetime.date.today()
-                    #     requestequipment.objects.filter(requestequipment_id = getdata).delete()
-                    #     storage = equipmentmainstorage()  
-                    #     storage.equipmentmainstorage_itemName = equipmentmainstorage_itemName
-                    #     storage.equipmentmainstorage_description = request_description
-                    #     storage.equipmentmainstorage_brand = request_brand
-                    #     storage.equipmentmainstorage_remaining = int(equipmentmainstorage.objects.get(equipmentmainstorage_itemName = request_itemname).equipmentmainstorage_quantity) + int(request_acceptquantity)
-                    #     storage.equipmentmainstorage_quantity = request_acceptquantity
-                    #     delivery_record1 = deliveryequipment()
-                    #     delivery_record1.delivery_equipment_itemname = request_itemname
-                    #     delivery_record1.delivery_equipment_description = request_description
-                    #     delivery_record1.delivery_equipment_brand = request_brand
-                    #     delivery_record1.delivery_equipment_quantity = request_acceptquantity
-                    #     delivery_record1.delivery_equipment_remaining = int(equipmentmainstorage.objects.get(equipmentmainstorage_itemName = request_itemname).equipmentmainstorage_quantity) + int(request_acceptquantity)
-                    #     # mapping = equipment_storagemapping()
-                    #     # mapping.equipmentItemName = request_itemname
-                    #     # mapping.equipmentLocation = ""
-                    #     # mapping.save()
-                    #     status = statusEquipmentRequest()
-                    #     status.statusEquipmentRequests_id = getdata
-                    #     status.status_equipment_itemname = request_itemname
-                    #     status.status_equipment_description = request_description
-                    #     status.status_equipment_brand = request_brand
-                    #     status.status_equipment_quantity = request_quantity
-                    #     status.status_equipment_acceptquantity = request_acceptquantity
-                    #     status.status_equipment_department = request_department
-                    #     status.status_equipment_status = "Ready for pick-up"  
-                    #     status.status_equipment_remaining = 0  
-                    #     statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete() 
-                    #     subject = "SUPPLY DEPARTMENT ADMIN"
-                    #     message = "Your request " + request_itemname + " with quantity of " + request_quantity + " has been accepted. Please pick up ASAP"
-                    #     depinfo = str(CustomUser.objects.get(department=str(request_department)).email)
-                    #     print(depinfo)
-                    #     recipient = depinfo
-                    #     send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)  
-                    #     accept.save()
-                    #     status.save()
-                    #     messages.success(request, 'request accepted')
-
-                    #     if equipment_email.objects.filter(emailequipment_department = request_department).filter(current_date = datetime.date.today()).exists() == True:
-                    #         emaildept = equipment_email()
-                    #         emaildept.emailequipment_id = equipment_email.objects.get(emailequipment_department = request_department).emailequipment_id
-                    #         emaildept.emailequipment_department = request_department
-                    #         emailqty = equipment_email.objects.get(emailequipment_department = request_department).emailequipment_acceptedquantity
-                    #         emaildept.emailequipment_acceptedquantity = int(emailqty) + int(1)
-                    #         emaildept.current_date = datetime.date.today()
-                    #         equipment_email.objects.filter(emailequipment_department = request_department).delete()
-                    #         emaildept.save()
-
-                    #     elif equipment_email.objects.filter(emailequipment_department = request_department).filter(current_date = datetime.date.today()).exists() == False:
-                    #         emaildept1 = equipment_email()
-                    #         emaildept1.emailequipment_department = request_department
-                    #         emaildept1.emailequipment_acceptedquantity = 1
-                    #         emaildept1.current_date = datetime.date.today()
-                    #         emaildept1.save()
-                    #         messages.success(request, 'request accepted')
-
-                    #     return redirect('inventorysystem-equipmentDeliver')
-
             elif 'emailBtn1' in request.POST:
 
                 subject = "SUPPLY DEPARTMENT ADMIN"
-                message = "Good day! \nYour request has been accepted. Please pick up the item/s as soon as possible. Thankyou. \nKind regards,\nSupply Admin"
+                message = "Good day! \n\nYour request has been accepted. Please pick up the item/s as soon as possible. Thankyou. \n\nKind regards,\nSupply Admin"
                 depinfo = str(CustomUser.objects.get(department=str(request.POST.get('email_equipment_department'))).email)
                 print(depinfo)
                 recipient = depinfo
@@ -1000,7 +923,7 @@ def depRequestEquipment(request):
                     status.status_equipment_status = "pending"
                     messages.success(request, 'Request Successful for itemname ')
                     subject = str(request.user)
-                    message = str(request.user) + " request a " + request.POST.get('non_existing_equipment_itemname') +  " with quantity of " + request.POST.get('non_existing_equipment_quantity')
+                    message = "Good day!\n\nI have requested item in supply. Please see the details in the website. Thank you!\n\nKind regards,\n"+ str(request.user)
                     depinfo = str(CustomUser.objects.get(department=str(request.user)).email)
                     print(depinfo)
                     recipient = settings.EMAIL_HOST_USER
