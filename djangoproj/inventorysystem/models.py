@@ -303,3 +303,29 @@ class equipment_email(models.Model):
 
     class Meta:
         db_table = "equipment_email"
+
+class supply_createform(models.Model):
+
+    createformsupply_id = models.AutoField(primary_key=True)
+    createformsupply_department = models.CharField(unique=True, max_length=50, verbose_name='createformsupply_department')
+    createformsupply_unit = models.CharField(unique=True, max_length=50, verbose_name='createformsupply_unit')
+    createformsupply_acceptedquantity = models.CharField(unique=True, max_length=50, verbose_name='createformsupply_acceptedquantity')
+    current_date = models.CharField( max_length=50, verbose_name='currentdate')
+
+
+    class Meta:
+        db_table = "supply_createform"
+
+class equipment_createform(models.Model):
+
+    createformequipment_id = models.AutoField(primary_key=True)
+    createformequipment_department = models.CharField(unique=True, max_length=50, verbose_name='createformequipment_department')
+    createformequipment_itemname = models.CharField(unique=True, max_length=50, verbose_name='createformequipment_itemname')
+    createformequipment_description = models.CharField(unique=True, max_length=50, verbose_name='createformequipment_description')
+    createformequipment_brand = models.CharField(unique=True, max_length=50, verbose_name='createformequipment_brand')
+    createformequipment_acceptedquantity = models.CharField(unique=True, max_length=50, verbose_name='createformequipment_acceptedquantity')
+    current_date = models.CharField( max_length=50, verbose_name='currentdate')
+
+
+    class Meta:
+        db_table = "equipment_createform"

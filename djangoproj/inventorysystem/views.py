@@ -507,6 +507,7 @@ def viewRequestSupply(request):
         label = request.user
         info = requestsupply.objects.all()
         info1 = supply_email.objects.all()
+        info2 = supply_createform.objects.all()
         
         if request.method == 'POST':
             request_id = request.POST.get('requestsupply_id')
@@ -596,6 +597,7 @@ def viewRequestSupply(request):
             'info': info,
             'label': label,
             'info1': info1,
+            'info2': info2,
 
         }
         return render(request, 'task/view-request-supplies.html', context)
@@ -1421,6 +1423,27 @@ def export_pdf_equipreturn(request):
 
 
     html_string = render_to_string('task/pdf-output-equipreturn.html' ,{'EquipReturn': supply})
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
+    result = html.write_pdf(presentational_hints=True)
+
+    with tempfile.NamedTemporaryFile(delete=False) as output:
+        output.write(result)
+        output.flush()
+        output = open(output.name, 'rb')
+        response.write(output.read())
+
+    
+    return response
+
+def export_pdf_supplycreateform(request):
+    response=HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
+        str(datetime.datetime.now())+'.pdf'
+    supply = supply_createform.objects.all()
+    response['Content-Transfer-Enconding'] = 'binary'
+
+
+    html_string = render_to_string('task/pdf-output-supplycreateform.html' ,{'Form': supply})
     html = HTML(string=html_string, base_url=request.build_absolute_uri())
     result = html.write_pdf(presentational_hints=True)
 
