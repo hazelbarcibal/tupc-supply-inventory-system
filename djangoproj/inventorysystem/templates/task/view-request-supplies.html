@@ -439,43 +439,45 @@
                 <div class="col-xl-12 col-md-12 mb-4">
                     <div class="container">
                         <div class="kahon">
-                            <input type="text" list="department" >
-                            <datalist id="department">
-                                <option value="OCS_CASHIER_SERVICES"></option>
-                                <option value="OES_EXTENSION_SERVICES"></option>
-                                <option value="OGS_GUIDANCE_SERVICES"></option>
-                                <option value="OHR_HUMAN_RESOURCES"></option>
-                                <option value="OHS_HEALTH_SERVICES"></option>
-                                <option value="OIT_INFORMATION_TECHNOLOGY"></option>
-                                <option value="OSP_JOB_PLACEMENT"></option>
-                                <option value="OPR_PROCUREMENT"></option>
-                                <option value="ORE_RESEARCH_AND_EXTENSION"></option>
-                                <option value="ORS_RESEARCH_SERVICES"></option>
-                                <option value="OSA_STUDENT_AFFAIRS"></option>
-                                <option value="OSH_SECURITY_HOUSE"></option>
-                                <option value="DID_INDUSTRIAL_EDUCATION"></option>
-                                <option value="DES_ENGINEERING_TECHNOLOGY"></option>
-                                <option value="DLA_LIBERAL_ARTS"></option>
-                                <option value="DMS_MATH_AND_SCIENCE"></option>
-                                <option value="DPECS_PHYSICAL_EDUCATION_CULTURAL_SPORTS"></option>
-                                <option value="BETEEAP_EXPANDED_TERTIARY_EDUCATION_EQUIVALENCY_AND_ACCREDITATION"></option>
-                                <option value="GAD_GENDER_AND_DEVELOPMENT"></option>
-                                <option value="IDO_INFRASTRUCTURE_DEVELOPMENT_OFFICE"></option>
-                                <option value="NSTP_NATIONAL_SERVICE_TRAINING_PROGRAM"></option>
-                                <option value="OAA_ACADEMIC_AFFAIRS"></option>
-                                <option value="OAD_ADMISSION"></option>
-                                <option value="OAL_ALUMNI"></option>
-                                <option value="OAS_ADMIN_SERVICES"></option>
-                                <option value="OAX_AUXILIARY"></option>
-                                <option value="BA_BIDS_AND_AWARDS"></option>
-                                <option value="OBD_BUDGET_DEVELOPMENT"></option>
-                                <option value="OCD_CAMPUS_DIRECTOR"></option>
-                                <option value="OCL_CAMPUS_LIBRARY"></option>
-                                <option value="OCP_CAMPUS_PLANNING"></option>
-                                <option value="OCR_CAMPUS_REGISTRAR"></option>
-                            </datalist>
-                            <form action="{% url 'export_pdf_supplycreateform'%}">
-                                <button type="submit" class="btn btn-primary" style="margin-bottom: 10px; margin-left: 10px;"> CREATE FORM</button>
+                            <form action="{% url 'inventorysystem-viewRequestSupply'%}" method="POST" class="row g-3" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="text" name = "department_createform" list="department" >
+                                <datalist id="department">
+                                    <option value="OCS_CASHIER_SERVICES"></option>
+                                    <option value="OES_EXTENSION_SERVICES"></option>
+                                    <option value="OGS_GUIDANCE_SERVICES"></option>
+                                    <option value="OHR_HUMAN_RESOURCES"></option>
+                                    <option value="OHS_HEALTH_SERVICES"></option>
+                                    <option value="OIT_INFORMATION_TECHNOLOGY"></option>
+                                    <option value="OSP_JOB_PLACEMENT"></option>
+                                    <option value="OPR_PROCUREMENT"></option>
+                                    <option value="ORE_RESEARCH_AND_EXTENSION"></option>
+                                    <option value="ORS_RESEARCH_SERVICES"></option>
+                                    <option value="OSA_STUDENT_AFFAIRS"></option>
+                                    <option value="OSH_SECURITY_HOUSE"></option>
+                                    <option value="DID_INDUSTRIAL_EDUCATION"></option>
+                                    <option value="DES_ENGINEERING_TECHNOLOGY"></option>
+                                    <option value="DLA_LIBERAL_ARTS"></option>
+                                    <option value="DMS_MATH_AND_SCIENCE"></option>
+                                    <option value="DPECS_PHYSICAL_EDUCATION_CULTURAL_SPORTS"></option>
+                                    <option value="BETEEAP_EXPANDED_TERTIARY_EDUCATION_EQUIVALENCY_AND_ACCREDITATION"></option>
+                                    <option value="GAD_GENDER_AND_DEVELOPMENT"></option>
+                                    <option value="IDO_INFRASTRUCTURE_DEVELOPMENT_OFFICE"></option>
+                                    <option value="NSTP_NATIONAL_SERVICE_TRAINING_PROGRAM"></option>
+                                    <option value="OAA_ACADEMIC_AFFAIRS"></option>
+                                    <option value="OAD_ADMISSION"></option>
+                                    <option value="OAL_ALUMNI"></option>
+                                    <option value="OAS_ADMIN_SERVICES"></option>
+                                    <option value="OAX_AUXILIARY"></option>
+                                    <option value="BA_BIDS_AND_AWARDS"></option>
+                                    <option value="OBD_BUDGET_DEVELOPMENT"></option>
+                                    <option value="OCD_CAMPUS_DIRECTOR"></option>
+                                    <option value="OCL_CAMPUS_LIBRARY"></option>
+                                    <option value="OCP_CAMPUS_PLANNING"></option>
+                                    <option value="OCR_CAMPUS_REGISTRAR"></option>
+                                </datalist>
+                                
+                                    <button type="submit" name = "create_form"class="btn btn-primary" style="margin-bottom: 10px; margin-left: 10px;"> CREATE FORM</button>
                             </form>
 
                             <table id="createformTable" class="table table-striped" style="width:100%;">
@@ -492,14 +494,10 @@
                                     {% for x in info2 %}
                                     <tr class="edittr">
                                         <!-- <td>{{x.requestsupply_id}}</td> -->
-                                        <td align="center">{{x.request_supply_department}}</td>
-                                        <td align="center">{{x.request_supply_description}}</td>
-                                        <td align="center">{{x.request_supply_unit}}</td>
-                                        <td align="center">{{x.request_supply_quantity}}</td>
-                                        <td align="center">
-                                            <button class="btn btn-success editBtn" style="margin-bottom: 10px;"
-                                                name="editBtn">ACCEPT</button>
-                                        </td>
+                                        <td align="center">{{x.createformsupply_department}}</td>
+                                        <td align="center">{{x.createformsupply_description}}</td>
+                                        <td align="center">{{x.createformsupply_unit}}</td>
+                                        <td align="center">{{x.createformsupply_acceptedquantity}}</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>

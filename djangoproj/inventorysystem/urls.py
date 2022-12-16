@@ -42,7 +42,7 @@ urlpatterns = [
     path('export_pdf_equipdelivery/', views.export_pdf_equipdelivery, name='export_pdf_equipdelivery'),
     path('export_pdf_equipwithdraw/', views.export_pdf_equipwithdraw, name='export_pdf_equipwithdraw'),
     path('export_pdf_equipreturn/', views.export_pdf_equipreturn, name='export_pdf_equipreturn'),
-    path('export_pdf_supplycreateform/', views.export_pdf_supplycreateform, name='export_pdf_supplycreateform'),
+    # path('export_pdf_supplycreateform/', views.export_pdf_supplycreateform, name='export_pdf_supplycreateform'),
 ]
 
 

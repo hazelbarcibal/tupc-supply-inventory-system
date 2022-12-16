@@ -305,12 +305,12 @@ class equipment_email(models.Model):
         db_table = "equipment_email"
 
 class supply_createform(models.Model):
-
     createformsupply_id = models.AutoField(primary_key=True)
-    createformsupply_department = models.CharField(unique=True, max_length=50, verbose_name='createformsupply_department')
-    createformsupply_unit = models.CharField(unique=True, max_length=50, verbose_name='createformsupply_unit')
-    createformsupply_acceptedquantity = models.CharField(unique=True, max_length=50, verbose_name='createformsupply_acceptedquantity')
-    current_date = models.CharField( max_length=50, verbose_name='currentdate')
+    createformsupply_department = models.CharField(max_length=50, verbose_name='createformsupply_department')
+    createformsupply_description = models.CharField(max_length=50, verbose_name='createformsupply_description')
+    createformsupply_unit = models.CharField( max_length=50, verbose_name='createformsupply_unit')
+    createformsupply_acceptedquantity = models.CharField( max_length=50, verbose_name='createformsupply_acceptedquantity')
+    current_date = models.DateTimeField(default=now, verbose_name= 'createformsupply_current_date')
 
 
     class Meta:

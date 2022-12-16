@@ -89,20 +89,20 @@
     <table class="Table-Content">
       <thead class="thead_1">
         <tr>
+          <th>Department</th>
           <th>Description</th>
           <th>Unit</th>
-          <th>Delivery Quantity</th>
-          <th>Remaining</th>
+          <th>Accepted Quantity</th>
           <th>Date & Time</th>
         </tr>
       </thead>
       <tbody>
-        {% for y in Supplydelivery %}
+        {% for y in Form %}
         <tr>
-          <td>{{y.delivery_supply_description}}</td>
-          <td>{{y.delivery_supply_unit}}</td>
-          <td>{{y.delivery_supply_quantity}}</td>
-          <td>{{y.delivery_supply_remaining}}</td>
+          <td>{{y.createformsupply_department}}</td>
+          <td>{{y.createformsupply_description}}</td>
+          <td>{{y.createformsupply_unit}}</td>
+          <td>{{y.createformsupply_acceptedquantity}}</td>
           <td>{{y.current_date}}</td>
         </tr>
         {% endfor %}

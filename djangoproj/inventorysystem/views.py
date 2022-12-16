@@ -557,6 +557,13 @@ def viewRequestSupply(request):
                     accept.save()
                     status.save()
 
+                    form = supply_createform()
+                    form.createformsupply_department = request_department
+                    form.createformsupply_description = request_description
+                    form.createformsupply_unit = request_unit
+                    form.createformsupply_acceptedquantity = request_accept_quantity
+                    form.save()
+
                     if supply_email.objects.filter(emailsupply_department = request_department).filter(current_date = datetime.date.today()).exists() == True:
                         emaildept = supply_email()
                         emaildept.emailsupply_id = supply_email.objects.get(emailsupply_department = request_department).emailsupply_id
@@ -592,6 +599,33 @@ def viewRequestSupply(request):
                 send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
                 supply_email.objects.filter(emailsupply_department = request.POST.get('email_supply_department')).filter(current_date = request.POST.get('email_supply_date')).delete()
                 messages.success(request, 'successfully sent')
+
+            elif 'create_form' in request.POST:
+                data = request.POST.get('department_createform')
+                if supply_createform.objects.filter(createformsupply_department = data).exists() == True:
+                    data = request.POST.get('department_createform')
+                    response=HttpResponse(content_type='application/pdf')
+                    response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
+                        str(datetime.datetime.now())+'.pdf'
+                    supply = supply_createform.objects.all().filter(createformsupply_department = data)
+                    response['Content-Transfer-Enconding'] = 'binary'
+
+
+                    html_string = render_to_string('task/pdf-output-supplycreateform.html' ,{'Form': supply})
+                    html = HTML(string=html_string, base_url=request.build_absolute_uri())
+                    result = html.write_pdf(presentational_hints=True)
+
+                    with tempfile.NamedTemporaryFile(delete=False) as output:
+                        output.write(result)
+                        output.flush()
+                        output = open(output.name, 'rb')
+                        response.write(output.read())
+
+                    
+                    return response
+                elif supply_createform.objects.filter(createformsupply_department = data).exists() == False:
+                        messages.info(request, 'Invalid department name')
+                        return redirect('inventorysystem-viewRequestSupply')  
 
         context = {
             'info': info,
@@ -1435,23 +1469,23 @@ def export_pdf_equipreturn(request):
     
     return response
 
-def export_pdf_supplycreateform(request):
-    response=HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
-        str(datetime.datetime.now())+'.pdf'
-    supply = supply_createform.objects.all()
-    response['Content-Transfer-Enconding'] = 'binary'
+# def export_pdf_supplycreateform(request):
+#     response=HttpResponse(content_type='application/pdf')
+#     response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
+#         str(datetime.datetime.now())+'.pdf'
+#     supply = supply_createform.objects.all()
+#     response['Content-Transfer-Enconding'] = 'binary'
 
 
-    html_string = render_to_string('task/pdf-output-supplycreateform.html' ,{'Form': supply})
-    html = HTML(string=html_string, base_url=request.build_absolute_uri())
-    result = html.write_pdf(presentational_hints=True)
+#     html_string = render_to_string('task/pdf-output-supplycreateform.html' ,{'Form': supply})
+#     html = HTML(string=html_string, base_url=request.build_absolute_uri())
+#     result = html.write_pdf(presentational_hints=True)
 
-    with tempfile.NamedTemporaryFile(delete=False) as output:
-        output.write(result)
-        output.flush()
-        output = open(output.name, 'rb')
-        response.write(output.read())
+#     with tempfile.NamedTemporaryFile(delete=False) as output:
+#         output.write(result)
+#         output.flush()
+#         output = open(output.name, 'rb')
+#         response.write(output.read())
 
     
-    return response
+#     return response
