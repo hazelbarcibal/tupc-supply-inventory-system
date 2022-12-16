@@ -23,6 +23,7 @@
             <thead>
                 <tr>
                     <th style="text-align: center;">File</th>
+                    <th style="text-align: center;">Preview</th>
                     <th style="text-align: center;">Action</th>
                 </tr>
             </thead>
@@ -30,6 +31,7 @@
                 {% for post in files %}
                 <tr>
                     <td align="center">{{post.dep_form}}</td>
+                    <td align="center"><a href="{{post.dep_form.url}}" target="_blank">Preview</a></td>
                     <td align="center"><a href="{{post.dep_form.url}}" download="{{post.dep_form.url}}">Download</a></td>
                 </tr>
                 {% endfor %}
