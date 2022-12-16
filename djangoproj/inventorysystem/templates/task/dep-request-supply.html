@@ -182,14 +182,14 @@
                   <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-900">Request Supply</h1>
                   </div>
-
                 </div>
+
               </div>
+
 
             </div>
           </div>
-
-
+          <br>
           <!------------------- Content Row ------------------->
           <div class="row">
 
@@ -233,9 +233,14 @@
 
           <!------------------- Content Row ------------------->
           <div class="row">
-
             <div class="col-xl-12 col-md-12 mb-4">
               <div class="container">
+                <div class="container">
+                  <button style="float: right;" class="btn btn-primary"> DOWNLOAD</button>
+                </div>
+                
+                <br>
+                <br>
                 <div class="container">
                   <div class="kahon">
                     <h3 align="center">Requests Status</h3>
@@ -269,6 +274,52 @@
             </div>
 
           </div>
+
+
+                   <!------------------- Content Row ------------------->
+          <div class="row">
+            <div class="col-xl-12 col-md-12 mb-4">
+              <div class="container">
+                <div class="container">
+                  <button style="float: right;" class="btn btn-primary"> DOWNLOAD</button>
+                </div>
+                
+                <br>
+                <br>
+                <div class="container">
+                  <div class="kahon">
+                    <h3 align="center">Requests Status</h3>
+                    <hr>
+                    <br>
+                    <table id="depRequestTable" class="table table-striped" style="width:100%">
+                      <thead>
+                        <tr>
+                          <th style="text-align: center;">Description</th>
+                          <th style="text-align: center;">Unit</th>
+                          <th style="text-align: center;">Requested Quantity</th>
+                          <th style="text-align: center;">Accepted Quantity</th>
+                          <th style="text-align: center;">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for x in info %}
+                        <tr class="edittr">
+                          <td align="center">{{x.status_supply_description}}</td>
+                          <td align="center">{{x.status_supply_unit}}</td>
+                          <td align="center">{{x.status_supply_quantity}}</td>
+                          <td align="center">{{x.status_supply_acceptquantity}}</td>
+                          <td align="center">{{x.status_supply_status}}</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
 
 
 

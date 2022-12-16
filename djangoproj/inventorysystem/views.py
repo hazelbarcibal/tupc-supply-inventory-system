@@ -1469,6 +1469,9 @@ def export_pdf_equipreturn(request):
     
     return response
 
+def uploadsupplypdf(request):
+     return render(request, 'task/upload-supply-pdf.html',)
+
 # def export_pdf_supplycreateform(request):
 #     response=HttpResponse(content_type='application/pdf')
 #     response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
