@@ -4,6 +4,9 @@ from .models import *
 from django.contrib.auth.forms import UserCreationForm
 
 
+class UploadFileForm(forms.Form):
+        file = forms.FileField()
+
 
 class DeptRegisterForm(UserCreationForm): 
     username = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Username', 'name': 'username'}))

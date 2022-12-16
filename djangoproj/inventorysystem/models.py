@@ -22,6 +22,9 @@ class CustomUser(AbstractUser):
         db_table = ('inventorysystem_customuser')
 
 
+class department_form(models.Model):
+    dep_form = models.FileField(null = True, upload_to='media')
+
 
 #-------------- SUPPLY MODELS -------------------
 class deliverysupply(models.Model):

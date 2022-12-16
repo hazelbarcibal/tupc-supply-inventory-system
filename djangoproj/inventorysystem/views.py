@@ -91,6 +91,18 @@ def password_reset_request(request):
 	return render(request=request, template_name="task/password_reset.html", context={"password_reset_form":password_reset_form})
     
 
+def upload_file(request):
+    if request.method == "POST":
+        form = UploadFileForm(request.POST, request.FILES)
+        file = request.FILES['file']
+        form2 = department_form.objects.create(dep_form = file)
+        form2.save()
+        return HttpResponse(str(form2.pk) + str(form2.dep_form))
+    else:
+        form = UploadFileForm()
+    return render (request, 'task/upload.html', {'form': form})
+
+
 
 
 #--------- LOGIN --------------------

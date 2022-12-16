@@ -12,6 +12,8 @@ urlpatterns = [
     path('update-admin-profile/', views.adminProfileUpdate, name='inventorysystem-adminProfileUpdate'),
     path('update-dept-profile/', views.deptProfileUpdate, name='inventorysystem-deptProfileUpdate'),
 
+    path('upload/', views.upload_file, name='inventorysystem-upload'),
+
     # path('password-reset/', views.password_reset_request, name='inventorysystem-passwordChange'),
     # path('password-reset-done/', views.password_reset_done, name='inventorysystem-passwordResetDone'),
     # # path('password-reset/', auth_views.PasswordResetView.as_view(), name='reset_password'),
