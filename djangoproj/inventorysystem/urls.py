@@ -13,6 +13,8 @@ urlpatterns = [
     path('update-dept-profile/', views.deptProfileUpdate, name='inventorysystem-deptProfileUpdate'),
 
     path('upload/', views.upload_file, name='inventorysystem-upload'),
+    path('table/', views.table, name='inventorysystem-table'),
+    
 
     # path('password-reset/', views.password_reset_request, name='inventorysystem-passwordChange'),
     # path('password-reset-done/', views.password_reset_done, name='inventorysystem-passwordResetDone'),

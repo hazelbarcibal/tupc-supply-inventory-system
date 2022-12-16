@@ -102,7 +102,20 @@ def upload_file(request):
         form = UploadFileForm()
     return render (request, 'task/upload.html', {'form': form})
 
+def table(request):
+    context = {'files': department_form.objects.all()}
+    return render(request,'task/table.html', context)
 
+
+def download(request, path):
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb')as fh:
+            response = HttpResponse(fh.read(), content_type='application/dep_form')
+            response['Content-Disposition']='inline;filename='+os.path.basename(file_path)
+            return response
+    else:
+        print('error')
 
 
 #--------- LOGIN --------------------

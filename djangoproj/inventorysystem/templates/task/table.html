@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Download</title>
+    <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://kit.fontawesome.com/63519495ef.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+
+        <table id="table" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th style="text-align: center;">File</th>
+                    <th style="text-align: center;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in files %}
+                <tr>
+                    <td align="center">{{post.dep_form}}</td>
+                    <td align="center"><a href="{{post.dep_form.url}}" download="{{post.dep_form.url}}">Download</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</body>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var table = $('#table').DataTable({
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
+            });
+        });
+    </script>
+
+</html>
