@@ -613,7 +613,8 @@
                                         <th style="text-align: center;">Unit</th>
                                         <th style="text-align: center;">Delivery Quantity</th>
                                         <th style="text-align: center;">Remaining</th>
-                                        <th style="text-align: center;">Date & Time</th>
+                                        <th style="text-align: center;">Date</th>
+                                        <th style="text-align: center;">Time</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -624,6 +625,7 @@
                                         <td align="center">{{x.delivery_supply_quantity}}</td>
                                         <td align="center">{{x.delivery_supply_remaining}}</td>
                                         <td align="center">{{x.current_date}}</td>
+                                        <td align="center">{{x.current_time}}</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>

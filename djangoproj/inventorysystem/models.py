@@ -2,6 +2,8 @@ from email.policy import default
 from django.db import models
 from django.contrib.auth.models import AbstractUser  
 from django.utils.timezone import now
+from datetime import date
+from datetime import time
 
 
 class CustomUser(AbstractUser):
@@ -38,7 +40,9 @@ class deliverysupply(models.Model):
     delivery_supplyLayerNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply Layer')
     delivery_supplyCabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply Cabinet')
     delivery_supplyShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply Shelf')
-    current_date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name= 'delivery_current_date')
+    current_date = models.DateField(default=date.today, verbose_name= 'delivery_current_date')
+    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'delivery_current_time')
+
 
     class Meta:
         db_table = ('deliverysupply')
@@ -54,11 +58,15 @@ class requestsupply(models.Model):
     request_supply_status = models.CharField(max_length=50, verbose_name='request_supply_status')
     request_supply_mainstoragequantity = models.DecimalField(null=True, max_digits=6, decimal_places=0, max_length=50, verbose_name='request_supply_mainstoragequantity')
     request_supply_acceptquantity = models.DecimalField(null=True, max_digits=6, decimal_places=0, max_length=50, verbose_name='request_supply_acceptquantity')
-    request_supply_supplyRackNo = models.CharField(null= True, max_length=50, verbose_name='request_supply_Rack')
+    request_supply_amount = models.CharField(max_length=50, verbose_name='request_supply_amount')
+    request_supply_requestedby = models.CharField(max_length=50, verbose_name='request_supply_requestedby')
+    request_supply_supplyRackNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='request_supply_Rack')
     request_supply_supplyLayerNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='request_supply_Layer')
     request_supply_supplyCabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='request_supply_Cabinet')
     request_supply_supplyShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='request_supply_Shelf')
-    current_date = models.DateTimeField(default=now, verbose_name= 'request_current_date')
+    # current_date = models.DateTimeField(default=now, verbose_name= 'request_current_date')
+    current_date = models.DateField(default=date.today, verbose_name= 'request_current_date')
+    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'request_current_time')
 
     class Meta:
         db_table = ('requestsupply')
@@ -71,7 +79,13 @@ class withdrawsupply(models.Model):
     withdraw_supply_unit = models.CharField(max_length=50, verbose_name='withdraw_supply_unit')
     withdraw_supply_quantity = models.DecimalField(max_digits=6, decimal_places=0, verbose_name='withdraw_supply_quantity')
     withdraw_supply_remaining = models.DecimalField(null=True, max_digits=6, decimal_places=0, verbose_name='withdraw_supply_remaining')
-    current_date = models.DateTimeField(default=now, verbose_name='withdraw_current_date')
+    withdraw_supply_supplyRackNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='withdraw_supply_Rack')
+    withdraw_supply_supplyLayerNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='withdraw_supply_Layer')
+    withdraw_supply_supplyCabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='withdraw_supply_Cabinet')
+    withdraw_supply_supplyShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='withdraw_supply_Shelf')
+    # current_date = models.DateTimeField(default=now, verbose_name='withdraw_current_date')
+    current_date = models.DateField(default=date.today, verbose_name= 'withdraw_current_date')
+    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'withdraw_current_time')
 
     db_table = "withdrawsupply"
 
@@ -83,6 +97,8 @@ class limitrecords(models.Model):
     limit_quantity = models.DecimalField(max_digits=6, decimal_places=0, verbose_name='limit_quantity')
     limit_department = models.CharField(max_length=50, verbose_name='limit_department')
     limit_addquantity = models.DecimalField(null=True, max_digits=6, decimal_places=0, verbose_name='limit_addquantity')
+    limit_requestedby = models.CharField(max_length=50, verbose_name='limit_requestedby')
+
     class Meta:
         db_table = ('limitrecords')
 
@@ -98,7 +114,10 @@ class supplymainstorage(models.Model):
     supplymainstorage_supplyLayerNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply_Layer')
     supplymainstorage_supplyCabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply_Cabinet')
     supplymainstorage_supplyShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply_Shelf')
-    current_date = models.DateTimeField(default=now, verbose_name='supplymainstorage_current_date')
+    # current_date = models.DateTimeField(default=now, verbose_name='supplymainstorage_current_date')
+    current_date = models.DateField(default=date.today, verbose_name= 'supplymainstorage_current_date')
+    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'supplymainstorage_current_time')
+    
     
     class Meta:
         db_table = "supplymainstorage"
@@ -112,7 +131,10 @@ class acceptSupplyRequests(models.Model):
     arequest_supply_quantity = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='arequest_supply_quantity')
     arequest_supply_remaining = models.DecimalField(null=True, max_digits=6,decimal_places=0, verbose_name='arequest_supply_remaining')
     arequest_supply_status = models.CharField(max_length=50, verbose_name='arequest_supply_status')
-    current_date = models.CharField(max_length=50, verbose_name='currentdate')
+    arequest_supply_amount = models.CharField(max_length=50, verbose_name='arequest_supply_amount')
+    # current_date = models.CharField(max_length=50, verbose_name='currentdate')
+    current_date = models.DateField(default=date.today, verbose_name= 'current_date')
+    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'current_time')
 
     class Meta:
         db_table = ('acceptSupplyRequests')
@@ -141,7 +163,9 @@ class deliveryequipment(models.Model):
     delivery_equipment_brand = models.CharField(max_length=50, verbose_name='delivery_equipment_brand')
     delivery_equipment_quantity = models.DecimalField(max_digits=6, decimal_places= 0, verbose_name='delivery_equipment_quantity')
     delivery_equipment_remaining = models.DecimalField(null=True, max_digits=6, decimal_places= 0, verbose_name='delivery_equipment_remaining')
-    current_date = models.DateTimeField(default=now, editable=False, verbose_name= 'delivery_current_date')
+    # current_date = models.DateTimeField(default=now, editable=False, verbose_name= 'delivery_current_date')
+    current_date = models.DateField(default=date.today, verbose_name= 'delivery_current_date')
+    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'delivery_current_time')
 
     class Meta:
         db_table = ('deliveryequipment')
@@ -157,7 +181,9 @@ class requestequipment(models.Model):
     request_equipment_status = models.CharField(max_length=50, verbose_name='request_equipment_status')
     request_equipment_mainstoragequantity = models.DecimalField(null=True, max_digits=6, decimal_places=0, max_length=50, verbose_name='request_equipment_mainstoragequantity')
     request_equipment_acceptquantity = models.DecimalField(null=True, max_digits=6, decimal_places=0, max_length=50, verbose_name='request_equipment_acceptquantity')
-    current_date = models.DateTimeField(default=now, verbose_name= 'request_current_date')
+    # current_date = models.DateTimeField(default=now, verbose_name= 'request_current_date')
+    current_date = models.DateField(default=date.today, verbose_name= 'request_current_date')
+    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'request_current_time')
 
     class Meta:
         db_table = ('requestequipment')
@@ -178,7 +204,9 @@ class acceptEquipmentRequests(models.Model):
     arequest_equipment_model_no = models.CharField(max_length=50, verbose_name='arequest_equipment_model_no')
     arequest_equipment_serial_no = models.CharField(null = True, max_length=50, verbose_name='arequest_equipment_serial_no')
     arequest_equipment_certifiedcorrect = models.CharField(max_length=50, verbose_name='arequest_equipment_certifiedcorrect')
-    current_date = models.DateTimeField(default=now, verbose_name= 'arequest_current_date')
+    # current_date = models.DateTimeField(default=now, verbose_name= 'arequest_current_date')
+    current_date = models.DateField(default=date.today, verbose_name= 'arequest_current_date')
+    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'arequest_current_time')
 
     class Meta:
         db_table = ('acceptEquipmentRequests')
@@ -282,6 +310,7 @@ class equipment_disposal(models.Model):
     dispose_date = models.DateTimeField(default=now, verbose_name='dispose_date')
 
 
+
     class Meta:
         db_table = "equipment_disposal"
 
@@ -290,7 +319,9 @@ class supply_email(models.Model):
     emailsupply_id = models.AutoField(primary_key=True)
     emailsupply_department = models.CharField( max_length=50, verbose_name='emailsupply_department')
     emailsupply_acceptedquantity = models.CharField( max_length=50, verbose_name='emailsupply_acceptedquantity')
-    current_date = models.CharField( max_length=50, verbose_name='currentdate')
+    # current_date = models.CharField( max_length=50, verbose_name='currentdate')
+    current_date = models.DateField(default=date.today, verbose_name= 'current_date')
+    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'current_time')
 
 
     class Meta:
@@ -301,7 +332,9 @@ class equipment_email(models.Model):
     emailequipment_id = models.AutoField(primary_key=True)
     emailequipment_department = models.CharField(unique=True, max_length=50, verbose_name='emailequipment_department')
     emailequipment_acceptedquantity = models.CharField(unique=True, max_length=50, verbose_name='emailequipment_acceptedquantity')
-    current_date = models.CharField( max_length=50, verbose_name='currentdate')
+    # current_date = models.CharField( max_length=50, verbose_name='currentdate')
+    current_date = models.DateField(default=date.today, verbose_name= 'current_date')
+    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'current_time')
 
 
     class Meta:
@@ -313,7 +346,9 @@ class supply_createform(models.Model):
     createformsupply_description = models.CharField(max_length=50, verbose_name='createformsupply_description')
     createformsupply_unit = models.CharField( max_length=50, verbose_name='createformsupply_unit')
     createformsupply_acceptedquantity = models.CharField( max_length=50, verbose_name='createformsupply_acceptedquantity')
-    current_date = models.DateTimeField(default=now, verbose_name= 'createformsupply_current_date')
+    # current_date = models.DateTimeField(default=now, verbose_name= 'createformsupply_current_date')
+    current_date = models.DateField(default=date.today, verbose_name= 'createformsupply_current_date')
+    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'createformsupply_current_time')
 
 
     class Meta:
@@ -327,7 +362,9 @@ class equipment_createform(models.Model):
     createformequipment_description = models.CharField(unique=True, max_length=50, verbose_name='createformequipment_description')
     createformequipment_brand = models.CharField(unique=True, max_length=50, verbose_name='createformequipment_brand')
     createformequipment_acceptedquantity = models.CharField(unique=True, max_length=50, verbose_name='createformequipment_acceptedquantity')
-    current_date = models.CharField( max_length=50, verbose_name='currentdate')
+    # current_date = models.CharField( max_length=50, verbose_name='currentdate')
+    current_date = models.DateField(default=date.today, verbose_name= 'current_date')
+    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'current_time')
 
 
     class Meta:
