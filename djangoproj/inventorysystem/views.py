@@ -543,6 +543,7 @@ def viewRequestSupply(request):
             request_accept_quantity = request.POST.get('request_supply_acceptquantity')
             request_amount = request.POST.get('supplyamount')
             request_requestby = request.POST.get('request_supply_requestedby')
+            request_issuedby = request.POST.get('issuedby')
 
 
             if 'acceptbtn' in request.POST:
@@ -569,7 +570,8 @@ def viewRequestSupply(request):
                     accept.arequest_supply_quantity = request_accept_quantity
                     accept.arequest_supply_amount = request_amount
                     accept.arequest_supply_requestedby = request_requestby
-                    accept.arequest_supply_status = "Ready for pick-up"
+                    accept.arequest_supply_issued_by = request_issuedby
+                    accept.arequest_supply_status = "Item Accepted"
                     accept.current_date = datetime.date.today()
                     requestsupply.objects.filter(requestsupply_id = getdata1).delete()       
                     status = statusSupplyRequest()
@@ -580,7 +582,7 @@ def viewRequestSupply(request):
                     status.status_supply_remaining = limitrecords.objects.get(limit_id = getdata1).limit_quantity
                     status.status_supply_acceptquantity = request_accept_quantity
                     status.status_supply_department = request_department
-                    status.status_supply_status = "Ready for pick-up" 
+                    status.status_supply_status = "Item Accepted" 
                     statusSupplyRequest.objects.filter(status_supply_department = request_department).filter(status_supply_description = request_description).delete()  
                     messages.success(request, 'request accepted')
                     accept.save()
@@ -590,6 +592,9 @@ def viewRequestSupply(request):
                     form.createformsupply_department = request_department
                     form.createformsupply_description = request_description
                     form.createformsupply_unit = request_unit
+                    form.createformsupply_amount = request_amount
+                    form.createformsupply_requestedby = request_requestby
+                    form.createformsupply_issued_by = request_issuedby
                     form.createformsupply_acceptedquantity = request_accept_quantity
                     form.save()
 
@@ -707,8 +712,13 @@ def depRequestSupply(request):
                         output = open(output.name, 'rb')
                         response.write(output.read())
 
-                    
                     return response
+
+                elif supply_createform.objects.filter(createformsupply_department = request.user).exists() == False:
+
+                    messages.info(request, 'No available items')
+                    return redirect('inventorysystem-depRequestSupply')
+                    
             
             if statusSupplyRequest.objects.filter(status_supply_description = request.POST.get('request_description')).filter(status_supply_department = request.user).exists() == True:
                 
@@ -743,14 +753,14 @@ def depRequestSupply(request):
                         requesting.request_supply_supplyLayerNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyLayerNo
                         requesting.request_supply_supplyCabinetNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyCabinetNo
                         requesting.request_supply_supplyShelfNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyShelfNo
-                        requesting.request_supply_status = "pending"
+                        requesting.request_supply_status = "waiting to accept"
                         status = statusSupplyRequest()
                         status.status_supply_description = request_description
                         status.status_supply_unit = request_unit
                         status.status_supply_quantity = request_addquantity
                         status.status_supply_remaining = request_quantity
                         status.status_supply_department = request.user
-                        status.status_supply_status = "pending"
+                        status.status_supply_status = "waiting to accept"
                         requesting.save()
                         status.save()
 
@@ -828,7 +838,8 @@ def suppliesWithdraw(request):
                 accept.withdraw_supply_quantity = withdraw_quantity
                 accept.withdraw_supply_remaining = supplymainstorage.objects.get(supplymainstorage_description = withdraw_description).supplymainstorage_quantity
                 acceptSupplyRequests.objects.filter(acceptSupplyRequests_id = getdata1).delete()
-                statusSupplyRequest.objects.filter(status_supply_department = withdraw_department).filter(status_supply_description = withdraw_description).delete()        
+                statusSupplyRequest.objects.filter(status_supply_department = withdraw_department).filter(status_supply_description = withdraw_description).delete()    
+                supply_createform.objects.all().filter(createformsupply_department = withdraw_department).delete() 
                 accept.save()
 
                 messages.success(request, 'successfully withdraw')
