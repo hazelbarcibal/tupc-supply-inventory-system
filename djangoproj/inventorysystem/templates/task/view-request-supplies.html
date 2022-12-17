@@ -61,7 +61,7 @@
 
                     <div class="col-md-12">
                         <label class="form-label">Unit:</label>
-                        <input type="text" min="1" class="form-control" id="unit" name="request_supply_unit" readonly>
+                        <input type="text" class="form-control" id="unit" name="request_supply_unit" readonly>
                     </div>
 
                     <div class="col-md-6">
@@ -72,7 +72,7 @@
 
                     <div class="col-md-6">
                         <label class="form-label">Requested By:</label>
-                        <input type="text" min="1" class="form-control" id="requestby"
+                        <input type="text" class="form-control" id="requestby"
                             name="request_supply_requestedby" readonly>
                     </div>
 
@@ -92,29 +92,27 @@
 
                     <div class="col-md-3">
                         <label class="form-label">Rack No.:</label>
-                        <input type="number" class="form-control" id="rackno" name="Supply_Rack"
+                        <input type="number" min="0" class="form-control" id="rackno" name="Supply_Rack"
                             readonly>
                     </div>
 
                     <div class="col-md-3">
                         <label class="form-label">Layer No.:</label>
-                        <input type="number"  class="form-control" id="layerno" name="Supply_Layer"
+                        <input type="number" min="0" class="form-control" id="layerno" name="Supply_Layer"
                             readonly>
                     </div>
 
                     <div class="col-md-3">
                         <label class="form-label">Cabinet No.:</label>
-                        <input type="number" class="form-control" id="cabinetno" name="Supply_Cabinet"
+                        <input type="number" min="0" class="form-control" id="cabinetno" name="Supply_Cabinet"
                             readonly>
                     </div>
 
                     <div class="col-md-3">
                         <label class="form-label">Shelf No.:</label>
-                        <input type="number" class="form-control" id="shelfno" name="Supply_Shelf"
+                        <input type="number" min="0" class="form-control" id="shelfno" name="Supply_Shelf"
                             readonly>
                     </div>
-
-
 
                     <div class="modal-footer">
                         <div class="col-12">
@@ -131,38 +129,85 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function () {
-        $('.editBtn').on('click', function () {
+    // $(document).ready(function () {
+    //     $('.editBtn').on('click', function () {
 
-            $('#openModal').modal('show');
-            $tr = $(this).closest('tr');
-            var data = $tr.children("td").map(function () {
-                return $(this).text();
-            }).get();
+    //         $('#openModal').modal('show');
+    //         $tr = $(this).closest('tr');
+    //         var data = $tr.children("td").map(function () {
+    //             return $(this).text();
+    //         }).get();
 
-            console.log(data);
-            $('h5.modal-title').html('Accept Request for: ' + data[1]);
-            $('#editId').val(data[0]);
-            $('#department').val(data[1]);
-            $('#description').val(data[2]);
-            $('#unit').val(data[3]);
-            $('#requestquantity').val(data[4]);
-            $('#requestby').val(data[5]);
-            $('#supplyamount').val(data[6]);
-            $('#rackno').val(data[7]);
-            $('#layerno').val(data[8]);
-            $('#cabinetno').val(data[9]);
-            $('#shelfno').val(data[10]);
+    //         console.log(data);
+    //         $('h5.modal-title').html('Accept Request for: ' + data[1]);
+    //         $('#editId').val(data[0]);
+    //         $('#department').val(data[1]);
+    //         $('#description').val(data[2]);
+    //         $('#unit').val(data[3]);
+    //         $('#requestquantity').val(data[4]);
+    //         $('#requestby').val(data[5]);
+    //         $('#supplyamount').val(data[6]);
+    //         $('#rackno').val(data[7]);
+    //         $('#layerno').val(data[8]);
+    //         $('#cabinetno').val(data[9]);
+    //         $('#shelfno').val(data[10]);
          
-        });
-    });
+    //     });
+    // });
+
+    // $(document).ready(function () {
+    //     var table = $('#viewRequestSupplyTable').DataTable({
+    //         rowReorder: {
+    //             selector: 'td:nth-child(2)'
+    //         },
+    //         responsive: true
+    //     });
+    // });
 
     $(document).ready(function () {
         var table = $('#viewRequestSupplyTable').DataTable({
             rowReorder: {
                 selector: 'td:nth-child(2)'
             },
-            responsive: true
+            responsive: true,
+            select: false,
+            "columnDefs": [
+                {
+                "targets": [7],
+                "visible": false,
+                },
+                {
+                "targets": [8],
+                "visible": false,
+                },
+                {
+                "targets": [9],
+                "visible": false,
+                },
+                {
+                "targets": [10],
+                "visible": false,
+                },
+                
+            ]
+        });
+
+        $('#viewRequestSupplyTable tbody').on('click', 'tr', function () {
+            $('#openModal').modal('show');
+            $('h5.modal-title').html('Accept Request for: ' + table.row(this).data()[1]);
+            $('#editId').val(table.row(this).data()[0]);
+            $('#department').val(table.row(this).data()[1]);
+            $('#description').val(table.row(this).data()[2]);
+            $('#unit').val(table.row(this).data()[3]);
+            $('#requestquantity').val(table.row(this).data()[4]);
+            $('#requestby').val(table.row(this).data()[5]);
+            $('#supplyamount').val(table.row(this).data()[6]);
+            $('#rackno').val(table.row(this).data()[7]);
+            $('#layerno').val(table.row(this).data()[8]);
+            $('#cabinetno').val(table.row(this).data()[9]);
+            $('#shelfno').val(table.row(this).data()[10]);
+
+
         });
     });
 
@@ -294,7 +339,7 @@
                 <div class="col-xl-12 col-md-12 mb-4">
                     <div class="container">
                         <div class="kahon">
-                            <table id="viewRequestSupplyTable" class="table table-striped" style="width:100%;">
+                            <table id="viewRequestSupplyTable" class="table-striped cell-border compact nowrap" style="width:100%;">
                                 <thead>
                                     <tr>
                                         <th>Request No.</th>
@@ -304,13 +349,13 @@
                                         <th style="text-align: center;">Request Quantity</th>
                                         <th style="text-align: center;">Request By</th>
                                         <th style="text-align: center;">Amount</th>
-                                        <th style="text-align: center; visibility: visible;" >Rack No</th>
-                                        <!-- <th style="text-align: center;">Layer No</th>
+                                        <th style="text-align: center;">Rack No</th>
+                                        <th style="text-align: center;">Layer No</th>
                                         <th style="text-align: center;">Cabinet No</th>
-                                        <th style="text-align: center;">Shelf No</th> -->
+                                        <th style="text-align: center;">Shelf No</th>
                                         <th style="text-align: center;">Date</th>
                                         <th style="text-align: center;">Time</th>
-                                        <th style="text-align: center;">Status</th>
+                                        <!-- <th style="text-align: center;">Status</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -324,15 +369,15 @@
                                         <td align="center">{{x.request_supply_requestedby}}</td>
                                         <td align="center">{{x.request_supply_amount}}</td>
                                         <td align="center">{{x.request_supply_supplyRackNo}}</td>
-                                        <!-- <td align="center">{{x.request_supply_supplyLayerNo}}</td>
+                                        <td align="center">{{x.request_supply_supplyLayerNo}}</td>
                                         <td align="center">{{x.request_supply_supplyCabinetNo}}</td>
-                                        <td align="center">{{x.request_supply_supplyShelfNo}}</td> -->
+                                        <td align="center">{{x.request_supply_supplyShelfNo}}</td>
                                         <td align="center">{{x.current_date}}</td>
                                         <td align="center">{{x.current_time}}</td>
-                                        <td align="center">
+                                        <!-- <td align="center">
                                             <button class="btn btn-success editBtn" style="margin-bottom: 10px;"
                                                 name="editBtn">ACCEPT</button>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -348,7 +393,7 @@
                 <div class="col-xl-12 col-md-12 mb-4">
                     <div class="container">
                         <div class="kahon">
-                            <table id="emailSupplyTable" class="table table-striped" style="width:100%;">
+                            <table id="emailSupplyTable" class="table-striped cell-border compact nowrap" style="width:100%;">
                                 <thead>
                                     <tr>
                                         <th>Request No.</th>
@@ -356,7 +401,7 @@
                                         <th style="text-align: center;">No. of Request</th>
                                         <th style="text-align: center;">Date</th>
                                         <th style="text-align: center;">Time</th>
-                                        <th style="text-align: center;">Action</th>
+                                        <!-- <th style="text-align: center;">Action</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -367,10 +412,10 @@
                                         <td align="center">{{x.emailsupply_acceptedquantity}}</td>
                                         <td align="center">{{x.current_date}}</td>
                                         <td align="center">{{x.current_time}}</td>
-                                        <td align="center">
+                                        <!-- <td align="center">
                                             <button class="btn btn-success emailBtn" style="margin-bottom: 10px;"
                                                 name="emailBtn">EMAIL</button>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -431,29 +476,22 @@
             <script type="text/javascript">
 
                 $(document).ready(function () {
-                    $('.emailBtn').on('click', function () {
-
-                        $('#openModal1').modal('show');
-                        $tr = $(this).closest('tr');
-                        var data = $tr.children("td").map(function () {
-                            return $(this).text();
-                        }).get();
-
-                        console.log(data);
-                        $('h5.modal-title').html('Email Request for: ' + data[1]);
-                        $('#editId1').val(data[0]);
-                        $('#department1').val(data[1]);
-                        $('#acceptedquantity1').val(data[2]);
-                        $('#dateaccepted').val(data[3]);
-                    });
-                });
-
-                $(document).ready(function () {
                     var table = $('#emailSupplyTable').DataTable({
                         rowReorder: {
                             selector: 'td:nth-child(2)'
                         },
-                        responsive: true
+                        responsive: true,
+                        select: false,
+                    });
+
+                    $('#emailSupplyTable tbody').on('click', 'tr', function () {
+                        $('#openModal1').modal('show');
+                        $('h5.modal-title').html('Email Request for: ' + table.row(this).data()[1]);
+                        $('#editId1').val(table.row(this).data()[0]);
+                        $('#department1').val(table.row(this).data()[1]);
+                        $('#acceptedquantity1').val(table.row(this).data()[2]);
+                        $('#dateaccepted').val(table.row(this).data()[3]);
+
                     });
                 });
 
