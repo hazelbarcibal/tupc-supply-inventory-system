@@ -92,6 +92,13 @@
           <span>Request Equipment</span></a>
       </li>
 
+        <!-- Nav Item  -->
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'inventorysystem-depWithdrawnItems' %}">
+          <i class='bx bx-devices'></i>
+          <span>Withdrawn Record</span></a>
+      </li>
+
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -271,55 +278,56 @@
             </div>
 
           </div>
-
-
                    <!------------------- Content Row ------------------->
                    <div class="row">
 
                     <div class="col-xl-12 col-md-12 mb-4">
+                      <div class="container">
                         <div class="container">
-                            <div class="kahon">
-                                <div class="col-xl-4 col-md-4">
-                                    <form action="{% url 'inventorysystem-depRequestSupply'%}" method="POST" class="row g-3" enctype="multipart/form-data">
-                                        {% csrf_token %}
-                                        
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xl-6 col-md-6">
-                                            <button type="submit" name = "create_form"class="btn btn-primary" style="margin: 10px 0px 10px 0px; "> CREATE FORM</button>
-                                        </div>
-                                    </div>  
-                                </form>
-                                <!-- <a href="{% url 'upload-supply-pdf'%}">
-                                    <button  type="submit" id="uploadBtn" name = "upload_form" class="btn btn-success" style="margin: 10px 0px 10px 0px;"> UPLOAD</button>
-                                </a> -->
-    
-                                <table id="createformTable" class="table table-striped" style="width:100%;">
-                                    <thead>
-                                        <tr>
-                                            <!-- <th>Request No.</th> -->
-                                            <th style="text-align: center;">Department</th>
-                                            <th style="text-align: center;">Description</th>
-                                            <th style="text-align: center;">Unit</th>
-                                            <th style="text-align: center;">Accepted Quantity</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for x in info3 %}
-                                        <tr class="edittr">
-                                            <!-- <td>{{x.requestsupply_id}}</td> -->
-                                            <td align="center">{{x.createformsupply_department}}</td>
-                                            <td align="center">{{x.createformsupply_description}}</td>
-                                            <td align="center">{{x.createformsupply_unit}}</td>
-                                            <td align="center">{{x.createformsupply_acceptedquantity}}</td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                   
-                                </table>
-                                
-                            </div>
-                        </div>
+                          <div class="kahon">
+                        
+                              <div class="col-xl-12 col-md-12">
+                                  <form action="{% url 'export_pdf_supplycreateform'%}">
+                                    <button type="submit" name = "create_form"class="btn btn-primary" style="margin: 10px 0px 10px 0px; float: right; "> CREATE FORM</button>
+                                  </form>
+
+                                  <form action="{% url 'inventorysystem-depRequestSupply'%}" method="POST" class="row g-3" enctype="multipart/form-data">
+                                      {% csrf_token %}
+                                      
+                                  </div>
+      
+                              </form>
+                              <!-- <a href="{% url 'upload-supply-pdf'%}">
+                                  <button  type="submit" id="uploadBtn" name = "upload_form" class="btn btn-success" style="margin: 10px 0px 10px 0px;"> UPLOAD</button>
+                              </a> -->
+  
+                              <table id="createformTable" class="table table-striped" style="width:100%;">
+                                  <thead>
+                                      <tr>
+                                          <!-- <th>Request No.</th> -->
+                                          <th style="text-align: center;">Department</th>
+                                          <th style="text-align: center;">Description</th>
+                                          <th style="text-align: center;">Unit</th>
+                                          <th style="text-align: center;">Accepted Quantity</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      {% for x in info3 %}
+                                      <tr class="edittr">
+                                          <!-- <td>{{x.requestsupply_id}}</td> -->
+                                          <td align="center">{{x.createformsupply_department}}</td>
+                                          <td align="center">{{x.createformsupply_description}}</td>
+                                          <td align="center">{{x.createformsupply_unit}}</td>
+                                          <td align="center">{{x.createformsupply_acceptedquantity}}</td>
+                                      </tr>
+                                      {% endfor %}
+                                  </tbody>
+                                 
+                              </table>
+                              
+                          </div>
+                      </div>
+                      </div>
                     </div>
                 </div>
     
@@ -335,49 +343,6 @@
                     });
                 
                 </script>
-
-
-
-          <!------------------- Content Row ------------------->
-          <div class="row">
-
-            <div class="col-xl-12 col-md-12 mb-4">
-              <div class="container">
-
-                <div class="container">
-                  <div class="kahon">
-                    <h3 align="center">Withdrawal Records</h3>
-                    <hr>
-                    <br>
-                    <table id="depwithdrawnTable" class="table table-striped" style="width:100%">
-                      <thead>
-                        <tr>
-                          <th style="text-align: center;">Description</th>
-                          <th style="text-align: center;">Unit</th>
-                          <th style="text-align: center;">Quantity</th>
-                          <th style="text-align: center;">Date & Time</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for x in info2 %}
-                        <tr class="edittr">
-                          <td align="center">{{x.withdraw_supply_description}}</td>
-                          <td align="center">{{x.withdraw_supply_unit}}</td>
-                          <td align="center">{{x.withdraw_supply_quantity}}</td>
-                          <td align="center">{{x.current_date}}</td>
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-
-
 
         </div>
         <!-- /.container-fluid -->

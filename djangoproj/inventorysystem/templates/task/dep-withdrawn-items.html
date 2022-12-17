@@ -1,0 +1,254 @@
+{% extends 'task/dep-request-supply.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<title> Request Equipment</title>
+<link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
+<style>
+    .btn1 {
+        background-color: #ad413a;
+        border: 1px solid black;
+        border-radius: 5px;
+        color: white;
+        padding: 10px 24px;
+        cursor: pointer;
+        text-decoration: none;
+
+    }
+
+    .btn1:hover {
+        text-decoration: none;
+        background: #9c2e26;
+        color: white;
+    }
+
+    .col-md-12 input {
+        border: solid #3E3E3E 1.5px;
+    }
+
+
+    .col-md-6 input {
+        border: solid #3E3E3E 1.5px;
+    }
+
+    .kahon {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 10px;
+        background: rgb(255, 255, 255);
+        padding: 32px 25px;
+
+    }
+
+    hr {
+        border: 1px solid;
+        background-color: black;
+        border-radius: 5px;
+    }
+</style>
+
+
+
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!---------------------------- Main Content ----------------------------------->
+
+    <div id="content" class="main-content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-dark topnav topbar mb-4 static-top shadow">
+
+            <!-- Sidebar Toggle (Topbar) -->
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+            </button>
+
+
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
+                <div class="topbar-divider d-none d-sm-block"></div>
+
+                <!-- Nav Item - User Information -->
+                <li class="nav-item dropdown no-arrow">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, {{request.user}}!</span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small"></span>
+                        <img class="img-profile rounded-circle"
+                            src="{% static 'img/sb-dashboard/undraw_profile.svg' %}">
+                    </a>
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="{% url 'inventorysystem-deptProfileUpdate' %}">
+                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Update Profile
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+              <div class="container">
+                <div class="container" style="margin-bottom: 0;">
+                  <div class="container" style="margin-bottom: 0;">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                      <h1 class="h3 mb-0 text-gray-900">Withdrawn Items</h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        <!------------------- Content Row ------------------->
+        <div class="row">
+
+        <div class="col-xl-12 col-md-12 mb-4">
+            <div class="container">
+
+            <div class="container">
+                <div class="kahon">
+                <h3 align="center">Supply</h3>
+                <hr>
+                <br>
+                <table id="depSupplywithdrawnTable" class="table table-striped" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th style="text-align: center;">Description</th>
+                        <th style="text-align: center;">Unit</th>
+                        <th style="text-align: center;">Quantity</th>
+                        <th style="text-align: center;">Date</th>
+                        <th style="text-align: center;">Time</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for x in info2 %}
+                    <tr class="edittr">
+                        <td align="center">{{x.withdraw_supply_description}}</td>
+                        <td align="center">{{x.withdraw_supply_unit}}</td>
+                        <td align="center">{{x.withdraw_supply_quantity}}</td>
+                        <td align="center">{{x.withdraw_supply_current_date}}</td>
+                        <td align="center">{{x.withdraw_supply_current_time}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        </div>
+
+        <!------------------- Content Row ------------------->
+        <div class="row">
+
+        <div class="col-xl-12 col-md-12 mb-4">
+            <div class="container">
+
+                <div class="container">
+                    <div class="kahon">
+                        <h3 align="center">Equipment</h3>
+                        <hr>
+                        <br>
+                        <table id="depEquipmentwithdrawnTable" class="stripe cell-border hover" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: center;">Item Name</th>
+                                    <th style="text-align: center;">Description</th>
+                                    <th style="text-align: center;">Brand</th>
+                                    <!-- <th>Quantity</th> -->
+                                    <th style="text-align: center;">Date</th>
+                                    <th style="text-align: center;">Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for x in info %}
+                                <tr class="edittr">
+                                    <td align="center">{{x.withdraw_equipment_itemname}}</td>
+                                    <td align="center">{{x.withdraw_equipment_description}}</td>
+                                    <td align="center">{{x.withdraw_equipment_brand}}</td>
+                                    <!-- <td>{{x.withdraw_equipment_quantity}}</td> -->
+                                    <td align="center">{{x.withdraw_equipment_current_date}}</td>
+                                    <td align="center">{{x.withdraw_equipment_current_time}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+            var table = $('#depSupplywithdrawnTable').DataTable({
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
+            });
+        });
+
+        $(document).ready(function () {
+            var table = $('#depEquipmentwithdrawnTable').DataTable({
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
+            });
+        });
+    
+    </script>
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+
+
+    <!------------------------------------ Footer ------------------------------------->
+    <!-- <footer class="sticky-footer footer ">
+        <div class="container my-auto">
+            <div class="copyright text-gray-700 text-center my-auto">
+                <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
+            </div>
+        </div>
+    </footer> -->
+    <!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+
+
+{% endblock %}

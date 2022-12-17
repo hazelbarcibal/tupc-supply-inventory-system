@@ -99,6 +99,30 @@
                             readonly>
                     </div>
 
+                    <div class="col-md-3">
+                        <label class="form-label">Rack No.:</label>
+                        <input type="number" min="0" class="form-control" id="rackno" name="Supply_Rack"
+                            readonly>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Layer No.:</label>
+                        <input type="number" min="0" class="form-control" id="layerno" name="Supply_Layer"
+                            readonly>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Cabinet No.:</label>
+                        <input type="number" min="0" class="form-control" id="cabinetno" name="Supply_Cabinet"
+                            readonly>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Shelf No.:</label>
+                        <input type="number" min="0" class="form-control" id="shelfno" name="Supply_Shelf"
+                            readonly>
+                    </div>
+
                     <div class="modal-footer">
                         <div class="col-12">
                             <button style="float: right;" type="submit" class="btn btn-primary">OK</button>
@@ -112,24 +136,45 @@
 </div>
 
 <script type="text/javascript">
-
     $(document).ready(function () {
-        $('.editBtn').on('click', function () {
+        var table = $('#viewRequestSupplyTable').DataTable({
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            responsive: true,
+            select: false,
+            "columnDefs": [
+                {
+                "targets": [5],
+                "visible": false,
+                },
+                {
+                "targets": [6],
+                "visible": false,
+                },
+                {
+                "targets": [7],
+                "visible": false,
+                },
+                {
+                "targets": [8],
+                "visible": false,
+                },
+                
+            ]
+        });
 
+        $('#supplyWithdrawTable tbody').on('click', 'tr', function () {
             $('#openModal').modal('show');
-            $tr = $(this).closest('tr');
-            var data = $tr.children("td").map(function () {
-                return $(this).text();
-            }).get();
-
-            console.log(data);
-            $('h5.modal-title').html('Withdrawing Status for: ' + data[1]);
-            $('#editId').val(data[0]);
-            $('#department').val(data[1]);
-            $('#description').val(data[2]);
-            $('#unit').val(data[3]);
-            $('#quantity').val(data[4]);
-            $('#remaining').val(data[5]);
+            $('#editId').val(table.row(this).data()[0]);
+            $('#department').val(table.row(this).data()[1]);
+            $('#description').val(table.row(this).data()[2]);
+            $('#unit').val(table.row(this).data()[3]);
+            $('#quantity').val(table.row(this).data()[4]);
+            $('#rackno').val(table.row(this).data()[5]);
+            $('#layerno').val(table.row(this).data()[6]);
+            $('#cabinetno').val(table.row(this).data()[7]);
+            $('#shelfno').val(table.row(this).data()[8]);
         });
     });
 
@@ -282,6 +327,10 @@
                                         <th style="text-align: center;">Description</th>
                                         <th style="text-align: center;">Unit</th>
                                         <th style="text-align: center;">Quantity</th>
+                                        <th style="text-align: center;">Rack No</th>
+                                        <th style="text-align: center;">Layer No</th>
+                                        <th style="text-align: center;">Cabinet No</th>
+                                        <th style="text-align: center;">Shelf No</th>
                                         <th style="text-align: center;">Status</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
@@ -294,6 +343,10 @@
                                         <td align="center">{{x.arequest_supply_description}}</td>
                                         <td align="center">{{x.arequest_supply_unit}}</td>
                                         <td align="center">{{x.arequest_supply_quantity}}</td>
+                                        <td align="center">{{x.arequest_supply_RackNo}}</td>
+                                        <td align="center">{{x.arequest_supply_LayerNo}}</td>
+                                        <td align="center">{{x.arequest_supply_CabinetNo}}</td>
+                                        <td align="center">{{x.arequest_supply_ShelfNo}}</td>
                                         <td align="center">{{x.arequest_supply_status}}</td>
                                         <td align="center">
                                             <button class="btn btn-success editBtn" style="margin-bottom: 10px;"

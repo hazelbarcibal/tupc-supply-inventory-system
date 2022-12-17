@@ -24,6 +24,18 @@ import tempfile
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
+def depWithdrawnItems(request):
+    info2 = withdrawsupply.objects.all().filter(withdraw_supply_department = request.user)
+    info = withdrawequipment.objects.all().filter(withdraw_equipment_issued_to = request.user)
+
+    context = {
+        'info2': info2,
+        'info': info,
+        }
+    return render(request, 'task/dep-withdrawn-items.html', context)  
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def index(request):
     return render(request, 'task/index.html')  
 
@@ -682,7 +694,7 @@ def depRequestSupply(request):
         info1 = limitrecords.objects.all().filter(limit_department = request.user)
         info = statusSupplyRequest.objects.all().filter(status_supply_department = request.user)
         info3 = supply_createform.objects.all().filter(createformsupply_department = request.user)
-        info2 = withdrawsupply.objects.all().filter(withdraw_supply_department = request.user)
+        # info2 = withdrawsupply.objects.all().filter(withdraw_supply_department = request.user)
 
         if request.method == 'POST':
 
@@ -693,31 +705,31 @@ def depRequestSupply(request):
             request_addquantity = request.POST.get('request_addquantity')
             request_requestedby = request.POST.get('requestedby')
 
-            if 'create_form' in request.POST:
-                if supply_createform.objects.filter(createformsupply_department = request.user).exists() == True:
-                    response=HttpResponse(content_type='application/pdf')
-                    response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
-                        str(datetime.datetime.now())+'.pdf'
-                    supply = supply_createform.objects.all().filter(createformsupply_department = request.user)
-                    response['Content-Transfer-Enconding'] = 'binary'
+            # if 'create_form' in request.POST:
+            #     if supply_createform.objects.filter(createformsupply_department = request.user).exists() == True:
+            #         response=HttpResponse(content_type='application/pdf')
+            #         response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
+            #             str(datetime.datetime.now())+'.pdf'
+            #         supply = supply_createform.objects.all().filter(createformsupply_department = request.user)
+            #         response['Content-Transfer-Enconding'] = 'binary'
 
 
-                    html_string = render_to_string('task/pdf-output-supplycreateform.html' ,{'Form': supply})
-                    html = HTML(string=html_string, base_url=request.build_absolute_uri())
-                    result = html.write_pdf(presentational_hints=True)
+            #         html_string = render_to_string('task/pdf-output-supplycreateform.html' ,{'Form': supply})
+            #         html = HTML(string=html_string, base_url=request.build_absolute_uri())
+            #         result = html.write_pdf(presentational_hints=True)
 
-                    with tempfile.NamedTemporaryFile(delete=False) as output:
-                        output.write(result)
-                        output.flush()
-                        output = open(output.name, 'rb')
-                        response.write(output.read())
+            #         with tempfile.NamedTemporaryFile(delete=False) as output:
+            #             output.write(result)
+            #             output.flush()
+            #             output = open(output.name, 'rb')
+            #             response.write(output.read())
 
-                    return response
+            #         return response
 
-                elif supply_createform.objects.filter(createformsupply_department = request.user).exists() == False:
+            #     elif supply_createform.objects.filter(createformsupply_department = request.user).exists() == False:
 
-                    messages.info(request, 'No available items')
-                    return redirect('inventorysystem-depRequestSupply')
+            #         messages.info(request, 'No available items')
+            #         return redirect('inventorysystem-depRequestSupply')
                     
             
             if statusSupplyRequest.objects.filter(status_supply_description = request.POST.get('request_description')).filter(status_supply_department = request.user).exists() == True:
@@ -779,7 +791,6 @@ def depRequestSupply(request):
         context = {
             'info1': info1,
             'info': info,
-            'info2': info2,
             'info3': info3,
         }   
         return render(request, 'task/dep-request-supply.html', context)
@@ -1008,7 +1019,7 @@ def depRequestEquipment(request):
 
         info = equipmentmainstorage.objects.all()
         info1  = statusEquipmentRequest.objects.all().filter(status_equipment_department = request.user)
-        info2 = withdrawequipment.objects.all().filter(withdraw_equipment_issued_to = request.user)
+        # info2 = withdrawequipment.objects.all().filter(withdraw_equipment_issued_to = request.user)
 
         if request.method == 'POST':
             if int(request.POST.get('non_existing_equipment_quantity')) > 0:
@@ -1046,7 +1057,6 @@ def depRequestEquipment(request):
         context = {
             'info': info,
             'info1': info1,
-            'info2': info2,
         }
         return render(request, 'task/dep-request-equipment.html', context)
     else:
@@ -1539,23 +1549,22 @@ def export_pdf_equipreturn(request):
 def uploadsupplypdf(request):
      return render(request, 'task/upload-supply-pdf.html',)
 
-# def export_pdf_supplycreateform(request):
-#     response=HttpResponse(content_type='application/pdf')
-#     response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
-#         str(datetime.datetime.now())+'.pdf'
-#     supply = supply_createform.objects.all()
-#     response['Content-Transfer-Enconding'] = 'binary'
+def export_pdf_supplycreateform(request):
+        response=HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
+            str(datetime.datetime.now())+'.pdf'
+        supply = supply_createform.objects.all().filter(createformsupply_department = request.user)
+        response['Content-Transfer-Enconding'] = 'binary'
 
 
-#     html_string = render_to_string('task/pdf-output-supplycreateform.html' ,{'Form': supply})
-#     html = HTML(string=html_string, base_url=request.build_absolute_uri())
-#     result = html.write_pdf(presentational_hints=True)
+        html_string = render_to_string('task/pdf-output-supplycreateform.html' ,{'Form': supply})
+        html = HTML(string=html_string, base_url=request.build_absolute_uri())
+        result = html.write_pdf(presentational_hints=True)
 
-#     with tempfile.NamedTemporaryFile(delete=False) as output:
-#         output.write(result)
-#         output.flush()
-#         output = open(output.name, 'rb')
-#         response.write(output.read())
+        with tempfile.NamedTemporaryFile(delete=False) as output:
+            output.write(result)
+            output.flush()
+            output = open(output.name, 'rb')
+            response.write(output.read())
 
-    
-#     return response
+        return response

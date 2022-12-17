@@ -85,8 +85,8 @@ class withdrawsupply(models.Model):
     withdraw_supply_supplyCabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='withdraw_supply_Cabinet')
     withdraw_supply_supplyShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='withdraw_supply_Shelf')
     # current_date = models.DateTimeField(default=now, verbose_name='withdraw_current_date')
-    current_date = models.DateField(default=date.today, verbose_name= 'withdraw_current_date')
-    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'withdraw_current_time')
+    withdraw_supply_current_date = models.DateField(default=date.today, verbose_name= 'withdraw_current_date')
+    withdraw_supply_current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'withdraw_current_time')
 
     db_table = "withdrawsupply"
 
@@ -135,6 +135,10 @@ class acceptSupplyRequests(models.Model):
     arequest_supply_amount = models.CharField(max_length=50, verbose_name='arequest_supply_amount')
     arequest_supply_requestedby = models.CharField(max_length=50, verbose_name='arequest_supply_requestedby')
     arequest_supply_issued_by = models.CharField(max_length=50, verbose_name='arequest_supply_issued_by')
+    arequest_supply_RackNo = models.CharField(null= True, max_length=50, verbose_name='Supply_Rack')
+    arequest_supply_LayerNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply_Layer')
+    arequest_supply_CabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply_Cabinet')
+    arequest_supply_ShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply_Shelf')
     # current_date = models.CharField(max_length=50, verbose_name='currentdate')
     current_date =  models.CharField(max_length=50, verbose_name='currentdate')
     current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'current_time')
@@ -226,7 +230,8 @@ class withdrawequipment(models.Model):
     withdraw_equipment_model_no = models.CharField(unique = True, max_length=50, verbose_name='withdraw_equipment_model_no')
     withdraw_equipment_serial_no = models.CharField(unique = True, null = True, max_length=50, verbose_name='withdraw_equipment_serial_no')
     withdraw_equipment_certifiedcorrect = models.CharField(max_length=50, verbose_name='withdraw_equipment_certifiedcorrect')
-    current_date = models.DateTimeField(default=now, verbose_name='withdraw_current_date')
+    withdraw_equipment_current_date = models.DateTimeField(default=now, verbose_name='withdraw_current_date')
+    withdraw_equipment_current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'withdraw_current_time')
     withdraw_equipment_status = models.CharField(max_length=50, verbose_name='withdraw_equipment_status')
     
     class Meta:

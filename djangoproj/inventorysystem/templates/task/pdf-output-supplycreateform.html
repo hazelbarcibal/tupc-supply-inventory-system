@@ -46,7 +46,7 @@
 
 <body>
 
-  <div class="container1">
+  <!-- <div class="container1">
     <div class="header">
       <div class="col-md-12">
         <table>
@@ -84,29 +84,174 @@
           </thead>
         </table>
       </div><br><br>
+    </div> -->
+    <h2 style="text-align: center;"> REQUISTION AND ISSUE SLIP</h2>
+    <br>
+    <div class="row">
+        <div class="col-xl-6 col-md-6">
+            <p style="font-size: 13px; ">Entry Name: Technological University of the Philippines at Cavite <span style="color: white;">AHH</span> Fund Cluster: </p> 
+        </div>
     </div>
+    <table>
+      
+ 
+
+    </table>
+    
 
     <table class="Table-Content">
+          <thead class="">
+            <tr>
+              <th style="text-align: left;">Division:</th>
+              <th colspan="5" style="color: white;">-------</th>
+              <th style="text-align: left;"colspan="3">Responsibility Center Code:</th>
+            </tr>
+        </thead>
+        <thead class="">
+            <tr>
+              <th  style="text-align: left;">Office:</th>
+              <th colspan="5" style="color: white;"></th>
+              <th style="text-align: left;" colspan="3">RIS No:</th>
+            </tr>
+        </thead>
+
+        <thead class="thead_1">
+            <tr>
+                <th colspan="5">REQUISITION</th>
+                <th colspan="2">Stock Available?</th>
+                <th colspan="2">INSUANCE</th>
+            </tr>
+        </thead>
       <thead class="thead_1">
         <tr>
-          <th>Department</th>
-          <th>Description</th>
+          <th>Stock No.</th>
           <th>Unit</th>
-          <th>Accepted Quantity</th>
-          <th>Date & Time</th>
+          <th colspan="2">Description</th>
+          <th>Qty</th>
+          <th>Yes</th>
+          <th>No</th>
+          <th>Qty</th>
+          <th>Remarks</th>
         </tr>
       </thead>
       <tbody>
         {% for y in Form %}
         <tr>
-          <td>{{y.createformsupply_department}}</td>
-          <td>{{y.createformsupply_description}}</td>
-          <td>{{y.createformsupply_unit}}</td>
+          <td>{{y.}}</td>
+          <td >{{y.createformsupply_unit}} HAHHAHA</td>
+          <td style="text-align: left;" colspan="2">{{y.createformsupply_description}}</td>
           <td>{{y.createformsupply_acceptedquantity}}</td>
-          <td>{{y.current_date}}</td>
+          <td>{{y.}}</td>
+          <td>{{y.}}</td>
+          <td>{{y.createformsupply_acceptedquantity}}</td>
+          <td style="text-align: right;">{{y.createformsupply_amount}}</td>
         </tr>
         {% endfor %}
       </tbody>
+      <!-- Dummy -->
+      <tbody style="color: white;">
+        {% for y in Form %}
+        <tr>
+          <td>{{y.}}</td>
+          <td >{{y.createformsupply_unit}}</td>
+          <td colspan="2">{{y.createformsupply_description}}</td>
+          <td>{{y.createformsupply_acceptedquantity}}</td>
+          <td>{{y.}}</td>
+          <td>{{y.}}</td>
+          <td>{{y.createformsupply_acceptedquantity}}</td>
+          <td>{{y.}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+
+      <tbody style="color: white;">
+        {% for y in Form %}
+        <tr>
+          <td>{{y.}}</td>
+          <td >{{y.createformsupply_unit}}</td>
+          <td colspan="2">{{y.createformsupply_description}}</td>
+          <td>{{y.createformsupply_acceptedquantity}}</td>
+          <td>{{y.}}</td>
+          <td>{{y.}}</td>
+          <td>{{y.createformsupply_acceptedquantity}}</td>
+          <td>{{y.}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+
+      <tbody style="color: white;">
+        {% for y in Form %}
+        <tr>
+          <td>{{y.}}</td>
+          <td >{{y.createformsupply_unit}}</td>
+          <td colspan="2">{{y.createformsupply_description}}</td>
+          <td>{{y.createformsupply_acceptedquantity}}</td>
+          <td>{{y.}}</td>
+          <td>{{y.}}</td>
+          <td>{{y.createformsupply_acceptedquantity}}</td>
+          <td>{{y.}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <!-- End of dummy -->
+
+      <thead class="thead_1">
+        <tr>
+          <th rowspan="2">Purpose: </th>
+        </tr>
+      </thead>
+
+    </table>
+
+    <table>
+        <thead class="thead_1">
+            <tr>
+              <th style="text-align: left;"colspan="2">
+                <br><br><br> Signature: </th>
+              <th >Requested By:
+                <br><br><br><br></th>
+              <th style="text-align: left;" colspan="3">Approved By:
+                <br><br><br><br></th>
+              <th colspan="2">Issued By:
+                <br><br><br><br></th>
+              <th colspan="2">Received By:
+                <br><br><br><br></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for y in Form %}
+            <tr>
+              <td style="text-align: left; font-weight: bold;" colspan="2">Printed Name</td>
+              <td style="text-transform: uppercase;">{{y.createformsupply_requestedby}} </td>
+              <td colspan="3"> MYRNA M. TEPORA</td>
+              <td style="text-transform: uppercase;" colspan="2">{{y.createformsupply_issued_by}} </td>
+              <td style="text-transform: uppercase;" colspan="2"></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+          <tbody>
+            {% for y in Form %}
+            <tr>
+              <td style="text-align: left; font-weight: bold;" colspan="2"> Designation</td>
+              <td style="text-transform:lowercase;">{{y.createformsupply_department}} </td>
+              <td colspan="3"> Campus Director</td>
+              <td style="text-transform: uppercase;" colspan="2"></td>
+              <td style="text-transform: uppercase;" colspan="2"></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+          <tbody>
+            {% for y in Form %}
+            <tr>
+              <td style="text-align: left; font-weight: bold;" colspan="2"> Date:</td>
+              <td ></td>
+              <td colspan="3"> </td>
+              <td colspan="2"></td>
+              <td colspan="2"></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+
     </table>
 
 </body>
