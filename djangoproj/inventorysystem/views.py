@@ -1074,9 +1074,13 @@ def equipmentWithdraw(request):
         label = request.user
         info = acceptEquipmentRequests.objects.all()
         info1 = withdrawequipment.objects.all()
+        info2 = custodian_slip.objects.all()
+        info3 = receiptform_equipment.objects.all()
         context = {
             'info': info,
             'info1': info1,
+            'info2': info2,
+            'info3': info3,
             'label': label,
         }
         return render(request, 'task/equipment-withdraw.html', context)

@@ -199,7 +199,6 @@ class acceptEquipmentRequests(models.Model):
 
     acceptEquipmentRequests_id = models.AutoField(primary_key=True)
     arequest_equipment_property_no = models.CharField(null = True, max_length=50, verbose_name='arequest_equipment_property_no')
-    # wag gamitin to - arequest_equipment_department = models.CharField(max_length=50, verbose_name='arequest_equipment_department')
     arequest_equipment_itemname = models.CharField(max_length=255, verbose_name='arequest_equipment_itemname')
     arequest_equipment_description = models.CharField(max_length=255, verbose_name='arequest_equipment_description')
     arequest_equipment_brand = models.CharField(max_length=50, verbose_name='arequest_equipment_brand')
@@ -341,7 +340,7 @@ class equipment_email(models.Model):
     emailequipment_department = models.CharField(unique=True, max_length=50, verbose_name='emailequipment_department')
     emailequipment_acceptedquantity = models.CharField(unique=True, max_length=50, verbose_name='emailequipment_acceptedquantity')
     # current_date = models.CharField( max_length=50, verbose_name='currentdate')
-    current_date = models.DateField(default=date.today, verbose_name= 'current_date')
+    current_date = models.DateField(default=date.today().strftime('%Y/%m/%d'), verbose_name= 'current_date')
     current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'current_time')
 
 
@@ -380,3 +379,32 @@ class equipment_createform(models.Model):
 
     class Meta:
         db_table = "equipment_createform"
+
+
+class custodian_slip(models.Model):
+    custodianslip_id = models.AutoField(primary_key=True)
+    custodianslip_suppliedby = models.CharField(max_length=255, verbose_name='custodianslip_suppliedby')
+    custodianslip_PoNo = models.CharField(max_length=255, verbose_name='custodianslip_PoNo')
+    custodianslip_invoiceno = models.CharField(max_length=255, verbose_name='custodianslip_invoiceno')
+    custodianslip_quantity = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='custodianslip_quantity')
+    custodianslip_unit = models.CharField(max_length=50, verbose_name='createformsupply_unit')
+    custodianslip_unitcost = models.DecimalField(null= True, max_digits=10, decimal_places=2, verbose_name='custodianslip_unitcost')
+    custodianslip_totalcost = models.DecimalField(null= True, max_digits=10, decimal_places=2, verbose_name='custodianslip_totalcost')
+    custodianslip_description = models.TextField(verbose_name='custodianslip_description')
+    custodianslip_inventoryitemno = models.CharField(max_length=255, verbose_name='custodianslip_inventoryitemno')
+
+    class Meta:
+        db_table = "custodian_slip"
+
+
+class receiptform_equipment(models.Model):
+    receiptformequipment_id = models.AutoField(primary_key=True)
+    receiptformequipment_suppliedby = models.CharField(max_length=255, verbose_name='receiptformequipment_suppliedby')
+    receiptformequipment_PoNo = models.CharField(max_length=255, verbose_name='receiptformequipment_PoNo')
+    receiptformequipment_invoiceno = models.CharField(max_length=255, verbose_name='receiptformequipment_invoiceno')
+    receiptformequipment_quantity = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='receiptformequipment_quantity')
+    receiptformequipment_unit = models.CharField(max_length=50, verbose_name='receiptformequipment_unit')
+    receiptformequipment_propertyno = models.CharField(max_length=255, unique=True, verbose_name='receiptformequipment_propertyno')
+
+    class Meta:
+        db_table = "receiptform_equipment"
