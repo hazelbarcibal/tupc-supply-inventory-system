@@ -1572,3 +1572,43 @@ def export_pdf_supplycreateform(request):
             response.write(output.read())
 
         return response
+
+def export_pdf_equipment_arecreateform(request):
+        response=HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
+            str(datetime.datetime.now())+'.pdf'
+        supply = equipment_createform.objects.all()
+        response['Content-Transfer-Enconding'] = 'binary'
+
+
+        html_string = render_to_string('task/pdf-output-equipment-are.html' ,{'Form': supply})
+        html = HTML(string=html_string, base_url=request.build_absolute_uri())
+        result = html.write_pdf(presentational_hints=True)
+
+        with tempfile.NamedTemporaryFile(delete=False) as output:
+            output.write(result)
+            output.flush()
+            output = open(output.name, 'rb')
+            response.write(output.read())
+
+        return response
+
+def export_pdf_equipment_icscreateform(request):
+        response=HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
+            str(datetime.datetime.now())+'.pdf'
+        supply = custodian_slip.objects.all()
+        response['Content-Transfer-Enconding'] = 'binary'
+
+
+        html_string = render_to_string('task/pdf-output-equipment-ics.html' ,{'Form': supply})
+        html = HTML(string=html_string, base_url=request.build_absolute_uri())
+        result = html.write_pdf(presentational_hints=True)
+
+        with tempfile.NamedTemporaryFile(delete=False) as output:
+            output.write(result)
+            output.flush()
+            output = open(output.name, 'rb')
+            response.write(output.read())
+
+        return response
