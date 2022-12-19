@@ -37,6 +37,12 @@ def depWithdrawnItems(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
 def suppliesCreateform(request):
+    form = supply_createform_inputs()
+    form.createformsupply_inputs_office = request.user
+    form.createformsupply_inputs_purpose = request.POST.get('input_requestedby')
+    form.createformsupply_inputs_requestedby = request.POST.get('input_purpose')
+    form.save()
+    messages.success(request, 'You can now create your form!')
     return render(request, 'task/supply-createform-inputs.html')  
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -801,6 +807,7 @@ def depRequestSupply(request):
         return render(request, 'task/dep-request-supply.html', context)
     else:
         return redirect('inventorysystem-usersLogin')
+
 
 
 
