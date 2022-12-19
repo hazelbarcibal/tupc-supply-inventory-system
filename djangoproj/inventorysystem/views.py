@@ -37,6 +37,7 @@ def depWithdrawnItems(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
 def suppliesCreateform(request):
+    form = supplycreateforminputsForm()
     if request.method == "POST":
         if 'save_details' in request.POST:
             form = supply_createform_inputs()
@@ -44,18 +45,32 @@ def suppliesCreateform(request):
             form.createformsupply_inputs_requestedby = request.POST.get('input_requestedby')
             form.createformsupply_inputs_purpose = request.POST.get('input_purpose')
             form.save()
-    return render(request, 'task/supply-createform-inputs.html')
+
+    context = {
+        'form': form,
+        }
+    return render(request, 'task/supply-createform-inputs.html', context)
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
 def equipmentIcsform(request):
-    return render(request, 'task/equipment-icsform-inputs.html') 
+    form = equipment_icsform_inputsForm()
+
+    context = {
+        'form': form,
+        }
+    return render(request, 'task/equipment-icsform-inputs.html', context) 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
 def equipmentAreform(request):
-    return render(request, 'task/equipment-areform-inputs.html') 
+    form = equipment_areform_inputsForm()
+
+    context = {
+        'form': form,
+        }
+    return render(request, 'task/equipment-areform-inputs.html', context) 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
