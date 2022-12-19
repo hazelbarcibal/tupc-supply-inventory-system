@@ -39,6 +39,8 @@ urlpatterns = [
     path('equipment-withdraw/', views.equipmentWithdraw, name='inventorysystem-equipmentWithdraw'),
     path('createqr-equipment-withdraw/<int:pk>/', views.createqrequipmentWithdraw, name='inventorysystem-createqrequipmentWithraw'),
     path('equipment-return/', views.equipmentReturn, name='inventorysystem-equipmentReturn'),
+    path('equipment-icsform/', views.equipmentIcsform, name='inventorysystem-equipment-icsform'),
+    path('equipment-areform/', views.equipmentAreform, name='inventorysystem-equipment-areform'),
 #------------ MAPPING x EXPORT ----------------------
     path('storage-mapping/', views.storageMapping, name='inventorysystem-storageMapping'),
     path('export_excel/', views.export_excel, name='export_excel'),

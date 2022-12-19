@@ -50,34 +50,34 @@ class DeptUpdateForm(forms.ModelForm):
 
 #-------------- DELIVERY SUPPLIES ---------------
 class deliverySupplyForm(forms.ModelForm):
-    delivery_supply_description = forms.CharField(required=True, widget=forms.TextInput(
-            attrs={'list': 'deliveryItemname', 'class': 'form-control', 'placeholder': 'Description', 'autocomplete': 'on', 'id': 'delivery_supply_description'}))
+        delivery_supply_description = forms.CharField(required=True, widget=forms.TextInput(
+                attrs={'list': 'deliveryItemname', 'class': 'form-control', 'placeholder': 'Description', 'autocomplete': 'on', 'id': 'delivery_supply_description'}))
 
-    delivery_supply_unit = forms.CharField(required=True, widget=forms.TextInput(
-            attrs={'list': 'deliveryUnit', 'class': 'form-control', 'placeholder': 'Unit', 'autocomplete': 'on', 'id': 'delivery_supply_unit'}))
+        delivery_supply_unit = forms.CharField(required=True, widget=forms.TextInput(
+                attrs={'list': 'deliveryUnit', 'class': 'form-control', 'placeholder': 'Unit', 'autocomplete': 'on', 'id': 'delivery_supply_unit'}))
 
-    delivery_supply_quantity = forms.DecimalField(required=True,  widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'Quantity', 'min': 1, 'id': 'delivery_supply_quantity'}))   
+        delivery_supply_quantity = forms.DecimalField(required=True,  widget=forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Quantity', 'min': 1, 'id': 'delivery_supply_quantity'}))   
 
-    delivery_supply_remaining = forms.DecimalField(required=True,  widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'Remaining', 'id': 'delivery_supply_remaining'}))   
+        delivery_supply_remaining = forms.DecimalField(required=True,  widget=forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Remaining', 'id': 'delivery_supply_remaining'}))   
 
-    delivery_supplyRackNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'Rack No.', 'min': 0, 'id': 'delivery_supplyRackNo'}))   
+        delivery_supplyRackNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Rack No.', 'min': 0, 'id': 'delivery_supplyRackNo'}))   
 
-    delivery_supplyLayerNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'Layer No.', 'min': 0, 'id': 'delivery_supplyLayerNo'})) 
+        delivery_supplyLayerNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Layer No.', 'min': 0, 'id': 'delivery_supplyLayerNo'})) 
 
-    delivery_supplyCabinetNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'Cabinet No.', 'min': 0, 'id': 'delivery_supplyCabinetNo'})) 
+        delivery_supplyCabinetNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Cabinet No.', 'min': 0, 'id': 'delivery_supplyCabinetNo'})) 
 
-    delivery_supplyShelfNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
-            attrs={'class': 'form-control', 'placeholder': 'Shelf No.', 'min': 0, 'id': 'delivery_supplyShelfNo'})) 
+        delivery_supplyShelfNo = forms.DecimalField(required=True,  widget=forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Shelf No.', 'min': 0, 'id': 'delivery_supplyShelfNo'})) 
 
-    class Meta:
-        model = deliverysupply
-        fields = [ 'delivery_supply_description',  'delivery_supply_unit', 'delivery_supply_quantity', 'delivery_supply_remaining', 'delivery_supplyRackNo',
-                        'delivery_supplyLayerNo', 'delivery_supplyCabinetNo', 'delivery_supplyShelfNo']
+        class Meta:
+                model = deliverysupply
+                fields = [ 'delivery_supply_description',  'delivery_supply_unit', 'delivery_supply_quantity', 'delivery_supply_remaining', 'delivery_supplyRackNo',
+                                'delivery_supplyLayerNo', 'delivery_supplyCabinetNo', 'delivery_supplyShelfNo']
 
 
 class updateDeliverySupplyForm(forms.ModelForm):
@@ -397,3 +397,27 @@ class supplycreateforminputsForm(forms.ModelForm):
                 model = supply_createform_inputs
                 fields = ['createformsupply_inputs_office', 'createformsupply_inputs_requestedby', 
                         'createformsupply_inputs_purpose' ]
+
+class equipment_icsform_inputs(forms.ModelForm):
+        icsform_inputs_icsno = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ICS No', 'id': 'icsform_inputs_icsno'}))
+        icsform_inputs_suppliedby = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Supplied By', 'id': 'icsform_inputs_suppliedby'}))
+        icsform_inputs_pono = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'PO No', 'id': 'icsform_inputs_pono'}))
+        icsform_inputs_invoiceno = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Requested By', 'id': 'icsform_inputs_invoiceno'}))
+        icsform_inputs_receivedfrom = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Purpose', 'id': 'icsform_inputs_receivedfrom'}))
+
+        class Meta:
+                model = supply_createform_inputs
+                fields = ['icsform_inputs_icsno', 'icsform_inputs_suppliedby', 
+                        'icsform_inputs_pono', 'icsform_inputs_invoiceno', 'icsform_inputs_receivedfrom' ]
+
+class equipment_areform_inputs(forms.ModelForm):
+        areform_inputs_no = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ICS No', 'id': 'areform_inputs_no'}))
+        areform_inputs_suppliedby = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Supplied By', 'id': 'areform_inputs_suppliedby'}))
+        areform_inputs_pono = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'PO No', 'id': 'areform_inputs_pono'}))
+        areform_inputs_invoiceno = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Requested By', 'id': 'areform_inputs_invoiceno'}))
+        areform_inputs_receivedfrom = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Purpose', 'id': 'areform_inputs_receivedfrom'}))
+
+        class Meta:
+                model = supply_createform_inputs
+                fields = ['areform_inputs_no', 'areform_inputs_suppliedby', 
+                        'areform_inputs_pono', 'areform_inputs_invoiceno', 'areform_inputs_receivedfrom' ]

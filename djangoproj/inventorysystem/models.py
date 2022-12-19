@@ -368,7 +368,7 @@ class supply_createform_inputs(models.Model):
     createformsupply_inputs_id = models.AutoField(primary_key=True)
     createformsupply_inputs_office = models.CharField(max_length=255, verbose_name='createformsupply_inputs_office')
     createformsupply_inputs_requestedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_requestedby')
-    createformsupply_inputs_purpose = models.CharField(max_length=255, verbose_name=' reateformsupply_inputs_purpose')
+    createformsupply_inputs_purpose = models.CharField(max_length=255, verbose_name='createformsupply_inputs_purpose')
     current_date = models.DateField(default=date.today, verbose_name= 'createformsupply_inputs_current_date')
     current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'createformsupply_inputs_current_time')
 
@@ -419,3 +419,31 @@ class receiptform_equipment(models.Model):
 
     class Meta:
         db_table = "receiptform_equipment"
+
+class equipment_icsform_inputs(models.Model):
+    icsform_inputs_id = models.AutoField(primary_key=True)
+    icsform_inputs_icsno = models.CharField(max_length=255, verbose_name='icsform_inputs_icsno')
+    icsform_inputs_suppliedby = models.CharField(max_length=255, verbose_name='icsform_inputs_suppliedby')
+    icsform_inputs_pono = models.CharField(max_length=255, verbose_name='icsform_inputs_pono')
+    icsform_inputs_invoiceno = models.CharField(max_length=255, verbose_name='icsform_inputs_invoiceno')
+    icsform_inputs_receivedfrom = models.CharField(max_length=255, verbose_name='icsform_inputs_receivedfrom')
+    icsform_inputs_receivedby = models.CharField(max_length=255, verbose_name='icsform_inputs_receivedby')
+    current_date = models.DateField(default=date.today, verbose_name= 'icsform_inputs_current_date')
+    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'icsform_inputs_current_time')
+
+    class Meta:
+        db_table = "equipment_icsform_inputs"
+
+class equipment_areform_inputs(models.Model):
+    areform_inputs_id = models.AutoField(primary_key=True)
+    areform_inputs_no = models.CharField(max_length=255, verbose_name='areform_inputs_no')
+    areform_inputs_suppliedby = models.CharField(max_length=255, verbose_name='areform_inputs_suppliedby')
+    areform_inputs_pono = models.CharField(max_length=255, verbose_name='areform_inputs_pono')
+    areform_inputs_invoiceno = models.CharField(max_length=255, verbose_name='areform_inputs_invoiceno')
+    areform_inputs_receivedfrom = models.CharField(max_length=255, verbose_name='areform_inputs_receivedfrom')
+    areform_inputs_receivedby = models.CharField(max_length=255, verbose_name='areform_inputs_receivedby')
+    current_date = models.DateField(default=date.today, verbose_name= 'areform_inputs_current_date')
+    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'areform_inputs_current_time')
+
+    class Meta:
+        db_table = "equipment_areform_inputs"
