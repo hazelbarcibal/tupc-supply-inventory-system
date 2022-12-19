@@ -36,6 +36,11 @@ def depWithdrawnItems(request):
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
+def suppliesCreateform(request):
+    return render(request, 'task/supply-createform-inputs.html')  
+
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
 def index(request):
     return render(request, 'task/index.html')  
 

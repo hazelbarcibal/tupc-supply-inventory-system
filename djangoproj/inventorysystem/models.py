@@ -353,8 +353,8 @@ class supply_createform(models.Model):
     createformsupply_description = models.CharField(max_length=50, verbose_name='createformsupply_description')
     createformsupply_unit = models.CharField( max_length=50, verbose_name='createformsupply_unit')
     createformsupply_acceptedquantity = models.CharField( max_length=50, verbose_name='createformsupply_acceptedquantity')
-    createformsupply_amount = models.CharField(max_length=50, verbose_name='arequest_supply_amount')
-    createformsupply_requestedby = models.CharField(max_length=50, verbose_name='arequest_supply_requestedby')
+    createformsupply_amount = models.CharField(max_length=50, verbose_name='createformsupply_amount')
+    createformsupply_requestedby = models.CharField(max_length=50, verbose_name='createformsupply_requestedby')
     createformsupply_issued_by = models.CharField(max_length=50, verbose_name='createformsupply_issued_by')
     # current_date = models.DateTimeField(default=now, verbose_name= 'createformsupply_current_date')
     current_date = models.DateField(default=date.today, verbose_name= 'createformsupply_current_date')
@@ -363,6 +363,17 @@ class supply_createform(models.Model):
 
     class Meta:
         db_table = "supply_createform"
+
+class supply_createform_inputs(models.Model):
+    createformsupply_inputs_id = models.AutoField(primary_key=True)
+    createformsupply_inputs_office = models.CharField(max_length=255, verbose_name='createformsupply_inputs_office')
+    createformsupply_inputs_requestedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_requestedby')
+    createformsupply_inputs_purpose = models.CharField(max_length=255, verbose_name=' reateformsupply_inputs_purpose')
+    current_date = models.DateField(default=date.today, verbose_name= 'createformsupply_inputs_current_date')
+    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'createformsupply_inputs_current_time')
+
+    class Meta:
+        db_table = "supply_createform_inputs"
 
 class equipment_createform(models.Model):
 

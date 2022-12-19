@@ -278,6 +278,7 @@
           </div>
           <br>
                    <!------------------- Content Row ------------------->
+
                    <div class="row">
 
                     <div class="col-xl-12 col-md-12 mb-4">
@@ -286,9 +287,10 @@
                           <div class="kahon">
                         
                               <div class="col-xl-12 col-md-12">
-                                  <form action="{% url 'export_pdf_supplycreateform'%}">
-                                    <button type="submit" name = "create_form"class="btn btn-primary" style="margin: 10px 0px 10px 0px; float: right; "> CREATE FORM</button>
-                                  </form>
+                                <div style="float: right;" class="btn-group btn-group-sm" role="group">
+                                  <a type="button" href="{% url 'inventorysystem-suppliesCreateform' %}"
+                                      class="btn btn-primary" >CREATE FORM</a>
+                              </div>
 
                                   <form action="{% url 'inventorysystem-depRequestSupply'%}" method="POST" class="row g-3" enctype="multipart/form-data">
                                       {% csrf_token %}

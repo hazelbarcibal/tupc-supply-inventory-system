@@ -31,6 +31,7 @@ urlpatterns = [
     path('view-request-supplies/', views.viewRequestSupply, name='inventorysystem-viewRequestSupply'),
     path('dep-request-supply/', views.depRequestSupply, name='inventorysystem-depRequestSupply'), 
     path('supplies-withdraw/', views.suppliesWithdraw, name='inventorysystem-suppliesWithdraw'),
+    path('supplies-createform/', views.suppliesCreateform, name='inventorysystem-suppliesCreateform'),
 #---------- PATH FOR EQUIPMENT ----------------------
     path('equipment-delivery/', views.equipmentDeliver, name='inventorysystem-equipmentDeliver'),
     path('view-delivery-records/', views.viewDeliveryRecords, name='inventorysystem-viewDeliveryRecords'),

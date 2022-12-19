@@ -385,15 +385,15 @@ class supply_storageForm(forms.ModelForm):
 equipmentItemName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ItemName'}))
 equipmentLocation = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Location', 'min': 1,}))
 
-# class equipment_disposalForm(forms.ModelForm):
-    
-#     def __init__(self, *args, **kwargs):
-#         super(equipment_disposalForm, self).__init__(*args, **kwargs)
-#         instance = getattr(self, 'instance', None)
-#         if instance and instance.pk:
-#             self.fields['equipmentItemName'].widget.attrs['readonly'] = True
 
+# supply_createform - admin view
+class supplycreateforminputsForm(forms.ModelForm):
+        createformsupply_inputs_office = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Office', 'id': 'createformsupply_inputs_office'}))
+        createformsupply_inputs_requestedby = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Requested By', 'id': 'createformsupply_inputs_requestedby'}))
+        createformsupply_inputs_purpose = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Purpose', 'id': 'createformsupply_inputs_purpose'}))
+       
 
-#     class Meta:
-#         model = equipment_disposal
-#         fields = ['equipmentItemName', 'equipmentLocation']
+        class Meta:
+                model = supply_createform_inputs
+                fields = ['createformsupply_inputs_office', 'createformsupply_inputs_requestedby', 
+                        'createformsupply_inputs_purpose' ]
