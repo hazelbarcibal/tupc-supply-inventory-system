@@ -41,9 +41,9 @@ def suppliesCreateform(request):
     if request.method == "POST":
         if 'save_details' in request.POST:
             form = supply_createform_inputs()
-            form.createformsupply_inputs_office = request.POST.get('input_office')
-            form.createformsupply_inputs_requestedby = request.POST.get('input_requestedby')
-            form.createformsupply_inputs_purpose = request.POST.get('input_purpose')
+            form.createformsupply_inputs_office = request.POST.get('createformsupply_inputs_office')
+            form.createformsupply_inputs_requestedby = request.POST.get('createformsupply_inputs_requestedby')
+            form.createformsupply_inputs_purpose = request.POST.get('createformsupply_inputs_purpose')
             form.save()
 
     context = {
@@ -798,7 +798,6 @@ def depRequestSupply(request):
                         requesting.request_supply_quantity = request_addquantity
                         requesting.request_supply_remaining = request_quantity
                         requesting.request_supply_department = str(request.user)
-                        requesting.request_supply_requestedby = request_requestedby
                         requesting.request_supply_supplyRackNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyRackNo
                         requesting.request_supply_supplyLayerNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyLayerNo
                         requesting.request_supply_supplyCabinetNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyCabinetNo

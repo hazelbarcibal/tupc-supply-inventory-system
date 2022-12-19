@@ -71,12 +71,6 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label">Requested By:</label>
-                        <input type="text" class="form-control" id="requestby"
-                            name="request_supply_requestedby" readonly>
-                    </div>
-
-                    <div class="col-md-6">
                         <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
                             class="form-label">Accept Quantity:</label>
                         <input type="number" min="1" class="form-control" id="acceptquantity"
@@ -180,6 +174,10 @@
             select: false,
             "columnDefs": [
                 {
+                "targets": [5],
+                "visible": false,
+                },
+                {
                 "targets": [6],
                 "visible": false,
                 },
@@ -199,10 +197,6 @@
                 "targets": [10],
                 "visible": false,
                 },
-                {
-                "targets": [11],
-                "visible": false,
-                },
                 
             ]
         });
@@ -215,13 +209,12 @@
             $('#description').val(table.row(this).data()[2]);
             $('#unit').val(table.row(this).data()[3]);
             $('#requestquantity').val(table.row(this).data()[4]);
-            $('#requestby').val(table.row(this).data()[5]);
-            $('#supplyamount').val(table.row(this).data()[6]);
-            $('#issuedby').val(table.row(this).data()[7]);
-            $('#rackno').val(table.row(this).data()[8]);
-            $('#layerno').val(table.row(this).data()[9]);
-            $('#cabinetno').val(table.row(this).data()[10]);
-            $('#shelfno').val(table.row(this).data()[11]);
+            $('#supplyamount').val(table.row(this).data()[5]);
+            $('#issuedby').val(table.row(this).data()[6]);
+            $('#rackno').val(table.row(this).data()[7]);
+            $('#layerno').val(table.row(this).data()[8]);
+            $('#cabinetno').val(table.row(this).data()[9]);
+            $('#shelfno').val(table.row(this).data()[10]);
 
 
         });
@@ -362,7 +355,6 @@
                                         <th style="text-align: center;">Description</th>
                                         <th style="text-align: center;">Unit</th>
                                         <th style="text-align: center;">Request Quantity</th>
-                                        <th style="text-align: center;">Request By</th>
                                         <th style="text-align: center;">Amount</th>
                                         <th style="text-align: center;">Issued By</th>
                                         <th style="text-align: center;">Rack No</th>
@@ -382,7 +374,6 @@
                                         <td align="center">{{x.request_supply_description}}</td>
                                         <td align="center">{{x.request_supply_unit}}</td>
                                         <td align="center">{{x.request_supply_quantity}}</td>
-                                        <td align="center">{{x.request_supply_requestedby}}</td>
                                         <td align="center">{{x.request_supply_amount}}</td>
                                         <td align="center">{{x.request_supply_issuedby}}</td>
                                         <td align="center">{{x.request_supply_supplyRackNo}}</td>
