@@ -137,7 +137,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var table = $('#viewRequestSupplyTable').DataTable({
+        var table = $('#supplyWithdrawTable').DataTable({
             rowReorder: {
                 selector: 'td:nth-child(2)'
             },
@@ -166,6 +166,7 @@
 
         $('#supplyWithdrawTable tbody').on('click', 'tr', function () {
             $('#openModal').modal('show');
+            $('h5.modal-title').html('Withdraw Item for: ' + table.row(this).data()[1]);
             $('#editId').val(table.row(this).data()[0]);
             $('#department').val(table.row(this).data()[1]);
             $('#description').val(table.row(this).data()[2]);
@@ -182,15 +183,7 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        var table = $('#supplyWithdrawTable').DataTable({
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            },
-            responsive: true
-        });
-    });
-
+    
     $(document).ready(function () {
         var table = $('#depwithdrawnTable').DataTable({
             rowReorder: {

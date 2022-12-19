@@ -199,7 +199,7 @@ class requestequipment(models.Model):
 
 class acceptEquipmentRequests(models.Model):
 
-    acceptEquipmentRequests_id = models.AutoField(primary_key=True)
+    arequest_equipment_id = models.AutoField(primary_key=True)
     arequest_equipment_property_no = models.CharField(null = True, max_length=50, verbose_name='arequest_equipment_property_no')
     arequest_equipment_itemname = models.CharField(max_length=255, verbose_name='arequest_equipment_itemname')
     arequest_equipment_description = models.CharField(max_length=255, verbose_name='arequest_equipment_description')
@@ -329,7 +329,7 @@ class supply_email(models.Model):
     emailsupply_department = models.CharField( max_length=50, verbose_name='emailsupply_department')
     emailsupply_acceptedquantity = models.CharField( max_length=50, verbose_name='emailsupply_acceptedquantity')
     # current_date = models.CharField( max_length=50, verbose_name='currentdate')
-    current_date = models.CharField( max_length=50, verbose_name='currentdate')
+    current_date = models.CharField(max_length=50, verbose_name='currentdate')
     current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'current_time')
 
 
@@ -342,7 +342,7 @@ class equipment_email(models.Model):
     emailequipment_department = models.CharField(unique=True, max_length=50, verbose_name='emailequipment_department')
     emailequipment_acceptedquantity = models.CharField(unique=True, max_length=50, verbose_name='emailequipment_acceptedquantity')
     # current_date = models.CharField( max_length=50, verbose_name='currentdate')
-    current_date = models.DateField(default=date.today().strftime('%Y/%m/%d'), verbose_name= 'current_date')
+    current_date = models.CharField(max_length=50, verbose_name='currentdate')
     current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'current_time')
 
 
@@ -352,7 +352,7 @@ class equipment_email(models.Model):
 class supply_createform(models.Model):
     createformsupply_id = models.AutoField(primary_key=True)
     createformsupply_department = models.CharField(max_length=50, verbose_name='createformsupply_department')
-    createformsupply_description = models.CharField(max_length=50, verbose_name='createformsupply_description')
+    createformsupply_description = models.TextField(verbose_name='createformsupply_description')
     createformsupply_unit = models.CharField( max_length=50, verbose_name='createformsupply_unit')
     createformsupply_acceptedquantity = models.CharField( max_length=50, verbose_name='createformsupply_acceptedquantity')
     createformsupply_amount = models.CharField(max_length=50, verbose_name='createformsupply_amount')
@@ -383,7 +383,7 @@ class equipment_createform(models.Model):
     createformequipment_id = models.AutoField(primary_key=True)
     createformequipment_department = models.CharField(unique=True, max_length=50, verbose_name='createformequipment_department')
     createformequipment_itemname = models.CharField(unique=True, max_length=50, verbose_name='createformequipment_itemname')
-    createformequipment_description = models.CharField(unique=True, max_length=50, verbose_name='createformequipment_description')
+    createformequipment_description = models.TextField(verbose_name='createformequipment_description')
     createformequipment_brand = models.CharField(unique=True, max_length=50, verbose_name='createformequipment_brand')
     createformequipment_acceptedquantity = models.CharField(unique=True, max_length=50, verbose_name='createformequipment_acceptedquantity')
     # current_date = models.CharField( max_length=50, verbose_name='currentdate')
@@ -416,10 +416,10 @@ class receiptform_equipment(models.Model):
     receiptformequipment_quantity = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='receiptformequipment_quantity')
     receiptformequipment_itemname = models.CharField(max_length=50, verbose_name='receiptformequipment_itemname')
     receiptformequipment_department = models.CharField(max_length=50, verbose_name='receiptformequipment_itemname')
-    receiptformequipment_description = models.CharField(max_length=50, verbose_name='receiptformequipment_desccription')
+    receiptformequipment_description = models.TextField(verbose_name='receiptformequipment_desccription')
     receiptformequipment_unit = models.CharField(max_length=50, verbose_name='receiptformequipment_unit')
     receiptformequipment_propertyno = models.CharField(max_length=255, unique=True, verbose_name='receiptformequipment_propertyno')
-    receiptformequipment_amount = models.DecimalField(max_digits=255, decimal_places=5, verbose_name='receiptformequipment_amount')
+    receiptformequipment_amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='receiptformequipment_amount')
     current_date = models.CharField( max_length=50, verbose_name='currentdate')
 
     class Meta:
@@ -447,7 +447,7 @@ class equipment_areform_inputs(models.Model):
     areform_inputs_invoiceno = models.CharField(max_length=255, verbose_name='areform_inputs_invoiceno')
     areform_inputs_receivedfrom = models.CharField(max_length=255, verbose_name='areform_inputs_receivedfrom')
     areform_inputs_receivedby = models.CharField(max_length=255, verbose_name='areform_inputs_receivedby')
-    areform_inputs_totalamount = models.DecimalField(max_digits=255, decimal_places=5, verbose_name='areform_inputs_totalamount')
+    areform_inputs_totalamount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='areform_inputs_totalamount')
     current_date = models.CharField( max_length=50, verbose_name='currentdate')
 
     class Meta:
