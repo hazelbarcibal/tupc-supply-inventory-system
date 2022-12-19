@@ -40,18 +40,27 @@ def suppliesCreateform(request):
     form = supplycreateforminputsForm()
     if request.method == "POST":
         if 'save_details' in request.POST:
-            form = supply_createform_inputs()
-            form.createformsupply_inputs_office = request.POST.get('createformsupply_inputs_office')
-            form.createformsupply_inputs_requestedby = request.POST.get('createformsupply_inputs_requestedby')
-            form.createformsupply_inputs_purpose = request.POST.get('createformsupply_inputs_purpose')
-            form.createformsupply_inputs_approvedby = request.POST.get('createformsupply_inputs_approvedby')
-            form.createformsupply_inputs_receivedby = request.POST.get('createformsupply_inputs_receivedby')
-            form.createformsupply_inputs_issuedby = request.POST.get('createformsupply_inputs_issuedby')
-            form.createformsupply_inputs_department = request.user
-            form.save()
-            messages.success(request, 'Ready for creating a form!')
-            
-            return redirect('inventorysystem-suppliesCreateform')
+            if supply_createform.objects.filter(current_date = request.POST.get('date_accepted')).exists() == True:
+                form = supply_createform_inputs()
+                form.createformsupply_inputs_office = request.POST.get('createformsupply_inputs_office')
+                form.createformsupply_inputs_requestedby = request.POST.get('createformsupply_inputs_requestedby')
+                form.createformsupply_inputs_purpose = request.POST.get('createformsupply_inputs_purpose')
+                form.createformsupply_inputs_approvedby = request.POST.get('createformsupply_inputs_approvedby')
+                form.createformsupply_inputs_receivedby = request.POST.get('createformsupply_inputs_receivedby')
+                form.createformsupply_inputs_issuedby = request.POST.get('createformsupply_inputs_issuedby')
+                form.createformsupply_inputs_department = request.user
+                form.save()
+                messages.success(request, 'Ready for creating a form!')
+                
+                return redirect('inventorysystem-suppliesCreateform')
+            elif supply_createform.objects.filter(current_date = request.POST.get('date_accepted')).exists() == False:
+                messages.info(request, 'You do not have available for request for this date.')
+                return redirect('inventorysystem-suppliesCreateform')
+
+        if 'read_form' in request.POST:
+            if supply_createform.objects.filter(current_date = request.POST.get('date_accepted')).exists() == False:
+                messages.info(request, 'You do not have available for request for this date.')
+                return redirect('inventorysystem-suppliesCreateform')
 
     context = {
         'form': form,
@@ -653,6 +662,10 @@ def viewRequestSupply(request):
                     accept.arequest_supply_issued_by = request_issuedby
                     accept.arequest_supply_status = "Item Accepted"
                     accept.current_date = datetime.date.today()
+                    accept.arequest_supply_LayerNo = request.POST.get('Supply_Layer')
+                    accept.arequest_supply_RackNo = request.POST.get('Supply_Rack')
+                    accept.arequest_supply_CabinetNo = request.POST.get('Supply_Cabinet')
+                    accept.arequest_supply_ShelfNo = request.POST.get('Supply_Shelf')
                     requestsupply.objects.filter(requestsupply_id = getdata1).delete()       
                     status = statusSupplyRequest()
                     status.statusSupplyRequests_id = request_id
@@ -1011,7 +1024,7 @@ def equipmentDeliver(request):
                         statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete()
                         status.save()
 
-                        if request.POST.get('request_equipment_unitcost') == "":
+                        if int(request.POST.get('request_equipment_unitcost')) < int(50000) :
                             saveform = receiptform_equipment()
                             saveform.receiptformequipment_itemname = request_itemname
                             saveform.receiptformequipment_department = request_department
@@ -1019,10 +1032,11 @@ def equipmentDeliver(request):
                             saveform.receiptformequipment_unit = request.POST.get('request_equipment_unit')
                             saveform.receiptformequipment_quantity = request_acceptquantity
                             saveform.receiptformequipment_propertyno = request.POST.get('request_equipment_iin')
+                            saveform.receiptformequipment_amount = request.POST.get('request_equipment_unitcost')
                             saveform.current_date = datetime.date.today()
                             saveform.save()
 
-                        elif request.POST.get('request_equipment_unitcost') != "":
+                        elif int(request.POST.get('request_equipment_unitcost')) >= int(50000):
                             saveform2 = custodian_slip()
                             saveform2.custodianslip_itemname = request_itemname
                             saveform2.custodianslip_description = request_description
@@ -1185,11 +1199,11 @@ def createqrequipmentWithdraw(request, pk):
         (request.user.is_authenticated and request.user.is_admin):
 
         label = request.user
-        data = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk)
+        data = acceptEquipmentRequests.objects.get(arequest_equipment_id=pk)
         form = withdrawEquipmentForm(request.POST or None, instance=data)
         if request.method == 'POST':
-            getdata4 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk).acceptEquipmentRequests_id
-            getdata5 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id = getdata4)
+            getdata4 = acceptEquipmentRequests.objects.get(arequest_equipment_id=pk).arequest_equipment_id
+            getdata5 = acceptEquipmentRequests.objects.get(arequest_equipment_id_id = getdata4)
 
             if withdrawequipment.objects.filter(withdraw_equipment_property_no = request.POST.get('arequest_equipment_property_no')).exists() == True:
                 messages.info(request, 'existing property no.')
@@ -1248,7 +1262,7 @@ def createqrequipmentWithdraw(request, pk):
                     acceptEquipmentRequests.objects.filter(acceptEquipmentRequests_id = data1).delete()
 
                     not_delete = acceptEquipmentRequests()
-                    not_delete.acceptEquipmentRequests_id = getdata4
+                    not_delete.arequest_equipment_id = getdata4
                     not_delete.arequest_equipment_itemname = getdata5.arequest_equipment_itemname
                     not_delete.arequest_equipment_description = getdata5.arequest_equipment_description
                     not_delete.arequest_equipment_brand = getdata5.arequest_equipment_brand
@@ -1651,7 +1665,7 @@ def export_pdf_supplycreateform(request):
         response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
             str(datetime.datetime.now())+'.pdf'
         supply = supply_createform.objects.all().filter(createformsupply_department = request.user)
-        supply1 = supply_createform_inputs.objects.all()
+        supply1 = supply_createform_inputs.objects.all().filter(createformsupply_inputs_department = request.user)
         response['Content-Transfer-Enconding'] = 'binary'
 
 

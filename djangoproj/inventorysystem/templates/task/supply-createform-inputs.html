@@ -176,6 +176,10 @@
                             <form class="row g-3" action="" method="POST">
                                 {% csrf_token %}
                                 <div class="col-md-12">
+                                    <label class="form-label">Date Accepted: </label>
+                                    <input type = "date" name = "date_accepted" class="form-control" required>
+                                </div>
+                                <div class="col-md-12">
                                     <label class="form-label">Office: </label>
                                     {{form.createformsupply_inputs_office}}
                                 </div>
@@ -214,7 +218,7 @@
                                 <div  class="col-12">
                                     <form action="{% url 'export_pdf_supplycreateform'%}">
                                         <button type="submit" id="submit" class="btn1" name="create_form"
-                                        style="float: right; margin-top: 10px;" value="Submit"> Create Form </button>
+                                        style="float: right; margin-top: 10px;" name = "read_form"value="Submit"> Create Form </button>
                                     </form>
                                 </div>
                             </div>
