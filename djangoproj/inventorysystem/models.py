@@ -191,7 +191,7 @@ class requestequipment(models.Model):
     request_equipment_mainstoragequantity = models.DecimalField(null=True, max_digits=6, decimal_places=0, max_length=50, verbose_name='request_equipment_mainstoragequantity')
     request_equipment_acceptquantity = models.DecimalField(null=True, max_digits=6, decimal_places=0, max_length=50, verbose_name='request_equipment_acceptquantity')
     # current_date = models.DateTimeField(default=now, verbose_name= 'request_current_date')
-    current_date = models.DateField(default=date.today, verbose_name= 'request_current_date')
+    current_date = models.CharField(max_length=255, verbose_name= 'request_current_date')
     current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'request_current_time')
 
     class Meta:
@@ -213,7 +213,7 @@ class acceptEquipmentRequests(models.Model):
     arequest_equipment_serial_no = models.CharField(null = True, max_length=50, verbose_name='arequest_equipment_serial_no')
     arequest_equipment_certifiedcorrect = models.CharField(max_length=50, verbose_name='arequest_equipment_certifiedcorrect')
     # current_date = models.DateTimeField(default=now, verbose_name= 'arequest_current_date')
-    current_date = models.DateField(default=date.today, verbose_name= 'arequest_current_date')
+    current_date = models.CharField(max_length=255, verbose_name= 'arequest_current_date')
     current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'arequest_current_time')
 
     class Meta:
@@ -419,6 +419,7 @@ class receiptform_equipment(models.Model):
     receiptformequipment_description = models.CharField(max_length=50, verbose_name='receiptformequipment_desccription')
     receiptformequipment_unit = models.CharField(max_length=50, verbose_name='receiptformequipment_unit')
     receiptformequipment_propertyno = models.CharField(max_length=255, unique=True, verbose_name='receiptformequipment_propertyno')
+    receiptformequipment_amount = models.DecimalField(max_digits=255, decimal_places=5, verbose_name='receiptformequipment_amount')
     current_date = models.CharField( max_length=50, verbose_name='currentdate')
 
     class Meta:
@@ -446,6 +447,7 @@ class equipment_areform_inputs(models.Model):
     areform_inputs_invoiceno = models.CharField(max_length=255, verbose_name='areform_inputs_invoiceno')
     areform_inputs_receivedfrom = models.CharField(max_length=255, verbose_name='areform_inputs_receivedfrom')
     areform_inputs_receivedby = models.CharField(max_length=255, verbose_name='areform_inputs_receivedby')
+    areform_inputs_totalamount = models.DecimalField(max_digits=255, decimal_places=5, verbose_name='areform_inputs_totalamount')
     current_date = models.CharField( max_length=50, verbose_name='currentdate')
 
     class Meta:

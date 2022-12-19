@@ -93,10 +93,12 @@
         </tr>
       </thead>
       <tbody>
+        {% for a in Form1 %}
         <tr>
-          <td colspan="8" style="text-align: right;font-weight: bold;" colspan="2"> No.</td>
+          <td colspan="8" style="text-align: right;font-weight: bold;"> No. {{a.areform_inputs_no}}</td>
         </tr>
       </tbody>
+      {% endfor %}
       <thead>
         <tr>
           <th >Qty</th>
@@ -108,10 +110,10 @@
       <tbody>
         {% for y in Form %}
         <tr>
-          <td >1</td>
-          <td style="text-transform: uppercase;">Pcs </td>
-          <td colspan="4"> MYRNA M. TEPORA</td>
-          <td colspan="2">54738</td>
+          <td >{{y.receiptformequipment_quantity}}</td>
+          <td >{{y.receiptformequipment_unit}}</td>
+          <td style="text-align: left;" colspan="4">{{y.receiptformequipment_description}}</td>
+          <td colspan="2">{{y.receiptformequipment_propertyno}}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -134,45 +136,53 @@
           </tr>
         </tbody>
   
+        <!-- End of dummy -->
+        <tbody >
+          {% for y in Form1 %}
+          <tr>
+            <td></td>
+            <td ></td>
+            <td style="text-align: left;" colspan="4">Supplied by: {{y.areform_inputs_suppliedby}}</td>
+            <td colspan="2"></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tbody >
+          {% for y in Form1 %}
+          <tr>
+            <td></td>
+            <td ></td>
+            <td style="text-align: left;" colspan="4">P.O. No: {{y.areform_inputs_pono}}</td>
+            <td colspan="2"></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tbody >
+          {% for y in Form1 %}
+          <tr>
+            <td></td>
+            <td ></td>
+            <td style="text-align: left;" colspan="4">Invoice No: {{y.areform_inputs_invoiceno}}</td>
+            <td colspan="2"></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tbody >
+
+          <tr>
+            <td></td>
+            <td ></td>
+            <td style="text-align: left;" colspan="4">In the amount of Php. </td>
+            <td colspan="2"></td>
+          </tr>
+    
+        </tbody>
         <tbody style="color: white;">
           <tr>
             <td>1</td>
             <td >1</td>
             <td colspan="4">1</td>
             <td colspan="2">1</td>
-          </tr>
-        </tbody>
-        <!-- End of dummy -->
-        <tbody >
-          <tr>
-            <td></td>
-            <td ></td>
-            <td style="text-align: left;" colspan="4">Supplied by: </td>
-            <td colspan="2"></td>
-          </tr>
-        </tbody>
-        <tbody >
-          <tr>
-            <td></td>
-            <td ></td>
-            <td style="text-align: left;" colspan="4">P.O. No: </td>
-            <td colspan="2"></td>
-          </tr>
-        </tbody>
-        <tbody >
-          <tr>
-            <td></td>
-            <td ></td>
-            <td style="text-align: left;" colspan="4">Invoice No:</td>
-            <td colspan="2"></td>
-          </tr>
-        </tbody>
-        <tbody >
-          <tr>
-            <td></td>
-            <td ></td>
-            <td style="text-align: left;" colspan="4">In the amount of Php. </td>
-            <td colspan="2"></td>
           </tr>
         </tbody>
         <thead>
@@ -182,14 +192,16 @@
           </tr>
         </thead>
         <tbody >
+          {% for y in Form1 %}
           <tr>
-            <td colspan="4"></td>
-            <td colspan="4"></td>
+            <td colspan="4" style="text-transform: uppercase;">{{y.areform_inputs_receivedby}}</td>
+            <td colspan="4" style="text-transform: uppercase;">{{y.areform_inputs_receivedfrom}}</td>
           </tr>
+          {% endfor %}
         </tbody>
         <tbody >
           <tr>
-            <td style="font-weight: bold;" colspan="4"> Signature Over Printed Name</td>
+            <td style="font-weight: bold;" colspan="4" > Signature Over Printed Name</td>
             <td style="font-weight: bold;" colspan="4"> Signature Over Printed Name</td>
           </tr>
         </tbody>
@@ -205,6 +217,7 @@
             <td colspan="4"> <br><br><br> Date</td>
           </tr>
         </tbody>
+
     </table>
 
 </body>

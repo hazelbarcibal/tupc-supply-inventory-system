@@ -1645,15 +1645,17 @@ def export_pdf_equipreturn(request):
 def uploadsupplypdf(request):
      return render(request, 'task/upload-supply-pdf.html',)
 
+
 def export_pdf_supplycreateform(request):
         response=HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
             str(datetime.datetime.now())+'.pdf'
         supply = supply_createform.objects.all().filter(createformsupply_department = request.user)
+        supply1 = supply_createform_inputs.objects.all()
         response['Content-Transfer-Enconding'] = 'binary'
 
 
-        html_string = render_to_string('task/pdf-output-supplycreateform.html' ,{'Form': supply})
+        html_string = render_to_string('task/pdf-output-supplycreateform.html' ,{'Form': supply,'Form1': supply1})
         html = HTML(string=html_string, base_url=request.build_absolute_uri())
         result = html.write_pdf(presentational_hints=True)
 
@@ -1669,11 +1671,12 @@ def export_pdf_equipment_arecreateform(request):
         response=HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
             str(datetime.datetime.now())+'.pdf'
-        supply = equipment_createform.objects.all()
+        equipment = receiptform_equipment.objects.all()
+        equipment1 = equipment_areform_inputs.objects.all()
         response['Content-Transfer-Enconding'] = 'binary'
 
 
-        html_string = render_to_string('task/pdf-output-equipment-are.html' ,{'Form': supply})
+        html_string = render_to_string('task/pdf-output-equipment-are.html' ,{'Form': equipment, 'Form1': equipment1})
         html = HTML(string=html_string, base_url=request.build_absolute_uri())
         result = html.write_pdf(presentational_hints=True)
 
@@ -1689,11 +1692,12 @@ def export_pdf_equipment_icscreateform(request):
         response=HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
             str(datetime.datetime.now())+'.pdf'
-        supply = custodian_slip.objects.all()
+        equipment = custodian_slip.objects.all()
+        equipment1 = equipment_icsform_inputs.objects.all()
         response['Content-Transfer-Enconding'] = 'binary'
 
 
-        html_string = render_to_string('task/pdf-output-equipment-ics.html' ,{'Form': supply})
+        html_string = render_to_string('task/pdf-output-equipment-ics.html' ,{'Equip': equipment, 'Equips': equipment1})
         html = HTML(string=html_string, base_url=request.build_absolute_uri())
         result = html.write_pdf(presentational_hints=True)
 

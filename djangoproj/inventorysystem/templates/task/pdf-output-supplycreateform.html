@@ -16,10 +16,6 @@
       size: letter portrait;
       margin: 1cm 1.5cm 2.5cm 1.5cm;
       font-size: 0.3cm;
-
-      @bottom-right {
-        content: "Page" counter(page) " of " counter(pages);
-      }
     }
 
     table {
@@ -92,27 +88,27 @@
             <p style="font-size: 13px; ">Entry Name: Technological University of the Philippines at Cavite <span style="color: white;">AHH</span> Fund Cluster: </p> 
         </div>
     </div>
-    <table>
-      
- 
-
-    </table>
     
-
     <table class="Table-Content">
-          <thead class="">
+        <tbody>
+          {% for a in Form1 %}
+          <tr>
+            <th style="text-align: left;">Office:</th>
+            <td style="text-align: left;" colspan="4">{{a.createformsupply_inputs_office}}</td>
+            <th style="text-align: left;">RIS No: </th>
+            <td style="text-align: left;" colspan="3"></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <thead class="">
+          {% for a in Form1 %}
             <tr>
               <th style="text-align: left;">Division:</th>
-              <th colspan="5" style="color: white;">-------</th>
-              <th style="text-align: left;"colspan="3">Responsibility Center Code:</th>
+              <td style="text-align: left;" colspan="4">{{a.createformsupply_inputs_department}}</td>
+              <th style="text-align: left;"> Responsibility <br> Center Code:</th>
+              <td style="text-align: left;" colspan="3"></td>
             </tr>
-        </thead>
-        <thead class="">
-            <tr>
-              <th  style="text-align: left;">Office:</th>
-              <th colspan="5" style="color: white;"></th>
-              <th style="text-align: left;" colspan="3">RIS No:</th>
-            </tr>
+            {% endfor %}
         </thead>
 
         <thead class="thead_1">
@@ -138,68 +134,24 @@
         {% for y in Form %}
         <tr>
           <td>{{y.}}</td>
-          <td >{{y.createformsupply_unit}} HAHHAHA</td>
+          <td >{{y.createformsupply_unit}}</td>
           <td style="text-align: left;" colspan="2">{{y.createformsupply_description}}</td>
           <td>{{y.createformsupply_acceptedquantity}}</td>
-          <td>{{y.}}</td>
+          <td>/</td>
           <td>{{y.}}</td>
           <td>{{y.createformsupply_acceptedquantity}}</td>
           <td style="text-align: right;">{{y.createformsupply_amount}}</td>
         </tr>
         {% endfor %}
       </tbody>
-      <!-- Dummy -->
-      <tbody style="color: white;">
-        {% for y in Form %}
+
+        {% for a in Form1 %}
         <tr>
-          <td>{{y.}}</td>
-          <td >{{y.createformsupply_unit}}</td>
-          <td colspan="2">{{y.createformsupply_description}}</td>
-          <td>{{y.createformsupply_acceptedquantity}}</td>
-          <td>{{y.}}</td>
-          <td>{{y.}}</td>
-          <td>{{y.createformsupply_acceptedquantity}}</td>
-          <td>{{y.}}</td>
+          <th style="text-align: left;">Purpose: </th>
+          <td colspan="8" style="text-align: left;">{{a.createformsupply_inputs_purpose}}</td>
         </tr>
         {% endfor %}
       </tbody>
-
-      <tbody style="color: white;">
-        {% for y in Form %}
-        <tr>
-          <td>{{y.}}</td>
-          <td >{{y.createformsupply_unit}}</td>
-          <td colspan="2">{{y.createformsupply_description}}</td>
-          <td>{{y.createformsupply_acceptedquantity}}</td>
-          <td>{{y.}}</td>
-          <td>{{y.}}</td>
-          <td>{{y.createformsupply_acceptedquantity}}</td>
-          <td>{{y.}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-
-      <tbody style="color: white;">
-        {% for y in Form %}
-        <tr>
-          <td>{{y.}}</td>
-          <td >{{y.createformsupply_unit}}</td>
-          <td colspan="2">{{y.createformsupply_description}}</td>
-          <td>{{y.createformsupply_acceptedquantity}}</td>
-          <td>{{y.}}</td>
-          <td>{{y.}}</td>
-          <td>{{y.createformsupply_acceptedquantity}}</td>
-          <td>{{y.}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-      <!-- End of dummy -->
-
-      <thead class="thead_1">
-        <tr>
-          <th rowspan="2">Purpose: </th>
-        </tr>
-      </thead>
 
     </table>
 
@@ -219,21 +171,21 @@
             </tr>
           </thead>
           <tbody>
-            {% for y in Form %}
+            {% for a in Form1 %}
             <tr>
               <td style="text-align: left; font-weight: bold;" colspan="2">Printed Name</td>
-              <td style="text-transform: uppercase;">{{y.createformsupply_requestedby}} </td>
-              <td colspan="3"> MYRNA M. TEPORA</td>
-              <td style="text-transform: uppercase;" colspan="2">{{y.createformsupply_issued_by}} </td>
-              <td style="text-transform: uppercase;" colspan="2"></td>
+              <td style="text-transform: uppercase;">{{a.createformsupply_inputs_requestedby}} </td>
+              <td colspan="3" style="text-transform: uppercase ;"> {{a.createformsupply_inputs_approvedby}}</td>
+              <td style="text-transform: uppercase;" colspan="2">{{a.createformsupply_inputs_issuedby}} </td>
+              <td style="text-transform: uppercase;" colspan="2">{{a.createformsupply_inputs_receivedby}}</td>
             </tr>
             {% endfor %}
           </tbody>
           <tbody>
-            {% for y in Form %}
+            {% for a in Form1 %}
             <tr>
               <td style="text-align: left; font-weight: bold;" colspan="2"> Designation</td>
-              <td style="text-transform:lowercase;">{{y.createformsupply_department}} </td>
+              <td style="text-transform:lowercase;">{{a.createformsupply_inputs_department}} </td>
               <td colspan="3"> Campus Director</td>
               <td style="text-transform: uppercase;" colspan="2"></td>
               <td style="text-transform: uppercase;" colspan="2"></td>
@@ -241,7 +193,6 @@
             {% endfor %}
           </tbody>
           <tbody>
-            {% for y in Form %}
             <tr>
               <td style="text-align: left; font-weight: bold;" colspan="2"> Date:</td>
               <td ></td>
@@ -249,7 +200,6 @@
               <td colspan="2"></td>
               <td colspan="2"></td>
             </tr>
-            {% endfor %}
           </tbody>
 
     </table>

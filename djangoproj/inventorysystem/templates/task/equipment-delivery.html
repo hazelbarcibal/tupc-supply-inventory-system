@@ -232,7 +232,7 @@
                                         <th>Request No.</th>
                                         <th style="text-align: center;">Department</th>
                                         <th style="text-align: center;">Accepted Quantity</th>
-                                        <th style="text-align: center;">Date & Time</th>
+                                        <th style="text-align: center;">Date</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
                                 </thead>
@@ -331,25 +331,27 @@
                     </div>
 
                     <div class="col-md-6">
-                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                            class="form-label">Inventory Item No./Property No.:</label>
-                        <input type="text" min="1" class="form-control" id="iin" name="request_equipment_iin"
-                            required>
-                    </div>
-                    
-                    <div class="col-md-6">
-                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                            class="form-label">Unit Cost:</label>
+                        <label class="form-label">Unit Cost:</label>
                         <input type="number" min="1" class="form-control" id="unitcost"
                             name="request_equipment_unitcost">
                     </div>
-
+                    
                     <div class="col-md-6">
                         <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
                             class="form-label">Unit:</label>
                         <input type="text" min="1" class="form-control" id="unit" name="request_equipment_unit"
                             required>
                     </div>
+                    
+                    <div class="col-md-12">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                            class="form-label">Inventory Item No./ <br> Property No.:</label>
+                        <input type="text" min="1" class="form-control" id="iin" name="request_equipment_iin"
+                            required>
+                    </div>
+                    
+
+
 
 
                     <div class="modal-footer">
@@ -385,8 +387,9 @@
             $('#description1').val(data[3]);
             $('#requestquantity').val(data[4]);
             $('#unitcost').val(data[5]);
-            $('#iin').val(data[6]);
-            $('#unit').val(data[7]);
+            $('#unit').val(data[6]);
+            $('#iin').val(data[7]);
+ 
         });
     });
 
