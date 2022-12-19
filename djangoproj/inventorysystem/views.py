@@ -46,9 +46,9 @@ def suppliesCreateform(request):
                 form.createformsupply_inputs_office = request.POST.get('createformsupply_inputs_office')
                 form.createformsupply_inputs_requestedby = request.POST.get('createformsupply_inputs_requestedby')
                 form.createformsupply_inputs_purpose = request.POST.get('createformsupply_inputs_purpose')
-                form.createformsupply_inputs_approvedby = request.POST.get('createformsupply_inputs_approvedby')
+                form.createformsupply_inputs_approvedby = "MYRNA M. TEPORA"
                 form.createformsupply_inputs_receivedby = request.POST.get('createformsupply_inputs_receivedby')
-                form.createformsupply_inputs_issuedby = request.POST.get('createformsupply_inputs_issuedby')
+                form.createformsupply_inputs_issuedby = "B.F. GASCON"
                 form.createformsupply_inputs_department = request.user
                 form.save()
                 messages.success(request, 'Ready for creating a form!')
@@ -943,6 +943,7 @@ def suppliesWithdraw(request):
                 acceptSupplyRequests.objects.filter(acceptSupplyRequests_id = getdata1).delete()
                 statusSupplyRequest.objects.filter(status_supply_department = withdraw_department).filter(status_supply_description = withdraw_description).delete()    
                 supply_createform.objects.all().filter(createformsupply_department = withdraw_department).delete() 
+                supply_createform_inputs.objects.all().filter(createformsupply_inputs_department = withdraw_department).delete()
                 accept.save()
 
                 messages.success(request, 'successfully withdraw')
