@@ -168,39 +168,33 @@
 
             <!-- Content Row -->
             <div class="row">
-                <div class="col-xl-12 col-md-12 mb-4">
+                <div class="col-xl-12 col-md-12 mb-4 mt-4">
                     <div class="container">
                         <div class="kahon">
                             <h3>Create Form</h3>
                             <br>
                             <form class="row g-3" action="" method="POST">
                                 {% csrf_token %}
-                                <div class="col-md-12">
-                                    <label class="form-label">Date Accepted: </label>
-                                    <input type = "date" name = "date_accepted" class="form-control" required>
+                                
+                                <div class="col-md-6">
+                                    <label class="form-label">Date: </label>
+                                    <input type="date" name="date" id="date" class="form-control" readonly>
                                 </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Office: </label>
+                                <div class="col-md-6">
+                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Office: </label>
                                     {{form.createformsupply_inputs_office}}
                                 </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Requested by: </label><br>
+                                <div class="col-md-6">
+                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Requested by: </label><br>
                                     {{form.createformsupply_inputs_requestedby}}
                                 </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Approved By: </label>
-                                    {{form.createformsupply_inputs_approvedby}}
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Issued By: </label>
-                                    {{form.createformsupply_inputs_issuedby}}
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Received By: </label>
+                                
+                                <div class="col-md-6">
+                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Received By: </label>
                                     {{form.createformsupply_inputs_receivedby}}
                                 </div>
                                 <div class="col-md-12">
-                                    <label class="form-label">Purpose: </label>
+                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Purpose: </label>
                                     {{form.createformsupply_inputs_purpose}}
                                 </div>
 
@@ -271,5 +265,9 @@
 </div>
 <!-- End of Page Wrapper -->
 
+<script type="text/javascript">
+    document.getElementById('date').value = localStorage.getItem("storageName");
+    window.onload = document.getElementById('date').value;
+</script>
 
 {% endblock %}

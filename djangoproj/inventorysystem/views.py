@@ -38,6 +38,7 @@ def depWithdrawnItems(request):
 @login_required(login_url='inventorysystem-usersLogin')
 def suppliesCreateform(request):
     form = supplycreateforminputsForm()
+    label = request.user
     if request.method == "POST":
         if 'save_details' in request.POST:
             if supply_createform.objects.filter(current_date = request.POST.get('date_accepted')).exists() == True:
@@ -64,6 +65,7 @@ def suppliesCreateform(request):
 
     context = {
         'form': form,
+        'label': label,
         }
     return render(request, 'task/supply-createform-inputs.html', context)
 
@@ -788,85 +790,93 @@ def depRequestSupply(request):
             request_addquantity = request.POST.get('request_addquantity')
             request_requestedby = request.POST.get('requestedby')
 
-            # if 'create_form' in request.POST:
-            #     if supply_createform.objects.filter(createformsupply_department = request.user).exists() == True:
-            #         response=HttpResponse(content_type='application/pdf')
-            #         response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
-            #             str(datetime.datetime.now())+'.pdf'
-            #         supply = supply_createform.objects.all().filter(createformsupply_department = request.user)
-            #         response['Content-Transfer-Enconding'] = 'binary'
+            if 'create_form' in request.POST:
+                # print(request.POST.get('datepicker'))
+                if request.POST.get('datepicker') == '':
+                    messages.info(request, 'Please type in a date.')
+
+                elif supply_createform.objects.filter(createformsupply_department = request.user).filter(current_date = request.POST.get('datepicker')).exists() == True:
+                    return redirect('inventorysystem-suppliesCreateform')
+
+                elif supply_createform.objects.filter(createformsupply_department = request.user).filter(current_date = request.POST.get('datepicker')).exists() == False:
+                    messages.info(request, 'Invalid.')
+                    
+                # if supply_createform.objects.filter(createformsupply_department = request.user).exists() == True:
+                #     response=HttpResponse(content_type='application/pdf')
+                #     response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
+                #         str(datetime.datetime.now())+'.pdf'
+                #     supply = supply_createform.objects.all().filter(createformsupply_department = request.user)
+                #     response['Content-Transfer-Enconding'] = 'binary'
 
 
-            #         html_string = render_to_string('task/pdf-output-supplycreateform.html' ,{'Form': supply})
-            #         html = HTML(string=html_string, base_url=request.build_absolute_uri())
-            #         result = html.write_pdf(presentational_hints=True)
+                #     html_string = render_to_string('task/pdf-output-supplycreateform.html' ,{'Form': supply})
+                #     html = HTML(string=html_string, base_url=request.build_absolute_uri())
+                #     result = html.write_pdf(presentational_hints=True)
 
-            #         with tempfile.NamedTemporaryFile(delete=False) as output:
-            #             output.write(result)
-            #             output.flush()
-            #             output = open(output.name, 'rb')
-            #             response.write(output.read())
+                #     with tempfile.NamedTemporaryFile(delete=False) as output:
+                #         output.write(result)
+                #         output.flush()
+                #         output = open(output.name, 'rb')
+                #         response.write(output.read())
 
-            #         return response
+                #     return response
 
-            #     elif supply_createform.objects.filter(createformsupply_department = request.user).exists() == False:
+                # elif supply_createform.objects.filter(createformsupply_department = request.user).exists() == False:
 
-            #         messages.info(request, 'No available items')
-            #         return redirect('inventorysystem-depRequestSupply')
+                #     messages.info(request, 'No available items')
+                #     return redirect('inventorysystem-depRequestSupply')
                     
             
-            if statusSupplyRequest.objects.filter(status_supply_description = request.POST.get('request_description')).filter(status_supply_department = request.user).exists() == True:
-                
+            if 'request_update' in request.POST:
+
+                if statusSupplyRequest.objects.filter(status_supply_description = request.POST.get('request_description')).filter(status_supply_department = request.user).exists() == True:
                     messages.info(request, 'You already have a request for this item.')
                     return redirect('inventorysystem-depRequestSupply')
 
-            elif int(request_addquantity) == 0:
+                elif int(request_addquantity) == 0:
                     messages.info(request, 'Not enough quantity for this item.')
                     return redirect('inventorysystem-depRequestSupply')
 
-            elif int(request_addquantity) > int(request_quantity):
-
+                elif int(request_addquantity) > int(request_quantity):
                     messages.info(request, 'Not enough quantity for this item.')
                     return redirect('inventorysystem-depRequestSupply')
 
-            elif int(request_addquantity) <= 0:
-
+                elif int(request_addquantity) <= 0:
                     messages.info(request, 'Check the available quantity')
                     return redirect('inventorysystem-depRequestSupply')
 
-            elif statusSupplyRequest.objects.filter(status_supply_description = request.POST.get('request_description')).filter(status_supply_department = request.user).exists() == False:
-        
-                        requesting = requestsupply()
-                        requesting.requestsupply_id = request_id
-                        requesting.request_supply_description = request_description
-                        requesting.request_supply_unit = request_unit
-                        requesting.request_supply_quantity = request_addquantity
-                        requesting.request_supply_remaining = request_quantity
-                        requesting.request_supply_department = str(request.user)
-                        requesting.request_supply_supplyRackNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyRackNo
-                        requesting.request_supply_supplyLayerNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyLayerNo
-                        requesting.request_supply_supplyCabinetNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyCabinetNo
-                        requesting.request_supply_supplyShelfNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyShelfNo
-                        requesting.request_supply_status = "waiting to accept"
-                        status = statusSupplyRequest()
-                        status.status_supply_description = request_description
-                        status.status_supply_unit = request_unit
-                        status.status_supply_quantity = request_addquantity
-                        status.status_supply_remaining = request_quantity
-                        status.status_supply_department = request.user
-                        status.status_supply_status = "waiting to accept"
-                        requesting.save()
-                        status.save()
+                elif statusSupplyRequest.objects.filter(status_supply_description = request.POST.get('request_description')).filter(status_supply_department = request.user).exists() == False:
+                    requesting = requestsupply()
+                    requesting.requestsupply_id = request_id
+                    requesting.request_supply_description = request_description
+                    requesting.request_supply_unit = request_unit
+                    requesting.request_supply_quantity = request_addquantity
+                    requesting.request_supply_remaining = request_quantity
+                    requesting.request_supply_department = str(request.user)
+                    requesting.request_supply_supplyRackNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyRackNo
+                    requesting.request_supply_supplyLayerNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyLayerNo
+                    requesting.request_supply_supplyCabinetNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyCabinetNo
+                    requesting.request_supply_supplyShelfNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyShelfNo
+                    requesting.request_supply_status = "waiting to accept"
+                    status = statusSupplyRequest()
+                    status.status_supply_description = request_description
+                    status.status_supply_unit = request_unit
+                    status.status_supply_quantity = request_addquantity
+                    status.status_supply_remaining = request_quantity
+                    status.status_supply_department = request.user
+                    status.status_supply_status = "waiting to accept"
+                    requesting.save()
+                    status.save()
 
-                        messages.success(request, 'Request Successful for itemname ')
-                        subject = str(request.user)
-                        message = "Good day!\n\nI have requested item in supply. Please see the details in the website. Thank you!\n\nKind regards,\n"+ str(request.user)
-                        depinfo = str(CustomUser.objects.get(department=str(request.user)).email)
-                        print(depinfo)
-                        recipient = settings.EMAIL_HOST_USER
-                        send_mail(subject, message, depinfo, [recipient], fail_silently=False)
+                    messages.success(request, 'Request Successful for itemname ')
+                    subject = str(request.user)
+                    message = "Good day!\n\nI have requested item in supply. Please see the details in the website. Thank you!\n\nKind regards,\n"+ str(request.user)
+                    depinfo = str(CustomUser.objects.get(department=str(request.user)).email)
+                    print(depinfo)
+                    recipient = settings.EMAIL_HOST_USER
+                    send_mail(subject, message, depinfo, [recipient], fail_silently=False)
 
-                        return redirect('inventorysystem-depRequestSupply')
+                    return redirect('inventorysystem-depRequestSupply')
 
 
 

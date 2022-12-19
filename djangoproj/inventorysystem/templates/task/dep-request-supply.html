@@ -286,19 +286,16 @@
                         <div class="container">
                           <div class="kahon">
                         
-                              <div class="col-xl-12 col-md-12">
-                                <input type = "date">
-                                <div style="float: right;" class="btn-group btn-group-sm" role="group">
-                                  <a type="button" href="{% url 'inventorysystem-suppliesCreateform' %}"
-                                      class="btn btn-primary" >CREATE FORM</a>
-                              </div>
-
-                                  </div>
-      
+                            <div class="col-xl-12 col-md-12 m-0">
+                              <form action="" method="post">
+                                {% csrf_token %}
+                                <input type = "date" name="datepicker" id="datepicker" class="form-control" style="width: 20%; margin-bottom: 5px;" >
+                                <span><button type="submit" name="create_form" align="right"
+                                      class="btn btn-primary" onclick="getVal();">CREATE FORM</button></span>
                               </form>
-                              <!-- <a href="{% url 'upload-supply-pdf'%}">
-                                  <button  type="submit" id="uploadBtn" name = "upload_form" class="btn btn-success" style="margin: 10px 0px 10px 0px;"> UPLOAD</button>
-                              </a> -->
+
+                            </div>
+                            <br>
   
                               <table id="createformTable" class="table table-striped" style="width:100%;">
                                   <thead>
@@ -341,6 +338,11 @@
                             responsive: true
                         });
                     });
+
+                    function getVal() {
+                      var getInput = document.getElementById('datepicker').value;
+                      localStorage.setItem("storageName",getInput);
+                    }
                 
                 </script>
 
@@ -495,7 +497,7 @@
 
                 <div class="modal-footer">
                   <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Request</button>
+                    <button type="submit" name="request_update" class="btn btn-primary">Request</button>
                   </div>
                 </div>
               </form>
