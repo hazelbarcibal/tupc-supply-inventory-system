@@ -102,6 +102,7 @@ def equipmentAreform(request):
             form.areform_inputs_receivedby = request.POST.get('areform_inputs_receivedby')
             form.areform_inputs_receivedfrom = request.POST.get('areform_inputs_receivedfrom')
             form.areform_inputs_suppliedby = request.POST.get('areform_inputs_suppliedby')
+            form.areform_inputs_totalamount = request.POST.get('areform_inputs_totalamount')
             form.save()
             messages.success(request, 'Ready for creating a form!')
             return redirect('inventorysystem-equipment-areform')
@@ -1203,7 +1204,7 @@ def createqrequipmentWithdraw(request, pk):
         form = withdrawEquipmentForm(request.POST or None, instance=data)
         if request.method == 'POST':
             getdata4 = acceptEquipmentRequests.objects.get(arequest_equipment_id=pk).arequest_equipment_id
-            getdata5 = acceptEquipmentRequests.objects.get(arequest_equipment_id_id = getdata4)
+            getdata5 = acceptEquipmentRequests.objects.get(arequest_equipment_id = getdata4)
 
             if withdrawequipment.objects.filter(withdraw_equipment_property_no = request.POST.get('arequest_equipment_property_no')).exists() == True:
                 messages.info(request, 'existing property no.')
@@ -1221,11 +1222,11 @@ def createqrequipmentWithdraw(request, pk):
 
             elif acceptEquipmentRequests.objects.filter(arequest_equipment_itemname = request.POST.get('arequest_equipment_itemname')).filter(arequest_equipment_issued_to = request.POST.get('arequest_equipment_issued_to')).exists() == True:
 
-                data1 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk).acceptEquipmentRequests_id
+                data1 = acceptEquipmentRequests.objects.get(arequest_equipment_id=pk).arequest_equipment_id
 
-                if int(acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id = data1).arequest_equipment_quantity) == 1:
+                if int(acceptEquipmentRequests.objects.get(arequest_equipment_id = data1).arequest_equipment_quantity) == 1:
                     accept = withdrawequipment()
-                    getdata2 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk).acceptEquipmentRequests_id
+                    getdata2 = acceptEquipmentRequests.objects.get(arequest_equipment_id=pk).arequest_equipment_id
                     accept.withdraw_equipment_property_no = request.POST.get('arequest_equipment_property_no')
                     accept.withdraw_equipment_itemname = request.POST.get('arequest_equipment_itemname')
                     accept.withdraw_equipment_description = request.POST.get('arequest_equipment_description')
@@ -1236,19 +1237,19 @@ def createqrequipmentWithdraw(request, pk):
                     accept.withdraw_equipment_serial_no = request.POST.get('arequest_equipment_serial_no')
                     accept.withdraw_equipment_certifiedcorrect = request.POST.get('arequest_equipment_certifiedcorrect')
                     accept.withdraw_equipment_status = "withdrawn"
-                    acceptEquipmentRequests.objects.filter(acceptEquipmentRequests_id = data1).delete()
+                    acceptEquipmentRequests.objects.filter(arequest_equipment_id = data1).delete()
                     statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata2).delete()         
-                    acceptEquipmentRequests.objects.filter(acceptEquipmentRequests_id = data1).delete()
+                    acceptEquipmentRequests.objects.filter(arequest_equipment_id = data1).delete()
                     statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata2).delete()
                     accept.save()
                     messages.success(request, 'successfully withdraw')
                     return redirect('inventorysystem-equipmentWithdraw')
 
 
-                elif int(acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id = data1).arequest_equipment_quantity) > 1:
+                elif int(acceptEquipmentRequests.objects.get(arequest_equipment_id = data1).arequest_equipment_quantity) > 1:
 
                     accept = withdrawequipment() 
-                    getdata2 = acceptEquipmentRequests.objects.get(acceptEquipmentRequests_id=pk).acceptEquipmentRequests_id
+                    getdata2 = acceptEquipmentRequests.objects.get(arequest_equipment_idd=pk).arequest_equipment_id
                     accept.withdraw_equipment_property_no = request.POST.get('arequest_equipment_property_no')
                     accept.withdraw_equipment_itemname = request.POST.get('arequest_equipment_itemname')
                     accept.withdraw_equipment_description = request.POST.get('arequest_equipment_description')
@@ -1259,7 +1260,7 @@ def createqrequipmentWithdraw(request, pk):
                     accept.withdraw_equipment_serial_no = request.POST.get('arequest_equipment_serial_no')
                     accept.withdraw_equipment_certifiedcorrect = request.POST.get('arequest_equipment_certifiedcorrect')
                     accept.withdraw_equipment_status = "withdrawn"
-                    acceptEquipmentRequests.objects.filter(acceptEquipmentRequests_id = data1).delete()
+                    acceptEquipmentRequests.objects.filter(arequest_equipment_id = data1).delete()
 
                     not_delete = acceptEquipmentRequests()
                     not_delete.arequest_equipment_id = getdata4

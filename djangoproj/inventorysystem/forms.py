@@ -187,7 +187,7 @@ arequest_supply_description = forms.CharField(widget=forms.TextInput(attrs={'cla
 arequest_supply_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
 arequest_supply_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity', 'min': 1,}))
 arequest_supply_remaining = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaining'}))
-current_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Date & Time'}))
+current_date = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Date'}))
 arequest_supply_status = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
 
 class withdrawStatusForm(forms.ModelForm):
@@ -420,8 +420,8 @@ class equipment_areform_inputsForm(forms.ModelForm):
         areform_inputs_invoiceno = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Invoice No.', 'id': 'areform_inputs_invoiceno'}))
         areform_inputs_receivedfrom = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Received from', 'id': 'areform_inputs_receivedfrom'}))
         areform_inputs_receivedby = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Received by', 'id': 'areform_inputs_receivedby'}))
-       
+        areform_inputs_totalamount = forms.DecimalField(required=True, widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Total Amount', 'id': 'areform_inputs_totalamount'}))
         class Meta:
                 model = equipment_areform_inputs
-                fields = ['areform_inputs_no', 'areform_inputs_suppliedby', 
-                        'areform_inputs_pono', 'areform_inputs_invoiceno', 'areform_inputs_receivedfrom', 'areform_inputs_receivedby']
+                fields = ['areform_inputs_no', 'areform_inputs_suppliedby', 'areform_inputs_pono', 'areform_inputs_invoiceno', 
+                'areform_inputs_receivedfrom', 'areform_inputs_receivedby', 'areform_inputs_totalamount']
