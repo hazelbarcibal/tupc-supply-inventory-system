@@ -63,7 +63,18 @@ def suppliesCreateform(request):
 @login_required(login_url='inventorysystem-usersLogin')
 def equipmentIcsform(request):
     form = equipment_icsform_inputsForm()
-
+    if request.method == "POST":
+        if 'save_inputs' in request.POST:
+            form =  equipment_icsform_inputs()
+            form.icsform_inputs_icsno = request.POST.get('icsform_inputs_icsno')
+            form.icsform_inputs_invoiceno = request.POST.get('icsform_inputs_invoiceno')
+            form.icsform_inputs_pono = request.POST.get('icsform_inputs_pono')
+            form.icsform_inputs_receivedby = request.POST.get('icsform_inputs_receivedby')
+            form.icsform_inputs_receivedfrom = request.POST.get('icsform_inputs_receivedfrom')
+            form.icsform_inputs_suppliedby = request.POST.get('icsform_inputs_suppliedby')
+            form.save()
+            messages.success(request, 'Ready for creating a form!')
+            return redirect('inventorysystem-equipment-icsform')
     context = {
         'form': form,
         }
@@ -73,6 +84,18 @@ def equipmentIcsform(request):
 @login_required(login_url='inventorysystem-usersLogin')
 def equipmentAreform(request):
     form = equipment_areform_inputsForm()
+    if request.method == "POST":
+        if 'save_inputs' in request.POST:
+            form = equipment_areform_inputs()
+            form.areform_inputs_no = request.POST.get('areform_inputs_no')
+            form.areform_inputs_invoiceno = request.POST.get('areform_inputs_invoiceno')
+            form.areform_inputs_pono = request.POST.get('areform_inputs_pono')
+            form.areform_inputs_receivedby = request.POST.get('areform_inputs_receivedby')
+            form.areform_inputs_receivedfrom = request.POST.get('areform_inputs_receivedfrom')
+            form.areform_inputs_suppliedby = request.POST.get('areform_inputs_suppliedby')
+            form.save()
+            messages.success(request, 'Ready for creating a form!')
+            return redirect('inventorysystem-equipment-areform')
 
     context = {
         'form': form,
@@ -652,6 +675,7 @@ def viewRequestSupply(request):
                     form.createformsupply_amount = request_amount
                     form.createformsupply_requestedby = request_requestby
                     form.createformsupply_issued_by = request_issuedby
+                    form.current_date = datetime.date.today()
                     form.createformsupply_acceptedquantity = request_accept_quantity
                     form.save()
 
@@ -983,9 +1007,33 @@ def equipmentDeliver(request):
                         status.status_equipment_acceptquantity = request_acceptquantity
                         status.status_equipment_department = request_department
                         status.status_equipment_status = "Ready for pick-up"  
-                        status.status_equipment_remaining = 0  
+                        status.status_equipment_remaining = 0 
                         statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete()
                         status.save()
+
+                        if request.POST.get('request_equipment_unitcost') == "":
+                            saveform = receiptform_equipment()
+                            saveform.receiptformequipment_itemname = request_itemname
+                            saveform.receiptformequipment_department = request_department
+                            saveform.receiptformequipment_description = request_description
+                            saveform.receiptformequipment_unit = request.POST.get('request_equipment_unit')
+                            saveform.receiptformequipment_quantity = request_acceptquantity
+                            saveform.receiptformequipment_propertyno = request.POST.get('request_equipment_iin')
+                            saveform.current_date = datetime.date.today()
+                            saveform.save()
+
+                        elif request.POST.get('request_equipment_unitcost') != "":
+                            saveform2 = custodian_slip()
+                            saveform2.custodianslip_itemname = request_itemname
+                            saveform2.custodianslip_description = request_description
+                            saveform2.custodianslip_department = request_department
+                            saveform2.custodianslip_unit = request.POST.get('request_equipment_unit')
+                            saveform2.custodianslip_quantity = request_acceptquantity
+                            saveform2.custodianslip_inventoryitemno = request.POST.get('request_equipment_iin')
+                            saveform2.custodianslip_unitcost = request.POST.get('request_equipment_unitcost')
+                            saveform2.custodianslip_totalcost = int(request_acceptquantity) * int(request.POST.get('request_equipment_unitcost'))
+                            saveform2.current_date = datetime.date.today()
+                            saveform2.save()
 
                         
                         if equipment_email.objects.filter(emailequipment_department = request_department).filter(current_date = datetime.date.today()).exists() == True:

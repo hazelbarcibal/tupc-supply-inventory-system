@@ -181,7 +181,11 @@ class requestequipment(models.Model):
     request_equipment_itemname = models.CharField(max_length=50, verbose_name='request_equipment_itemname')
     request_equipment_description = models.CharField(max_length=255, verbose_name='request_equipment_description')
     request_equipment_brand = models.CharField(max_length=50, verbose_name='request_equipment_brand')
+    request_equipment_unit = models.CharField(null=True,max_length=50, verbose_name='request_equipment_brand')
     request_equipment_quantity = models.DecimalField(max_digits=6, decimal_places=0, verbose_name='request_equipment_quantity')
+    request_equipment_unitcost = models.DecimalField(null=True,max_digits=6, decimal_places=0, verbose_name='request_equipment_unitcost')
+    request_equipment_totalcost = models.DecimalField(null=True,max_digits=6, decimal_places=0, verbose_name='request_equipment_totalcost')
+    request_equipment_iin = models.CharField(null=True,max_length=50, blank=True, verbose_name='request_equipment_iin')
     request_equipment_department = models.CharField(max_length=50, verbose_name='request_equipment_department')
     request_equipment_status = models.CharField(max_length=50, verbose_name='request_equipment_status')
     request_equipment_mainstoragequantity = models.DecimalField(null=True, max_digits=6, decimal_places=0, max_length=50, verbose_name='request_equipment_mainstoragequantity')
@@ -393,11 +397,10 @@ class equipment_createform(models.Model):
 
 class custodian_slip(models.Model):
     custodianslip_id = models.AutoField(primary_key=True)
-    custodianslip_suppliedby = models.CharField(max_length=255, verbose_name='custodianslip_suppliedby')
-    custodianslip_PoNo = models.CharField(max_length=255, verbose_name='custodianslip_PoNo')
-    custodianslip_invoiceno = models.CharField(max_length=255, verbose_name='custodianslip_invoiceno')
     custodianslip_quantity = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='custodianslip_quantity')
     custodianslip_unit = models.CharField(max_length=50, verbose_name='createformsupply_unit')
+    custodianslip_department = models.CharField(max_length=50, verbose_name='createformsupply_department')
+    custodianslip_itemname = models.CharField(max_length=50, verbose_name='createformsupply_itemname')
     custodianslip_unitcost = models.DecimalField(null= True, max_digits=10, decimal_places=2, verbose_name='custodianslip_unitcost')
     custodianslip_totalcost = models.DecimalField(null= True, max_digits=10, decimal_places=2, verbose_name='custodianslip_totalcost')
     custodianslip_description = models.TextField(verbose_name='custodianslip_description')
@@ -410,10 +413,10 @@ class custodian_slip(models.Model):
 
 class receiptform_equipment(models.Model):
     receiptformequipment_id = models.AutoField(primary_key=True)
-    receiptformequipment_suppliedby = models.CharField(max_length=255, verbose_name='receiptformequipment_suppliedby')
-    receiptformequipment_PoNo = models.CharField(max_length=255, verbose_name='receiptformequipment_PoNo')
-    receiptformequipment_invoiceno = models.CharField(max_length=255, verbose_name='receiptformequipment_invoiceno')
     receiptformequipment_quantity = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='receiptformequipment_quantity')
+    receiptformequipment_itemname = models.CharField(max_length=50, verbose_name='receiptformequipment_itemname')
+    receiptformequipment_department = models.CharField(max_length=50, verbose_name='receiptformequipment_itemname')
+    receiptformequipment_description = models.CharField(max_length=50, verbose_name='receiptformequipment_desccription')
     receiptformequipment_unit = models.CharField(max_length=50, verbose_name='receiptformequipment_unit')
     receiptformequipment_propertyno = models.CharField(max_length=255, unique=True, verbose_name='receiptformequipment_propertyno')
     current_date = models.CharField( max_length=50, verbose_name='currentdate')
@@ -443,7 +446,6 @@ class equipment_areform_inputs(models.Model):
     areform_inputs_invoiceno = models.CharField(max_length=255, verbose_name='areform_inputs_invoiceno')
     areform_inputs_receivedfrom = models.CharField(max_length=255, verbose_name='areform_inputs_receivedfrom')
     areform_inputs_receivedby = models.CharField(max_length=255, verbose_name='areform_inputs_receivedby')
-    areform_inputs_totalamount = models.CharField(max_length=255, verbose_name='areform_inputs_totalamount')
     current_date = models.CharField( max_length=50, verbose_name='currentdate')
 
     class Meta:

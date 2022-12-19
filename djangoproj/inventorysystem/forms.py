@@ -406,11 +406,12 @@ class equipment_icsform_inputsForm(forms.ModelForm):
         icsform_inputs_pono = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'PO No', 'id': 'icsform_inputs_pono'}))
         icsform_inputs_invoiceno = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Requested By', 'id': 'icsform_inputs_invoiceno'}))
         icsform_inputs_receivedfrom = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Purpose', 'id': 'icsform_inputs_receivedfrom'}))
+        icsform_inputs_receivedby = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Purpose', 'id': 'icsform_inputs_receivedby'}))
 
         class Meta:
                 model = equipment_icsform_inputs
                 fields = ['icsform_inputs_icsno', 'icsform_inputs_suppliedby', 
-                        'icsform_inputs_pono', 'icsform_inputs_invoiceno', 'icsform_inputs_receivedfrom' ]
+                        'icsform_inputs_pono', 'icsform_inputs_invoiceno', 'icsform_inputs_receivedfrom' , 'icsform_inputs_receivedby']
 
 class equipment_areform_inputsForm(forms.ModelForm):
         areform_inputs_no = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ICS No', 'id': 'areform_inputs_no'}))
@@ -418,9 +419,9 @@ class equipment_areform_inputsForm(forms.ModelForm):
         areform_inputs_pono = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'PO No', 'id': 'areform_inputs_pono'}))
         areform_inputs_invoiceno = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Invoice No.', 'id': 'areform_inputs_invoiceno'}))
         areform_inputs_receivedfrom = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Received from', 'id': 'areform_inputs_receivedfrom'}))
-        areform_inputs_totalamount = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Total Amount', 'id': 'areform_inputs_totalamount'}))
-        
+        areform_inputs_receivedby = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Received from', 'id': 'areform_inputs_receivedby'}))
+       
         class Meta:
                 model = equipment_areform_inputs
                 fields = ['areform_inputs_no', 'areform_inputs_suppliedby', 
-                        'areform_inputs_pono', 'areform_inputs_invoiceno', 'areform_inputs_receivedfrom', 'areform_inputs_totalamount' ]
+                        'areform_inputs_pono', 'areform_inputs_invoiceno', 'areform_inputs_receivedfrom', 'areform_inputs_receivedby']

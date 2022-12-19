@@ -186,6 +186,10 @@
                                         <th style="text-align: center;">Item Name</th>
                                         <th style="text-align: center;">Description</th>
                                         <th style="text-align: center;">Request Quantity</th>
+                                        <th style="text-align: center;">Unit Cost</th>
+                                        <th style="text-align: center;">Total Cost</th>
+                                        <th style="text-align: center;">Inventory Item No.</th>
+                                        <th style="text-align: center;">Unit</th>
                                         <th style="text-align: center;">Date & Time</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
@@ -198,6 +202,10 @@
                                         <td align="center">{{x.request_equipment_itemname}}</td>
                                         <td align="center">{{x.request_equipment_description}}</td>
                                         <td align="center">{{x.request_equipment_quantity}}</td>
+                                        <td align="center">{{x.request_equipment_unitcost}}</td>
+                                        <td align="center">{{x.request_equipment_totalcost}}</td>
+                                        <td align="center">{{x.request_equipment_iin}}</td>
+                                        <td align="center">{{x.request_equipment_unit}}</td>
                                         <td align="center">{{x.current_date}}</td>
                                         <td>
                                             <button class="btn btn-success editBtn1"
@@ -322,6 +330,28 @@
                             name="request_equipment_acceptquantity" required>
                     </div>
 
+                    <div class="col-md-6">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                            class="form-label">Inventory Item No./Property No.:</label>
+                        <input type="text" min="1" class="form-control" id="iin" name="request_equipment_iin"
+                            required>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                            class="form-label">Unit Cost:</label>
+                        <input type="number" min="1" class="form-control" id="unitcost"
+                            name="request_equipment_unitcost">
+                    </div>
+
+                    <div class="col-md-6">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                            class="form-label">Unit:</label>
+                        <input type="text" min="1" class="form-control" id="unit" name="request_equipment_unit"
+                            required>
+                    </div>
+
+
                     <div class="modal-footer">
                         <div class="col-12">
                             <button style="float: right;" type="submit" name="delivery_dep"
@@ -354,6 +384,9 @@
             $('#itemname1').val(data[2]);
             $('#description1').val(data[3]);
             $('#requestquantity').val(data[4]);
+            $('#unitcost').val(data[5]);
+            $('#iin').val(data[6]);
+            $('#unit').val(data[7]);
         });
     });
 
