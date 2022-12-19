@@ -357,8 +357,7 @@ class supply_createform(models.Model):
     createformsupply_requestedby = models.CharField(max_length=50, verbose_name='createformsupply_requestedby')
     createformsupply_issued_by = models.CharField(max_length=50, verbose_name='createformsupply_issued_by')
     # current_date = models.DateTimeField(default=now, verbose_name= 'createformsupply_current_date')
-    current_date = models.DateField(default=date.today, verbose_name= 'createformsupply_current_date')
-    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'createformsupply_current_time')
+    current_date = models.CharField( max_length=50, verbose_name='currentdate')
 
 
     class Meta:
@@ -368,9 +367,12 @@ class supply_createform_inputs(models.Model):
     createformsupply_inputs_id = models.AutoField(primary_key=True)
     createformsupply_inputs_office = models.CharField(max_length=255, verbose_name='createformsupply_inputs_office')
     createformsupply_inputs_requestedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_requestedby')
+    createformsupply_inputs_department = models.CharField(max_length=50, verbose_name='createformsupply_inputs_department')
+    createformsupply_inputs_approvedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_approvedby')
+    createformsupply_inputs_issuedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_issuedby')
+    createformsupply_inputs_receivedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_issuedby')
     createformsupply_inputs_purpose = models.CharField(max_length=255, verbose_name='createformsupply_inputs_purpose')
-    current_date = models.DateField(default=date.today, verbose_name= 'createformsupply_inputs_current_date')
-    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'createformsupply_inputs_current_time')
+    current_date = models.CharField( max_length=50, verbose_name='currentdate')
 
     class Meta:
         db_table = "supply_createform_inputs"
@@ -384,8 +386,8 @@ class equipment_createform(models.Model):
     createformequipment_brand = models.CharField(unique=True, max_length=50, verbose_name='createformequipment_brand')
     createformequipment_acceptedquantity = models.CharField(unique=True, max_length=50, verbose_name='createformequipment_acceptedquantity')
     # current_date = models.CharField( max_length=50, verbose_name='currentdate')
-    current_date = models.DateField(default=date.today, verbose_name= 'current_date')
-    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'current_time')
+    current_date = models.CharField( max_length=50, verbose_name='currentdate')
+
 
 
     class Meta:
@@ -403,6 +405,7 @@ class custodian_slip(models.Model):
     custodianslip_totalcost = models.DecimalField(null= True, max_digits=10, decimal_places=2, verbose_name='custodianslip_totalcost')
     custodianslip_description = models.TextField(verbose_name='custodianslip_description')
     custodianslip_inventoryitemno = models.CharField(max_length=255, verbose_name='custodianslip_inventoryitemno')
+    current_date = models.CharField( max_length=50, verbose_name='currentdate')
 
     class Meta:
         db_table = "custodian_slip"
@@ -416,6 +419,7 @@ class receiptform_equipment(models.Model):
     receiptformequipment_quantity = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='receiptformequipment_quantity')
     receiptformequipment_unit = models.CharField(max_length=50, verbose_name='receiptformequipment_unit')
     receiptformequipment_propertyno = models.CharField(max_length=255, unique=True, verbose_name='receiptformequipment_propertyno')
+    current_date = models.CharField( max_length=50, verbose_name='currentdate')
 
     class Meta:
         db_table = "receiptform_equipment"
@@ -428,8 +432,8 @@ class equipment_icsform_inputs(models.Model):
     icsform_inputs_invoiceno = models.CharField(max_length=255, verbose_name='icsform_inputs_invoiceno')
     icsform_inputs_receivedfrom = models.CharField(max_length=255, verbose_name='icsform_inputs_receivedfrom')
     icsform_inputs_receivedby = models.CharField(max_length=255, verbose_name='icsform_inputs_receivedby')
-    current_date = models.DateField(default=date.today, verbose_name= 'icsform_inputs_current_date')
-    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'icsform_inputs_current_time')
+    current_date = models.CharField( max_length=50, verbose_name='currentdate')
+
 
     class Meta:
         db_table = "equipment_icsform_inputs"
@@ -442,8 +446,8 @@ class equipment_areform_inputs(models.Model):
     areform_inputs_invoiceno = models.CharField(max_length=255, verbose_name='areform_inputs_invoiceno')
     areform_inputs_receivedfrom = models.CharField(max_length=255, verbose_name='areform_inputs_receivedfrom')
     areform_inputs_receivedby = models.CharField(max_length=255, verbose_name='areform_inputs_receivedby')
-    current_date = models.DateField(default=date.today, verbose_name= 'areform_inputs_current_date')
-    current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'areform_inputs_current_time')
+    areform_inputs_totalamount = models.CharField(max_length=255, verbose_name='areform_inputs_totalamount')
+    current_date = models.CharField( max_length=50, verbose_name='currentdate')
 
     class Meta:
         db_table = "equipment_areform_inputs"
