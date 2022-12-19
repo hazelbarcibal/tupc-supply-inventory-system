@@ -366,7 +366,8 @@ class supply_createform_inputs(models.Model):
     createformsupply_inputs_department = models.CharField(max_length=50, verbose_name='createformsupply_inputs_department')
     createformsupply_inputs_approvedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_approvedby')
     createformsupply_inputs_issuedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_issuedby')
-    createformsupply_inputs_receivedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_issuedby')
+    createformsupply_inputs_requestedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_requestedby')
+    createformsupply_inputs_receivedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_receivedby')
     createformsupply_inputs_purpose = models.CharField(max_length=255, verbose_name='createformsupply_inputs_purpose')
     current_date = models.CharField( max_length=50, verbose_name='currentdate')
 

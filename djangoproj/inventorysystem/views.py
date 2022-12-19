@@ -44,7 +44,14 @@ def suppliesCreateform(request):
             form.createformsupply_inputs_office = request.POST.get('createformsupply_inputs_office')
             form.createformsupply_inputs_requestedby = request.POST.get('createformsupply_inputs_requestedby')
             form.createformsupply_inputs_purpose = request.POST.get('createformsupply_inputs_purpose')
+            form.createformsupply_inputs_approvedby = request.POST.get('createformsupply_inputs_approvedby')
+            form.createformsupply_inputs_receivedby = request.POST.get('createformsupply_inputs_receivedby')
+            form.createformsupply_inputs_issuedby = request.POST.get('createformsupply_inputs_issuedby')
+            form.createformsupply_inputs_department = request.user
             form.save()
+            messages.success(request, 'Ready for creating a form!')
+            
+            return redirect('inventorysystem-suppliesCreateform')
 
     context = {
         'form': form,
