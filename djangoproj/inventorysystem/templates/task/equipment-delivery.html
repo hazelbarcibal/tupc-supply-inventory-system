@@ -189,6 +189,7 @@
                                         <th style="text-align: center;">Unit Cost</th>
                                         <th style="text-align: center;">Inventory Item No.</th>
                                         <th style="text-align: center;">Unit</th>
+                                        <th style="text-align: center;">Date Requested</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
                                 </thead>
@@ -203,6 +204,7 @@
                                         <td align="center">{{x.request_equipment_unitcost}}</td>
                                         <td align="center">{{x.request_equipment_iin}}</td>
                                         <td align="center">{{x.request_equipment_unit}}</td>
+                                        <td align="center">{{x.request_equipment_daterequested}}</td>
                                         <td>
                                             <button class="btn btn-success editBtn1"
                                                 style="margin-bottom: 10px; font-size: 13px;">DELIVER</button>
@@ -345,10 +347,12 @@
                         <input type="text" min="1" class="form-control" id="iin" name="request_equipment_iin"
                             required>
                     </div>
-                    
 
-
-
+                    <div class="col-md-6">
+                        <label class="form-label">Date Requested:</label>
+                        <input type="text" class="form-control" id="daterequested"
+                            name="request_equipment_daterequested" readonly>
+                    </div>
 
                     <div class="modal-footer">
                         <div class="col-12">
@@ -404,6 +408,7 @@ $(document).ready(function () {
             $('#unitcost').val(table.row(this).data()[5]);
             $('#unit').val(table.row(this).data()[6]);
             $('#iin').val(table.row(this).data()[7]);
+            $('#daterequested').val(table.row(this).data()[8]);
 
 
         });

@@ -268,6 +268,8 @@ class statusEquipmentRequest(models.Model):
     status_equipment_acceptquantity = models.DecimalField(null=True, max_digits=6,decimal_places=0, verbose_name='status_equipment_acceptquantity')
     status_equipment_remaining = models.DecimalField(null=True, max_digits=6,decimal_places=0, verbose_name='status_equipment_remaining')
     status_equipment_status = models.CharField(max_length=50, verbose_name='status_equipment_status')
+    status_equipment_daterequested = models.CharField(null= True,max_length=50, verbose_name='arequest_equipment_daterequested')
+    status_equipment_dateaccepted =  models.CharField(null= True,max_length=50, verbose_name='arequest_equipment_dateaccepted')
 
     class Meta:
         db_table = ('statusEquipmentRequest')

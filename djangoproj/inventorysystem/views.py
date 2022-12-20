@@ -1037,7 +1037,8 @@ def equipmentDeliver(request):
                         status.status_equipment_acceptquantity = request_acceptquantity
                         status.status_equipment_department = request_department
                         status.status_equipment_status = "Ready for pick-up"  
-                        status.status_equipment_remaining = 0 
+                        status.status_equipment_remaining = 0
+                        status.status_equipment_dateaccepted = datetime.date.today()
                         statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete()
                         status.save()
 
@@ -1153,12 +1154,14 @@ def depRequestEquipment(request):
                     requesting.request_equipment_department = str(request.user)
                     requesting.request_equipment_description = request.POST.get('non_existing_equipment_description')
                     requesting.request_equipment_status = "pending"
+                    requesting.request_equipment_daterequested = datetime.date.today()
                     status = statusEquipmentRequest()
                     status.status_equipment_itemname = request.POST.get('non_existing_equipment_itemname')
                     status.status_equipment_quantity = request.POST.get('non_existing_equipment_quantity')
                     status.status_equipment_department = str(request.user)
                     status.status_equipment_description = request.POST.get('non_existing_equipment_description')
                     status.status_equipment_status = "pending"
+                    status.status_equipment_daterequested = datetime.date.today()
                     messages.success(request, 'Request Successful for itemname ')
                     subject = str(request.user)
                     message = "Good day!\n\nI have requested item in supply. Please see the details in the website. Thank you!\n\nKind regards,\n"+ str(request.user)
