@@ -158,7 +158,7 @@ request_supply_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'cl
 request_supply_remaining= forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaining'}))
 request_supply_mainstoragequantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Mainstorage Quantity', 'min': 1,}))
 request_supply_acceptquantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Accept Quantity', 'min': 1,}))
-current_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Date & Time'}))
+request_supply_daterequested = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Date Requested'}))
 request_supply_status = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
 
 class requestSupplyForm(forms.ModelForm):
@@ -173,13 +173,13 @@ class requestSupplyForm(forms.ModelForm):
             self.fields['request_supply_quantity'].widget.attrs['readonly'] = True
             self.fields['request_supply_remaining'].widget.attrs['readonly'] = True
             self.fields['request_supply_mainstoragequantity'].widget.attrs['readonly'] = True
-            self.fields['current_date'].widget.attrs['readonly'] = True
+            self.fields['request_supply_daterequested'].widget.attrs['readonly'] = True
 
 
     class Meta:
         model = requestsupply
         fields = ['request_supply_department', 'request_supply_description', 'request_supply_unit', 'request_supply_quantity', 'request_supply_remaining',
-        'current_date', 'request_supply_status', 'request_supply_mainstoragequantity', 'request_supply_acceptquantity']
+         'request_supply_status', 'request_supply_mainstoragequantity', 'request_supply_acceptquantity', 'request_supply_daterequested']
 
 #---------- withdraw supply - admin view ------------
 arequest_supply_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Department'}))
@@ -187,7 +187,8 @@ arequest_supply_description = forms.CharField(widget=forms.TextInput(attrs={'cla
 arequest_supply_unit = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Unit'}))
 arequest_supply_quantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity', 'min': 1,}))
 arequest_supply_remaining = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Remaining'}))
-current_date = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Date'}))
+arequest_supply_daterequested = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Date'}))
+arequest_supply_dateaccepted = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Date'}))
 arequest_supply_status = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
 
 class withdrawStatusForm(forms.ModelForm):
@@ -201,12 +202,13 @@ class withdrawStatusForm(forms.ModelForm):
             self.fields['arequest_supply_unit'].widget.attrs['readonly'] = True
             self.fields['arequest_supply_quantity'].widget.attrs['readonly'] = True
             self.fields['arequest_supply_remaining'].widget.attrs['readonly'] = True
-            self.fields['current_date'].widget.attrs['readonly'] = True
+            self.fields['arequest_supply_daterequested'].widget.attrs['readonly'] = True
+            self.fields['arequest_supply_dateaccepted'].widget.attrs['readonly'] = True
 
     class Meta:
         model = acceptSupplyRequests
         fields = ['arequest_supply_department', 'arequest_supply_description', 'arequest_supply_unit', 'arequest_supply_quantity', 'arequest_supply_remaining',
-        'current_date', 'arequest_supply_status']
+        'arequest_supply_daterequested', 'arequest_supply_dateaccepted','arequest_supply_status']
 
 
 #-------------- DELIVERY EQUIPMENT ---------------

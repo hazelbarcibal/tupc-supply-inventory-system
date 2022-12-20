@@ -41,7 +41,7 @@ def suppliesCreateform(request):
     label = request.user
     if request.method == "POST":
         if 'save_details' in request.POST:
-            if supply_createform.objects.filter(current_date = request.POST.get('date_accepted')).exists() == True:
+            if supply_createform_inputs.objects.filter(createformsupply_inputs_department = request.user).filter(current_date = request.POST.get('date')).exists() == False:
                 form = supply_createform_inputs()
                 form.createformsupply_inputs_office = request.POST.get('createformsupply_inputs_office')
                 form.createformsupply_inputs_requestedby = request.POST.get('createformsupply_inputs_requestedby')
@@ -50,16 +50,17 @@ def suppliesCreateform(request):
                 form.createformsupply_inputs_receivedby = request.POST.get('createformsupply_inputs_receivedby')
                 form.createformsupply_inputs_issuedby = "B.F. GASCON"
                 form.createformsupply_inputs_department = request.user
+                form.current_date = request.POST.get('date')
                 form.save()
                 messages.success(request, 'Ready for creating a form!')
                 
                 return redirect('inventorysystem-suppliesCreateform')
-            elif supply_createform.objects.filter(current_date = request.POST.get('date_accepted')).exists() == False:
-                messages.info(request, 'You do not have available for request for this date.')
+            elif supply_createform_inputs.objects.filter(createformsupply_inputs_department = request.user).filter(current_date = request.POST.get('date')).exists() == False:
+                messages.info(request, 'You already have saved details for this form')
                 return redirect('inventorysystem-suppliesCreateform')
 
         if 'read_form' in request.POST:
-            if supply_createform.objects.filter(current_date = request.POST.get('date_accepted')).exists() == False:
+            if supply_createform.objects.filter(current_date = request.POST.get('date')).exists() == False:
                 messages.info(request, 'You do not have available for request for this date.')
                 return redirect('inventorysystem-suppliesCreateform')
 
@@ -661,10 +662,9 @@ def viewRequestSupply(request):
                     accept.arequest_supply_unit = request_unit
                     accept.arequest_supply_quantity = request_accept_quantity
                     accept.arequest_supply_amount = request_amount
-                    accept.arequest_supply_requestedby = request_requestby
                     accept.arequest_supply_issued_by = request_issuedby
                     accept.arequest_supply_status = "Item Accepted"
-                    accept.current_date = datetime.date.today()
+                    accept.arequest_supply_dateaccepted = datetime.date.today()
                     accept.arequest_supply_LayerNo = request.POST.get('Supply_Layer')
                     accept.arequest_supply_RackNo = request.POST.get('Supply_Rack')
                     accept.arequest_supply_CabinetNo = request.POST.get('Supply_Cabinet')
@@ -858,6 +858,7 @@ def depRequestSupply(request):
                     requesting.request_supply_supplyCabinetNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyCabinetNo
                     requesting.request_supply_supplyShelfNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyShelfNo
                     requesting.request_supply_status = "waiting to accept"
+                    requesting.request_supply_daterequested = datetime.date.today()
                     status = statusSupplyRequest()
                     status.status_supply_description = request_description
                     status.status_supply_unit = request_unit
@@ -865,6 +866,7 @@ def depRequestSupply(request):
                     status.status_supply_remaining = request_quantity
                     status.status_supply_department = request.user
                     status.status_supply_status = "waiting to accept"
+                    status.date_requested = datetime.date.today()
                     requesting.save()
                     status.save()
 

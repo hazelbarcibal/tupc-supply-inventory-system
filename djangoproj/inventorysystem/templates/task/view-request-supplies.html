@@ -90,6 +90,19 @@
                         <input type="text" min="1" class="form-control" id="issuedby"
                             name="issuedby" required>
                     </div>
+                    
+                    <div class="col-md-6">
+                        <label class="form-label">Date Requested:</label>
+                        <input type="text" class="form-control" id="daterequested"
+                            name="request_supply_daterequested" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Date Accepted:</label>
+                        <input type="text" class="form-control" id="dateaccepted"
+                            name="request_supply_dateaccepted">
+                    </div>
+                    
 
                     <div class="col-md-3">
                         <label class="form-label">Rack No.:</label>
@@ -186,15 +199,23 @@
                 "visible": false,
                 },
                 {
-                "targets": [8],
-                "visible": false,
-                },
-                {
                 "targets": [9],
                 "visible": false,
                 },
                 {
                 "targets": [10],
+                "visible": false,
+                },
+                {
+                "targets": [11],
+                "visible": false,
+                },
+                {
+                "targets": [12],
+                "visible": false,
+                },
+                {
+                "targets": [13],
                 "visible": false,
                 },
                 
@@ -208,13 +229,16 @@
             $('#department').val(table.row(this).data()[1]);
             $('#description').val(table.row(this).data()[2]);
             $('#unit').val(table.row(this).data()[3]);
-            $('#requestquantity').val(table.row(this).data()[4]);
-            $('#supplyamount').val(table.row(this).data()[5]);
-            $('#issuedby').val(table.row(this).data()[6]);
-            $('#rackno').val(table.row(this).data()[7]);
-            $('#layerno').val(table.row(this).data()[8]);
-            $('#cabinetno').val(table.row(this).data()[9]);
-            $('#shelfno').val(table.row(this).data()[10]);
+            $('#requestquantity').val(table.row(this).data()[4]);           
+            $('#acceptquantity').val(table.row(this).data()[5]);
+            $('#supplyamount').val(table.row(this).data()[6]);
+            $('#issuedby').val(table.row(this).data()[7]);
+            $('#daterequested').val(table.row(this).data()[8]);
+            $('#dateaccepted').val(table.row(this).data()[9]);
+            $('#rackno').val(table.row(this).data()[10]);
+            $('#layerno').val(table.row(this).data()[11]);
+            $('#cabinetno').val(table.row(this).data()[12]);
+            $('#shelfno').val(table.row(this).data()[13]);
 
 
         });
@@ -355,15 +379,16 @@
                                         <th style="text-align: center;">Description</th>
                                         <th style="text-align: center;">Unit</th>
                                         <th style="text-align: center;">Request Quantity</th>
+                                        <th style="text-align: center;">Accept Quantity</th>
                                         <th style="text-align: center;">Amount</th>
                                         <th style="text-align: center;">Issued By</th>
+                                        <th style="text-align: center;">Date Requested</th>
+                                        <th style="text-align: center;">Date Accepted</th>
                                         <th style="text-align: center;">Rack No</th>
                                         <th style="text-align: center;">Layer No</th>
                                         <th style="text-align: center;">Cabinet No</th>
                                         <th style="text-align: center;">Shelf No</th>
-                                        <th style="text-align: center;">Date</th>
-                                        <th style="text-align: center;">Time</th>
-                                        <th style="text-align: center;">Status</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -374,14 +399,15 @@
                                         <td align="center">{{x.request_supply_description}}</td>
                                         <td align="center">{{x.request_supply_unit}}</td>
                                         <td align="center">{{x.request_supply_quantity}}</td>
+                                        <td align="center">{{x.request_supply_acceptquantity}}</td>
                                         <td align="center">{{x.request_supply_amount}}</td>
                                         <td align="center">{{x.request_supply_issuedby}}</td>
+                                        <td align="center">{{x.request_supply_daterequested}}</td>
+                                        <td align="center">{{x.request_supply_dateaccepted}}</td>
                                         <td align="center">{{x.request_supply_supplyRackNo}}</td>
                                         <td align="center">{{x.request_supply_supplyLayerNo}}</td>
                                         <td align="center">{{x.request_supply_supplyCabinetNo}}</td>
                                         <td align="center">{{x.request_supply_supplyShelfNo}}</td>
-                                        <td align="center">{{x.current_date}}</td>
-                                        <td align="center">{{x.current_time}}</td>
                                         <td align="center">
                                             <button class="btn btn-success editBtn"
                                                 name="editBtn">ACCEPT</button>
