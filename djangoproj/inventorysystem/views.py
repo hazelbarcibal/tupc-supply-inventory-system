@@ -794,12 +794,13 @@ def depRequestSupply(request):
                 # print(request.POST.get('datepicker'))
                 if request.POST.get('datepicker') == '':
                     messages.info(request, 'Please type in a date.')
-                elif statusSupplyRequest.objects.filter(status_supply_department = request.user).filter(date_requested = request.POST.get('date')).filter(status_supply_status = "waiting to accept").exists() == True:
+                elif statusSupplyRequest.objects.filter(status_supply_department = request.user).filter(date_requested = request.POST.get('datepicker')).filter(status_supply_status = "waiting to accept").exists() == True:
                     messages.info(request, 'Please wait the other requested items')
-                elif supply_createform.objects.filter(createformsupply_department = request.user).filter(current_date = request.POST.get('date')).exists() == True:
+
+                elif supply_createform.objects.filter(createformsupply_department = request.user).filter(current_date = request.POST.get('datepicker')).exists() == True:
                     return redirect('inventorysystem-suppliesCreateform')
 
-                elif supply_createform.objects.filter(createformsupply_department = request.user).filter(current_date = request.POST.get('date')).exists() == False:
+                elif supply_createform.objects.filter(createformsupply_department = request.user).filter(current_date = request.POST.get('datepicker')).exists() == False:
                     messages.info(request, 'Invalid.')
                     
                 # if supply_createform.objects.filter(createformsupply_department = request.user).exists() == True:
