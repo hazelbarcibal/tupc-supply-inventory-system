@@ -273,7 +273,7 @@ request_equipment_department = forms.CharField(widget=forms.TextInput(attrs={'cl
 request_equipment_status = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Status'}))
 request_equipment_mainstoragequantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity', 'min': 1,}))
 request_equipment_acceptquantity = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Quantity', 'min': 1,}))
-current_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Date and Time'}))
+request_equipment_daterequested = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Date Requested'}))
 
 class equipmentRequestForm(forms.ModelForm):
     
@@ -287,14 +287,14 @@ class equipmentRequestForm(forms.ModelForm):
             self.fields['request_equipment_quantity'].widget.attrs['readonly'] = True
             self.fields['request_equipment_mainstoragequantity'].widget.attrs['readonly'] = True
             self.fields['request_equipment_department'].widget.attrs['readonly'] = True
-            self.fields['current_date'].widget.attrs['readonly'] = True
+            self.fields['request_equipment_daterequested'].widget.attrs['readonly'] = True
 
 
     class Meta:
         model = requestequipment
         fields = ['request_equipment_itemname', 'request_equipment_description', 'request_equipment_brand', 
                     'request_equipment_quantity', 'request_equipment_department', 'request_equipment_status', 
-                    'request_equipment_mainstoragequantity','request_equipment_acceptquantity', 'current_date']
+                    'request_equipment_mainstoragequantity','request_equipment_acceptquantity', 'request_equipment_daterequested']
 
 # dep request equipment - dep view
 equipmentmainstorage_itemName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Item name'}))
@@ -338,8 +338,9 @@ class withdrawEquipmentForm(forms.ModelForm):
     arequest_equipment_model_no = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Model No', 'min': '1', 'id': 'modelNo'}))
     arequest_equipment_serial_no  = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Serial No', 'min': '1', 'id': 'serialNo'}))
     arequest_equipment_certifiedcorrect = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Certified Correct', 'id': 'certified'}))
-    current_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Date and Time', 'id': 'datetime'}))    
-    
+    arequest_equipment_daterequested = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Status', 'id': 'DateRequested'}))   
+    arequest_equipment_dateaccepted = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Date Accepted', 'id': 'DateAccepted'}))
+
     def __init__(self, *args, **kwargs):
         super(withdrawEquipmentForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
@@ -350,8 +351,8 @@ class withdrawEquipmentForm(forms.ModelForm):
             self.fields['arequest_equipment_brand'].widget.attrs['readonly'] = True
             self.fields['arequest_equipment_quantity'].widget.attrs['readonly'] = True
             self.fields['arequest_equipment_remaining'].widget.attrs['readonly'] = True
-            self.fields['arequest_equipment_status'].widget.attrs['readonly'] = True
-            self.fields['current_date'].widget.attrs['readonly'] = True
+            self.fields['arequest_equipment_daterequested'].widget.attrs['readonly'] = True
+            self.fields['arequest_equipment_dateaccepted'].widget.attrs['readonly'] = True
 
 
     class Meta:
@@ -359,7 +360,7 @@ class withdrawEquipmentForm(forms.ModelForm):
         fields = ['arequest_equipment_issued_to', 'arequest_equipment_itemname', 'arequest_equipment_description', 
                     'arequest_equipment_brand', 'arequest_equipment_quantity', 'arequest_equipment_remaining', 
                     'arequest_equipment_status', 'arequest_equipment_yearacquired',
-                    'arequest_equipment_model_no', 'arequest_equipment_serial_no', 'arequest_equipment_certifiedcorrect', 'current_date' ]
+                    'arequest_equipment_model_no', 'arequest_equipment_serial_no', 'arequest_equipment_certifiedcorrect', 'arequest_equipment_daterequested', 'arequest_equipment_dateaccepted']
 
 # update-supply-storage - admin window - storagemapping models
 supplyItemName = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ItemName'}))

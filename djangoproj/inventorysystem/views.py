@@ -662,9 +662,9 @@ def viewRequestSupply(request):
                     accept.arequest_supply_unit = request_unit
                     accept.arequest_supply_quantity = request_accept_quantity
                     accept.arequest_supply_amount = request_amount
-                    accept.arequest_supply_issued_by = request_issuedby
                     accept.arequest_supply_status = "Item Accepted"
                     accept.arequest_supply_dateaccepted = datetime.date.today()
+                    accept.arequest_supply_daterequested = request.POST.get('daterequested')
                     accept.arequest_supply_LayerNo = request.POST.get('Supply_Layer')
                     accept.arequest_supply_RackNo = request.POST.get('Supply_Rack')
                     accept.arequest_supply_CabinetNo = request.POST.get('Supply_Cabinet')
@@ -679,6 +679,8 @@ def viewRequestSupply(request):
                     status.status_supply_acceptquantity = request_accept_quantity
                     status.status_supply_department = request_department
                     status.status_supply_status = "Item Accepted" 
+                    status.date_accepted = datetime.date.today()
+                    status.date_requested = request.POST.get('daterequested')
                     statusSupplyRequest.objects.filter(status_supply_department = request_department).filter(status_supply_description = request_description).delete()  
                     messages.success(request, 'request accepted')
                     accept.save()
@@ -689,8 +691,6 @@ def viewRequestSupply(request):
                     form.createformsupply_description = request_description
                     form.createformsupply_unit = request_unit
                     form.createformsupply_amount = request_amount
-                    form.createformsupply_requestedby = request_requestby
-                    form.createformsupply_issued_by = request_issuedby
                     form.current_date = datetime.date.today()
                     form.createformsupply_acceptedquantity = request_accept_quantity
                     form.save()
@@ -794,11 +794,12 @@ def depRequestSupply(request):
                 # print(request.POST.get('datepicker'))
                 if request.POST.get('datepicker') == '':
                     messages.info(request, 'Please type in a date.')
-
-                elif supply_createform.objects.filter(createformsupply_department = request.user).filter(current_date = request.POST.get('datepicker')).exists() == True:
+                elif statusSupplyRequest.objects.filter(status_supply_department = request.user).filter(date_requested = request.POST.get('date')).filter(status_supply_status = "waiting to accept").exists() == True:
+                    messages.info(request, 'Please wait the other requested items')
+                elif supply_createform.objects.filter(createformsupply_department = request.user).filter(current_date = request.POST.get('date')).exists() == True:
                     return redirect('inventorysystem-suppliesCreateform')
 
-                elif supply_createform.objects.filter(createformsupply_department = request.user).filter(current_date = request.POST.get('datepicker')).exists() == False:
+                elif supply_createform.objects.filter(createformsupply_department = request.user).filter(current_date = request.POST.get('date')).exists() == False:
                     messages.info(request, 'Invalid.')
                     
                 # if supply_createform.objects.filter(createformsupply_department = request.user).exists() == True:
@@ -951,7 +952,7 @@ def suppliesWithdraw(request):
                 messages.success(request, 'successfully withdraw')
                 return redirect('inventorysystem-suppliesWithdraw')
 
-            elif supply_email.objects.filter(emailsupply_department = withdraw_department).filter(current_date = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata1).current_date).exists() == True:
+            elif supply_email.objects.filter(emailsupply_department = withdraw_department).filter(current_date = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata1).arequest_supply_daterequested).exists() == True:
                 messages.info(request, 'please email the department first.')
                 return redirect('inventorysystem-suppliesWithdraw')
         context = {
@@ -999,7 +1000,7 @@ def equipmentDeliver(request):
                 
                 elif int(request_acceptquantity) < int(request_quantity) or int(request_acceptquantity) == int(request_quantity):
                         accept = acceptEquipmentRequests()
-                        accept.acceptEquipmentRequests_id = getdata
+                        accept.arequest_equipment_id = getdata
                         accept.arequest_equipment_itemname = request_itemname
                         accept.arequest_equipment_issued_to = request_department
                         accept.arequest_equipment_description = request_description
@@ -1008,6 +1009,7 @@ def equipmentDeliver(request):
                         accept.arequest_equipment_status = "Ready for pick-up"
                         accept.arequest_equipment_remaining = 0
                         accept.arequest_equipment_property_no = 0
+                        accept.arequest_equipment_dateaccepted = datetime.date.today()
                         requestequipment.objects.filter(requestequipment_id = getdata).delete()
                         accept.save()
                         storage = equipmentmainstorage()  

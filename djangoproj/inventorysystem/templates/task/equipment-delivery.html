@@ -366,28 +366,72 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function () {
-        $('.editBtn1').on('click', function () {
 
+$(document).ready(function () {
+        var table = $('#equipDeliveryTable').DataTable({
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            responsive: true,
+            select: false,
+            "columnDefs": [
+                {
+                "targets": [5],
+                "visible": false,
+                },
+                {
+                "targets": [6],
+                "visible": false,
+                },
+                {
+                "targets": [7],
+                "visible": false,
+                },
+
+                
+                
+            ]
+        });
+
+        $('#equipDeliveryTable').on('click', 'tr', function () {
             $('#openModal1').modal('show');
-            $tr = $(this).closest('tr');
-            var data = $tr.children("td").map(function () {
-                return $(this).text();
-            }).get();
+            $('h5.modal-title').html('Accept Request for: ' + table.row(this).data()[1]);
+            $('#editId1').val(table.row(this).data()[0]);
+            $('#department').val(table.row(this).data()[1]);
+            $('#itemname1').val(table.row(this).data()[2]);
+            $('#description1').val(table.row(this).data()[3]);
+            $('#requestquantity').val(table.row(this).data()[4]);
+            $('#unitcost').val(table.row(this).data()[5]);
+            $('#unit').val(table.row(this).data()[6]);
+            $('#iin').val(table.row(this).data()[7]);
 
-            console.log(data);
-            $('h5.modal-title').html('Accept Request for: ' + data[1]);
-            $('#editId1').val(data[0]);
-            $('#department').val(data[1]);
-            $('#itemname1').val(data[2]);
-            $('#description1').val(data[3]);
-            $('#requestquantity').val(data[4]);
-            $('#unitcost').val(data[5]);
-            $('#unit').val(data[6]);
-            $('#iin').val(data[7]);
- 
+
         });
     });
+
+
+    // $(document).ready(function () {
+    //     $('.editBtn1').on('click', function () {
+
+    //         $('#openModal1').modal('show');
+    //         $tr = $(this).closest('tr');
+    //         var data = $tr.children("td").map(function () {
+    //             return $(this).text();
+    //         }).get();
+
+    //         console.log(data);
+    //         $('h5.modal-title').html('Accept Request for: ' + data[1]);
+    //         $('#editId1').val(data[0]);
+    //         $('#department').val(data[1]);
+    //         $('#itemname1').val(data[2]);
+    //         $('#description1').val(data[3]);
+    //         $('#requestquantity').val(data[4]);
+    //         $('#unitcost').val(data[5]);
+    //         $('#unit').val(data[6]);
+    //         $('#iin').val(data[7]);
+ 
+    //     });
+    // });
 
 </script>
 
@@ -497,14 +541,6 @@
 
         $(document).ready(function () {
             var table = $('#equipMainstorage').DataTable({
-                rowReorder: {
-                    selector: 'td:nth-child(2)'
-                },
-                responsive: true
-            });
-        });
-        $(document).ready(function () {
-            var table = $('#equipDeliveryTable').DataTable({
                 rowReorder: {
                     selector: 'td:nth-child(2)'
                 },
