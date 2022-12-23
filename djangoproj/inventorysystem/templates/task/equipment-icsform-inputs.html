@@ -176,6 +176,10 @@
                             <form class="row g-3" action="" method="POST">
                                 {% csrf_token %}
                                 <div class="col-md-6">
+                                    <label class="form-label">Date: </label>
+                                    <input type="date" name="date1" id="date1" class="form-control" readonly>
+                                </div>
+                                <div class="col-md-6">
                                     <label class="form-label">ICS No.: </label>
                                     {{form.icsform_inputs_icsno}}
                                 </div>
@@ -230,6 +234,11 @@
 
         </div>
         <!-- /.container-fluid -->
+
+        <script type="text/javascript">
+            document.getElementById('date1').value = localStorage.getItem("storageName1");
+            window.onload = document.getElementById('date1').value;
+        </script>
 
     </div>
     <!-- End of Main Content -->

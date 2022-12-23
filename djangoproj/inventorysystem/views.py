@@ -1202,6 +1202,27 @@ def equipmentWithdraw(request):
         info1 = withdrawequipment.objects.all()
         info2 = custodian_slip.objects.all()
         info3 = receiptform_equipment.objects.all()
+
+        if 'create_form1' in request.POST:
+            if request.POST.get('datepicker_ics') == '':
+                    messages.info(request, 'Please type in a date.')
+
+            elif custodian_slip.objects.filter(custodianslip_department = request.POST.get('dept_office1')).filter(current_date = request.POST.get('datepicker_ics')).exists() == True:
+                return redirect('inventorysystem-equipment-icsform')
+
+            elif custodian_slip.objects.filter(custodianslip_department = request.POST.get('dept_office1')).filter(current_date = request.POST.get('datepicker_ics')).exists() == False:
+                messages.info(request, 'Invalid.')
+        
+        if 'create_form2' in request.POST:
+            if request.POST.get('datepicker_er') == '':
+                    messages.info(request, 'Please type in a date.')
+
+            elif receiptform_equipment.objects.filter(receiptformequipment_department = request.POST.get('dept_office2')).filter(current_date = request.POST.get('datepicker_er')).exists() == True:
+                return redirect('inventorysystem-equipment-areform')
+
+            elif receiptform_equipment.objects.filter(receiptformequipment_department = request.POST.get('dept_office2')).filter(current_date = request.POST.get('datepicker_er')).exists() == False:
+                messages.info(request, 'Invalid.')
+
         context = {
             'info': info,
             'info1': info1,
