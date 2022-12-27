@@ -25,95 +25,115 @@ import tempfile
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
 def depWithdrawnItems(request):
-    info2 = withdrawsupply.objects.all().filter(withdraw_supply_department = request.user)
-    info = withdrawequipment.objects.all().filter(withdraw_equipment_issued_to = request.user)
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_department):
+        info2 = withdrawsupply.objects.all().filter(withdraw_supply_department = request.user)
+        info = withdrawequipment.objects.all().filter(withdraw_equipment_issued_to = request.user)
 
-    context = {
-        'info2': info2,
-        'info': info,
-        }
-    return render(request, 'task/dep-withdrawn-items.html', context)  
+        context = {
+            'info2': info2,
+            'info': info,
+            }
+        return render(request, 'task/dep-withdrawn-items.html', context)  
+    else:
+        return redirect('inventorysystem-usersLogin')
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
 def suppliesCreateform(request):
-    form = supplycreateforminputsForm()
-    label = request.user
-    if request.method == "POST":
-        if 'save_details' in request.POST:
-            if supply_createform_inputs.objects.filter(createformsupply_inputs_department = request.user).filter(current_date = request.POST.get('date')).exists() == False:
-                form = supply_createform_inputs()
-                form.createformsupply_inputs_office = request.POST.get('createformsupply_inputs_office')
-                form.createformsupply_inputs_requestedby = request.POST.get('createformsupply_inputs_requestedby')
-                form.createformsupply_inputs_purpose = request.POST.get('createformsupply_inputs_purpose')
-                form.createformsupply_inputs_approvedby = "MYRNA M. TEPORA"
-                form.createformsupply_inputs_receivedby = request.POST.get('createformsupply_inputs_receivedby')
-                form.createformsupply_inputs_issuedby = "B.F. GASCON"
-                form.createformsupply_inputs_department = request.user
-                form.current_date = request.POST.get('date')
-                form.save()
-                messages.success(request, 'Ready for creating a form!')
-                
-                return redirect('inventorysystem-suppliesCreateform')
-            elif supply_createform_inputs.objects.filter(createformsupply_inputs_department = request.user).filter(current_date = request.POST.get('date')).exists() == False:
-                messages.info(request, 'You already have saved details for this form')
-                return redirect('inventorysystem-suppliesCreateform')
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_department):
 
-        if 'read_form' in request.POST:
-            if supply_createform.objects.filter(current_date = request.POST.get('date')).exists() == False:
-                messages.info(request, 'You do not have available for request for this date.')
-                return redirect('inventorysystem-suppliesCreateform')
+        form = supplycreateforminputsForm()
+        label = request.user
+        if request.method == "POST":
+            if 'save_details' in request.POST:
+                if supply_createform_inputs.objects.filter(createformsupply_inputs_department = request.user).filter(current_date = request.POST.get('date')).exists() == False:
+                    form = supply_createform_inputs()
+                    form.createformsupply_inputs_office = request.POST.get('createformsupply_inputs_office')
+                    form.createformsupply_inputs_requestedby = request.POST.get('createformsupply_inputs_requestedby')
+                    form.createformsupply_inputs_purpose = request.POST.get('createformsupply_inputs_purpose')
+                    form.createformsupply_inputs_approvedby = "MYRNA M. TEPORA"
+                    form.createformsupply_inputs_receivedby = request.POST.get('createformsupply_inputs_receivedby')
+                    form.createformsupply_inputs_issuedby = "B.F. GASCON"
+                    form.createformsupply_inputs_department = request.user
+                    form.current_date = request.POST.get('date')
+                    form.save()
+                    messages.success(request, 'Ready for creating a form!')
+                    
+                    return redirect('inventorysystem-suppliesCreateform')
+                elif supply_createform_inputs.objects.filter(createformsupply_inputs_department = request.user).filter(current_date = request.POST.get('date')).exists() == False:
+                    messages.info(request, 'You already have saved details for this form.')
+                    return redirect('inventorysystem-suppliesCreateform')
 
-    context = {
-        'form': form,
-        'label': label,
-        }
-    return render(request, 'task/supply-createform-inputs.html', context)
+            if 'read_form' in request.POST:
+                if supply_createform.objects.filter(current_date = request.POST.get('date')).exists() == False:
+                    messages.info(request, 'You do not have available for request for this date.')
+                    return redirect('inventorysystem-suppliesCreateform')
+
+        context = {
+            'form': form,
+            'label': label,
+            }
+        return render(request, 'task/supply-createform-inputs.html', context)
+    else:
+        return redirect('inventorysystem-usersLogin')
 
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
 def equipmentIcsform(request):
-    form = equipment_icsform_inputsForm()
-    if request.method == "POST":
-        if 'save_inputs' in request.POST:
-            form =  equipment_icsform_inputs()
-            form.icsform_inputs_icsno = request.POST.get('icsform_inputs_icsno')
-            form.icsform_inputs_invoiceno = request.POST.get('icsform_inputs_invoiceno')
-            form.icsform_inputs_pono = request.POST.get('icsform_inputs_pono')
-            form.icsform_inputs_receivedby = request.POST.get('icsform_inputs_receivedby')
-            form.icsform_inputs_receivedfrom = request.POST.get('icsform_inputs_receivedfrom')
-            form.icsform_inputs_suppliedby = request.POST.get('icsform_inputs_suppliedby')
-            form.save()
-            messages.success(request, 'Ready for creating a form!')
-            return redirect('inventorysystem-equipment-icsform')
-    context = {
-        'form': form,
-        }
-    return render(request, 'task/equipment-icsform-inputs.html', context) 
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_admin):
+
+        form = equipment_icsform_inputsForm()
+        if request.method == "POST":
+            if 'save_inputs' in request.POST:
+                form =  equipment_icsform_inputs()
+                form.icsform_inputs_icsno = request.POST.get('icsform_inputs_icsno')
+                form.icsform_inputs_invoiceno = request.POST.get('icsform_inputs_invoiceno')
+                form.icsform_inputs_pono = request.POST.get('icsform_inputs_pono')
+                form.icsform_inputs_receivedby = request.POST.get('icsform_inputs_receivedby')
+                form.icsform_inputs_receivedfrom = request.POST.get('icsform_inputs_receivedfrom')
+                form.icsform_inputs_suppliedby = request.POST.get('icsform_inputs_suppliedby')
+                form.save()
+                messages.success(request, 'Ready for creating a form!')
+                return redirect('inventorysystem-equipment-icsform')
+        context = {
+            'form': form,
+            }
+        return render(request, 'task/equipment-icsform-inputs.html', context) 
+    else:
+        return redirect('inventorysystem-usersLogin')
+
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
 def equipmentAreform(request):
-    form = equipment_areform_inputsForm()
-    if request.method == "POST":
-        if 'save_inputs' in request.POST:
-            form = equipment_areform_inputs()
-            form.areform_inputs_no = request.POST.get('areform_inputs_no')
-            form.areform_inputs_invoiceno = request.POST.get('areform_inputs_invoiceno')
-            form.areform_inputs_pono = request.POST.get('areform_inputs_pono')
-            form.areform_inputs_receivedby = request.POST.get('areform_inputs_receivedby')
-            form.areform_inputs_receivedfrom = request.POST.get('areform_inputs_receivedfrom')
-            form.areform_inputs_suppliedby = request.POST.get('areform_inputs_suppliedby')
-            form.areform_inputs_totalamount = request.POST.get('areform_inputs_totalamount')
-            form.save()
-            messages.success(request, 'Ready for creating a form!')
-            return redirect('inventorysystem-equipment-areform')
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_admin):
 
-    context = {
-        'form': form,
-        }
-    return render(request, 'task/equipment-areform-inputs.html', context) 
+        form = equipment_areform_inputsForm()
+        if request.method == "POST":
+            if 'save_inputs' in request.POST:
+                form = equipment_areform_inputs()
+                form.areform_inputs_no = request.POST.get('areform_inputs_no')
+                form.areform_inputs_invoiceno = request.POST.get('areform_inputs_invoiceno')
+                form.areform_inputs_pono = request.POST.get('areform_inputs_pono')
+                form.areform_inputs_receivedby = request.POST.get('areform_inputs_receivedby')
+                form.areform_inputs_receivedfrom = request.POST.get('areform_inputs_receivedfrom')
+                form.areform_inputs_suppliedby = request.POST.get('areform_inputs_suppliedby')
+                form.areform_inputs_totalamount = request.POST.get('areform_inputs_totalamount')
+                form.save()
+                messages.success(request, 'Ready for creating a form!')
+                return redirect('inventorysystem-equipment-areform')
+
+        context = {
+            'form': form,
+            }
+        return render(request, 'task/equipment-areform-inputs.html', context)
+    else:
+        return redirect('inventorysystem-usersLogin')
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
@@ -138,8 +158,6 @@ def dashboard(request):
             'label2': label2,
             'label3': label3,
             'label4': label4,
-
-
         }
         return render(request, 'task/dashboard.html', context) 
     else:
@@ -148,8 +166,8 @@ def dashboard(request):
 
 def logoutUser(request):
     logout(request)
-
     return redirect('inventorysystem-usersLogin')
+    
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def password_reset_request(request):
@@ -217,7 +235,8 @@ def usersLogin(request):
     if (request.user.is_authenticated and request.user.is_superuser) or \
         (request.user.is_authenticated and request.user.is_admin):
         return redirect('inventorysystem-dashboard')
-    elif request.user.is_authenticated and request.user.is_department:
+    elif (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_department):
         return redirect('inventorysystem-depRequestSupply')
     else:
         if request.method == "POST":
@@ -263,7 +282,9 @@ def deptRegister(request):
             if form.is_valid():
                 role = request.POST.get('deptRole')
                 dept = request.POST.get('department')
+                username = request.POST.get('username')
                 email = request.POST.get('email')
+                password1 = request.POST.get('password1')
 
                 if dept == '':
                     messages.info(request, 'Please add a department office.')
@@ -277,7 +298,8 @@ def deptRegister(request):
                     form.save()
                     messages.success(request, 'Account was created for ' + dept)
                     subject = 'Account Registration'
-                    message = "Good day! \nYour account has been successfully registered " + dept + "! \nYou can now access your account by logging in to the website. Thank you!" 
+                    message = "Good day! \nYour account has been successfully registered " + dept + "! \nYou can now access your account by logging in to the website. \n\nUsername: " + username \
+                        + "\nEmail address: " + email + "\nPassword: " + password1 + "\n\nThank you!" 
                     recipient = email 
                     send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
                     return redirect('inventorysystem-deptRegister')
@@ -307,7 +329,8 @@ def adminRegister(request):
             if form.is_valid():
                 getRole = request.POST.get('adminRole')
                 username = request.POST.get('username') 
-                email = request.POST.get('email') 
+                email = request.POST.get('email')
+                password1 = request.POST.get('password1')
 
                 if getRole == 'admin':
                     form.instance.is_admin = True
@@ -316,7 +339,8 @@ def adminRegister(request):
                     form.save()
                     messages.success(request, 'Account was created for ' + username)
                     subject = 'Account Registration'
-                    message = "Good day! \nYour account has been successfully registered " + username + "! \nYou can now access your account by logging in to the website. Thank you!" 
+                    message = "Good day! \nYour account has been successfully registered " + username + "! \nYou can now access your account by logging in to the website. \n\nUsername: " + username \
+                        + "\nEmail address: " + email + "\nPassword: " + password1 + "\n\nThank you!"
                     recipient = email 
                     send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
                     return redirect('inventorysystem-adminRegister')
@@ -377,7 +401,8 @@ def adminProfileUpdate(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
 def deptProfileUpdate(request):
-    if (request.user.is_authenticated and request.user.is_department):
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_department):
         
         label = request.user
         if request.method == 'POST':
@@ -517,10 +542,7 @@ def suppliesDeliver(request):
 
             else:
                 messages.info(request, "invalid quantity")
-
-            
-
-        
+    
         context = {
             'form': form,
             'info': info,
@@ -774,7 +796,8 @@ def viewRequestSupply(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
 def depRequestSupply(request):
-    if (request.user.is_authenticated and request.user.is_department):
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_department):
 
         info1 = limitrecords.objects.all().filter(limit_department = request.user)
         info = statusSupplyRequest.objects.all().filter(status_supply_department = request.user)
@@ -996,7 +1019,7 @@ def equipmentDeliver(request):
 
                 if int(request_acceptquantity) > int(request_quantity):
 
-                    messages.info(request, 'request quantity is less than to accept quantity')
+                    messages.info(request, 'Request quantity is less than to accept quantity.')
                     return redirect('inventorysystem-equipmentDeliver')
                 
                 elif int(request_acceptquantity) < int(request_quantity) or int(request_acceptquantity) == int(request_quantity):
@@ -1139,7 +1162,8 @@ def viewDeliveryRecords(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
 def depRequestEquipment(request):
-    if (request.user.is_authenticated and request.user.is_department):
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_department):
 
         info = equipmentmainstorage.objects.all()
         info1  = statusEquipmentRequest.objects.all().filter(status_equipment_department = request.user)
