@@ -57,7 +57,7 @@ def suppliesCreateform(request):
                     form.createformsupply_inputs_receivedby = request.POST.get('createformsupply_inputs_receivedby')
                     form.createformsupply_inputs_issuedby = "B.F. GASCON"
                     form.createformsupply_inputs_department = request.user
-                    form.current_date = request.POST.get('date')
+                    form.current_date = request.POST.get('current_date')
                     form.save()
                     messages.success(request, 'Ready for creating a form!')
                     
@@ -87,6 +87,7 @@ def equipmentIcsform(request):
         (request.user.is_authenticated and request.user.is_admin):
 
         form = equipment_icsform_inputsForm()
+        label = request.user
         if request.method == "POST":
             if 'save_inputs' in request.POST:
                 form =  equipment_icsform_inputs()
@@ -101,6 +102,7 @@ def equipmentIcsform(request):
                 return redirect('inventorysystem-equipment-icsform')
         context = {
             'form': form,
+            'label': label,
             }
         return render(request, 'task/equipment-icsform-inputs.html', context) 
     else:
@@ -114,6 +116,7 @@ def equipmentAreform(request):
         (request.user.is_authenticated and request.user.is_admin):
 
         form = equipment_areform_inputsForm()
+        label = request.user
         if request.method == "POST":
             if 'save_inputs' in request.POST:
                 form = equipment_areform_inputs()
@@ -130,6 +133,7 @@ def equipmentAreform(request):
 
         context = {
             'form': form,
+            'label': label,
             }
         return render(request, 'task/equipment-areform-inputs.html', context)
     else:
@@ -1257,6 +1261,7 @@ def equipmentWithdraw(request):
         return render(request, 'task/equipment-withdraw.html', context)
     else:
         return redirect('inventorysystem-usersLogin')
+        
 
 @cache_control(no_cache = True, must_revalidate = True, no_store = True)
 def createqrequipmentWithdraw(request, pk):
@@ -1729,61 +1734,68 @@ def export_pdf_supplycreateform(request):
         response=HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
             str(datetime.datetime.now())+'.pdf'
-        supply = supply_createform.objects.all().filter(createformsupply_department = request.user)
-        supply1 = supply_createform_inputs.objects.all().filter(createformsupply_inputs_department = request.user)
         response['Content-Transfer-Enconding'] = 'binary'
 
+        if 'create_form' in request.POST:
+            supply = supply_createform.objects.all().filter(createformsupply_department = request.user).filter(current_date = request.POST.get('currentDate'))
+            supply1 = supply_createform_inputs.objects.all().filter(createformsupply_inputs_department = request.user).filter(current_date = request.POST.get('currentDate'))
+            print(request.POST.get('currentDate'))
+            html_string = render_to_string('task/pdf-output-supplycreateform.html' ,{'Form': supply,'Form1': supply1})
+            html = HTML(string=html_string, base_url=request.build_absolute_uri())
+            result = html.write_pdf(presentational_hints=True)
 
-        html_string = render_to_string('task/pdf-output-supplycreateform.html' ,{'Form': supply,'Form1': supply1})
-        html = HTML(string=html_string, base_url=request.build_absolute_uri())
-        result = html.write_pdf(presentational_hints=True)
+            with tempfile.NamedTemporaryFile(delete=False) as output:
+                output.write(result)
+                output.flush()
+                output = open(output.name, 'rb')
+                response.write(output.read())
 
-        with tempfile.NamedTemporaryFile(delete=False) as output:
-            output.write(result)
-            output.flush()
-            output = open(output.name, 'rb')
-            response.write(output.read())
-
-        return response
+            return response
 
 def export_pdf_equipment_arecreateform(request):
         response=HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
             str(datetime.datetime.now())+'.pdf'
-        equipment = receiptform_equipment.objects.all()
-        equipment1 = equipment_areform_inputs.objects.all()
+        # equipment = receiptform_equipment.objects.all()
+        # equipment1 = equipment_areform_inputs.objects.all()
         response['Content-Transfer-Enconding'] = 'binary'
 
+        if 'create_form' in request.POST:
+            equipment = receiptform_equipment.objects.all().filter(receiptformequipment_department = request.POST.get('dept')).filter(current_date = request.POST.get('currentDate'))
+            equipment1 = equipment_areform_inputs.objects.all().filter(areform_inputs_department = request.POST.get('dept')).filter(current_date = request.POST.get('currentDate'))
+            print(request.POST.get('currentDate'))
+            html_string = render_to_string('task/pdf-output-equipment-are.html' ,{'Form': equipment, 'Form1': equipment1})
+            html = HTML(string=html_string, base_url=request.build_absolute_uri())
+            result = html.write_pdf(presentational_hints=True)
 
-        html_string = render_to_string('task/pdf-output-equipment-are.html' ,{'Form': equipment, 'Form1': equipment1})
-        html = HTML(string=html_string, base_url=request.build_absolute_uri())
-        result = html.write_pdf(presentational_hints=True)
+            with tempfile.NamedTemporaryFile(delete=False) as output:
+                output.write(result)
+                output.flush()
+                output = open(output.name, 'rb')
+                response.write(output.read())
 
-        with tempfile.NamedTemporaryFile(delete=False) as output:
-            output.write(result)
-            output.flush()
-            output = open(output.name, 'rb')
-            response.write(output.read())
-
-        return response
+            return response
 
 def export_pdf_equipment_icscreateform(request):
         response=HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
             str(datetime.datetime.now())+'.pdf'
-        equipment = custodian_slip.objects.all()
-        equipment1 = equipment_icsform_inputs.objects.all()
+        # equipment = custodian_slip.objects.all()
+        # equipment1 = equipment_icsform_inputs.objects.all()
         response['Content-Transfer-Enconding'] = 'binary'
 
+        if 'create_form' in request.POST:
+            equipment = custodian_slip.objects.all().filter(custodianslip_department = request.POST.get('dept')).filter(current_date = request.POST.get('currentDate'))
+            equipment1 = equipment_icsform_inputs.objects.all().filter(icsform_inputs_department = request.POST.get('dept')).filter(current_date = request.POST.get('currentDate'))
+            print(request.POST.get('currentDate'))
+            html_string = render_to_string('task/pdf-output-equipment-ics.html' ,{'Equip': equipment, 'Equips': equipment1})
+            html = HTML(string=html_string, base_url=request.build_absolute_uri())
+            result = html.write_pdf(presentational_hints=True)
 
-        html_string = render_to_string('task/pdf-output-equipment-ics.html' ,{'Equip': equipment, 'Equips': equipment1})
-        html = HTML(string=html_string, base_url=request.build_absolute_uri())
-        result = html.write_pdf(presentational_hints=True)
+            with tempfile.NamedTemporaryFile(delete=False) as output:
+                output.write(result)
+                output.flush()
+                output = open(output.name, 'rb')
+                response.write(output.read())
 
-        with tempfile.NamedTemporaryFile(delete=False) as output:
-            output.write(result)
-            output.flush()
-            output = open(output.name, 'rb')
-            response.write(output.read())
-
-        return response
+            return response

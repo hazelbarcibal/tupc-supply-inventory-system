@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<title> Supplies Delivery </title>
+<title>Create ARE Form</title>
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
@@ -175,9 +175,14 @@
                             <br>
                             <form class="row g-3" action="" method="POST">
                                 {% csrf_token %}
+                                
                                 <div class="col-md-6">
                                     <label class="form-label">Date: </label>
-                                    <input type="date" name="date2" id="date2" class="form-control" readonly>
+                                    {{form.current_date}}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Department: </label>
+                                    {{form.areform_inputs_department}}
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">No: </label>
@@ -204,7 +209,7 @@
                                     {{form.areform_inputs_receivedby}}
                                 </div>
                                 <div class="col-md-12">
-                                    <label class="form-label">Received By: </label>
+                                    <label class="form-label">Total Amount: </label>
                                     {{form.areform_inputs_totalamount}}
                                 </div>
 
@@ -213,16 +218,18 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <!-- <a class="btn1" style="float: right;" onclick="getval()" name="delivery_new" href="#" data-toggle="modal" data-target="#confirmModal">Deliver</a> -->
-                                    <button style="float: right;" type="submit" id="submit" class="btn1" name="save_inputs" value="Submit"> Save </button>
+                                    <button style="float: right; width: 15%;" type="submit" id="submit" class="btn btn-primary" name="save_inputs" value="Submit"> Save </button>
                                 </div>
                             </form>
 
                             <div class="row">
                                 <div  class="col-12">
-                                    <form action="{% url 'export_pdf_equipment_arecreateform'%}">
-                                        <button type="submit" id="submit" class="btn1" name="create_form"
-                                        style="float: right; margin-top: 10px;" value="Submit"> Create Form </button>
+                                    <form action="{% url 'export_pdf_equipment_arecreateform'%}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" id="currentDate" value="" name="currentDate">
+                                        <input type="hidden" id="dept" value="" name="dept">
+                                        <button type="submit" id="submit" class="btn btn-secondary" name="create_form"
+                                        style="float: right; margin-top: 10px; width: 15%;" value="Submit" onclick="getValue()"> Create Form </button>
                                     </form>
                                 </div>
                             </div>
@@ -239,8 +246,18 @@
         <!-- /.container-fluid -->
 
         <script type="text/javascript">
-            document.getElementById('date2').value = localStorage.getItem("storageName2");
-            window.onload = document.getElementById('date2').value;
+            document.getElementById('date').value = localStorage.getItem("storageName3");
+            document.getElementById('department').value = localStorage.getItem("storageName4");
+            window.onload = document.getElementById('date').value;
+            window.onload = document.getElementById('department').value;
+
+            function getValue() {
+            var x = document.getElementById('date').value;
+            document.getElementById('currentDate').value = x;
+
+            var y = document.getElementById('department').value;
+            document.getElementById('dept').value = y;
+            }
         </script>
 
     </div>

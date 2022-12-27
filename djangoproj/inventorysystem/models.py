@@ -365,7 +365,7 @@ class supply_createform(models.Model):
 class supply_createform_inputs(models.Model):
     createformsupply_inputs_id = models.AutoField(primary_key=True)
     createformsupply_inputs_office = models.CharField(max_length=255, verbose_name='createformsupply_inputs_office')
-    createformsupply_inputs_department = models.CharField(max_length=50, verbose_name='createformsupply_inputs_department')
+    createformsupply_inputs_department = models.CharField(unique=True, max_length=50, verbose_name='createformsupply_inputs_department')
     createformsupply_inputs_approvedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_approvedby')
     createformsupply_inputs_issuedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_issuedby')
     createformsupply_inputs_requestedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_requestedby')
@@ -396,9 +396,9 @@ class equipment_createform(models.Model):
 class custodian_slip(models.Model):
     custodianslip_id = models.AutoField(primary_key=True)
     custodianslip_quantity = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='custodianslip_quantity')
-    custodianslip_unit = models.CharField(max_length=50, verbose_name='createformsupply_unit')
-    custodianslip_department = models.CharField(max_length=50, verbose_name='createformsupply_department')
-    custodianslip_itemname = models.CharField(max_length=50, verbose_name='createformsupply_itemname')
+    custodianslip_unit = models.CharField(max_length=50, verbose_name='custodianslip_unit')
+    custodianslip_department = models.CharField(max_length=50, verbose_name='custodianslip_department')
+    custodianslip_itemname = models.CharField(max_length=50, verbose_name='custodianslip_itemname')
     custodianslip_unitcost = models.DecimalField(null= True, max_digits=10, decimal_places=2, verbose_name='custodianslip_unitcost')
     custodianslip_totalcost = models.DecimalField(null= True, max_digits=10, decimal_places=2, verbose_name='custodianslip_totalcost')
     custodianslip_description = models.TextField(verbose_name='custodianslip_description')
@@ -425,6 +425,7 @@ class receiptform_equipment(models.Model):
 
 class equipment_icsform_inputs(models.Model):
     icsform_inputs_id = models.AutoField(primary_key=True)
+    icsform_inputs_department = models.CharField(unique=True, max_length=50, verbose_name='icsform_inputs_department')
     icsform_inputs_icsno = models.CharField(max_length=255, verbose_name='icsform_inputs_icsno')
     icsform_inputs_suppliedby = models.CharField(max_length=255, verbose_name='icsform_inputs_suppliedby')
     icsform_inputs_pono = models.CharField(max_length=255, verbose_name='icsform_inputs_pono')
@@ -440,6 +441,7 @@ class equipment_icsform_inputs(models.Model):
 class equipment_areform_inputs(models.Model):
     areform_inputs_id = models.AutoField(primary_key=True)
     areform_inputs_no = models.CharField(max_length=255, verbose_name='areform_inputs_no')
+    areform_inputs_department = models.CharField(unique=True, max_length=50, verbose_name='areform_inputs_department')
     areform_inputs_suppliedby = models.CharField(max_length=255, verbose_name='areform_inputs_suppliedby')
     areform_inputs_pono = models.CharField(max_length=255, verbose_name='areform_inputs_pono')
     areform_inputs_invoiceno = models.CharField(max_length=255, verbose_name='areform_inputs_invoiceno')

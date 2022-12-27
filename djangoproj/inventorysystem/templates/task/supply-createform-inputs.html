@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<title> Supplies Delivery </title>
+<title> Create RIS Form </title>
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
@@ -171,14 +171,14 @@
                 <div class="col-xl-12 col-md-12 mb-4 mt-4">
                     <div class="container">
                         <div class="kahon">
-                            <h3>Create Form</h3>
+                            <h3>Create RIS Form</h3>
                             <br>
                             <form class="row g-3" action="" method="POST">
                                 {% csrf_token %}
                                 
                                 <div class="col-md-6">
                                     <label class="form-label">Date: </label>
-                                    <input type="date" name="date" id="date" class="form-control" readonly>
+                                    {{form.current_date}}
                                 </div>
                                 <div class="col-md-6">
                                     <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Office: </label>
@@ -204,15 +204,17 @@
 
                                 <div class="col-12">
                                     <!-- <a class="btn1" style="float: right;" onclick="getval()" name="delivery_new" href="#" data-toggle="modal" data-target="#confirmModal">Deliver</a> -->
-                                    <button style="float: right;" type="submit" id="submit" class="btn1" name="save_details" value="Submit"> Save </button>
+                                    <button style="float: right; width: 15%;" type="submit" id="submit" class="btn btn-primary" name="save_details" value="Submit"> Save </button>
                                 </div>
                             </form>
 
                             <div class="row">
                                 <div  class="col-12">
-                                    <form action="{% url 'export_pdf_supplycreateform'%}">
-                                        <button type="submit" id="submit" class="btn1" name="create_form"
-                                        style="float: right; margin-top: 10px;" name = "read_form"value="Submit"> Create Form </button>
+                                    <form action="{% url 'export_pdf_supplycreateform'%}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" id="currentDate" value="" name="currentDate">
+                                        <button type="submit" id="createform" class="btn btn-secondary" name="create_form"
+                                        style="float: right; margin-top: 10px; width: 15%;" value="Submit" onclick="getValue()"> Create Form </button>
                                     </form>
                                 </div>
                             </div>
@@ -268,6 +270,15 @@
 <script type="text/javascript">
     document.getElementById('date').value = localStorage.getItem("storageName");
     window.onload = document.getElementById('date').value;
+
+    function create(){
+        document.getElementById('createform').disabled = false;
+    }
+
+    function getValue() {
+        var x = document.getElementById('date').value;
+        document.getElementById('currentDate').value = x;
+    }
 </script>
 
 {% endblock %}

@@ -397,24 +397,27 @@ class supplycreateforminputsForm(forms.ModelForm):
         createformsupply_inputs_approvedby = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Approved by', 'id': 'createformsupply_inputs_approvedby'}))
         createformsupply_inputs_issuedby = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Issued By', 'id': 'createformsupply_inputs_issuedby'}))
         createformsupply_inputs_receivedby = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Received by', 'id': 'createformsupply_inputs_receivedby'}))
+        current_date = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'readonly': True, 'id': 'date'}))
 
         class Meta:
                 model = supply_createform_inputs
                 fields = ['createformsupply_inputs_office', 'createformsupply_inputs_requestedby', 
-                        'createformsupply_inputs_purpose', 'createformsupply_inputs_approvedby', 'createformsupply_inputs_issuedby', 'createformsupply_inputs_receivedby' ]
+                        'createformsupply_inputs_purpose', 'createformsupply_inputs_approvedby', 'createformsupply_inputs_issuedby', 'createformsupply_inputs_receivedby', 'current_date' ]
 
 class equipment_icsform_inputsForm(forms.ModelForm):
+        icsform_inputs_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'readonly': True, 'id': 'department'}))
         icsform_inputs_icsno = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ICS No', 'id': 'icsform_inputs_icsno'}))
         icsform_inputs_suppliedby = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Supplied By', 'id': 'icsform_inputs_suppliedby'}))
         icsform_inputs_pono = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'PO No', 'id': 'icsform_inputs_pono'}))
         icsform_inputs_invoiceno = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Invoice No.', 'id': 'icsform_inputs_invoiceno'}))
         icsform_inputs_receivedfrom = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Received form', 'id': 'icsform_inputs_receivedfrom'}))
         icsform_inputs_receivedby = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Received by', 'id': 'icsform_inputs_receivedby'}))
+        current_date = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'readonly': True, 'id': 'date'}))
 
         class Meta:
                 model = equipment_icsform_inputs
                 fields = ['icsform_inputs_icsno', 'icsform_inputs_suppliedby', 
-                        'icsform_inputs_pono', 'icsform_inputs_invoiceno', 'icsform_inputs_receivedfrom' , 'icsform_inputs_receivedby']
+                        'icsform_inputs_pono', 'icsform_inputs_invoiceno', 'icsform_inputs_receivedfrom' , 'icsform_inputs_receivedby', 'icsform_inputs_department', 'current_date']
 
 class equipment_areform_inputsForm(forms.ModelForm):
         areform_inputs_no = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'ICS No', 'id': 'areform_inputs_no'}))
@@ -424,7 +427,10 @@ class equipment_areform_inputsForm(forms.ModelForm):
         areform_inputs_receivedfrom = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Received from', 'id': 'areform_inputs_receivedfrom'}))
         areform_inputs_receivedby = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Received by', 'id': 'areform_inputs_receivedby'}))
         areform_inputs_totalamount = forms.DecimalField(required=True, widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Total Amount', 'id': 'areform_inputs_totalamount'}))
+        current_date = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'readonly': True, 'id': 'date'}))
+        areform_inputs_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'readonly': True, 'id': 'department'}))
+
         class Meta:
                 model = equipment_areform_inputs
                 fields = ['areform_inputs_no', 'areform_inputs_suppliedby', 'areform_inputs_pono', 'areform_inputs_invoiceno', 
-                'areform_inputs_receivedfrom', 'areform_inputs_receivedby', 'areform_inputs_totalamount']
+                'areform_inputs_receivedfrom', 'areform_inputs_receivedby', 'areform_inputs_totalamount', 'current_date', 'areform_inputs_department']
