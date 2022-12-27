@@ -377,15 +377,6 @@
 
       <script>
         $(document).ready(function () {
-          var table = $('#MainStorage').DataTable({
-            rowReorder: {
-              selector: 'td:nth-child(2)'
-            },
-            responsive: true
-          });
-        });
-
-        $(document).ready(function () {
           var table = $('#depRequestTable').DataTable({
             rowReorder: {
               selector: 'td:nth-child(2)'
@@ -406,25 +397,25 @@
       </script>
 
       <script type="text/javascript">
-
-        $(document).ready(function () {
-          $('.editBtn').on('click', function () {
-
-            $('#openModal').modal('show');
-            $tr = $(this).closest('tr');
-            var data = $tr.children("td").map(function () {
-              return $(this).text();
-            }).get();
-
-            console.log(data);
-            $('h5.modal-title').html('Request Supply: ' + data[1]);
-            $('#editId').val(data[0]);
-            $('#description').val(data[1]);
-            $('#unit').val(data[2]);
-            $('#quantity').val(data[3]);
-
-          });
+        var table = $('#MainStorage').DataTable({
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            responsive: true,
         });
+
+        
+        $('#MainStorage tbody').on('click', 'tr', function () {
+            $('#openModal').modal('show');
+            $('h5.modal-title').html('Request Supply: ' + table.row(this).data()[1]);
+            $('#editId').val(table.row(this).data()[0]);
+            $('#description').val(table.row(this).data()[1]);
+            $('#unit').val(table.row(this).data()[2]);
+            $('#quantity').val(table.row(this).data()[3]);
+           
+        });
+
+
 
         $('#delayBtn').click(function () {
                 var aaa = $(this);

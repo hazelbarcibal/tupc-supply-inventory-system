@@ -178,7 +178,7 @@
                             <h3 align="center">Requests</h3>
                             <hr>
                             <br>
-                            <table id="equipDeliveryTable" class="table table-striped" style="width:100%">
+                            <table id="equipDeliveryTable" class="table-striped cell-border compact nowrap" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>Request No.</th>
@@ -224,7 +224,7 @@
                 <div class="col-xl-12 col-md-12 mb-4">
                     <div class="container">
                         <div class="kahon">
-                            <table id="emailEquipmentTable" class="table table-striped" style="width:100%;">
+                            <table id="emailEquipmentTable" class="table-striped cell-border compact nowrap" style="width:100%;">
                                 <thead>
                                     <tr>
                                         <th>Request No.</th>
@@ -329,6 +329,7 @@
                     </div>
 
                     <div class="col-md-6">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span> 
                         <label class="form-label">Unit Cost/Amount:</label>
                         <input type="number" min="1" class="form-control" id="unitcost"
                             name="request_equipment_unitcost">
@@ -348,7 +349,7 @@
                             required>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <label class="form-label">Date Requested:</label>
                         <input type="text" class="form-control" id="daterequested"
                             name="request_equipment_daterequested" readonly>
@@ -414,29 +415,6 @@ $(document).ready(function () {
         });
     });
 
-
-    // $(document).ready(function () {
-    //     $('.editBtn1').on('click', function () {
-
-    //         $('#openModal1').modal('show');
-    //         $tr = $(this).closest('tr');
-    //         var data = $tr.children("td").map(function () {
-    //             return $(this).text();
-    //         }).get();
-
-    //         console.log(data);
-    //         $('h5.modal-title').html('Accept Request for: ' + data[1]);
-    //         $('#editId1').val(data[0]);
-    //         $('#department').val(data[1]);
-    //         $('#itemname1').val(data[2]);
-    //         $('#description1').val(data[3]);
-    //         $('#requestquantity').val(data[4]);
-    //         $('#unitcost').val(data[5]);
-    //         $('#unit').val(data[6]);
-    //         $('#iin').val(data[7]);
- 
-    //     });
-    // });
 
 </script>
 

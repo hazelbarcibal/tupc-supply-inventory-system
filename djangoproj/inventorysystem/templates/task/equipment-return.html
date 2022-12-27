@@ -333,31 +333,35 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('.editBtn').on('click', function () {
 
-            $('#openModal').modal('show');
-            $tr = $(this).closest('tr');
-            var data = $tr.children("td").map(function () {
-                return $(this).text();
-            }).get();
-
-            console.log(data);
-            $('h5.modal-title').html('Dispose Equipment: ' + data[1]);
-            $('#editId').val(data[0]);
-            $('#propertyNo').val(data[0]);
-            $('#itemname').val(data[1]);
-            $('#description').val(data[2]);
-            $('#brand').val(data[3]);
-            $('#yearacquired').val(data[4]);
-            $('#issuedto').val(data[5]);
-            $('#modelno').val(data[6]);
-            $('#serialno').val(data[7]);
-            $('#certifiedcorrect').val(data[8]);
-            $('#datereturn').val(data[9]);
-            $('#location').val(data[11]);
-        });
+$(document).ready(function () {
+    var table = $('#returnTable').DataTable({
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        responsive: true,
+        select: false,
     });
+
+    $('#returnTable tbody').on('click', 'tr', function () {
+        $('#openModal').modal('show');
+        $('h5.modal-title').html('Dispose Equipment: ' + table.row(this).data()[1]);
+        $('#editId').val(table.row(this).data()[0]);
+        $('#propertyNo').val(table.row(this).data()[0]);
+        $('#itemname').val(table.row(this).data()[1]);
+        $('#description').val(table.row(this).data()[2]);
+        $('#brand').val(table.row(this).data()[3]);
+        $('#yearacquired').val(table.row(this).data()[4]);
+        $('#issuedto').val(table.row(this).data()[5]);
+        $('#modelno').val(table.row(this).data()[6]);
+        $('#serialno').val(table.row(this).data()[7]);
+        $('#certifiedcorrect').val(table.row(this).data()[8]);
+        $('#datereturn').val(table.row(this).data()[9]);
+        $('#location').val(table.row(this).data()[10]);
+    });
+});
+
+   
 </script>
 
 
@@ -402,14 +406,6 @@
 {% endfor %}
 
 <script>
-    $(document).ready(function () {
-        var table = $('#returnTable').DataTable({
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            },
-            responsive: true
-        });
-    });
 
     function getVal() {
 

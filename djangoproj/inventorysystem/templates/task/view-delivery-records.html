@@ -153,7 +153,8 @@
                                         <th style="text-align: center;">Description</th>
                                         <th style="text-align: center;">Brand</th>
                                         <th style="text-align: center;">Delivery Quantity</th>
-                                        <th style="text-align: center;">Date & Time</th>
+                                        <th style="text-align: center;">Date</th>
+                                        <th style="text-align: center;">Time</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -164,6 +165,7 @@
                                         <td align="center">{{x.delivery_equipment_brand}}</td>
                                         <td align="center">{{x.delivery_equipment_quantity}}</td>
                                         <td align="center">{{x.current_date}}</td>
+                                        <td align="center">{{x.current_time}}</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>

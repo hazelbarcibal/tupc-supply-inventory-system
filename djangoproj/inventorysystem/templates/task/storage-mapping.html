@@ -296,99 +296,30 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('.editBtn').on('click', function () {
-
-            $('#openModal').modal('show');
-            $tr = $(this).closest('tr');
-            var data = $tr.children("td").map(function () {
-                return $(this).text();
-            }).get();
-
-            console.log(data);
-            $('h5.modal-title').html('Update Storage for: ' + data[1]);
-            $('#editId').val(data[0]);
-            $('#itemname').val(data[0]);
-            $('#rackno').val(data[1]);
-            $('#layerno').val(data[2]);
-            $('#cabinetno').val(data[3]);
-            $('#shelfno').val(data[4]);
-        });
-    });
-</script>
-
-
-
-<!-- --- UPDATE SUPPLY STORAGE MODAL ---
-<div class="modal fade" id="openModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"></h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                --- UPDATE SUPPLY STORAGE FORM --
-                <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <input type="hidden" id="editId1" name="equipmentDisposal_id" value="" readonly>
-
-                    <div class="col-md-12">
-                        <label class="form-label">Equipment name:</label>
-                        <input type="text" class="form-control" id="equipmentname" name="equipmentItemName" readonly>
-                    </div>
-
-                    <div class="col-md-12">
-                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                            class="form-label">Location:</label>
-                        <input type="text" class="form-control" id="location" name="equipmentLocation" required>
-                    </div>
-
-                    <div class="modal-footer">
-                        <div class="col-12">
-                            <button type="submit" name="storageequipment_update" class="btn btn-primary">UPDATE</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
-
-
- <script type="text/javascript">
-    $(document).ready(function () {
-        $('.editBtn1').on('click', function () {
-
-            $('#openModal1').modal('show');
-            $tr = $(this).closest('tr');
-            var data = $tr.children("td").map(function () {
-                return $(this).text();
-            }).get();
-
-            console.log(data);
-            $('h5.modal-title').html('Update Storage for: ' + data[1]);
-            $('#editId1').val(data[0]);
-            $('#equipmentname').val(data[1]);
-            $('#location').val(data[2]);
-        });
-    });
-</script> -->
-
-
-<script>
-    $(document).ready(function () {
         var table = $('#supplymappingTable').DataTable({
             rowReorder: {
                 selector: 'td:nth-child(2)'
             },
-            responsive: true
+            responsive: true,
         });
-    });
+
+        $('#supplymappingTable tbody').on('click', 'tr', function () {
+            $('#openModal').modal('show');
+            $('h5.modal-title').html('Update Storage for: ' + table.row(this).data()[0]);
+            $('#editId').val(table.row(this).data()[0]);
+            $('#itemname').val(table.row(this).data()[0]);
+            $('#rackno').val(table.row(this).data()[1]);
+            $('#layerno').val(table.row(this).data()[2]);
+            $('#cabinetno').val(table.row(this).data()[3]);
+            $('#shelfno').val(table.row(this).data()[4]);
+           
+        });
+
+</script>
+
+
+<script>
+
     $(document).ready(function () {
         var table = $('#equipmentdisposalTable').DataTable({
             rowReorder: {

@@ -144,37 +144,31 @@
 </div>
 
 <script type="text/javascript">
-
-    $(document).ready(function () {
-        $('.editBtn').on('click', function () {
-
-            $('#openModal').modal('show');
-            $tr = $(this).closest('tr');
-            var data = $tr.children("td").map(function () {
-                return $(this).text();
-            }).get();
-
-            console.log(data);
-            $('h5.modal-title').html('Add Limit for: ' + data[4]);
-            $('#editId').val(data[0]);
-            $('#description').val(data[1]);
-            $('#unit').val(data[2]);
-            $('#quantity').val(data[3]);
-            $('#department').val(data[4]);
-        });
-    });
-
-    $(document).ready(function () {
-        var table = $('#MainStorage').DataTable({
+    
+$(document).ready(function () {
+        var table = $('#LimitTable').DataTable({
             rowReorder: {
                 selector: 'td:nth-child(2)'
             },
-            responsive: true
+            responsive: true,
+        });
+
+        $('#LimitTable tbody').on('click', 'tr', function () {
+            $('#openModal').modal('show');
+            $('h5.modal-title').html('Add Limit for: ' + table.row(this).data()[4]);
+            $('#editId').val(table.row(this).data()[0]);
+            $('#description').val(table.row(this).data()[1]);
+            $('#unit').val(table.row(this).data()[2]);
+            $('#quantity').val(table.row(this).data()[3]);
+            $('#department').val(table.row(this).data()[4]);
+           
         });
     });
+</script>
 
+<script>
     $(document).ready(function () {
-        var table = $('#LimitTable').DataTable({
+        var table = $('#MainStorage').DataTable({
             rowReorder: {
                 selector: 'td:nth-child(2)'
             },
@@ -447,7 +441,7 @@
                             <h3 align="center">Item Limit Per Department</h3>
                             <hr>
                             <br>
-                            <table id="LimitTable" class="table table-striped" style="width:100%">
+                            <table id="LimitTable" class="table-striped cell-border compact nowrap" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th style="text-align: center;">Limit no.</th>
