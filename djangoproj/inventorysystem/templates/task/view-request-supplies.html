@@ -65,9 +65,23 @@
                     </div>
 
                     <div class="col-md-6">
+                        <label class="form-label">Date Requested:</label>
+                        <input type="text" class="form-control" id="date_requested"
+                            name="daterequested" readonly>
+                    </div>
+
+                    <div class="col-md-6">
                         <label class="form-label">Requested Quantity:</label>
                         <input type="number" min="1" class="form-control" id="requestquantity"
                             name="request_supply_quantity" readonly>
+                    </div>
+
+                    
+                    <div class="col-md-6">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                            class="form-label">Amount:</label>
+                        <input type="number" min="1" class="form-control" id="supplyamount"
+                            name="supplyamount" required>
                     </div>
 
                     <div class="col-md-6">
@@ -77,19 +91,7 @@
                             name="request_supply_acceptquantity" required>
                     </div>
 
-                    <div class="col-md-6">
-                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                            class="form-label">Amount:</label>
-                        <input type="number" min="1" class="form-control" id="supplyamount"
-                            name="supplyamount" required>
-                    </div>
                    
-                    <div class="col-md-6">
-                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                            class="form-label">Date Requested:</label>
-                        <input type="text" class="form-control" id="date_requested"
-                            name="daterequested" readonly>
-                    </div>
 
                     <div class="col-md-3">
                         <label class="form-label">Rack No.:</label>
