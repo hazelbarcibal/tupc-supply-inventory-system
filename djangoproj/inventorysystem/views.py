@@ -1516,7 +1516,7 @@ def export_excel(request):
 
 #supply delivery
     supply_font.font.bold = True
-    supplydelivery = ['Description', 'Unit', 'Quantity', 'Remaining Quantity', 'Date and Time']
+    supplydelivery = ['Description', 'Unit', 'Quantity', 'Remaining Quantity', 'Date', 'Time']
 
     for col_num in range(len(supplydelivery)):
         ws.write(row_num,col_num, supplydelivery[col_num], supply_font)
@@ -1525,7 +1525,7 @@ def export_excel(request):
 
     rows = deliverysupply.objects.all().values_list(
         'delivery_supply_description', 'delivery_supply_unit',
-                'delivery_supply_quantity', 'delivery_supply_remaining', 'current_date')
+                'delivery_supply_quantity', 'delivery_supply_remaining', 'current_date', 'current_date')
 
     for row in rows:
         row_num+= 1
@@ -1536,7 +1536,7 @@ def export_excel(request):
 #equipment delivery
     equipment_font.font.bold = True
     equipmentdelivery = ['Itemname', 'Description', 'Brand',
-                'Quantity', 'Remaining Quantity', 'Date and Time']
+                'Quantity', 'Remaining Quantity', 'Date', 'Time']
 
     for col_num1 in range(len(equipmentdelivery)):
         ws1.write(row_num1,col_num1, equipmentdelivery[col_num1], equipment_font)
@@ -1545,7 +1545,7 @@ def export_excel(request):
 
     rows1 =deliveryequipment.objects.all().values_list(
         'delivery_equipment_itemname', 'delivery_equipment_description', 'delivery_equipment_brand',
-                'delivery_equipment_quantity', 'delivery_equipment_remaining', 'current_date')
+                'delivery_equipment_quantity', 'delivery_equipment_remaining', 'current_date', 'current_time')
 
     for row in rows1:
         row_num1+= 1
@@ -1555,7 +1555,7 @@ def export_excel(request):
 
 #supply withdraw
     wsupply_font.font.bold = True
-    supplywithdraw = ['Department', 'Description', 'Unit', 'Withdrawn Quantity', 'Date and Time']
+    supplywithdraw = ['Department', 'Description', 'Unit', 'Withdrawn Quantity', 'Date', 'Time']
 
     for col_num2 in range(len(supplywithdraw)):
         ws2.write(row_num2,col_num2, supplywithdraw[col_num2], wsupply_font)
@@ -1563,7 +1563,7 @@ def export_excel(request):
     font_style = xlwt.XFStyle()
 
     rows2 = withdrawsupply.objects.all().values_list( 'withdraw_supply_department',
-        'withdraw_supply_description', 'withdraw_supply_unit', 'withdraw_supply_quantity', 'current_date')
+        'withdraw_supply_description', 'withdraw_supply_unit', 'withdraw_supply_quantity', 'withdraw_supply_current_date', 'withdraw_supply_current_time')
 
     for row in rows2:
         row_num2+= 1
@@ -1575,7 +1575,7 @@ def export_excel(request):
     wequipment_font.font.bold = True
     equipmentwithdraw = ['Property No.', 'Item Name', 'Description', 
                 'Brand', 'Year Acquired', 'Issued to', 'Model No.', 'SerialNo.',
-                'Certified Correct', 'Date and Time']
+                'Certified Correct', 'Date', 'Time']
 
     for col_num3 in range(len(equipmentwithdraw)):
         ws3.write(row_num3,col_num3, equipmentwithdraw[col_num3], wequipment_font)
@@ -1586,7 +1586,7 @@ def export_excel(request):
         'withdraw_equipment_property_no', 'withdraw_equipment_itemname', 
         'withdraw_equipment_description', 'withdraw_equipment_brand', 'withdraw_equipment_yearacquired',
         'withdraw_equipment_issued_to', 'withdraw_equipment_model_no', 'withdraw_equipment_serial_no', 
-        'withdraw_equipment_certifiedcorrect', 'current_date')
+        'withdraw_equipment_certifiedcorrect', 'withdraw_equipment_current_date', 'withdraw_equipment_current_time')
 
     for row in rows3:
         row_num3+= 1
