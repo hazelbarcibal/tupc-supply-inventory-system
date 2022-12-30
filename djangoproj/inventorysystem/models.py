@@ -452,3 +452,12 @@ class equipment_areform_inputs(models.Model):
 
     class Meta:
         db_table = "equipment_areform_inputs"
+
+class equipment_are_totalamount(models.Model):
+    areform_totalamount_id = models.AutoField(primary_key=True)
+    areform_totalamount_department = models.CharField(unique=True, max_length=50, verbose_name='areform_totalamount_department')
+    areform_totalamount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='areform_totalamount')
+    current_date = models.CharField( max_length=50, verbose_name='currentdate')
+    
+    class Meta:
+        db_table = "equipment_are_totalalmount"
