@@ -112,7 +112,7 @@
         <tr>
           <td >{{y.receiptformequipment_quantity}}</td>
           <td >{{y.receiptformequipment_unit}}</td>
-          <td style="text-align: left;" colspan="4">{{y.receiptformequipment_description}}</td>
+          <td style="text-align: left;" colspan="4">{{y.receiptformequipment_itemname}} ; {{y.receiptformequipment_description}} ; {{y.receiptformequipment_unit}} </td>
           <td colspan="2">{{y.receiptformequipment_propertyno}}</td>
         </tr>
         {% endfor %}
@@ -168,14 +168,14 @@
           {% endfor %}
         </tbody>
         <tbody >
-
+          {% for y in Form2 %}
           <tr>
             <td></td>
             <td ></td>
-            <td style="text-align: left;" colspan="4">In the amount of Php. </td>
+            <td style="text-align: left;" colspan="4">In the amount of Php. {{y.areform_totalamount}}</td>
             <td colspan="2"></td>
           </tr>
-    
+          {% endfor %}
         </tbody>
         <tbody style="color: white;">
           <tr>

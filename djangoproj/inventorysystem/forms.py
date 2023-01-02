@@ -391,10 +391,12 @@ equipmentLocation = forms.DecimalField(widget=forms.NumberInput(attrs={'class': 
 
 # supply_createform - admin view
 class supplycreateforminputsForm(forms.ModelForm):
-        createformsupply_inputs_office = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Office', 'id': 'createformsupply_inputs_office'}))
+        createformsupply_inputs_office = forms.CharField(required=True, widget=forms.TextInput(attrs={'list': 'offices', 'class': 'form-control', 'placeholder': 'Office / Department', 'id': 'createformsupply_inputs_office'}))
         createformsupply_inputs_requestedby = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Requested by', 'id': 'createformsupply_inputs_requestedby'}))
-        createformsupply_inputs_purpose = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Purpose', 'id': 'createformsupply_inputs_purpose'}))
+        createformsupply_inputs_reqdesignation = forms.CharField(required=True, widget=forms.TextInput(attrs={'list': 'reqdesignationlist', 'class': 'form-control', 'placeholder': 'Designation', 'id': 'createformsupply_inputs_reqdesignation'}))
+        createformsupply_inputs_purpose = forms.CharField(required=True, widget=forms.TextInput(attrs={'list': 'purpose', 'class': 'form-control', 'placeholder': 'Purpose', 'id': 'createformsupply_inputs_purpose'}))
         createformsupply_inputs_approvedby = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Approved by', 'id': 'createformsupply_inputs_approvedby'}))
+        createformsupply_inputs_designation = forms.CharField(required=True, widget=forms.TextInput(attrs={'list': 'designationlist', 'class': 'form-control', 'placeholder': 'Designation', 'id': 'createformsupply_inputs_designation'}))
         createformsupply_inputs_issuedby = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Issued By', 'id': 'createformsupply_inputs_issuedby'}))
         createformsupply_inputs_receivedby = forms.CharField(required=True, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Received by', 'id': 'createformsupply_inputs_receivedby'}))
         current_date = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'readonly': True, 'id': 'date'}))
@@ -402,7 +404,7 @@ class supplycreateforminputsForm(forms.ModelForm):
         class Meta:
                 model = supply_createform_inputs
                 fields = ['createformsupply_inputs_office', 'createformsupply_inputs_requestedby', 
-                        'createformsupply_inputs_purpose', 'createformsupply_inputs_approvedby', 'createformsupply_inputs_issuedby', 'createformsupply_inputs_receivedby', 'current_date' ]
+                        'createformsupply_inputs_purpose', 'createformsupply_inputs_approvedby', 'createformsupply_inputs_designation', 'createformsupply_inputs_issuedby', 'createformsupply_inputs_receivedby', 'current_date' ]
 
 class equipment_icsform_inputsForm(forms.ModelForm):
         icsform_inputs_department = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'readonly': True, 'id': 'department'}))

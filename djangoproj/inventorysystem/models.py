@@ -367,8 +367,10 @@ class supply_createform_inputs(models.Model):
     createformsupply_inputs_office = models.CharField(max_length=255, verbose_name='createformsupply_inputs_office')
     createformsupply_inputs_department = models.CharField(unique=True, max_length=50, verbose_name='createformsupply_inputs_department')
     createformsupply_inputs_approvedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_approvedby')
+    createformsupply_inputs_designation = models.CharField(max_length=50, verbose_name='createformsupply_inputs_designation')
     createformsupply_inputs_issuedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_issuedby')
     createformsupply_inputs_requestedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_requestedby')
+    createformsupply_inputs_reqdesignation = models.CharField(max_length=50, verbose_name='createformsupply_inputs_reqdesignation')
     createformsupply_inputs_receivedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_receivedby')
     createformsupply_inputs_purpose = models.CharField(max_length=255, verbose_name='createformsupply_inputs_purpose')
     current_date = models.CharField( max_length=50, verbose_name='currentdate')
@@ -432,6 +434,7 @@ class equipment_icsform_inputs(models.Model):
     icsform_inputs_invoiceno = models.CharField(max_length=255, verbose_name='icsform_inputs_invoiceno')
     icsform_inputs_receivedfrom = models.CharField(max_length=255, verbose_name='icsform_inputs_receivedfrom')
     icsform_inputs_receivedby = models.CharField(max_length=255, verbose_name='icsform_inputs_receivedby')
+    icsform_inputs_position = models.CharField(max_length=50, verbose_name='icsform_inputs_position')
     current_date = models.CharField( max_length=50, verbose_name='currentdate')
 
 
@@ -447,6 +450,7 @@ class equipment_areform_inputs(models.Model):
     areform_inputs_invoiceno = models.CharField(max_length=255, verbose_name='areform_inputs_invoiceno')
     areform_inputs_receivedfrom = models.CharField(max_length=255, verbose_name='areform_inputs_receivedfrom')
     areform_inputs_receivedby = models.CharField(max_length=255, verbose_name='areform_inputs_receivedby')
+    areform_inputs_position = models.CharField(max_length=50, verbose_name='areform_inputs_position')
     areform_inputs_totalamount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='areform_inputs_totalamount')
     current_date = models.CharField( max_length=50, verbose_name='currentdate')
 

@@ -227,23 +227,27 @@
                                         <table id="custodianSlipTable" class="table table-striped" style="width:100%">
                                             <thead>
                                                 <tr>
+                                                    <th style="text-align: center;">Department</th>
                                                     <th style="text-align: center;">Quantity</th>
                                                     <th style="text-align: center;">Unit</th>
                                                     <th style="text-align: center;">Unit Cost</th>
                                                     <th style="text-align: center;">Total Cost</th>
                                                     <th style="text-align: center;">Description</th>
                                                     <th style="text-align: center;">Inventory Item No.</th>
+                                                    <th style="text-align: center;">Date Accepted</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {% for x in info2 %}
                                                 <tr class="edittr">
+                                                    <td align="center">{{x.custodianslip_department}}</td>
                                                     <td align="center">{{x.custodianslip_quantity}}</td>
                                                     <td align="center">{{x.custodianslip_unit}}</td>
                                                     <td align="center">{{x.custodianslip_unitcost}}</td>
                                                     <td align="center">{{x.custodianslip_totalcost}}</td>
                                                     <td align="center">{{x.custodianslip_description}}</td>
                                                     <td align="center">{{x.custodianslip_inventoryitemno}}</td>
+                                                    <td align="center">{{x.current_date}}</td>
                                                 </tr>
                                                 {% endfor %}
                                             </tbody>
@@ -321,17 +325,21 @@
                                         <table id="acknowledgementReceiptTable" class="table table-striped" style="width:100%">
                                             <thead>
                                                 <tr>
+                                                    <th style="text-align: center;">Department</th>
                                                     <th style="text-align: center;">Quantity</th>
                                                     <th style="text-align: center;">Unit</th>
                                                     <th style="text-align: center;">Property No.</th>
+                                                    <th style="text-align: center;">Date Accepted</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {% for x in info3 %}
                                                 <tr class="edittr">
+                                                    <td align="center">{{x.receiptformequipment_department}}</td>
                                                     <td align="center">{{x.receiptformequipment_quantity}}</td>
                                                     <td align="center">{{x.receiptformequipment_unit}}</td>
                                                     <td align="center">{{x.receiptformequipment_propertyno}}</td>
+                                                    <td align="center">{{x.current_date}}</td>
                                                 </tr>
                                                 {% endfor %}
                                             </tbody>

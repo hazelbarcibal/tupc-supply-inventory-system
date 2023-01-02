@@ -52,8 +52,10 @@ def suppliesCreateform(request):
                     form = supply_createform_inputs()
                     form.createformsupply_inputs_office = request.POST.get('createformsupply_inputs_office')
                     form.createformsupply_inputs_requestedby = request.POST.get('createformsupply_inputs_requestedby')
+                    form.createformsupply_inputs_reqdesignation = request.POST.get('createformsupply_inputs_reqdesignation')
                     form.createformsupply_inputs_purpose = request.POST.get('createformsupply_inputs_purpose')
-                    form.createformsupply_inputs_approvedby = "MYRNA M. TEPORA"
+                    form.createformsupply_inputs_approvedby = request.POST.get('createformsupply_inputs_approvedby')
+                    form.createformsupply_inputs_designation = request.POST.get('createformsupply_inputs_designation')
                     form.createformsupply_inputs_receivedby = request.POST.get('createformsupply_inputs_receivedby')
                     form.createformsupply_inputs_issuedby = "B.F. GASCON"
                     form.createformsupply_inputs_department = request.user
@@ -1789,9 +1791,10 @@ def export_pdf_equipment_arecreateform(request):
 
         if 'create_form' in request.POST:
             equipment = receiptform_equipment.objects.all().filter(receiptformequipment_department = request.POST.get('dept')).filter(current_date = request.POST.get('currentDate'))
-            equipment1 = equipment_areform_inputs.objects.all().filter(areform_inputs_department = request.POST.get('dept')).filter(current_date = request.POST.get('currentDate'))
+            equipment1 = equipment_areform_inputs.objects.all()
+            equipment2 = equipment_are_totalamount.objects.all()
             print(request.POST.get('currentDate'))
-            html_string = render_to_string('task/pdf-output-equipment-are.html' ,{'Form': equipment, 'Form1': equipment1})
+            html_string = render_to_string('task/pdf-output-equipment-are.html' ,{'Form': equipment, 'Form1': equipment1, 'Form2': equipment2})
             html = HTML(string=html_string, base_url=request.build_absolute_uri())
             result = html.write_pdf(presentational_hints=True)
 
@@ -1813,7 +1816,7 @@ def export_pdf_equipment_icscreateform(request):
 
         if 'create_form' in request.POST:
             equipment = custodian_slip.objects.all().filter(custodianslip_department = request.POST.get('dept')).filter(current_date = request.POST.get('currentDate'))
-            equipment1 = equipment_icsform_inputs.objects.all().filter(icsform_inputs_department = request.POST.get('dept')).filter(current_date = request.POST.get('currentDate'))
+            equipment1 = equipment_icsform_inputs.objects.all()
             print(request.POST.get('currentDate'))
             html_string = render_to_string('task/pdf-output-equipment-ics.html' ,{'Equip': equipment, 'Equips': equipment1})
             html = HTML(string=html_string, base_url=request.build_absolute_uri())

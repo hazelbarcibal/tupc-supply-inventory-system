@@ -181,21 +181,52 @@
                                     {{form.current_date}}
                                 </div>
                                 <div class="col-md-6">
-                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Office: </label>
+                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Office / Department: </label>
                                     {{form.createformsupply_inputs_office}}
+                                    <datalist id="offices">
+                                        <option id="1" value="Cashier Office"></option>
+                                        <option id="2" value="Extension Office"></option>
+                                        <option id="3" value="Guidance Office"></option>
+                                        <option id="4" value="Health Services Office"></option>
+                                        <option id="5" value="Office of Academic Affairs"></option>
+                                        <option id="6" value="Admission Office"></option>
+                                        <option id="7" value="Alumni Office"></option>
+                                        <option id="8" value="Math and Science Department"></option>
+                                    </datalist>
                                 </div>
                                 <div class="col-md-6">
                                     <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Requested by: </label><br>
                                     {{form.createformsupply_inputs_requestedby}}
                                 </div>
-                                
                                 <div class="col-md-6">
+                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Designation: </label>
+                                    {{form.createformsupply_inputs_reqdesignation}}
+                                </div>
+                                
+                                <div class="col-md-12">
                                     <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Received By: </label>
                                     {{form.createformsupply_inputs_receivedby}}
+                                </div>
+                                <div class="col-md-6">
+                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Approved By: </label>
+                                    {{form.createformsupply_inputs_approvedby}}
+                                </div>
+                                <div class="col-md-6">
+                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Designation: </label>
+                                    {{form.createformsupply_inputs_designation}}
+                                    <datalist id="designationlist">
+                                        <option id="1" value="Campus Director"></option>
+                                        <option id="2" value="Head-ADAA"></option>
+                                        <option id="3" value="Head-ADAF"></option>
+                                        <option id="4" value="Head-R & E"></option>
+                                    </datalist>
                                 </div>
                                 <div class="col-md-12">
                                     <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label class="form-label">Purpose: </label>
                                     {{form.createformsupply_inputs_purpose}}
+                                    <datalist id="purpose">
+                                        <option id="1" value="Supply and Materials "></option>
+                                    </datalist>
                                 </div>
 
                                 <div class="col-12">

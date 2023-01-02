@@ -143,6 +143,62 @@
     </div>
 </div>
 
+<!----- DEDUCT  MODAL ----->
+<div class="modal fade" id="openModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!----- UPDATE STATUS FORM ---->
+                <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <input type="hidden" id="editId1" name="limit_id" value="" readonly>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Department:</label>
+                        <input type="text" class="form-control" id="department1" name="limit_department" readonly>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Description:</label>
+                        <input type="text" class="form-control" id="description1" name="limit_description" readonly>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Unit:</label>
+                        <input type="text" min="1" class="form-control" id="unit1" name="limit_unit" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Quantity:</label>
+                        <input type="number" min="1" class="form-control" id="quantity1" name="limit_quantity" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                            class="form-label">Deduct Quantity:</label>
+                        <input type="number" min="1" class="form-control" id="addquantity" name="limit_addquantity"
+                            required>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="col-12">
+                            <button style="float: right; " type="submit" name="update_limit"
+                                class="btn btn-primary">DEDUCT</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     
 $(document).ready(function () {
@@ -163,6 +219,18 @@ $(document).ready(function () {
             $('#department').val(table.row(this).data()[4]);
            
         });
+
+        $('#LimitTable tbody').on('click', 'tr', function () {
+            $('#openModal1').modal('show');
+            $('h5.modal-title').html('Deduct Limit for: ' + table.row(this).data()[4]);
+            $('#editId1').val(table.row(this).data()[0]);
+            $('#description1').val(table.row(this).data()[1]);
+            $('#unit1').val(table.row(this).data()[2]);
+            $('#quantity1').val(table.row(this).data()[3]);
+            $('#department1').val(table.row(this).data()[4]);
+           
+        });
+
     });
 </script>
 
@@ -371,6 +439,7 @@ $(document).ready(function () {
                                         <option id="2" value="Bundle"></option>
                                         <option id="3" value="Ream"></option>
                                         <option id="4" value="Pc"></option>
+                                        <option id="5" value="Roll"></option>
                                     </datalist>
                                 </div>
 
@@ -461,8 +530,10 @@ $(document).ready(function () {
                                         <td align="center">{{x.limit_quantity}}</td>
                                         <td align="center">{{x.limit_department}}</td>
                                         <td align="center">
-                                            <button class="btn btn-success editBtn" style="margin-bottom: 10px; font-size: 13px;"
-                                                name="editBtn">UPDATE</button>
+                                            <button class="fa-sharp fa-solid fa-plus btn btn-success editBtn" style="margin-bottom: 10px; font-size: 13px;"
+                                                name="editBtn">ADD</button>
+                                            <button class="fa-sharp fa-solid fa-minus btn btn-success editBtn1" style="margin-bottom: 10px; font-size: 13px;"
+                                                name="editBtn1">DEDUCT</button>
                                         </td>
                                     </tr>
                                     {% endfor %}
