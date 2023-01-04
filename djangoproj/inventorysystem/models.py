@@ -427,7 +427,7 @@ class receiptform_equipment(models.Model):
 
 class equipment_icsform_inputs(models.Model):
     icsform_inputs_id = models.AutoField(primary_key=True)
-    icsform_inputs_department = models.CharField(unique=True, max_length=50, verbose_name='icsform_inputs_department')
+    icsform_inputs_department = models.CharField(max_length=50, verbose_name='icsform_inputs_department')
     icsform_inputs_icsno = models.CharField(max_length=255, verbose_name='icsform_inputs_icsno')
     icsform_inputs_suppliedby = models.CharField(max_length=255, verbose_name='icsform_inputs_suppliedby')
     icsform_inputs_pono = models.CharField(max_length=255, verbose_name='icsform_inputs_pono')
@@ -444,14 +444,13 @@ class equipment_icsform_inputs(models.Model):
 class equipment_areform_inputs(models.Model):
     areform_inputs_id = models.AutoField(primary_key=True)
     areform_inputs_no = models.CharField(max_length=255, verbose_name='areform_inputs_no')
-    areform_inputs_department = models.CharField(unique=True, max_length=50, verbose_name='areform_inputs_department')
+    areform_inputs_department = models.CharField( max_length=50, verbose_name='areform_inputs_department')
     areform_inputs_suppliedby = models.CharField(max_length=255, verbose_name='areform_inputs_suppliedby')
     areform_inputs_pono = models.CharField(max_length=255, verbose_name='areform_inputs_pono')
     areform_inputs_invoiceno = models.CharField(max_length=255, verbose_name='areform_inputs_invoiceno')
     areform_inputs_receivedfrom = models.CharField(max_length=255, verbose_name='areform_inputs_receivedfrom')
     areform_inputs_receivedby = models.CharField(max_length=255, verbose_name='areform_inputs_receivedby')
     areform_inputs_position = models.CharField(max_length=50, verbose_name='areform_inputs_position')
-    areform_inputs_totalamount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='areform_inputs_totalamount')
     current_date = models.CharField( max_length=50, verbose_name='currentdate')
 
     class Meta:
@@ -459,7 +458,7 @@ class equipment_areform_inputs(models.Model):
 
 class equipment_are_totalamount(models.Model):
     areform_totalamount_id = models.AutoField(primary_key=True)
-    areform_totalamount_department = models.CharField(unique=True, max_length=50, verbose_name='areform_totalamount_department')
+    areform_totalamount_department = models.CharField( max_length=50, verbose_name='areform_totalamount_department')
     areform_totalamount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='areform_totalamount')
     current_date = models.CharField( max_length=50, verbose_name='currentdate')
     

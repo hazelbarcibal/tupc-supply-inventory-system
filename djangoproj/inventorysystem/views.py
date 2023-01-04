@@ -64,6 +64,7 @@ def suppliesCreateform(request):
                     messages.success(request, 'Ready for creating a form!')
                     
                     return redirect('inventorysystem-suppliesCreateform')
+
                 elif supply_createform_inputs.objects.filter(createformsupply_inputs_department = request.user).filter(current_date = request.POST.get('date')).exists() == False:
                     messages.info(request, 'You already have saved details for this form.')
                     return redirect('inventorysystem-suppliesCreateform')
@@ -92,16 +93,24 @@ def equipmentIcsform(request):
         label = request.user
         if request.method == "POST":
             if 'save_inputs' in request.POST:
-                form =  equipment_icsform_inputs()
-                form.icsform_inputs_icsno = request.POST.get('icsform_inputs_icsno')
-                form.icsform_inputs_invoiceno = request.POST.get('icsform_inputs_invoiceno')
-                form.icsform_inputs_pono = request.POST.get('icsform_inputs_pono')
-                form.icsform_inputs_receivedby = request.POST.get('icsform_inputs_receivedby')
-                form.icsform_inputs_receivedfrom = request.POST.get('icsform_inputs_receivedfrom')
-                form.icsform_inputs_suppliedby = request.POST.get('icsform_inputs_suppliedby')
-                form.save()
-                messages.success(request, 'Ready for creating a form!')
-                return redirect('inventorysystem-equipment-icsform')
+                if equipment_icsform_inputs.objects.filter(icsform_inputs_department = request.POST.get('icsform_inputs_department')).filter(current_date = request.POST.get('current_date')).exists() == True:
+                    messages.info(request, 'You already have saved details for this form.')
+                    return redirect('inventorysystem-equipment-icsform')
+
+                elif equipment_icsform_inputs.objects.filter(icsform_inputs_department = request.POST.get('icsform_inputs_department')).filter(current_date = request.POST.get('current_date')).exists() == False:
+                    form =  equipment_icsform_inputs()
+                    form.icsform_inputs_icsno = request.POST.get('icsform_inputs_icsno')
+                    form.icsform_inputs_invoiceno = request.POST.get('icsform_inputs_invoiceno')
+                    form.icsform_inputs_department = request.POST.get('icsform_inputs_department')
+                    form.icsform_inputs_pono = request.POST.get('icsform_inputs_pono')
+                    form.icsform_inputs_receivedby = request.POST.get('icsform_inputs_receivedby')
+                    form.icsform_inputs_receivedfrom = request.POST.get('icsform_inputs_receivedfrom')
+                    form.icsform_inputs_position = request.POST.get('icsform_inputs_position')
+                    form.icsform_inputs_suppliedby = request.POST.get('icsform_inputs_suppliedby')
+                    form.current_date = request.POST.get('current_date')
+                    form.save()
+                    messages.success(request, 'Ready for creating a form!')
+                    return redirect('inventorysystem-equipment-icsform')
         context = {
             'form': form,
             'label': label,
@@ -121,17 +130,26 @@ def equipmentAreform(request):
         label = request.user
         if request.method == "POST":
             if 'save_inputs' in request.POST:
-                form = equipment_areform_inputs()
-                form.areform_inputs_no = request.POST.get('areform_inputs_no')
-                form.areform_inputs_invoiceno = request.POST.get('areform_inputs_invoiceno')
-                form.areform_inputs_pono = request.POST.get('areform_inputs_pono')
-                form.areform_inputs_receivedby = request.POST.get('areform_inputs_receivedby')
-                form.areform_inputs_receivedfrom = request.POST.get('areform_inputs_receivedfrom')
-                form.areform_inputs_suppliedby = request.POST.get('areform_inputs_suppliedby')
-                form.areform_inputs_totalamount = request.POST.get('areform_inputs_totalamount')
-                form.save()
-                messages.success(request, 'Ready for creating a form!')
-                return redirect('inventorysystem-equipment-areform')
+                if equipment_areform_inputs.objects.filter(areform_inputs_department = request.POST.get('areform_inputs_department')).filter(current_date = request.POST.get('current_date')).exists() == True:
+                    messages.info(request, 'You already have saved details for this form.')
+                    return redirect('inventorysystem-equipment-areform')
+
+
+                elif equipment_areform_inputs.objects.filter(areform_inputs_department = request.POST.get('areform_inputs_department')).filter(current_date = request.POST.get('current_date')).exists() == False:
+                 
+                    form = equipment_areform_inputs()
+                    form.areform_inputs_no = request.POST.get('areform_inputs_no')
+                    form.areform_inputs_invoiceno = request.POST.get('areform_inputs_invoiceno')
+                    form.areform_inputs_pono = request.POST.get('areform_inputs_pono')
+                    form.areform_inputs_receivedby = request.POST.get('areform_inputs_receivedby')
+                    form.areform_inputs_receivedfrom = request.POST.get('areform_inputs_receivedfrom')
+                    form.areform_inputs_suppliedby = request.POST.get('areform_inputs_suppliedby')
+                    form.areform_inputs_department = request.POST.get('areform_inputs_department')
+                    form.areform_inputs_position = request.POST.get('areform_inputs_position')
+                    form.current_date = request.POST.get('current_date')
+                    form.save()
+                    messages.success(request, 'Ready for creating a form!')
+                    return redirect('inventorysystem-equipment-areform')
 
         context = {
             'form': form,
@@ -631,6 +649,28 @@ def statusLimit(request):
                 else:
                     messages.info(request, "invalid quantity")
 
+            if 'deduct' in request.POST:
+
+                getdata_deduct =  limitrecords.objects.get(limit_description = request.POST.get('deduct_description'), limit_department = request.POST.get('deduct_department')).limit_id
+                getdata_deduct1 =  limitrecords.objects.get(limit_description = request.POST.get('deduct_description'), limit_department = request.POST.get('deduct_department')).limit_quantity
+
+                if int(request.POST.get('deduct_id')) > 0:
+                        update_record1 = limitrecords()
+                        update_record1.limit_id = getdata_deduct
+                        update_record1.limit_description = request.POST.get('deduct_description')
+                        update_record1.limit_unit = request.POST.get('deduct_unit')
+                        update_record1.limit_department = request.POST.get('deduct_department')
+                        deduct = int(getdata_deduct1) - int(request.POST.get('deduct_addquantity'))
+                        update_record1.limit_quantity = deduct
+                        limitrecords.objects.filter(limit_id = getdata_deduct).delete()
+                        update_record1.save()
+
+
+                        messages.success(request, 'Record updated for Itemname: ' + request.POST.get('deduct_description') +  " with a unit: " + request.POST.get('deduct_unit') + " into department: " + request.POST.get('deduct_department'))
+                        return redirect('inventorysystem-statusLimit')
+                else:
+                        messages.info(request, "invalid quantity")
+
 
         context = {
             'info': info,
@@ -1040,6 +1080,7 @@ def equipmentDeliver(request):
                         accept.arequest_equipment_remaining = 0
                         accept.arequest_equipment_property_no = 0
                         accept.arequest_equipment_dateaccepted = datetime.date.today()
+                        accept.arequest_equipment_daterequested = request.POST.get('request_equipment_daterequested')
                         requestequipment.objects.filter(requestequipment_id = getdata).delete()
                         accept.save()
                         storage = equipmentmainstorage()  
@@ -1068,6 +1109,7 @@ def equipmentDeliver(request):
                         status.status_equipment_status = "Ready for pick-up"  
                         status.status_equipment_remaining = 0
                         status.status_equipment_dateaccepted = datetime.date.today()
+                        status.status_equipment_daterequested = request.POST.get('request_equipment_daterequested')
                         statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete()
                         status.save()
 
