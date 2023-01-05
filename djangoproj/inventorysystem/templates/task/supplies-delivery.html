@@ -426,40 +426,42 @@
 
 
             <script type="text/javascript">
-                $(document).ready(function () {
-                    $('.editBtn').on('click', function () {
 
+                var table = $('#mainstorage').DataTable({
+                        rowReorder: {
+                            selector: 'td:nth-child(2)'
+                        },
+                        responsive: true,
+                    });
+
+                    $('#mainstorage tbody').on('click', 'tr', function () {
                         $('#openModal').modal('show');
-                        $tr = $(this).closest('tr');
-                        var data = $tr.children("td").map(function () {
-                            return $(this).text();
-                        }).get();
-
-                        console.log(data);
-                        $('h5.modal-title').html('Add Item Delivery for: ' + data[1]);
-                        $('#editId').val(data[0]);
-                        $('#description').val(data[1]);
-                        $('#unit').val(data[2]);
+                        $('h5.modal-title').html('Add Item Delivery for: ' + table.row(this).data()[1]);
+                        $('#editId').val(table.row(this).data()[0]);
+                        $('#description').val(table.row(this).data()[1]);
+                        $('#unit').val(table.row(this).data()[2]);   
                     });
-                });
 
-                $(document).ready(function () {
-                    $('.editBtn1').on('click', function () {
 
-                        $('#openModal1').modal('show');
-                        $tr = $(this).closest('tr');
-                        var data = $tr.children("td").map(function () {
-                            return $(this).text();
-                        }).get();
 
-                        console.log(data);
-                        $('h5.modal-title').html('Edit Item Delivery');
-                        $('#editId1').val(data[0]);
-                        $('#description1').val(data[1]);
-                        $('#unit1').val(data[2]);
-                        $('#mainstoragequantity1').val(data[3]);
-                    });
-                });
+                // $(document).ready(function () {
+                //     $('.editBtn1').on('click', function () {
+
+                //         $('#openModal1').modal('show');
+                //         $tr = $(this).closest('tr');
+                //         var data = $tr.children("td").map(function () {
+                //             return $(this).text();
+                //         }).get();
+
+                //         console.log(data);
+                //         $('h5.modal-title').html('Edit Item Delivery');
+                //         $('#editId1').val(data[0]);
+                //         $('#description1').val(data[1]);
+                //         $('#unit1').val(data[2]);
+                //         $('#mainstoragequantity1').val(data[3]);
+                //     });
+                // });
+                
 
                 // $(document).ready(function () {
                 //     $('.editBtn2').on('click', function () {
@@ -675,14 +677,6 @@
             });
         });
 
-        $(document).ready(function () {
-            var table = $('#mainstorage').DataTable({
-                rowReorder: {
-                    selector: 'td:nth-child(2)'
-                },
-                responsive: true
-            });
-        });
 
         $('#deliverBtn').click(function () {
                 var aaa = $(this);

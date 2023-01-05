@@ -97,22 +97,22 @@
           <td >{{y.custodianslip_unit}}</td>
           <td >{{y.custodianslip_unitcost}}</td>
           <td style="text-align: right;">{{y.custodianslip_totalcost}}</td>
-          <td style="text-align: left;" colspan="3">{{y.custodianslip_description}}</td>
+          <td style="text-align: left;" colspan="3">{{y.custodianslip_itemname}} ; {{y.custodianslip_description}}</td>
           <td colspan="2">{{y.custodianslip_inventoryitemno}}</td>
           <td></td>
         </tr>
         {% endfor %}
       </tbody>
         <!-- Dummy -->
-        <tbody style="color: rgb(255, 255, 255);">
+        <tbody >
           <tr>
-            <td >1</td>
-            <td style="text-transform: uppercase;">Pcs </td>
-            <td > 5555</td>
-            <td > 5555</td>
-            <td colspan="3">54738</td>
-            <td colspan="2">54738</td>
-            <td >54738</td>
+            <td style="color: rgb(255, 255, 255);">1</td>
+            <td style="color: rgb(255, 255, 255);"style="text-transform: uppercase;">Pcs </td>
+            <td style="color: rgb(255, 255, 255);"> 5555</td>
+            <td style="color: rgb(255, 255, 255);"> 5555</td>
+            <td style="text-align: left;" colspan="3"> \\\\ Nothing Follows //// </td>
+            <td style="color: rgb(255, 255, 255);"colspan="2">54738</td>
+            <td style="color: rgb(255, 255, 255);">54738</td>
           </tr>
         </tbody>
   
@@ -172,6 +172,8 @@
             <td >54738</td>
           </tr>
         </tbody>
+      </table>
+      <table>
         <thead>
           <tr>
             <th style="text-align: left; font-weight: bold;" colspan="5">RECEIVED FROM: <br><br><br><br><br></th>
@@ -193,10 +195,12 @@
           </tr>
         </tbody>
         <tbody >
+          {% for a in Equips %}
           <tr>
             <td style="text-decoration: underline;" colspan="5">Supply Officer, TUPC <br> Position Office</td>
-            <td colspan="5"> </td>
+            <td style="text-decoration: underline;" colspan="5"> {{a.icsform_inputs_position}} <br>Position</td>
           </tr>
+          {% endfor %}
         </tbody>
         <tbody >
           <tr>

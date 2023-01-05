@@ -118,12 +118,12 @@
         {% endfor %}
       </tbody>
         <!-- Dummy -->
-        <tbody style="color: rgb(255, 255, 255);">
+        <tbody>
           <tr>
-            <td>1</td>
-            <td >1</td>
-            <td colspan="4">1</td>
-            <td colspan="2">1</td>
+            <td  style="color: rgb(255, 255, 255);">1</td>
+            <td  style="color: rgb(255, 255, 255);">1</td>
+            <td  style="text-align: left;" colspan="4"> \\\\ Nothing Follows //// </td>
+            <td  style="color: rgb(255, 255, 255);"colspan="2">1</td>
           </tr>
         </tbody>
   
@@ -185,6 +185,8 @@
             <td colspan="2">1</td>
           </tr>
         </tbody>
+      </table>
+      <table>
         <thead>
           <tr>
             <th style="text-align: left; font-weight: bold;" colspan="4">Received by: <br><br><br><br><br></th>
@@ -206,10 +208,12 @@
           </tr>
         </tbody>
         <tbody >
+          {% for y in Form1 %}
           <tr>
-            <td colspan="4"></td>
+            <td style="text-decoration: underline;" colspan="4"> {{y.areform_inputs_position}} <br>Position</td>
             <td style="text-decoration: underline;" colspan="4"> Supply Officer, TUPC <br> Position Office</td>
           </tr>
+          {% endfor %}
         </tbody>
         <tbody >
           <tr>

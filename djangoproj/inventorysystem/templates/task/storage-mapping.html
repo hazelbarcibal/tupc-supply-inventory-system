@@ -189,7 +189,8 @@
                                         <th style="text-align: center;">Model No.</th>
                                         <th style="text-align: center;">Serial No.</th>
                                         <th style="text-align: center;">Certified Correct</th>
-                                        <th style="text-align: center;">Date Disposed</th>
+                                        <th style="text-align: center;">Date Dispose</th>
+                                        <th style="text-align: center;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -206,6 +207,50 @@
                                         <td align="center">{{x.dispose_equipment_serial_no}}</td>
                                         <td align="center">{{x.dispose_equipment_certifiedcorrect}}</td>
                                         <td align="center">{{x.dispose_date}}</td>
+                                        <td align="center"><a class="btn btn-success editBtn1" name="editBtn1" 
+                                            style="font-size: 13px; "> DISPOSED</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                            <!------------------- Content Row ------------------->
+            <div class="row">
+
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <div class="container">
+                        <div class="kahon">
+                            <h3 align="center">Disposed Equipment</h3>
+                            <hr>
+                            <table id="equipmentdisposedTable" class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;">Property No.</th>
+                                        <th style="text-align: center;">Item Name</th>
+                                        <th style="text-align: center;">Description</th>
+                                        <th style="text-align: center;">Brand</th>
+                                        <th style="text-align: center;">Model No.</th>
+                                        <th style="text-align: center;">Serial No.</th>
+                                        <th style="text-align: center;">Receipt No.</th>
+                                        <th style="text-align: center;">Amount</th>
+                                        <th style="text-align: center;">Date Disposed</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for x in info2 %}
+                                    <tr class="edittr">
+                                        <td align="center">{{x.disposed_equipment_property_no}}</td>
+                                        <td align="center">{{x.disposed_equipment_itemname}}</td>
+                                        <td align="center">{{x.disposed_equipment_description}}</td>
+                                        <td align="center">{{x.disposed_equipment_brand}}</td>
+                                        <td align="center">{{x.disposed_equipment_model_no}}</td>
+                                        <td align="center">{{x.disposed_equipment_serial_no}}</td>
+                                        <td align="center">{{x.disposed_equipment_receiptno}}</td>
+                                        <td align="center">{{x.disposed_equipment_amount}}</td>
+                                        <td align="center">{{x.disposed_date}}</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -295,6 +340,75 @@
     </div>
 </div>
 
+<!----- UPDATE SUPPLY STORAGE MODAL ----->
+<div class="modal fade" id="openModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <!----- UPDATE SUPPLY STORAGE FORM ---->
+                <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" id="editId1" name="supplyStoragemapping_id" value="" readonly>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Property no.:</label>
+                        <input type="text" class="form-control" id="propertyno" name="propertyno" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Item name:</label>
+                        <input type="text" class="form-control" id="itemname" name="supplyItemName" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Description:</label>
+                        <input type="text" class="form-control" id="description" name="description" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Brand:</label>
+                        <input type="text" class="form-control" id="brand" name="brand" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Model No.:</label>
+                        <input type="text" class="form-control" id="modelno" name="modelno" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Serial No.:</label>
+                        <input type="text" class="form-control" id="serialno" name="serialno" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Date Dispose:</label>
+                        <input type="text" class="form-control" id="datedispose" name="datedispose" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                            class="form-label">Receipt no.:</label>
+                        <input type="number" class="form-control" id="receiptno" name="receiptno" required>
+                    </div>
+                    <div class="col-md-6">
+                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
+                            class="form-label">Amount:</label>
+                        <input type="number" class="form-control" id="amount" name="amount"  required>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <div class="col-12">
+                            <button type="submit" name="storageequipment_update" class="btn btn-primary">DISPOSED</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
         var table = $('#supplymappingTable').DataTable({
             rowReorder: {
@@ -312,9 +426,10 @@
             $('#layerno').val(table.row(this).data()[2]);
             $('#cabinetno').val(table.row(this).data()[3]);
             $('#shelfno').val(table.row(this).data()[4]);
+
            
         });
-
+    
 </script>
 
 
@@ -326,6 +441,22 @@
                 selector: 'td:nth-child(2)'
             },
             responsive: true
+        });
+
+        $('#equipmentmappingTable tbody').on('click', 'tr', function () {
+            $('#openModal1').modal('show');
+            $('h5.modal-title').html('Update Storage for: ' + table.row(this).data()[0]);
+            $('#editId1').val(table.row(this).data()[0]);
+            $('#propertyno').val(table.row(this).data()[0]);
+            $('#itemname').val(table.row(this).data()[1]);
+            $('#description').val(table.row(this).data()[2]);
+            $('#brand').val(table.row(this).data()[3]);
+            $('#modelno').val(table.row(this).data()[4]);
+            $('#serialno').val(table.row(this).data()[5]);
+            $('#datedispose').val(table.row(this).data()[6]);
+            $('#receiptno').val(table.row(this).data()[7]);
+            $('#amount').val(table.row(this).data()[8]);
+           
         });
     });
 </script>

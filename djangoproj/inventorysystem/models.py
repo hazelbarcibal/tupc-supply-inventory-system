@@ -322,6 +322,23 @@ class equipment_disposal(models.Model):
     class Meta:
         db_table = "equipment_disposal"
 
+class equipment_disposed(models.Model):
+
+    equipmentDisposed_id = models.AutoField(primary_key=True)
+    disposed_equipment_property_no = models.CharField(unique=True, max_length=50, verbose_name='dispose_equipment_property_no')
+    disposed_equipment_itemname = models.CharField(max_length=50, verbose_name='dispose_equipment_itemname')
+    disposed_equipment_description = models.CharField(max_length=255, verbose_name='dispose_equipment_description')
+    disposed_equipment_brand = models.CharField(max_length=50, verbose_name='dispose_equipment_brand')
+    disposed_equipment_model_no = models.CharField(max_length=50, verbose_name='dispose_equipment_model_no')
+    disposed_equipment_serial_no = models.CharField(unique=True, max_length=50, verbose_name='dispose_equipment_serial_no')
+    disposed_equipment_receiptno = models.CharField(max_length=50, verbose_name='dispose_equipment_receiptno')
+    disposed_equipment_amount = models.DecimalField(max_digits=6, decimal_places=0, verbose_name='dispose_equipment_amount')
+    disposed_date = models.DateTimeField(default=now, verbose_name='dispose_date')
+
+
+    class Meta:
+        db_table = "equipment_disposed"
+
 class supply_email(models.Model):
 
     emailsupply_id = models.AutoField(primary_key=True)
