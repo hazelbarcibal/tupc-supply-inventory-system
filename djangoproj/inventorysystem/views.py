@@ -1533,6 +1533,7 @@ def storageMapping(request):
         label = request.user
         info = supplymainstorage.objects.all()
         info1 = equipment_disposal.objects.all()
+        info2 = equipment_disposed.objects.all()
 
         if request.method == 'POST':
 
@@ -1552,10 +1553,32 @@ def storageMapping(request):
                 messages.success(request, 'Successfully updated storage mapping for item ' + item)
                 return redirect('inventorysystem-storageMapping')
 
+
+            if 'storageequipment_disposed' in request.POST:
+                if equipment_disposed.objects.filter(disposed_equipment_receiptno = request.POST.get('disposed_receiptno')).exists() == False:
+                    disposed = equipment_disposed()
+                    disposed.disposed_equipment_property_no = request.POST.get('disposed_propertyno')
+                    disposed.disposed_equipment_itemname = request.POST.get('disposed_itemname1')
+                    disposed.disposed_equipment_description = request.POST.get('disposed_description')
+                    disposed.disposed_equipment_brand = request.POST.get('disposed_brand')
+                    disposed.disposed_equipment_model_no = request.POST.get('disposed_modelno')
+                    disposed.disposed_equipment_serial_no = request.POST.get('disposed_serialno')
+                    disposed.disposed_equipment_receiptno = request.POST.get('disposed_receiptno')
+                    disposed.disposed_equipment_amount = request.POST.get('disposed_amount')
+                    disposed.save()
+                    equipment_disposal.objects.filter(dispose_equipment_property_no = request.POST.get('disposed_propertyno')).delete()
+                    messages.success(request, 'Successfully disposed')
+                    return redirect('inventorysystem-storageMapping')
+
+                elif equipment_disposed.objects.filter(disposed_equipment_property_no = request.POST.get('disposed_propertyno')).exists() == True:
+                    messages.info(request, 'Receipt No. Already Exists')
+                    return redirect('inventorysystem-storageMapping')
+
         context = {
             'info': info,
             'info1': info1,
             'label': label,
+            'info2': info2,
         }
 
         return render(request, 'task/storage-mapping.html', context)

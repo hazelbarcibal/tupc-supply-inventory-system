@@ -359,48 +359,48 @@
 
                     <div class="col-md-6">
                         <label class="form-label">Property no.:</label>
-                        <input type="text" class="form-control" id="propertyno" name="propertyno" readonly>
+                        <input type="text" class="form-control" id="propertyno" name="disposed_propertyno" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Item name:</label>
-                        <input type="text" class="form-control" id="itemname" name="supplyItemName" readonly>
+                        <input type="text" class="form-control" id="itemname1" name="disposed_itemname1" readonly>
                     </div>
                     <div class="col-md-12">
                         <label class="form-label">Description:</label>
-                        <input type="text" class="form-control" id="description" name="description" readonly>
+                        <input type="text" class="form-control" id="description" name="disposed_description" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Brand:</label>
-                        <input type="text" class="form-control" id="brand" name="brand" readonly>
+                        <input type="text" class="form-control" id="brand" name="disposed_brand" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Model No.:</label>
-                        <input type="text" class="form-control" id="modelno" name="modelno" readonly>
+                        <input type="text" class="form-control" id="modelno" name="disposed_modelno" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Serial No.:</label>
-                        <input type="text" class="form-control" id="serialno" name="serialno" readonly>
+                        <input type="text" class="form-control" id="serialno" name="disposed_serialno" readonly>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Date Dispose:</label>
-                        <input type="text" class="form-control" id="datedispose" name="datedispose" readonly>
+                        <input type="text" class="form-control" id="datedispose" name="disposed_datedispose" readonly>
                     </div>
 
                     <div class="col-md-6">
                         <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
                             class="form-label">Receipt no.:</label>
-                        <input type="number" class="form-control" id="receiptno" name="receiptno" required>
+                        <input type="number" class="form-control" id="receiptno" name="disposed_receiptno" required>
                     </div>
                     <div class="col-md-6">
                         <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
                             class="form-label">Amount:</label>
-                        <input type="number" class="form-control" id="amount" name="amount"  required>
+                        <input type="number" class="form-control" id="amount" name="disposed_amount"  required>
                     </div>
 
 
                     <div class="modal-footer">
                         <div class="col-12">
-                            <button type="submit" name="storageequipment_update" class="btn btn-primary">DISPOSED</button>
+                            <button type="submit" name="storageequipment_disposed" class="btn btn-primary">DISPOSED</button>
                         </div>
                     </div>
                 </form>
@@ -436,7 +436,7 @@
 <script>
 
     $(document).ready(function () {
-        var table = $('#equipmentdisposalTable').DataTable({
+        var table = $('#equipmentmappingTable').DataTable({
             rowReorder: {
                 selector: 'td:nth-child(2)'
             },
@@ -447,15 +447,15 @@
             $('#openModal1').modal('show');
             $('h5.modal-title').html('Update Storage for: ' + table.row(this).data()[0]);
             $('#editId1').val(table.row(this).data()[0]);
-            $('#propertyno').val(table.row(this).data()[0]);
-            $('#itemname').val(table.row(this).data()[1]);
-            $('#description').val(table.row(this).data()[2]);
-            $('#brand').val(table.row(this).data()[3]);
-            $('#modelno').val(table.row(this).data()[4]);
-            $('#serialno').val(table.row(this).data()[5]);
-            $('#datedispose').val(table.row(this).data()[6]);
-            $('#receiptno').val(table.row(this).data()[7]);
-            $('#amount').val(table.row(this).data()[8]);
+            $('#propertyno').val(table.row(this).data()[1]);
+            $('#itemname1').val(table.row(this).data()[2]);
+            $('#description').val(table.row(this).data()[3]);
+            $('#brand').val(table.row(this).data()[4]);
+            $('#modelno').val(table.row(this).data()[7]);
+            $('#serialno').val(table.row(this).data()[8]);
+            $('#datedispose').val(table.row(this).data()[10]);
+            $('#receiptno').val(table.row(this).data()[11]);
+            $('#amount').val(table.row(this).data()[12]);
            
         });
     });
