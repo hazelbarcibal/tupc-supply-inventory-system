@@ -42,6 +42,7 @@ class deliverysupply(models.Model):
     delivery_supplyShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply Shelf')
     current_date = models.DateField(default=date.today, verbose_name= 'delivery_current_date')
     current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'delivery_current_time')
+    delivery_supply_year = models.CharField(max_length=50, verbose_name='delivery_supply_year')
 
 
     class Meta:
@@ -84,6 +85,7 @@ class withdrawsupply(models.Model):
     # current_date = models.DateTimeField(default=now, verbose_name='withdraw_current_date')
     withdraw_supply_current_date = models.DateField(default=date.today, verbose_name= 'withdraw_current_date')
     withdraw_supply_current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'withdraw_current_time')
+    withdraw_supply_year = models.CharField(max_length=50, verbose_name='withdraw_supply_year')
 
     db_table = "withdrawsupply"
 
@@ -231,6 +233,7 @@ class withdrawequipment(models.Model):
     withdraw_equipment_current_date = models.DateTimeField(default=now, verbose_name='withdraw_current_date')
     withdraw_equipment_current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'withdraw_current_time')
     withdraw_equipment_status = models.CharField(max_length=50, verbose_name='withdraw_equipment_status')
+    withdraw_equipment_year = models.CharField(max_length=50, verbose_name='withdraw_equipment_year')
     
     class Meta:
         db_table = "withdrawequipment"

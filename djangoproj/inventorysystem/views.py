@@ -477,49 +477,71 @@ def suppliesDeliver(request):
         info = deliverysupply.objects.all()
         info1 = supplymainstorage.objects.all()
         form = deliverySupplyForm()
-        if request.method == 'POST':
-            form = deliverySupplyForm(request.POST)
-            description = request.POST.get('delivery_supply_description')
-            unit = request.POST.get('delivery_supply_unit')
-            quantity = request.POST.get('delivery_supply_quantity')
-            update_description = request.POST.get('supplymainstorage_description')
-            add_quantity = request.POST.get('supplymainstorage_RequestQuantity')
-            update_unit = request.POST.get('supplymainstorage_unit')
-            rackno = request.POST.get('delivery_supplyRackNo')
-            layerno = request.POST.get('delivery_supplyLayerNo')
-            cabinetno = request.POST.get('delivery_supplyCabinetNo')
-            shelfno = request.POST.get('delivery_supplyShelfNo')
+        # if request.method == 'POST':
+        form = deliverySupplyForm(request.POST)
+        description = request.POST.get('delivery_supply_description')
+        unit = request.POST.get('delivery_supply_unit')
+        quantity = request.POST.get('delivery_supply_quantity')
+        update_description = request.POST.get('supplymainstorage_description')
+        add_quantity = request.POST.get('supplymainstorage_RequestQuantity')
+        update_unit = request.POST.get('supplymainstorage_unit')
+        rackno = request.POST.get('delivery_supplyRackNo')
+        layerno = request.POST.get('delivery_supplyLayerNo')
+        cabinetno = request.POST.get('delivery_supplyCabinetNo')
+        shelfno = request.POST.get('delivery_supplyShelfNo')
 
-            if 'delivery_new' in request.POST:
-                if supplymainstorage.objects.filter(supplymainstorage_description = description).exists() == False:
-                    if int(quantity) > 0:
+            # if 'delivery_new' in request.POST:
+            #     if supplymainstorage.objects.filter(supplymainstorage_description = description).exists() == False:
+            #         if int(quantity) > 0:
+            #                 delivery_record = deliverysupply()
+            #                 delivery_record.delivery_supply_description = description
+            #                 delivery_record.delivery_supply_unit = unit
+            #                 delivery_record.delivery_supply_quantity = quantity
+            #                 delivery_record.delivery_supply_remaining = quantity
+            #                 delivery_record.save()
+            #                 storageupdate = supplymainstorage()
+            #                 storageupdate.supplymainstorage_description = description
+            #                 storageupdate.supplymainstorage_unit = unit
+            #                 storageupdate.supplymainstorage_quantity = quantity
+            #                 storageupdate.supplymainstorage_supplyRackNo = rackno
+            #                 storageupdate.supplymainstorage_supplyLayerNo = layerno
+            #                 storageupdate.supplymainstorage_supplyCabinetNo = cabinetno
+            #                 storageupdate.supplymainstorage_supplyShelfNo = shelfno
+            #                 storageupdate.save()
+            #                 messages.success(request, 'Record created for ' + description)
+            #                 return redirect('inventorysystem-suppliesDeliver')
+            #         else:
+            #                 messages.info(request, "invalid quantity")
+            #                 return redirect('inventorysystem-suppliesDeliver')
+
+            #     elif supplymainstorage.objects.filter(supplymainstorage_description = description).exists() == True:
+            #         messages.info(request, 'Description: '  + description + ' already exist ')
+                    
+            #         return redirect('inventorysystem-suppliesDeliver')
+
+        if 'modal_delivery' in request.POST:
+           
                             delivery_record = deliverysupply()
-                            delivery_record.delivery_supply_description = description
-                            delivery_record.delivery_supply_unit = unit
-                            delivery_record.delivery_supply_quantity = quantity
-                            delivery_record.delivery_supply_remaining = quantity
+                            delivery_record.delivery_supply_description = request.POST.get('modal_description')
+                            delivery_record.delivery_supply_unit = request.POST.get('modal_unit')
+                            delivery_record.delivery_supply_quantity = request.POST.get('modal_quantity')
+                            delivery_record.delivery_supply_remaining = request.POST.get('modal_quantity')
+                            delivery_record.delivery_supply_year = datetime.date.today().year
                             delivery_record.save()
                             storageupdate = supplymainstorage()
-                            storageupdate.supplymainstorage_description = description
-                            storageupdate.supplymainstorage_unit = unit
-                            storageupdate.supplymainstorage_quantity = quantity
-                            storageupdate.supplymainstorage_supplyRackNo = rackno
-                            storageupdate.supplymainstorage_supplyLayerNo = layerno
-                            storageupdate.supplymainstorage_supplyCabinetNo = cabinetno
-                            storageupdate.supplymainstorage_supplyShelfNo = shelfno
+                            storageupdate.supplymainstorage_description = request.POST.get('modal_description')
+                            storageupdate.supplymainstorage_unit = request.POST.get('modal_unit')
+                            storageupdate.supplymainstorage_quantity = request.POST.get('modal_quantity')
+                            storageupdate.supplymainstorage_supplyRackNo = request.POST.get('modal_rackNo')
+                            storageupdate.supplymainstorage_supplyLayerNo = request.POST.get('modal_layerNo')
+                            storageupdate.supplymainstorage_supplyCabinetNo = request.POST.get('modal_cabinetNo')
+                            storageupdate.supplymainstorage_supplyShelfNo = request.POST.get('modal_shelfNo')
                             storageupdate.save()
-                            messages.success(request, 'Record created for ' + description)
-                            return redirect('inventorysystem-suppliesDeliver')
-                    else:
-                            messages.info(request, "invalid quantity")
+                            messages.success(request, 'Record created for ' + request.POST.get('modal_description'))
                             return redirect('inventorysystem-suppliesDeliver')
 
-                elif supplymainstorage.objects.filter(supplymainstorage_description = description).exists() == True:
-                    messages.info(request, 'Description: '  + description + ' already exist ')
-                    
-                    return redirect('inventorysystem-suppliesDeliver')
 
-            elif 'delivery_update' in request.POST:
+        elif 'delivery_update' in request.POST:
 
                 if int(add_quantity) > 0:
 
@@ -549,7 +571,7 @@ def suppliesDeliver(request):
                     messages.success(request, 'Record updated for: ' + str(getdata1.supplymainstorage_description))
                     return redirect('inventorysystem-suppliesDeliver')
 
-            elif 'delivery_edit' in request.POST:
+        elif 'delivery_edit' in request.POST:
                 if limitrecords.objects.filter(limit_description = supplymainstorage.objects.get(supplymainstorage_id = request.POST.get('supplymainstorage_editid')).supplymainstorage_description).exists() == False:
 
                     update_delivery1 = supplymainstorage()
@@ -564,8 +586,8 @@ def suppliesDeliver(request):
                 elif limitrecords.objects.filter(limit_description = supplymainstorage.objects.get(supplymainstorage_id = request.POST.get('supplymainstorage_editid')).supplymainstorage_description).exists() == True:
                     messages.info(request, "this item is existing in limit records")
 
-            else:
-                messages.info(request, "invalid quantity")
+        # else:
+        #         messages.info(request, "invalid quantity")
     
         context = {
             'form': form,
@@ -1013,6 +1035,7 @@ def suppliesWithdraw(request):
                 accept.withdraw_supply_unit = withdraw_unit
                 accept.withdraw_supply_quantity = withdraw_quantity
                 accept.withdraw_supply_remaining = supplymainstorage.objects.get(supplymainstorage_description = withdraw_description).supplymainstorage_quantity
+                accept.withdraw_supply_year = datetime.date.today().year
                 acceptSupplyRequests.objects.filter(acceptSupplyRequests_id = getdata1).delete()
                 statusSupplyRequest.objects.filter(status_supply_department = withdraw_department).filter(status_supply_description = withdraw_description).delete()    
                 supply_createform.objects.all().filter(createformsupply_department = withdraw_department).delete() 
@@ -1377,6 +1400,7 @@ def createqrequipmentWithdraw(request, pk):
                     accept.withdraw_equipment_serial_no = request.POST.get('arequest_equipment_serial_no')
                     accept.withdraw_equipment_certifiedcorrect = request.POST.get('arequest_equipment_certifiedcorrect')
                     accept.withdraw_equipment_status = "withdrawn"
+                    accept.withdraw_equipment_year = datetime.date.today().year
                     acceptEquipmentRequests.objects.filter(arequest_equipment_id = data1).delete()
                     statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata2).delete()         
                     acceptEquipmentRequests.objects.filter(arequest_equipment_id = data1).delete()
@@ -1400,6 +1424,7 @@ def createqrequipmentWithdraw(request, pk):
                     accept.withdraw_equipment_serial_no = request.POST.get('arequest_equipment_serial_no')
                     accept.withdraw_equipment_certifiedcorrect = request.POST.get('arequest_equipment_certifiedcorrect')
                     accept.withdraw_equipment_status = "withdrawn"
+                    accept.withdraw_equipment_year = datetime.date.today().year
                     acceptEquipmentRequests.objects.filter(arequest_equipment_id = data1).delete()
 
                     not_delete = acceptEquipmentRequests()
@@ -1469,6 +1494,7 @@ def equipmentReturn(request):
                     changestats.withdraw_equipment_serial_no = getdata.withdraw_equipment_serial_no
                     changestats.withdraw_equipment_certifiedcorrect = getdata.withdraw_equipment_certifiedcorrect
                     changestats.withdraw_equipment_status = "Returned"
+                    changestats.withdraw_equipment_year = datetime.date.today().year
                     withdrawequipment.objects.filter(withdraw_equipment_property_no = data).delete()
                     changestats.save()
 
@@ -1510,6 +1536,7 @@ def equipmentReturn(request):
                 changestats.withdraw_equipment_serial_no = request.POST.get('disposedSerialNo')
                 changestats.withdraw_equipment_certifiedcorrect = request.POST.get('disposedCertifiedCorrect')
                 changestats.withdraw_equipment_status = "Disposed"
+                changestats.withdraw_equipment_year = datetime.date.today().year
                 withdrawequipment.objects.filter(withdraw_equipment_property_no = request.POST.get('disposedPropertyNo')).delete()
                 changestats.save()
 
@@ -1720,7 +1747,7 @@ def export_pdf_suppydelivery(request):
     response=HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
         str(datetime.datetime.now())+'.pdf'
-    supply = deliverysupply.objects.all()
+    supply = deliverysupply.objects.all().filter(delivery_supply_year = datetime.date.today().year)
     response['Content-Transfer-Enconding'] = 'binary'
 
 
@@ -1740,7 +1767,7 @@ def export_pdf_suppywithdraw(request):
     response=HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
         str(datetime.datetime.now())+'.pdf'
-    supply = withdrawsupply.objects.all()
+    supply = withdrawsupply.objects.all().filter(withdraw_supply_year = datetime.date.today().year)
     response['Content-Transfer-Enconding'] = 'binary'
 
 
@@ -1782,7 +1809,7 @@ def export_pdf_equipwithdraw(request):
     response=HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
         str(datetime.datetime.now())+'.pdf'
-    supply = withdrawequipment.objects.all()
+    supply = withdrawequipment.objects.all().filter(withdraw_equipment_year = datetime.date.today().year)
     response['Content-Transfer-Enconding'] = 'binary'
 
 

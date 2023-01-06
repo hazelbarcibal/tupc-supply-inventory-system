@@ -225,7 +225,7 @@
             </div>
 
             <!---------------------- CONFIRMATION MODAL -------------------->
-            <!-- <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -239,24 +239,24 @@
                             {% csrf_token %}
                             <div class="modal-body">Are you sure you want to deliver? Click 'Deliver' to continue.</div>
                         
-                            <input type="hidden" name="description" id="description" value="">
-                            <input type="hidden" name="unit" id="unit" value="">
-                            <input type="hidden" name="quantity" id="quantity" value="">
-                            <input type="hidden" name="rackNo" id="rackNo" value="">
-                            <input type="hidden" name="layerNo" id="layerNo" value="">
-                            <input type="hidden" name="cabinetNo" id="cabinetNo" value="">
-                            <input type="hidden" name="shelfNo" id="shelfNo" value="">
+                            <input type="hidden" name="modal_description" id="description" value="">
+                            <input type="hidden" name="modal_unit" id="unit" value="">
+                            <input type="hidden" name="modal_quantity" id="quantity" value="">
+                            <input type="hidden" name="modal_rackNo" id="rackNo" value="">
+                            <input type="hidden" name="modal_layerNo" id="layerNo" value="">
+                            <input type="hidden" name="modal_cabinetNo" id="cabinetNo" value="">
+                            <input type="hidden" name="modal_shelfNo" id="shelfNo" value="">
 
                             <div class="modal-footer">
                                 <a class="btn btn-primary" href="{% url 'inventorysystem-suppliesDeliver' %}">Cancel</a>
-                                <button class="btn btn-success" name="" id="deliverBtn" type="submit" data-dismiss="modal">Deliver</button>
+                                <button class="btn btn-success" name="modal_delivery" id="deliverBtn" type="submit" >Deliver</button>
                             </div>
                         </form>
                     </div>
                         
                         
                 </div>
-            </div> -->
+            </div>
 
 
 
@@ -503,6 +503,8 @@
                                 <div class="col-md-12">
                                     <label class="form-label">Description: </label>
                                     {{form.delivery_supply_description}}
+                                    <!-- <input type="text" list="deliveryItemname" class="form-control" placeholder="Description" autocomplete="on" 
+                                    id="delivery_supply_description" name="delivery_supply_description" > -->
                                     <datalist id="deliveryItemname">
                                         <option id="1" value="Blue Ballpen"></option>
                                         <option id="2" value="Black Ballpen"></option>
@@ -568,9 +570,10 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <!-- <a class="btn1" style="float: right;" onclick="getval()" name="delivery_new" href="#" data-toggle="modal" data-target="#confirmModal">Deliver</a> -->
-                                    <button type="submit" id="submit" class="btn1" name="delivery_new"
-                                        style="float: right;" value="Submit"> Deliver </button>
+                                    <a class="btn btn-primary" style="float: right;" id="confirm" onclick="getval()" name="delivery_new" href="#" data-toggle="modal" data-target="#confirmModal">Deliver</a>
+                                    <!-- <button class="btn btn-primary" style="float: right;" id="confirm" onclick="getval()" name="delivery_new" href="#" data-toggle="modal" data-target="#confirmModal">Deliver</button> -->
+                                    <!-- <button type="submit" id="submit" class="btn1" name="delivery_new"
+                                        style="float: right;" value="Submit"> Deliver </button> -->
                                 </div>
                             </form>
 
@@ -678,33 +681,43 @@
         });
 
 
-        $('#deliverBtn').click(function () {
-                var aaa = $(this);
-                aaa.prop('disabled', true);
-                setTimeout(function () {
-                    aaa.prop('disabled', false);
-                }, 5000);
-        });
+        // $('#deliverBtn').click(function () {
+        //         var aaa = $(this);
+        //         aaa.prop('disabled', true);
+        //         setTimeout(function () {
+        //             aaa.prop('disabled', false);
+        //         }, 5000);
+        // });
 
         // para makuha yung value sa form papunta don sa confirm modal
-        // function getval(){
-        //     var a = document.getElementById('delivery_supply_description').value;
-        //     var b = document.getElementById('delivery_supply_unit').value;
-        //     var c = document.getElementById('delivery_supply_quantity').value;
-        //     var d = document.getElementById('delivery_supplyRackNo').value;
-        //     var e = document.getElementById('delivery_supplyLayerNo').value;
-        //     var f = document.getElementById('delivery_supplyCabinetNo').value;
-        //     var g = document.getElementById('delivery_supplyShelfNo').value;
+        function getval(){
+            var a = document.getElementById('delivery_supply_description').value;
+            var b = document.getElementById('delivery_supply_unit').value;
+            var c = document.getElementById('delivery_supply_quantity').value;
+            var d = document.getElementById('delivery_supplyRackNo').value;
+            var e = document.getElementById('delivery_supplyLayerNo').value;
+            var f = document.getElementById('delivery_supplyCabinetNo').value;
+            var g = document.getElementById('delivery_supplyShelfNo').value;
 
-        //     document.getElementById('description').value = a;
-        //     document.getElementById('unit').value = b;
-        //     document.getElementById('quantity').value = c;
-        //     document.getElementById('rackNo').value = d;
-        //     document.getElementById('layerNo').value = e;
-        //     document.getElementById('cabinetNo').value = f;
-        //     document.getElementById('shelfNo').value = g;
+            document.getElementById('description').value = a;
+            document.getElementById('unit').value = b;
+            document.getElementById('quantity').value = c;
+            document.getElementById('rackNo').value = d;
+            document.getElementById('layerNo').value = e;
+            document.getElementById('cabinetNo').value = f;
+            document.getElementById('shelfNo').value = g;
+            
 
+        }
+
+        // function enableBtn () {
+        //     if (document.getElementById('description').value !== '')  {
+        //         document.getElementById('confirm').disabled = false;
+
+        //     } 
         // }
+
+        
 
 
     </script>
