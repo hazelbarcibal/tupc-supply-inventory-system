@@ -520,6 +520,11 @@ def suppliesDeliver(request):
             #         return redirect('inventorysystem-suppliesDeliver')
 
         if 'modal_delivery' in request.POST:
+
+                if request.POST.get('modal_description') == "":
+                    messages.info(request, 'please input data before submiting')
+                elif supplymainstorage.objects.filter(supplymainstorage_description = request.POST.get('modal_description')).exists() == False:
+                    if int(request.POST.get('modal_quantity')) > 0:
            
                             delivery_record = deliverysupply()
                             delivery_record.delivery_supply_description = request.POST.get('modal_description')
@@ -539,6 +544,16 @@ def suppliesDeliver(request):
                             storageupdate.save()
                             messages.success(request, 'Record created for ' + request.POST.get('modal_description'))
                             return redirect('inventorysystem-suppliesDeliver')
+                    else:
+                            messages.info(request, "invalid quantity")
+                            return redirect('inventorysystem-suppliesDeliver')
+                
+
+
+                elif supplymainstorage.objects.filter(supplymainstorage_description = request.POST.get('modal_description')).exists() == True:
+                    messages.info(request, 'Description: '  + request.POST.get('modal_description') + ' already exist ')
+                    
+                    return redirect('inventorysystem-suppliesDeliver')
 
 
         elif 'delivery_update' in request.POST:
@@ -1268,40 +1283,43 @@ def depRequestEquipment(request):
         # info2 = withdrawequipment.objects.all().filter(withdraw_equipment_issued_to = request.user)
 
         if request.method == 'POST':
-            if int(request.POST.get('non_existing_equipment_quantity')) > 0:
-                if statusEquipmentRequest.objects.filter(status_equipment_itemname = request.POST.get('non_existing_equipment_itemname')).filter(status_equipment_department = request.user).exists() == False:
-                    requesting = requestequipment()
-                    requesting.request_equipment_itemname = request.POST.get('non_existing_equipment_itemname')
-                    requesting.request_equipment_quantity = request.POST.get('non_existing_equipment_quantity')
-                    requesting.request_equipment_department = str(request.user)
-                    requesting.request_equipment_description = request.POST.get('non_existing_equipment_description')
-                    requesting.request_equipment_status = "pending"
-                    requesting.request_equipment_daterequested = datetime.date.today()
-                    status = statusEquipmentRequest()
-                    status.status_equipment_itemname = request.POST.get('non_existing_equipment_itemname')
-                    status.status_equipment_quantity = request.POST.get('non_existing_equipment_quantity')
-                    status.status_equipment_department = str(request.user)
-                    status.status_equipment_description = request.POST.get('non_existing_equipment_description')
-                    status.status_equipment_status = "pending"
-                    status.status_equipment_daterequested = datetime.date.today()
-                    messages.success(request, 'Request Successful for itemname ')
-                    subject = str(request.user)
-                    message = "Good day!\n\nI have requested item in supply. Please see the details in the website. Thank you!\n\nKind regards,\n"+ str(request.user)
-                    depinfo = str(CustomUser.objects.get(department=str(request.user)).email)
-                    print(depinfo)
-                    recipient = settings.EMAIL_HOST_USER
-                    send_mail(subject, message, depinfo, [recipient], fail_silently=False)
-                    requesting.save()
-                    status.save()
-                    messages.success(request, "Successfully Requested")
-                    return redirect('inventorysystem-depRequestEquipment')
+            if 'confirm_request_equipment' in request.POST:
+                if request.POST.get('request_equipment_itemname') == "":
+                    messages.info(request, 'Please input data before submiting')
+                elif int(request.POST.get('request_equipment_quantity')) > 0:
+                    if statusEquipmentRequest.objects.filter(status_equipment_itemname = request.POST.get('request_equipment_itemname')).filter(status_equipment_department = request.user).exists() == False:
+                        requesting = requestequipment()
+                        requesting.request_equipment_itemname = request.POST.get('request_equipment_itemname')
+                        requesting.request_equipment_quantity = request.POST.get('request_equipment_quantity')
+                        requesting.request_equipment_department = str(request.user)
+                        requesting.request_equipment_description = request.POST.get('request_equipment_description')
+                        requesting.request_equipment_status = "pending"
+                        requesting.request_equipment_daterequested = datetime.date.today()
+                        status = statusEquipmentRequest()
+                        status.status_equipment_itemname = request.POST.get('request_equipment_itemname')
+                        status.status_equipment_quantity = request.POST.get('request_equipment_quantity')
+                        status.status_equipment_department = str(request.user)
+                        status.status_equipment_description = request.POST.get('request_equipment_description')
+                        status.status_equipment_status = "pending"
+                        status.status_equipment_daterequested = datetime.date.today()
+                        messages.success(request, 'Request Successful for itemname ')
+                        subject = str(request.user)
+                        message = "Good day!\n\nI have requested item in supply. Please see the details in the website. Thank you!\n\nKind regards,\n"+ str(request.user)
+                        depinfo = str(CustomUser.objects.get(department=str(request.user)).email)
+                        print(depinfo)
+                        recipient = settings.EMAIL_HOST_USER
+                        send_mail(subject, message, depinfo, [recipient], fail_silently=False)
+                        requesting.save()
+                        status.save()
+                        messages.success(request, "Successfully Requested")
+                        return redirect('inventorysystem-depRequestEquipment')
 
-                elif statusEquipmentRequest.objects.filter(status_equipment_itemname = request.POST.get('non_existing_equipment_itemname')).filter(status_equipment_department = request.user).exists() == True:
-                    messages.info(request, 'You already have a request for this item.')
-                    return redirect('inventorysystem-depRequestEquipment')
-                    
-            else:
-                messages.info(request, "invalid quantity")
+                    elif statusEquipmentRequest.objects.filter(status_equipment_itemname = request.POST.get('request_equipment_itemname')).filter(status_equipment_department = request.user).exists() == True:
+                        messages.info(request, 'You already have a request for this item.')
+                        return redirect('inventorysystem-depRequestEquipment')
+                        
+                else:
+                    messages.info(request, "invalid quantity")
         context = {
             'info': info,
             'info1': info1,

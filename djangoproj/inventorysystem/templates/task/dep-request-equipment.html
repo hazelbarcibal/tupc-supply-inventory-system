@@ -207,13 +207,13 @@
                             </div>
                             <div class="modal-body">Are you sure you want to request? Click 'Confirm' to continue.</div>
 
-                            <input type="hidden" name="itemname" id="itemname" value="">
-                            <input type="hidden" name="quantity" id="quantity" value="">
-                            <input type="hidden" name="description" id="description" value="">
+                            <input type="hidden" name="request_equipment_itemname" id="itemname" value="">
+                            <input type="hidden" name="request_equipment_quantity" id="quantity" value="">
+                            <input type="hidden" name="request_equipment_description" id="description" value="">
 
                             <div class="modal-footer">
                                 <a class="btn btn-primary" href="{% url 'inventorysystem-suppliesDeliver' %}">Cancel</a>
-                                <button class="btn btn-success" name="" id="confirmBtn" type="submit" data-dismiss="modal">Confirm</button>
+                                <button class="btn btn-success" name="confirm_request_equipment" id="confirmBtn" type="submit" >Confirm</button>
                             </div>
                         </div>
 

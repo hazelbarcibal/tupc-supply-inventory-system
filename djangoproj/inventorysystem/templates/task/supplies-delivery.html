@@ -239,13 +239,13 @@
                             {% csrf_token %}
                             <div class="modal-body">Are you sure you want to deliver? Click 'Deliver' to continue.</div>
                         
-                            <input type="hidden" name="modal_description" id="description" value="">
-                            <input type="hidden" name="modal_unit" id="unit" value="">
-                            <input type="hidden" name="modal_quantity" id="quantity" value="">
-                            <input type="hidden" name="modal_rackNo" id="rackNo" value="">
-                            <input type="hidden" name="modal_layerNo" id="layerNo" value="">
-                            <input type="hidden" name="modal_cabinetNo" id="cabinetNo" value="">
-                            <input type="hidden" name="modal_shelfNo" id="shelfNo" value="">
+                            <input type="hidden" name="modal_description" id="description" value="" required>
+                            <input type="hidden" name="modal_unit" id="unit" value="" required>
+                            <input type="hidden" name="modal_quantity" id="quantity" value="" required>
+                            <input type="hidden" name="modal_rackNo" id="rackNo" value="" required>
+                            <input type="hidden" name="modal_layerNo" id="layerNo" value="" required>
+                            <input type="hidden" name="modal_cabinetNo" id="cabinetNo" value="" required>
+                            <input type="hidden" name="modal_shelfNo" id="shelfNo" value="" required>
 
                             <div class="modal-footer">
                                 <a class="btn btn-primary" href="{% url 'inventorysystem-suppliesDeliver' %}">Cancel</a>
