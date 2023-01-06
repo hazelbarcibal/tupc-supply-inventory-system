@@ -108,7 +108,7 @@ class supplymainstorage(models.Model):
     supplymainstorage_quantity = models.DecimalField(max_digits=50, decimal_places=0, verbose_name='supplymainstorage_quantity')
     supplymainstorage_remaining = models.DecimalField(null=True, max_digits=50, decimal_places=0, verbose_name='supplymainstorage_remaining')
     supplymainstorage_RequestQuantity = models.DecimalField(null=True, max_digits=50, decimal_places=0, verbose_name='supplymainstorage_RequestQuantity')
-    supplymainstorage_supplyRackNo = models.CharField(null= True, max_length=50, verbose_name='Supply_Rack')
+    supplymainstorage_supplyRackNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply_Rack')
     supplymainstorage_supplyLayerNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply_Layer')
     supplymainstorage_supplyCabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply_Cabinet')
     supplymainstorage_supplyShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply_Shelf')
@@ -127,7 +127,7 @@ class acceptSupplyRequests(models.Model):
     arequest_supply_quantity = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='arequest_supply_quantity')
     arequest_supply_remaining = models.DecimalField(null=True, max_digits=6,decimal_places=0, verbose_name='arequest_supply_remaining')
     arequest_supply_status = models.CharField(max_length=50, verbose_name='arequest_supply_status')
-    arequest_supply_amount = models.CharField(max_length=50, verbose_name='arequest_supply_amount')
+    arequest_supply_amount =  models.DecimalField(max_digits=10, decimal_places=2, verbose_name='arequest_supply_amount')
     arequest_supply_RackNo = models.CharField(null= True, max_length=50, verbose_name='Supply_Rack')
     arequest_supply_LayerNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply_Layer')
     arequest_supply_CabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply_Cabinet')
@@ -180,8 +180,8 @@ class requestequipment(models.Model):
     request_equipment_brand = models.CharField(max_length=50, verbose_name='request_equipment_brand')
     request_equipment_unit = models.CharField(null=True,max_length=50, verbose_name='request_equipment_brand')
     request_equipment_quantity = models.DecimalField(max_digits=6, decimal_places=0, verbose_name='request_equipment_quantity')
-    request_equipment_unitcost = models.DecimalField(null=True,max_digits=6, decimal_places=0, verbose_name='request_equipment_unitcost')
-    request_equipment_totalcost = models.DecimalField(null=True,max_digits=6, decimal_places=0, verbose_name='request_equipment_totalcost')
+    request_equipment_unitcost = models.DecimalField(blank=True, default="", max_digits=6, decimal_places=0, verbose_name='request_equipment_unitcost')
+    request_equipment_totalcost = models.DecimalField(blank=True, default="", max_digits=6, decimal_places=0, verbose_name='request_equipment_totalcost')
     request_equipment_iin = models.CharField(null=True,max_length=50, blank=True, verbose_name='request_equipment_iin')
     request_equipment_department = models.CharField(max_length=50, verbose_name='request_equipment_department')
     request_equipment_status = models.CharField(max_length=50, verbose_name='request_equipment_status')
@@ -332,7 +332,7 @@ class equipment_disposed(models.Model):
     disposed_equipment_model_no = models.CharField(max_length=50, verbose_name='dispose_equipment_model_no')
     disposed_equipment_serial_no = models.CharField(unique=True, max_length=50, verbose_name='dispose_equipment_serial_no')
     disposed_equipment_receiptno = models.CharField(max_length=50, verbose_name='dispose_equipment_receiptno')
-    disposed_equipment_amount = models.DecimalField(max_digits=6, decimal_places=0, verbose_name='dispose_equipment_amount')
+    disposed_equipment_amount =  models.DecimalField(max_digits=10, decimal_places=2, verbose_name='dispose_equipment_amount')
     disposed_date = models.DateTimeField(default=now, verbose_name='dispose_date')
 
 
@@ -371,7 +371,7 @@ class supply_createform(models.Model):
     createformsupply_description = models.TextField(verbose_name='createformsupply_description')
     createformsupply_unit = models.CharField( max_length=50, verbose_name='createformsupply_unit')
     createformsupply_acceptedquantity = models.CharField( max_length=50, verbose_name='createformsupply_acceptedquantity')
-    createformsupply_amount = models.CharField(max_length=50, verbose_name='createformsupply_amount')
+    createformsupply_amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='createformsupply_amount')
     # current_date = models.DateTimeField(default=now, verbose_name= 'createformsupply_current_date')
     current_date = models.CharField( max_length=50, verbose_name='currentdate')
 
@@ -382,7 +382,7 @@ class supply_createform(models.Model):
 class supply_createform_inputs(models.Model):
     createformsupply_inputs_id = models.AutoField(primary_key=True)
     createformsupply_inputs_office = models.CharField(max_length=255, verbose_name='createformsupply_inputs_office')
-    createformsupply_inputs_department = models.CharField(unique=True, max_length=50, verbose_name='createformsupply_inputs_department')
+    createformsupply_inputs_department = models.CharField(max_length=50, verbose_name='createformsupply_inputs_department')
     createformsupply_inputs_approvedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_approvedby')
     createformsupply_inputs_designation = models.CharField(max_length=50, verbose_name='createformsupply_inputs_designation')
     createformsupply_inputs_issuedby = models.CharField(max_length=50, verbose_name='createformsupply_inputs_issuedby')
@@ -398,7 +398,7 @@ class supply_createform_inputs(models.Model):
 class equipment_createform(models.Model):
 
     createformequipment_id = models.AutoField(primary_key=True)
-    createformequipment_department = models.CharField(unique=True, max_length=50, verbose_name='createformequipment_department')
+    createformequipment_department = models.CharField(max_length=50, verbose_name='createformequipment_department')
     createformequipment_itemname = models.CharField(unique=True, max_length=50, verbose_name='createformequipment_itemname')
     createformequipment_description = models.TextField(verbose_name='createformequipment_description')
     createformequipment_brand = models.CharField(unique=True, max_length=50, verbose_name='createformequipment_brand')

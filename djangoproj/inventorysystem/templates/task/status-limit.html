@@ -200,38 +200,44 @@
 </div>
 
 <script type="text/javascript">
-    
-$(document).ready(function () {
-        var table = $('#LimitTable').DataTable({
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            },
-            responsive: true,
+    $(document).ready(function () {
+            $('.editBtn').on('click', function () {
+
+                $('#openModal').modal('show');
+                $tr = $(this).closest('tr');
+                var data = $tr.children("td").map(function () {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+                $('h5.modal-title').html('Add Limit');
+                $('#editId').val(data[0]);
+                $('#description').val(data[1]);
+                $('#unit').val(data[2]);
+                $('#quantity').val(data[3]);
+                $('#department').val(data[4]);
+            });
         });
 
-        $('#LimitTable tbody').on('click', 'tr', function () {
-            $('#openModal').modal('show');
-            $('h5.modal-title').html('Add Limit for: ' + table.row(this).data()[4]);
-            $('#editId').val(table.row(this).data()[0]);
-            $('#description').val(table.row(this).data()[1]);
-            $('#unit').val(table.row(this).data()[2]);
-            $('#quantity').val(table.row(this).data()[3]);
-            $('#department').val(table.row(this).data()[4]);
-           
+        $(document).ready(function () {
+            $('.editBtn1').on('click', function () {
+
+                $('#openModal1').modal('show');
+                $tr = $(this).closest('tr');
+                var data = $tr.children("td").map(function () {
+                    return $(this).text();
+                }).get();
+
+                console.log(data);
+                $('h5.modal-title').html('Deduct Limit');
+                $('#editId1').val(data[0]);
+                $('#description1').val(data[1]);
+                $('#unit1').val(data[2]);
+                $('#quantity1').val(data[3]);
+                $('#department1').val(data[4]);
+            });
         });
 
-        $('#LimitTable tbody').on('click', 'tr', function () {
-            $('#openModal1').modal('show');
-            $('h5.modal-title').html('Deduct Limit for: ' + table.row(this).data()[4]);
-            $('#editId1').val(table.row(this).data()[0]);
-            $('#description1').val(table.row(this).data()[1]);
-            $('#unit1').val(table.row(this).data()[2]);
-            $('#quantity1').val(table.row(this).data()[3]);
-            $('#department1').val(table.row(this).data()[4]);
-           
-        });
-
-    });
 </script>
 
 <script>
