@@ -318,7 +318,11 @@
                     <div class="col-md-12">
                         <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
                             class="form-label">Location:</label>
-                        <input type="text" class="form-control" id="location" name="disposedLocation" min="1" required>
+                        <input type="text" autocomplete="on" class="form-control" list="location" id="location" name="disposedLocation" required>
+                        <datalist id="location">
+                            <option value="New Supply Office"></option>
+                            <option value="Old Supply Office"></option>
+                        </datalist>
                     </div>
   
                     <div class="modal-footer">
@@ -357,7 +361,7 @@ $(document).ready(function () {
         $('#serialno').val(table.row(this).data()[7]);
         $('#certifiedcorrect').val(table.row(this).data()[8]);
         $('#datereturn').val(table.row(this).data()[9]);
-        $('#location').val(table.row(this).data()[10]);
+        // $('#location').val(table.row(this).data()[10]);
     });
 });
 
