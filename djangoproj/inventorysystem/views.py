@@ -668,7 +668,7 @@ def statusLimit(request):
 
             if 'update_limit' in request.POST:
                 
-                getdata = limitrecords.objects.get(limit_description = update_limit_description)
+                getdata = limitrecords.objects.get(limit_description = update_limit_description, limit_department = update_limit_department)
                 if int(update_limit_addquantity) > 0:
                     update_record = limitrecords()
                     update_record.limit_id = getdata.limit_id
@@ -691,7 +691,7 @@ def statusLimit(request):
                 getdata_deduct =  limitrecords.objects.get(limit_description = request.POST.get('deduct_description'), limit_department = request.POST.get('deduct_department')).limit_id
                 getdata_deduct1 =  limitrecords.objects.get(limit_description = request.POST.get('deduct_description'), limit_department = request.POST.get('deduct_department')).limit_quantity
 
-                if int(request.POST.get('deduct_id')) > 0:
+                if int(request.POST.get('deduct_addquantity')) > 0 and int(request.POST.get('deduct_addquantity')) <= int(getdata_deduct1):
                         update_record1 = limitrecords()
                         update_record1.limit_id = getdata_deduct
                         update_record1.limit_description = request.POST.get('deduct_description')

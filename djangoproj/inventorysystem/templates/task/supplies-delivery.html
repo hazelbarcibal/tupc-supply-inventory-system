@@ -261,7 +261,7 @@
 
 
             <!---------------------- ADD MODAL -------------------->
-            <div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="openModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -275,17 +275,17 @@
                             <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
                                 {% csrf_token %}
 
-                                <input type="hidden" id="editId" name="supplymainstorage_id" value="" readonly>
+                                <input type="hidden" id="editId2" name="supplymainstorage_id" value="" readonly>
 
                                 <div class="col-md-12">
                                     <label class="form-label">Description:</label>
-                                    <input type="text" class="form-control" id="description"
+                                    <input type="text" class="form-control" id="description2"
                                         name="supplymainstorage_description" readonly>
                                 </div>
 
                                 <div class="col-md-12">
                                     <label class="form-label">Unit:</label>
-                                    <input type="text" class="form-control" id="unit" name="supplymainstorage_unit"
+                                    <input type="text" class="form-control" id="unit2" name="supplymainstorage_unit"
                                         readonly>
                                 </div>
 
@@ -435,11 +435,11 @@
                     });
 
                     $('#mainstorage tbody').on('click', 'tr', function () {
-                        $('#openModal').modal('show');
+                        $('#openModal2').modal('show');
                         $('h5.modal-title').html('Add Item Delivery for: ' + table.row(this).data()[1]);
-                        $('#editId').val(table.row(this).data()[0]);
-                        $('#description').val(table.row(this).data()[1]);
-                        $('#unit').val(table.row(this).data()[2]);   
+                        $('#editId2').val(table.row(this).data()[0]);
+                        $('#description2').val(table.row(this).data()[1]);
+                        $('#unit2').val(table.row(this).data()[2]);   
                     });
 
 

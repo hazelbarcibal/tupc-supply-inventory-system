@@ -250,6 +250,17 @@
         });
     });
 
+    $(document).ready(function () {
+        var table = $('#LimitTable').DataTable({
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            responsive: true
+        });
+    });
+
+    
+
 </script>
 
 {% for message in messages %}
