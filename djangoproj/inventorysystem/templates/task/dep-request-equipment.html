@@ -174,11 +174,11 @@
                                     </div>
 
                                     <div class="col-12" >
-                                        <!-- <a class="btn1" style="float: right;" onclick="getVal()" href="#" data-toggle="modal" data-target="#confirmModal">
+                                        <a class="btn btn-primary" style="float: right;" onclick="getVal()" href="#" data-toggle="modal" data-target="#confirmModal">
                                             Request
-                                        </a> -->
-                                        <button type="submit" id="submit" class="btn1" style="float: right;"> Request
-                                        </button>
+                                        </a>
+                                        <!-- <button type="submit" id="submit" class="btn1" style="float: right;"> Request
+                                        </button> -->
                                     </div>
                                     <br>
                                     <br>
@@ -192,7 +192,7 @@
             <br>
 
             <!---------------------- CONFIRMATION MODAL -------------------->
-            <!-- <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <form action="" method="POST" class="row g-3">
@@ -220,7 +220,7 @@
                     </form>
                     
                 </div>
-            </div> -->
+            </div>
 
 
             <!------------------- Content Row ------------------->
@@ -346,16 +346,16 @@
     // });
 
     // para makuha yung value sa form papunta don sa confirm modal
-    // function getVal() {
-    //     var a = document.getElementById('ItemName').value;
-    //     var b = document.getElementById('Quantity').value;
-    //     var c = document.getElementById('Description').value;
+    function getVal() {
+        var a = document.getElementById('ItemName').value;
+        var b = document.getElementById('Quantity').value;
+        var c = document.getElementById('Description').value;
 
-    //     document.getElementById('itemname').value = a;
-    //     document.getElementById('quantity').value = b;
-    //     document.getElementById('description').value = c;
+        document.getElementById('itemname').value = a;
+        document.getElementById('quantity').value = b;
+        document.getElementById('description').value = c;
 
-    // }
+    }
 
 </script>
 

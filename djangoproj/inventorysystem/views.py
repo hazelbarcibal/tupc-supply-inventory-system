@@ -477,7 +477,7 @@ def suppliesDeliver(request):
         info = deliverysupply.objects.all()
         info1 = supplymainstorage.objects.all()
         form = deliverySupplyForm()
-        # if request.method == 'POST':
+        
         form = deliverySupplyForm(request.POST)
         description = request.POST.get('delivery_supply_description')
         unit = request.POST.get('delivery_supply_unit')
