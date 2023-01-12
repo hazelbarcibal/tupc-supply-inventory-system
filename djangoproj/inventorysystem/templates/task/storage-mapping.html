@@ -167,6 +167,48 @@
 
             </div>
 
+            <!------------------- Content Row ------------------->
+            <div class="row">
+
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <div class="container">
+                        <div class="kahon">
+                            <h3 align="center">Storage History</h3>
+                            <hr>
+                            <table id="supplymappingTable" class="table table-striped" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;">Description</th>
+                                        <th style="text-align: center;">Previous Rack No.</th>
+                                        <th style="text-align: center;">Previous Layer No.</th>
+                                        <th style="text-align: center;">Previous Cabinet No.</th>
+                                        <th style="text-align: center;">Previous Shelf No.</th>
+                                        <th style="text-align: center;">Date Updated</th>
+                                        <th style="text-align: center;">Time Updated</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for x in info3 %}
+                                    <tr class="edittr">
+                                        <td align="center">{{x.history_supplyItemName}}</td>
+                                        <td align="center">{{x.history_supplyRackNo}}</td>
+                                        <td align="center">{{x.history_supplyLayerNo}}</td>
+                                        <td align="center">{{x.history_supplyCabinetNo}}</td>
+                                        <td align="center">{{x.history_supplyShelfNo}}</td>
+                                        <td align="center">{{x.history_current_date}}</td>
+                                        <td align="center">{{x.history_current_time}}</td>
+                                        <i class=""></i>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
 
             <!------------------- Content Row ------------------->
             <div class="row">

@@ -154,8 +154,8 @@
                                     <tbody>
                                         {% for x in info1 %}
                                         <tr class="edittr">
-                                            <td align="center">{{x.deliveryequipment_id}}</td>
-                                            <td align="center">{{x.delivery_equipment_itemname}}</td>
+                                            <td align="center">{{x.equipmentmainstorage_id}}</td>
+                                            <td align="center">{{x.equipmentmainstorage_itemName}}</td>
                                             <td align="center">{{x.delivery_equipment_quantity}}</td>
                                             <td align="center">
                                                 <button class="btn btn-success editBtn" style="margin-bottom: 10px; font-size: 13px;"
@@ -197,7 +197,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for x in info1 %}
+                                        {% for x in info2 %}
                                         <tr class="edittr">
                                             <td align="center">{{x.status_equipment_itemname}}</td>
                                             <td align="center">{{x.status_equipment_description}}</td>
@@ -241,29 +241,29 @@
 
                 <div class="col-md-6">
                   <label class="form-label">Item Name:</label>
-                  <input type="text" class="form-control" id="itemname" name="request_itemname" readonly>
+                  <input type="text" class="form-control" id="itemname" name="request_equipment_itemname" readonly>
                 </div>
 
                 <div class="col-md-6">
                   <label class="form-label">Quantity:</label>
-                  <input type="number" class="form-control" id="quantity" name="request_quantity" readonly>
+                  <input type="number" class="form-control" id="quantity" name="request_equipment_quantity" readonly>
                 </div>
 
                 <div class="col-md-6">
                     <label class="form-label">Description:</label>
-                    <input type="number" class="form-control" id="description" name="request_description" readonly>
+                    <input type="number" class="form-control" id="description" name="request_equipment_description" readonly>
                   </div>
 
                 <div class="col-md-6">
                   <label class="form-label">Request Quantity:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
-                  <input type="number" min="1" class="form-control" id="addquantity" name="request_addquantity"
+                  <input type="number" min="1" class="form-control" id="addquantity" name="request_equipment_addquantity"
                     required>
                 </div>
 
 
                 <div class="modal-footer">
                   <div class="col-12">
-                    <button type="submit" name="request_update" class="btn btn-primary">Request</button>
+                    <button type="submit" name="confirm_request_equipment" class="btn btn-primary">Request</button>
                   </div>
                 </div>
               </form>

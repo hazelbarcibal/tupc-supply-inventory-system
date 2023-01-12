@@ -283,9 +283,10 @@ class statusEquipmentRequest(models.Model):
 class equipmentmainstorage(models.Model):
 
     equipmentmainstorage_id = models.AutoField(primary_key=True)
+    equipmentmainstorage_department = models.CharField(max_length=50, verbose_name='equipmentmainstorage_department')
     equipmentmainstorage_itemName = models.CharField(max_length=50, verbose_name='equipmentmainstorage_itemName')
-    equipmentmainstorage_description = models.CharField(max_length=255, verbose_name='equipmentmainstorage_description')
-    equipmentmainstorage_brand = models.CharField(max_length=50, verbose_name='equipmentmainstorage_brand')
+    equipmentmainstorage_description = models.CharField(null= True,max_length=255, verbose_name='equipmentmainstorage_description')
+    equipmentmainstorage_brand = models.CharField(null= True,max_length=50, verbose_name='equipmentmainstorage_brand')
     equipmentmainstorage_quantity = models.DecimalField(max_digits=50, decimal_places=0, verbose_name='equipmentmainstorage_quantity')
     equipmentmainstorage_remaining = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='equipmentmainstorage_remaining')
     equipmentmainstorage_RequestQuantity = models.DecimalField(null= True, max_digits=50, decimal_places=0, verbose_name='equipmentmainstorage_RequestQuantity')
@@ -307,6 +308,22 @@ class supply_storagemapping(models.Model):
 
     class Meta:
         db_table = "supply_StorageMapping"
+
+
+class supply_storagemapping_history(models.Model):
+
+    history_supplyStoragemapping_id = models.AutoField(primary_key=True)
+    history_supplyItemName = models.CharField(max_length=50, verbose_name='Supply ItemName')
+    history_supplyRackNo = models.CharField(null= True, max_length=50, verbose_name='Supply Rack')
+    history_supplyLayerNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply Layer')
+    history_supplyCabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply Cabinet')
+    history_supplyShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply Shelf')
+    history_supplyLocation = models.CharField(null=True, max_length=50, verbose_name='Supply Location')
+    history_current_date = models.DateField(default=date.today, verbose_name= 'history_current_date')
+    history_current_time = models.TimeField(auto_now_add=True, blank=True, verbose_name= 'history_current_time')
+
+    class Meta:
+        db_table = "supply_StorageMapping_history"
 
 class equipment_disposal(models.Model):
 
