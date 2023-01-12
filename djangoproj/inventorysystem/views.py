@@ -900,7 +900,7 @@ def depRequestSupply(request):
                 # print(request.POST.get('datepicker'))
                 if request.POST.get('datepicker') == '':
                     messages.info(request, 'Please type in a date.')
-                elif statusSupplyRequest.objects.filter(status_supply_department = request.user).filter(date_requested = request.POST.get('datepicker')).filter(status_supply_status = "waiting to accept").exists() == True:
+                elif statusSupplyRequest.objects.filter(status_supply_department = request.user).filter(date_requested = request.POST.get('datepicker')).filter(status_supply_status = "pending").exists() == True:
                     messages.info(request, 'Please wait the other requested items')
 
                 elif supply_createform.objects.filter(createformsupply_department = request.user).filter(current_date = request.POST.get('datepicker')).exists() == True:
@@ -965,7 +965,7 @@ def depRequestSupply(request):
                     requesting.request_supply_supplyLayerNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyLayerNo
                     requesting.request_supply_supplyCabinetNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyCabinetNo
                     requesting.request_supply_supplyShelfNo = supplymainstorage.objects.get(supplymainstorage_description = request_description).supplymainstorage_supplyShelfNo
-                    requesting.request_supply_status = "waiting to accept"
+                    requesting.request_supply_status = "pending"
                     requesting.request_supply_daterequested = datetime.date.today()
                     status = statusSupplyRequest()
                     status.status_supply_description = request_description
@@ -973,7 +973,7 @@ def depRequestSupply(request):
                     status.status_supply_quantity = request_addquantity
                     status.status_supply_remaining = request_quantity
                     status.status_supply_department = request.user
-                    status.status_supply_status = "waiting to accept"
+                    status.status_supply_status = "pending"
                     status.date_requested = datetime.date.today()
                     requesting.save()
                     status.save()
@@ -1650,7 +1650,8 @@ def storageMapping(request):
 #------------------- EXPORT EXCEL FILE -----------------------------
 def export_excel(request):
     response=HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition'] = 'attachment; filename=Supply Inventory' + '.xls'
+    response['Content-Disposition'] = 'attachment; filename=Supply Inventory' + \
+        str(datetime.datetime.now())+'.xls'
     wb =xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet('Supply Delivery')
     ws1 = wb.add_sheet('Equipment Delivery')

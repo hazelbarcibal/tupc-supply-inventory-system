@@ -208,9 +208,7 @@
                                         <td id="sunit" align="center">{{x.supplymainstorage_unit}}</td>
                                         <td id="squantity" align="center">{{x.supplymainstorage_quantity}}</td>
                                         <td align="center">
-                                            <!-- <button class="fa-sharp fa-solid fa-edit btn btn-success editBtn1" style="margin-bottom: 10px; font-size: 12px;"
-                                                    name="editBtn"> EDIT</button> -->
-                                            <button class="fa-sharp fa-solid fa-plus btn btn-success editBtn" style="margin-bottom: 10px; font-size: 12px;"
+                                            <button class="btn btn-success editBtn" style="margin-bottom: 10px; font-size: 12px;"
                                                     name="editBtn"> ADD</button>
                                         </td>
                                     </tr>
@@ -357,72 +355,6 @@
                     </div>
                 </div>
             </div>
-
-            <!---------------------- DELIVER MODAL -------------------->
-            <!-- <div class="modal fade" id="openModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"></h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-
-                        <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
-                            {% csrf_token %}
-
-                            <input type="hidden" id="editId2" name="delivery_id" value="" readonly>
-
-                            <div class="col-md-12">
-                                <label class="form-label">Description:</label>
-                                <input type="text" class="form-control" id="description2"
-                                    name="delivery_description" >
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label">Unit:</label>
-                                <input type="text" class="form-control" id="unit2" name="delivery_unit">
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label">Quantity:</label>
-                                <input type="text" class="form-control" id="deliveryquantity" name="delivery_quantity"
-                                    readonly>
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <label class="form-label">Rack No:</label>
-                                <input type="number" class="form-control" id="deliveryrackno" name="delivery_rackno">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Layer No:</label>
-                                <input type="number" class="form-control" id="deliverylayerno" name="delivery_layerno">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Cabinet No:</label>
-                                <input type="number" class="form-control" id="deliverycabinet" name="delivery_cabinet">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Shelf No:</label>
-                                <input type="number" class="form-control" id="deliveryshelfno" name="delivery_shelfno">
-                            </div>
-
-
-                            <div class="modal-footer">
-                                <div class="col-12">
-                                    <button style="float: right;" type="submit" name="delivery_edit"
-                                        class="btn btn-primary"> UPDATE</button>
-                                </div>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
 
 
             <script type="text/javascript">
@@ -618,8 +550,8 @@
                                         <th style="text-align: center;">Unit</th>
                                         <th style="text-align: center;">Delivery Quantity</th>
                                         <th style="text-align: center;">Remaining</th>
-                                        <th style="text-align: center;">Date</th>
-                                        <th style="text-align: center;">Time</th>
+                                        <th style="text-align: center;">Date Delivered</th>
+                                        <th style="text-align: center;">Time Delivered</th>
                                     </tr>
                                 </thead>
                                 <tbody>

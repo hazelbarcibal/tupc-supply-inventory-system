@@ -79,7 +79,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{% url 'inventorysystem-suppliesDeliver' %}">Delivery</a>
                         <a class="collapse-item" href="{% url 'inventorysystem-viewRequestSupply' %}">Requested Supplies</a>
-                        <a class="collapse-item" href="{% url 'inventorysystem-suppliesWithdraw' %}">Withdrawn Supplies</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-suppliesWithdraw' %}">Withdraw Supplies</a>
                         <a class="collapse-item" href="{% url 'inventorysystem-statusLimit' %}">Limit Supplies</a>
                     </div>
                 </div>
@@ -95,9 +95,9 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{% url 'inventorysystem-equipmentDeliver' %}">Delivery</a>
-                        <a class="collapse-item" href="{% url 'inventorysystem-viewDeliveryRecords' %}">Delivery Records</a>
-                        <a class="collapse-item" href="{% url 'inventorysystem-equipmentWithdraw' %}">Withdrawn Equipments</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-equipmentDeliver' %}">Limit Equipment</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-viewDeliveryRecords' %}">Requested Equipment</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-equipmentWithdraw' %}">Release Equipments</a>
                         <a class="collapse-item" href="{% url 'inventorysystem-equipmentReturn' %}">Returned Equipments</a>
                     </div>
                 </div>
@@ -247,6 +247,7 @@
                                         <div class="col mr-2">
                                             <div class="font-weight-bold text-dark mb-1">
                                                 <h3>No. of Supplies Withdrawn:</h3>
+                                                <br>
                                             </div>
                                             <div class="mb-0 font-weight-bold text-gray-800">
                                                 <p style="font-size: 30px; width: 60px; margin-left: 15px;">{{label2}}</p>
@@ -297,6 +298,7 @@
                                         <div class="col mr-2">
                                             <div class="font-weight-bold text-dark mb-1">
                                                 <h3>No. of Equipment Withdrawn:</h3>
+                                                <br>
                                             </div>
                                             <div class="mb-0 font-weight-bold text-gray-800">
                                                 <p style="font-size: 30px; width: 60px; margin-left: 15px;">{{label4}}</p>

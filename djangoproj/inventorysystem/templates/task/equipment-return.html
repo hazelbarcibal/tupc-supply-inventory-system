@@ -176,6 +176,8 @@
                                 <textarea required rows="6" cols="60" name="returnequipment" id="propertyNum"
                                     onchange="disableFunction()"></textarea>
                                 <br>
+                                <input style=" width: 45%;" type="text" name="" class="form-control" placeholder="Reason" id="returnReason" required>
+                                <br>
                                 <input type="hidden" name="property" id="property" readonly>
                                 <span><button onclick="getVal();" id="" type="submit" name = "returnBtn"
                                         class="btn btn-secondary">Return</button></span>
@@ -228,6 +230,7 @@
                                         <th style="text-align: center;">Serial No.</th>
                                         <th style="text-align: center;">Certified Correct</th>
                                         <th style="text-align: center;">Date Return</th>
+                                        <th style="text-align: center;">Return Reason</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
                                 </thead>
@@ -243,7 +246,8 @@
                                         <td align="center">{{x.return_equipment_model_no}}</td>
                                         <td align="center">{{x.return_equipment_serial_no}}</td>
                                         <td align="center">{{x.return_equipment_certifiedcorrect}}</td>
-                                        <td align="center">{{x.dispose_date}}</td>
+                                        <td align="center">{{x.return_reason}}</td>
+                                        <td align="center">{{x.dispose_equipment_date}}</td>
                                         <td><a class="btn btn-success editBtn" name="editBtn" style="font-size: 13px;">DISPOSE</a></td>
                                     </tr>
                                     {% endfor %}

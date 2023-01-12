@@ -117,10 +117,7 @@
                                 <h1 class="h3 mb-0 text-gray-900">Equipments Delivery</h1>
                                 <div class="btn-group btn-group-sm" role="group">
                                     <a type="button" href="{% url 'inventorysystem-viewDeliveryRecords' %}"
-                                        class="btn btn-primary">Delivery Record</a>
-                                    <a type="button" href="{% url 'inventorysystem-equipmentWithdraw' %}"
-                                        class="btn btn-primary">Withdraw
-                                        Request</a>
+                                        class="btn btn-primary">Equipment Request</a>
                                 </div>
                             </div>
 
@@ -168,83 +165,237 @@
             </div> -->
 
 
+                        <!------------------- Content Row ------------------->
+                        <div class="row">
+
+                            <div class="col-xl-12 col-md-12 mb-4">
+                                <div class="container">
+                                    <div class="kahon">
+                                        <h3 align="center">Available Equipment</h3>
+                                        <hr>
+                                        <br>
+                                        <table id="equipAvailable" class="table-striped cell-border compact nowrap" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th style="text-align: center;">Department</th>
+                                                    <th style="text-align: center;">Item Name</th>
+                                                    <th style="text-align: center;">Quantity</th>
+                                                    <th style="text-align: center;">Date </th>
+                                                    <th style="text-align: center;">Time</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for x in info %}
+                                                <tr class="edittr">
+                                                    <td>{{x.deliveryequipment_id}}</td>
+                                                    <td align="center">{{x.delivery_equipment_department}}</td>
+                                                    <td align="center">{{x.delivery_equipment_itemname}}</td>
+                                                    <td align="center">{{x.delivery_equipment_quantity}}</td>
+                                                    <td align="center">{{x.current_date}}</td>
+                                                    <td align="center">{{x.current_time}}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!------------------- Content Row ------------------->
+                        <div class="col" align="center">
+
+                            <div class="col-md-8 mb-4">
+                                <div class="container">
+                                    <div class="container">
+                                        <div class="kahon">
+                                            <h3>Limit per Department</h3>
+                                            <br>
+                                            <form action="" method="POST" class="row g-3">
+                                                {% csrf_token %}
+                                                <div class="col-md-12" style="text-align: left;">
+                                                    <label>Item Name:</label>
+                                                    <input list="requestItemname" type="text" name="non_existing_equipment_itemname"
+                                                        class="form-control" placeholder="Item Name" id="ItemName" required>
+                                                    <datalist id="requestItemname">
+                                                        <option id="1" value="Aircon"></option>
+                                                        <option id="2" value="Computer"></option>
+                                                        <option id="3" value="Electric Fan"></option>
+                                                        <option id="4" value="Printer"></option>
+                                                        <option id="5" value="Smart TV"></option>
+                                                        <option id="6" value="Water Dispenser"></option>
+                                                    </datalist>
+                                                </div>
+                                                <br>
+                                                <div class="col-md-12" style="text-align: left;">
+                                                    <label>Quantity:</label>
+                                                    <input type='number' min="1" name="non_existing_equipment_quantity"
+                                                        class="form-control" placeholder="Quantity" id="Quantity" required>
+                                                </div>
+                                                <br>
+                                                <div class="col-md-12" style="text-align: left;">
+                                                    <label>Department:</label>
+                                                    <input list="requestDepartment" type='text' name="non_existing_equipment_department"
+                                                        class="form-control" placeholder="Department" id="Department" required>
+                                                        <datalist id="requestDepartment">
+                                                            <option id="1" value="OCS_CASHIER_SERVICES"></option>
+                                                            <option id="2" value="OES_EXTENSION_SERVICES"></option>
+                                                            <option id="3" value="OGS_GUIDANCE_SERVICES"></option>
+                                                            <option id="4" value="OHR_HUMAN_RESOURCES"></option>
+                                                            <option id="5" value="OHS_HEALTH_SERVICES"></option>
+                                                            <option id="6" value="OIT_INFORMATION_TECHNOLOGY"></option>
+                                                            <option id="7" value="OSP_JOB_PLACEMENT"></option>
+                                                            <option id="8" value="OPR_PROCUREMENT"></option>
+                                                            <option id="9" value="ORE_RESEARCH_AND_EXTENSION"></option>
+                                                            <option id="10" value="ORS_RESEARCH_SERVICES"></option>
+                                                            <option id="11" value="OSA_STUDENT_AFFAIRS"></option>
+                                                            <option id="12" value="OSH_SECURITY_HOUSE"></option>
+                                                            <option id="13" value="DID_INDUSTRIAL_EDUCATION"></option>
+                                                            <option id="14" value="DES_ENGINEERING_TECHNOLOGY"></option>
+                                                            <option id="15" value="DLA_LIBERAL_ARTS"></option>
+                                                            <option id="16" value="DMS_MATH_AND_SCIENCE"></option>
+                                                            <option id="17" value="DPECS_PHYSICAL_EDUCATION_CULTURAL_SPORTS"></option>
+                                                            <option id="18"
+                                                                value="BETEEAP_EXPANDED_TERTIARY_EDUCATION_EQUIVALENCY_AND_ACCREDITATION">
+                                                            </option>
+                                                            <option id="19" value="GAD_GENDER_AND_DEVELOPMENT"></option>
+                                                            <option id="20" value="IDO_INFRASTRUCTURE_DEVELOPMENT_OFFICE"></option>
+                                                            <option id="21" value="NSTP_NATIONAL_SERVICE_TRAINING_PROGRAM"></option>
+                                                            <option id="22" value="OAA_ACADEMIC_AFFAIRS"></option>
+                                                            <option id="23" value="OAD_ADMISSION"></option>
+                                                            <option id="24" value="OAL_ALUMNI"></option>
+                                                            <option id="25" value="OAS_ADMIN_SERVICES"></option>
+                                                            <option id="26" value="OAX_AUXILIARY"></option>
+                                                            <option id="27" value="BA_BIDS_AND_AWARDS"></option>
+                                                            <option id="28" value="OBD_BUDGET_DEVELOPMENT"></option>
+                                                            <option id="29" value="OCD_CAMPUS_DIRECTOR"></option>
+                                                            <option id="30" value="OCL_CAMPUS_LIBRARY"></option>
+                                                            <option id="31" value="OCP_CAMPUS_PLANNING"></option>
+                                                            <option id="32" value="OCR_CAMPUS_REGISTRAR"></option>
+                                                        </datalist>
+                                                </div>
+                                                <br>
+                                                
+                                                <div class="col-12" style="text-align: left;">
+                                                    <p><i style="color: red;"><b>**Note: </b>Kindly double check the informations before submitting.</i></p>   
+                                                </div>
+            
+                                                <div class="col-12" >
+                                                    <a class="btn btn-primary" style="float: right;" onclick="getVal()" href="#" data-toggle="modal" data-target="#confirmModal">
+                                                        ADD
+                                                    </a>
+                                                    <!-- <button type="submit" id="submit" class="btn1" style="float: right;"> Request
+                                                    </button> -->
+                                                </div>
+                                                <br>
+                                                <br>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
+                        </div>
+                        <br>
+            
+                        <!---------------------- CONFIRMATION MODAL -------------------->
+                        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <form action="" method="POST" class="row g-3">
+                                    {% csrf_token %}
+            
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Limit per Department</h5>
+                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">Are you sure you want to request? Click 'Confirm' to continue.</div>
+            
+                                        <input type="hidden" name="request_equipment_itemname" id="itemname" value="">
+                                        <input type="hidden" name="request_equipment_quantity" id="quantity" value="">
+                                        <input type="hidden" name="request_equipment_description" id="description" value="">
+            
+                                        <div class="modal-footer">
+                                            <a class="btn btn-primary" href="{% url 'inventorysystem-suppliesDeliver' %}">Cancel</a>
+                                            <button class="btn btn-success" name="confirm_request_equipment" id="confirmBtn" type="submit" >Confirm</button>
+                                        </div>
+                                    </div>
+            
+                                </form>
+                                
+                            </div>
+                        </div>
+
+        </div>
+        <!-- /.container-fluid -->
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="container">
+                    <div class="container" style="margin-bottom: 0;">
+                        <div class="container" style="margin-bottom: 0;">
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-900">Delivery Records</h1>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
 
             <!------------------- Content Row ------------------->
             <div class="row">
 
                 <div class="col-xl-12 col-md-12 mb-4">
+
+                    <div class="row">
+                        <div class="container">
+                            <div class="container">
+                                <div class="container mb-4">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <form action="{% url 'export_pdf_equipdelivery'%}">
+                                            <button class="btn btn-sm btn-primary shadow-sm">Convert to PDF</button>
+                                        </form>
+                                        <form action="{% url 'export_excel'%}">
+                                            <button class="btn btn-sm btn-primary shadow-sm">Export to XLS</button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
                     <div class="container">
                         <div class="kahon">
-                            <h3 align="center">Requests</h3>
-                            <hr>
-                            <br>
-                            <table id="equipDeliveryTable" class="table-striped cell-border compact nowrap" style="width:100%">
+                            <table id="equipmentDeliveryTable" class="table table-striped" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Request No.</th>
-                                        <th style="text-align: center;">Department</th>
                                         <th style="text-align: center;">Item Name</th>
                                         <th style="text-align: center;">Description</th>
-                                        <th style="text-align: center;">Request Quantity</th>
-                                        <th style="text-align: center;">Unit Cost</th>
-                                        <th style="text-align: center;">Inventory Item No.</th>
-                                        <th style="text-align: center;">Unit</th>
-                                        <th style="text-align: center;">Date Requested</th>
-                                        <th style="text-align: center;">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for x in info2 %}
-                                    <tr class="edittr">
-                                        <td>{{x.requestequipment_id}}</td>
-                                        <td align="center">{{x.request_equipment_department}}</td>
-                                        <td align="center">{{x.request_equipment_itemname}}</td>
-                                        <td align="center">{{x.request_equipment_description}}</td>
-                                        <td align="center">{{x.request_equipment_quantity}}</td>
-                                        <td align="center">{{x.request_equipment_unitcost}}</td>
-                                        <td align="center">{{x.request_equipment_iin}}</td>
-                                        <td align="center">{{x.request_equipment_unit}}</td>
-                                        <td align="center">{{x.request_equipment_daterequested}}</td>
-                                        <td>
-                                            <button class="btn btn-success editBtn1"
-                                                style="margin-bottom: 10px; font-size: 13px;">DELIVER</button>
-                              
-                                        </td>
-                                    
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!------------------- Email Equipment ------------------->
-            <div class="row">
-                <div class="col-xl-12 col-md-12 mb-4">
-                    <div class="container">
-                        <div class="kahon">
-                            <table id="emailEquipmentTable" class="table-striped cell-border compact nowrap" style="width:100%;">
-                                <thead>
-                                    <tr>
-                                        <th>Request No.</th>
-                                        <th style="text-align: center;">Department</th>
-                                        <th style="text-align: center;">Accepted Quantity</th>
+                                        <th style="text-align: center;">Brand</th>
+                                        <th style="text-align: center;">Delivery Quantity</th>
                                         <th style="text-align: center;">Date</th>
-                                        <th style="text-align: center;">Action</th>
+                                        <th style="text-align: center;">Time</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for x in info4 %}
+                                    {% for x in info %}
                                     <tr class="edittr">
-                                        <td>{{x.emailequipment_id}}</td>
-                                        <td align="center">{{x.emailequipment_department}}</td>
-                                        <td align="center">{{x.emailequipment_acceptedquantity}}</td>
+                                        <td align="center">{{x.delivery_equipment_itemname}}</td>
+                                        <td align="center">{{x.delivery_equipment_description}}</td>
+                                        <td align="center">{{x.delivery_equipment_brand}}</td>
+                                        <td align="center">{{x.delivery_equipment_quantity}}</td>
                                         <td align="center">{{x.current_date}}</td>
-                                        <td align="center">
-                                            <button class="btn btn-success emailBtn" style="margin-bottom: 10px;"
-                                                name="emailBtn">EMAIL</button>
-                                        </td>
+                                        <td align="center">{{x.current_time}}</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -252,10 +403,12 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
 
+
         </div>
-        <!-- /.container-fluid -->
 
     </div>
     <!-- End of Main Content -->
@@ -275,219 +428,19 @@
 
 <br>
 
-   <!----- REQUEST MODAL ----->
-<div class="modal fade" id="openModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"></h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
-                    {% csrf_token %}
-
-                    <input type="hidden" id="editId1" name="requestequipment_id" value="" readonly>
-
-                    <div class="col-md-12">
-                        <label class="form-label">Department:</label>
-                        <input type="text" class="form-control" id="department" name="request_equipment_department"
-                            readonly>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label">Item Name:</label>
-                        <input type="text" class="form-control" id="itemname1" name="request_equipment_itemname">
-                    </div>
-
-                    <div class="col-md-6">
-                        <label class="form-label">Requested Quantity:</label>
-                        <input type="number" min="1" class="form-control" id="requestquantity"
-                            name="request_equipment_quantity" readonly>
-                    </div>
-
-                    <div class="col-md-12">
-                        <label class="form-label">Description:</label>
-                        <input type="text" class="form-control" id="description1" name="request_equipment_description"
-                            required>
-                    </div>
-
-                    <div class="col-md-6">
-                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                            class="form-label">Brand:</label>
-                        <input type="text" min="1" class="form-control" id="brand" name="request_equipment_brand"
-                            required>
-                    </div>
-
-                    <div class="col-md-6">
-                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                            class="form-label">Accept Quantity:</label>
-                        <input type="number" min="1" class="form-control" id="acceptquantity"
-                            name="request_equipment_acceptquantity" required>
-                    </div>
-
-                    <div class="col-md-6">
-                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span> 
-                        <label class="form-label">Unit Cost/Amount:</label>
-                        <input type="number" min="1" class="form-control" id="unitcost"
-                            name="request_equipment_unitcost">
-                    </div>
-                    
-                    <div class="col-md-6">
-                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                            class="form-label">Unit:</label>
-                        <input type="text" min="1" class="form-control" id="unit" name="request_equipment_unit"
-                            required>
-                    </div>
-                    
-                    <div class="col-md-12">
-                        <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                            class="form-label">Inventory Item No./ <br> Property No.:</label>
-                        <input type="text" min="1" class="form-control" id="iin" name="request_equipment_iin"
-                            required>
-                    </div>
-
-                    <div class="col-md-12">
-                        <label class="form-label">Date Requested:</label>
-                        <input type="text" class="form-control" id="daterequested"
-                            name="request_equipment_daterequested" readonly>
-                    </div>
-
-                    <div class="modal-footer">
-                        <div class="col-12">
-                            <button style="float: right;" type="submit" name="delivery_dep"
-                                class="btn btn-primary">Accept
-                                Request</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <script type="text/javascript">
-
-
-$(document).ready(function () {
-        var table = $('#equipDeliveryTable').DataTable({
+    $(document).ready(function () {
+        var table = $('#equipmentDeliveryTable').DataTable({
             rowReorder: {
                 selector: 'td:nth-child(2)'
             },
-            responsive: true,
-            select: false,
-            "columnDefs": [
-                {
-                "targets": [5],
-                "visible": false,
-                },
-                {
-                "targets": [6],
-                "visible": false,
-                },
-                {
-                "targets": [7],
-                "visible": false,
-                },
-
-                
-                
-            ]
-        });
-
-        $('#equipDeliveryTable').on('click', 'tr', function () {
-            $('#openModal1').modal('show');
-            $('h5.modal-title').html('Accept Request for: ' + table.row(this).data()[1]);
-            $('#editId1').val(table.row(this).data()[0]);
-            $('#department').val(table.row(this).data()[1]);
-            $('#itemname1').val(table.row(this).data()[2]);
-            $('#description1').val(table.row(this).data()[3]);
-            $('#requestquantity').val(table.row(this).data()[4]);
-            $('#unitcost').val(table.row(this).data()[5]);
-            $('#unit').val(table.row(this).data()[6]);
-            $('#iin').val(table.row(this).data()[7]);
-            $('#daterequested').val(table.row(this).data()[8]);
-
-
+            responsive: true
         });
     });
-
-
-</script>
-
-    <!----- EMAIL MODAL ----->
-    <div class="modal fade" id="openModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"></h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!----- UPDATE FORM ---->
-                <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
-                    {% csrf_token %}
-
-                    <input type="hidden" id="editId2" name="emailequipment_id" value="" readonly>
-
-                    <div class="col-md-12">
-                        <label class="form-label">Department:</label>
-                        <input type="text" class="form-control" id="department2" name="email_equipment_department"
-                            readonly>
-                    </div>
-
-                    <div class="col-md-12">
-                        <label class="form-label">Accepted Quantity:</label>
-                        <input type="number" min="1" class="form-control" id="acceptedquantity2"
-                            name="email_equipment_quantity" readonly>
-                    </div>
-
-                    <div class="col-md-12">
-                        <label class="form-label">Date Accepted:</label>
-                        <input type="text" class="form-control" id="dateaccepted"
-                            name="email_equipment_date" readonly>
-                    </div>
-
-                    <div class="modal-footer">
-                        <div class="col-12">
-                            <button type="submit" name="emailBtn1" style="float: right;" class="btn btn-primary">Email</button>
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script type="text/javascript">
-
     $(document).ready(function () {
-        $('.emailBtn').on('click', function () {
-
-            $('#openModal2').modal('show');
-            $tr = $(this).closest('tr');
-            var data = $tr.children("td").map(function () {
-                return $(this).text();
-            }).get();
-
-            console.log(data);
-            $('h5.modal-title').html('Email Request for: ' + data[1]);
-            $('#editId2').val(data[0]);
-            $('#department2').val(data[1]);
-            $('#acceptedquantity2').val(data[2]);
-            $('#dateaccepted').val(data[3]);
-        });
-    });
-
-    $(document).ready(function () {
-        var table = $('#emailSupplyTable').DataTable({
+        var table = $('#equipAvailable').DataTable({
             rowReorder: {
                 selector: 'td:nth-child(2)'
             },
@@ -496,6 +449,7 @@ $(document).ready(function () {
     });
 
 </script>
+
 
     
 <br><br>

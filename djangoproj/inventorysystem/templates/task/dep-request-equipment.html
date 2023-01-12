@@ -132,97 +132,47 @@
 
 
             <!------------------- Content Row ------------------->
-            <div class="col" align="center">
+            <div class="row">
 
-                <div class="col-md-8 mb-4">
+                <div class="col-xl-12 col-md-12 mb-4">
                     <div class="container">
                         <div class="container">
                             <div class="kahon">
-                                <h3>Request Form</h3>
+                                <h3 align="center">Available Equipment</h3>
+                                <hr>
                                 <br>
-                                <form action="" method="POST" class="row g-3">
-                                    {% csrf_token %}
-                                    <div class="col-md-12" style="text-align: left;">
-                                        <label>Item Name:</label>
-                                        <input list="requestItemname" type="text" name="non_existing_equipment_itemname"
-                                            class="form-control" placeholder="Item Name" id="ItemName" required>
-                                        <datalist id="requestItemname">
-                                            <option id="1" value="Aircon"></option>
-                                            <option id="2" value="Computer"></option>
-                                            <option id="3" value="Electric Fan"></option>
-                                            <option id="4" value="Printer"></option>
-                                            <option id="5" value="Smart TV"></option>
-                                            <option id="6" value="Water Dispenser"></option>
-                                        </datalist>
-                                    </div>
-                                    <br>
-                                    <div class="col-md-12" style="text-align: left;">
-                                        <label>Quantity:</label>
-                                        <input type='number' min="1" name="non_existing_equipment_quantity"
-                                            class="form-control" placeholder="Quantity" id="Quantity" required>
-                                    </div>
-                                    <br>
-                                    <div class="col-md-12" style="text-align: left;">
-                                        <label>Description:</label>
-                                        <input type='text' name="non_existing_equipment_description"
-                                            class="form-control" placeholder="Description" id="Description" required>
-                                    </div>
-                                    <br>
-                                    
-                                    <div class="col-12" style="text-align: left;">
-                                        <p><i style="color: red;"><b>**Note: </b>Kindly double check the informations before submitting.</i></p>   
-                                    </div>
-
-                                    <div class="col-12" >
-                                        <a class="btn btn-primary" style="float: right;" onclick="getVal()" href="#" data-toggle="modal" data-target="#confirmModal">
-                                            Request
-                                        </a>
-                                        <!-- <button type="submit" id="submit" class="btn1" style="float: right;"> Request
-                                        </button> -->
-                                    </div>
-                                    <br>
-                                    <br>
-                                </form>
+                                <!-- Datatable -->
+                                <table id="availableEquip" class="table table-striped" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center;">Item No.</th>
+                                            <th style="text-align: center;">Item Name</th>
+                                            <th style="text-align: center;">Quantity</th>
+                                            <th style="text-align: center;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for x in info1 %}
+                                        <tr class="edittr">
+                                            <td align="center">{{x.deliveryequipment_id}}</td>
+                                            <td align="center">{{x.delivery_equipment_itemname}}</td>
+                                            <td align="center">{{x.delivery_equipment_quantity}}</td>
+                                            <td align="center">
+                                                <button class="btn btn-success editBtn" style="margin-bottom: 10px; font-size: 13px;"
+                                                    name="editBtn">REQUEST</button>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
 
             </div>
+
             <br>
-
-            <!---------------------- CONFIRMATION MODAL -------------------->
-            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <form action="" method="POST" class="row g-3">
-                        {% csrf_token %}
-
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Request Equipment</h5>
-                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">Are you sure you want to request? Click 'Confirm' to continue.</div>
-
-                            <input type="hidden" name="request_equipment_itemname" id="itemname" value="">
-                            <input type="hidden" name="request_equipment_quantity" id="quantity" value="">
-                            <input type="hidden" name="request_equipment_description" id="description" value="">
-
-                            <div class="modal-footer">
-                                <a class="btn btn-primary" href="{% url 'inventorysystem-suppliesDeliver' %}">Cancel</a>
-                                <button class="btn btn-success" name="confirm_request_equipment" id="confirmBtn" type="submit" >Confirm</button>
-                            </div>
-                        </div>
-
-                    </form>
-                    
-                </div>
-            </div>
-
-
             <!------------------- Content Row ------------------->
             <div class="row">
 
@@ -271,10 +221,81 @@
         </div>
         <!-- /.container-fluid -->
 
+              <!----- UPDATE MODAL ----->
+      <div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"></h5>
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+              <!----- UPDATE FORM ---->
+              <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <input type="hidden" id="editId" name="limit_id" value="" readonly>
+
+                <div class="col-md-6">
+                  <label class="form-label">Item Name:</label>
+                  <input type="text" class="form-control" id="itemname" name="request_itemname" readonly>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Quantity:</label>
+                  <input type="number" class="form-control" id="quantity" name="request_quantity" readonly>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Description:</label>
+                    <input type="number" class="form-control" id="description" name="request_description" readonly>
+                  </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Request Quantity:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
+                  <input type="number" min="1" class="form-control" id="addquantity" name="request_addquantity"
+                    required>
+                </div>
+
+
+                <div class="modal-footer">
+                  <div class="col-12">
+                    <button type="submit" name="request_update" class="btn btn-primary">Request</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
     <!-- End of Main Content -->
 
+    <script type="text/javascript">
+        var table = $('#availableEquip').DataTable({
+            rowReorder: {
+                selector: 'td:nth-child(2)'
+            },
+            responsive: true,
+        });
 
+        
+        $('#availableEquip tbody').on('click', 'tr', function () {
+            $('#openModal').modal('show');
+            $('h5.modal-title').html('Request Equipment: ' + table.row(this).data()[1]);
+            $('#editId').val(table.row(this).data()[0]);
+            $('#itemname').val(table.row(this).data()[1]);
+            $('#quantity').val(table.row(this).data()[2]);
+           
+        });
+
+
+
+      </script>
 
     <!------------------------------------ Footer ------------------------------------->
     <footer class="sticky-footer footer ">
@@ -312,15 +333,6 @@
 <script>
 
     $(document).ready(function () {
-        var table = $('#MainStorage').DataTable({
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            },
-            responsive: true
-        });
-    });
-
-    $(document).ready(function () {
         var table = $('#depRequestTable').DataTable({
             rowReorder: {
                 selector: 'td:nth-child(2)'
@@ -328,22 +340,6 @@
             responsive: true
         });
     });
-    $(document).ready(function () {
-        var table = $('#depwithdrawnTable').DataTable({
-            rowReorder: {
-                selector: 'td:nth-child(2)'
-            },
-            responsive: true
-        });
-    });
-
-    // $('#submit').click(function () {
-    //             var aaa = $(this);
-    //             aaa.prop('disabled', true);
-    //             setTimeout(function () {
-    //                 aaa.prop('disabled', false);
-    //             }, 5000);
-    // });
 
     // para makuha yung value sa form papunta don sa confirm modal
     function getVal() {

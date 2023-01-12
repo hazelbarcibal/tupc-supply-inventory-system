@@ -162,6 +162,7 @@ class statusSupplyRequest(models.Model):
 class deliveryequipment(models.Model):
 
     deliveryequipment_id = models.AutoField(primary_key=True)
+    delivery_equipment_department = models.CharField(max_length=255, verbose_name='delivery_equipment_department')
     delivery_equipment_itemname = models.CharField(max_length=50, verbose_name='delivery_equipment_itemname')
     delivery_equipment_description = models.CharField(max_length=255, verbose_name='delivery_equipment_description')
     delivery_equipment_brand = models.CharField(max_length=50, verbose_name='delivery_equipment_brand')
@@ -251,7 +252,8 @@ class returnequipment(models.Model):
     return_equipment_model_no = models.CharField(max_length=50, verbose_name='return_equipment_model_no')
     return_equipment_serial_no = models.CharField(unique=True, max_length=50, verbose_name='return_equipment_serial_no')
     return_equipment_certifiedcorrect = models.CharField(max_length=50, verbose_name='return_equipment_certifiedcorrect')
-    dispose_date = models.DateTimeField(default=now, verbose_name='return_date')
+    return_reason = models.CharField(max_length=50, verbose_name='return_equipment_reason')
+    dispose_equipment_date = models.DateTimeField(default=now, verbose_name='return_date')
     return_date = models.CharField(max_length=50, verbose_name='return_date')
     
     class Meta:
@@ -301,6 +303,7 @@ class supply_storagemapping(models.Model):
     supplyLayerNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply Layer')
     supplyCabinetNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply Cabinet')
     supplyShelfNo = models.DecimalField(null= True, max_digits=6, decimal_places=0, verbose_name='Supply Shelf')
+    supplyLocation = models.CharField(null=True, max_length=50, verbose_name='Supply Location')
 
     class Meta:
         db_table = "supply_StorageMapping"
