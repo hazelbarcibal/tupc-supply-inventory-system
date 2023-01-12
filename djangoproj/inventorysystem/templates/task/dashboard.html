@@ -201,7 +201,256 @@
 
                 <!----------------------------------- Begin Page Content ----------------------------->
 
+                <div class="container-fluid">
+                    <div class="col-md-12"  align="right" >
+                        <!-- Trigger the modal with a button -->
+                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" >?</button>
+                    </div>
+                </div>
+                    <!-- Modal -->
+                <div id="myModal" class="modal fade" role="dialog" >
+                <div class="modal-dialog" >
+              
+                  <!-- Modal content--> 
+                  <div class="modal-content"   >
+                    <div class="modal-header">
+                      <h3 align="center">Supply Inventory System Help</h3>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button><br>
+                  
+                    </div>
+                    <div class="modal-body">
+                        <h5 align="center">How can we help you? <p></p> Choose help topics</h5>
+                        <h5>Supplies</h5>
+                        <button type="button" class="btn" data-toggle="collapse" data-target="#demo">See more..</button>
+                        <div id="demo" class="collapse">
+                          <button type="button" class="btn" data-toggle="collapse" data-target="#suply1">Delivery For Supplies</button><br>
+                          <div id="suply1" class="collapse">
+                            <hr>
+                            <h6 align="center">Recording Delivery on Supply</h6>
+                            -For the admin to records all upcoming supplies deliveries the admins must follow the process below
+                            <li>Click the “Supplies” dropdown button in your navigation bar</li>
+                            <li>Click the “Delivery” button</li>
+                            -The admin need to identify if the supply is already recorded or not<br>
+                            <button type="button" class="btn" data-toggle="collapse" data-target="#newsupply"><h6 >For Recording New Supplies</h6></button>
+                            <div id="newsupply" class="collapse">
+                                <hr>
+                                <li>Input all the information needed in recording</li>
+                                <li>Then Click the “Deliver” button </li>
+                                <hr>
+                            </div>
+                            <button align="center" type="button" class="btn" data-toggle="collapse" data-target="#exissupply"><h6>For Recording Existing/Already Recorded Supplies</h6></button>
+                            <div id="exissupply" class="collapse">
+                                <hr>
+                                <li>Choose the item/supply </li>
+                                <li>Click the Green Button “+ADD”  </li>
+                                <li>Input the quantity that you want to add</li>
+                                <li>Then  click the “ADD” button</li>
+                                <hr>
+                            </div>
+                            <hr>
+                        </div>
+                          <button type="button" class="btn" data-toggle="collapse" data-target="#reqsup">Requested Supplies</button><br>
+                          <div id="reqsup" class="collapse">
+                            <hr>
+                            <h6>The admin can view or accept all the request of other department </h6>
+                            <li>Select the “Requested Supplies” under the Supplies section in your Navigation bar</li>
+                            <li>Select the item you want to accept by clicking the green button “ACCEPT”</li>
+                            <li>Input all the information needed in accepting an request</li>
+                            <li>Then click the submit button “Accept Request”</li>
+                            <h6>To notify the other department on the status of their request you need to email them</h6>
+                            <li>Select an request</li>
+                            <li>Click the green button “EMAIL”</li>
+                            <li>Click “Email”</li>
+                            <hr>
+                        </div>
+                          <button type="button" class="btn" data-toggle="collapse" data-target="#withdrawsup">Withdraw Supplies</button><br>
+                          <div id="withdrawsup" class="collapse">
+                            <hr>
+                            -After accepting the request and notify other departments and the representative of that department is ready to pick up the supply  you may now withdraw the supplies
+                            <li>Select the “Withdraw Supplies” under the Supplies section in your Navigation bar</li>
+                            <li>Select an request</li>
+                            <li>Click the green button “WITHDRAW”</li>
+                            <li>Click the button “ok” if all the information are correct</li>
+                            <hr>
+                        </div>
+                          <button type="button" class="btn" data-toggle="collapse" data-target="#limitsup">Limit Supplies</button> <br>
+                          <div id="limitsup" class="collapse">
+                            <hr>
+                            -The Admin can limit the amount of supplies for each departments request 
+                            <li>Click the “Limit Supplies” under the supplies on your navigation bar
+                            </li>
 
+                            <button type="button" class="btn" data-toggle="collapse" data-target="#newlimit"><h6 >For  New Limit</h6></button><br>
+                            <div id="newlimit" class="collapse">
+                                <hr>
+                                    <li>input all information needed in creating an limit</li>
+                                    <li>After inputting all the information needed click the “submit” button </li>
+                                <hr>
+                            </div>
+                            <button align="center" type="button" class="btn" data-toggle="collapse" data-target="#updatelimit"><h6>Updating limit</h6></button>
+                            <div id="updatelimit" class="collapse">
+                                <hr>
+                                <li>Choose an limit</li>
+                                <li>Click the "green button" update</li>
+                                <li>Input the quantity that you want to add</li>
+                                <li>then Click the submit button "ADD"</li>
+                                <hr>
+                            </div>
+                            <hr>
+                        </div>
+                        </div><br>
+                        
+                        
+            
+                        <h5>Equipment</h5>
+                        <button type="button" class="btn " data-toggle="collapse" data-target="#euqipinfo">See more..</button>
+                        <div id="euqipinfo" class="collapse">
+                            <hr>
+                            <button type="button" class="btn " data-toggle="collapse" data-target="#recordequip">Recording Delivery on Equipment</button><br>
+                            <div id="recordequip" class="collapse">
+                                <hr>
+                                -The Department must request an equipment first before the supply department order and have an delivery in equipment 
+                                <li>Select the “Delivery” under the Equipment section in your Navigation bar</li>
+                                <li>Select an request</li>
+                                <li>Click the green button “DELIVER” </li>
+                                <li>Input all the information needed in accepting a request</li>
+                                <li>Then click the submit button “Accept Request”</li>
+                                -To notify the other department on the status of their request you need to email them
+                                <li>Select an request</li>
+                                <li>Click the green button “EMAIL”</li>
+                                <li>Click the submit button “Email”</li>
+                                <hr>
+                            </div>
+                            <button type="button" class="btn " data-toggle="collapse" data-target="#viewequip">Viewing Delivery Records in Equipment</button><br>
+                            <div id="viewequip" class="collapse">
+                                <hr>
+                                    <li>Select the “Delivery Records” under the Equipment section in your Navigation bar</li>
+                                    -The admin can view here all the records in delivery of equipment. Also the admin can save/convert the record in pdf or xls format by clicking on the two blue button “Convert to PDF” and “Export to XLS”
+                                    <hr><button type="button" class="btn " data-toggle="collapse" data-target="#ISC">Inventory Custodian Slip</button><br>
+                                    <div id="ISC" class="collapse">
+                                        -Before withdrawing the equipment, ICS or ARE are a must upon transaction.<p></p>
+                                        Fill inputs such as department and date <p></p>
+                                        when the equipment is accepted.
+                                        <li>Click “Create Form” button</li>
+                                        Complete the necessary information in creating the form
+                                        <li>Click “Save” button</li>
+                                        <li>Click “Create Form” Button</li>
+                                    </div>
+                                    <button type="button" class="btn " data-toggle="collapse" data-target="#AR">Acknowledgement Receipt</button><br>
+                                    <div id="AR" class="collapse">
+                                    <hr>
+                                    -Fill inputs such as department and date when the equipment is accepted.
+                                    <li>Click “Create Form” button</li>
+                                    -Complete the necessary information in creating the form
+                                    <li>Click “Save” button</li>
+                                    <li>Click “Create Form” Button</li>
+                                    <hr>
+                                    </div>
+                                <hr>
+                            </div>
+                            <button type="button" class="btn " data-toggle="collapse" data-target="#withdrawequip">Withdrawing an Equipment</button><br>
+                            <div id="withdrawequip" class="collapse">
+                                <hr>
+                                -After the equipment is delivered and the arrival of the representative of the department who requested it, the admin may/can now withdraw the equipment.<p></p>
+                                <li>Select the “Withdrawn Equipments” under the Equipment section in your Navigation bar</li>
+                                <li>Click on the Green button “WITHDRAW”</li>
+                                <li>Input all the information needed in Withdrawing an Equipment</li>
+                                <li>Then click the submit button “Create QR”</li>
+                                <li>Save it to your computer</li>
+                                <li>After saving the QR code</li>
+                                <li>You may now withdraw the equipment </li>
+                                <hr>
+                            </div>
+                                <button type="button" class="btn " data-toggle="collapse" data-target="#returnequip">Returning of Equipment</button><br>
+                                <div id="returnequip" class="collapse">
+                                <hr>
+                                <li>Select the “Delivery” under the Equipment section in your Navigation bar</li>
+                                <li>
+                                    The admin will scan the QR attache in the equipment 
+                                </li>
+                                <li>
+                                    And the click the return button
+                                </li>
+                                <li>
+                                    The equipment will show below after returning it 
+                                </li>
+                                <li>
+                                    The admin can dispose it by clicking the green button “DISPOSE”
+
+                                </li>
+                                <hr>
+                                </div>
+                            <hr>
+                        </div><br>
+                        <h5>Storage Mapping</h5>
+                        <button type="button" class="btn " data-toggle="collapse" data-target="#storagempping">See more..</button>
+                        <div id="storagempping" class="collapse">
+                        <li>Select the “Storage Mapping”  in your Navigation menu</li>
+                        -All supply and their location will be shown in the storage mapping <p></p>
+                        -The admin can update the location of each supply in the storage mapping   
+                        <li>
+                            Select an supply and then click the green button “UPDATE”
+
+                        </li>
+                        <li>
+                            Input all the information needed 
+                        </li>
+                        <li>
+                            Click the submit button “UPDATE”
+                        </li>
+                        </div><br>
+                        <h5>Add Admin Account</h5>
+                        <button type="button" class="btn " data-toggle="collapse" data-target="#adminaccnt">See more..</button>
+                        <div id="adminaccnt" class="collapse">
+                          <hr>
+                          -After you login and have access to the website you may now create your own or staff account by registering it.
+                            <li>
+                                Click the “Add Admin Account” in your Navigation Bar
+                            </li>
+                            <li>
+                                Fill in the details needed (Username, Email, Password)
+                            </li>
+                            <li>
+                                Retype your password
+                            </li>
+                            <li>
+                                Click the “REGISTER” Button
+                            </li>
+                            -After you click the register button you must have this notification
+                            <li>
+                                Press Ok then you can now logout and login your new account
+                            </li>
+                          <hr>
+                        
+                        </div><br>
+                        <h5>Add Department Account</h5>
+                        <button type="button" class="btn " data-toggle="collapse" data-target="#depaccnt">See more..</button>
+                        <div id="depaccnt" class="collapse">
+                          <hr>
+                          -To allow the other departments to have limited access offered by TUP supply inventory system, the admin should register their account by registering it.
+                          <li>
+                            Click the “Add Department Account” in your Navigation Bar
+                          </li>
+                          <li>
+                            Fill in the details needed (Username, Email, Department Name, Password)
+                          </li>
+                          <li>
+                            Retype your password
+                          </li>
+                          <li>
+                            Click the “REGISTER” Button
+                          </li>
+                          -Every department will receive an email confirmation from the email address that the supply admin has registered, meaning that their account is now accessible.
+                          <hr>
+                        </div><br>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+              
+                </div>
+              </div>
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
