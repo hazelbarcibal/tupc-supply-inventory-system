@@ -175,7 +175,7 @@
                         <div class="kahon">
                             <h3 align="center">Storage History</h3>
                             <hr>
-                            <table id="supplymappingTable" class="table table-striped" style="width:100%">
+                            <table id="storagehistoryTable" class="table table-striped" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th style="text-align: center;">Description</th>
@@ -216,9 +216,9 @@
                 <div class="col-xl-12 col-md-12 mb-4">
                     <div class="container">
                         <div class="kahon">
-                            <h3 align="center">Dispose Equipment</h3>
+                            <h3 align="center">Returned Equipment</h3>
                             <hr>
-                            <table id="equipmentmappingTable" class="table table-striped" style="width:100%">
+                            <table id="returnedmappingTable" class="table table-striped" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th style="text-align: center;">Location.</th>
@@ -258,6 +258,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
                             <!------------------- Content Row ------------------->
             <div class="row">
@@ -316,7 +317,7 @@
     <footer class="sticky-footer footer ">
         <div class="container my-auto">
             <div class="copyright text-gray-700 text-center my-auto">
-                <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
+                <span>Copyright &copy; <strong><span>COET-4B 2022-2023</span></strong>. All Rights Reserved.</span>
             </div>
         </div>
     </footer>
@@ -471,6 +472,15 @@
 
            
         });
+
+        $(document).ready(function () {
+            var table = $('#storagehistoryTable').DataTable({
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
+            });
+        });
     
 </script>
 
@@ -478,14 +488,14 @@
 <script>
 
     $(document).ready(function () {
-        var table = $('#equipmentmappingTable').DataTable({
+        var table = $('#returnedmappingTable').DataTable({
             rowReorder: {
                 selector: 'td:nth-child(2)'
             },
             responsive: true
         });
 
-        $('#equipmentmappingTable tbody').on('click', 'tr', function () {
+        $('#returnedmappingTable tbody').on('click', 'tr', function () {
             $('#openModal1').modal('show');
             $('h5.modal-title').html('Update Storage for: ' + table.row(this).data()[0]);
             $('#editId1').val(table.row(this).data()[0]);
@@ -501,6 +511,15 @@
            
         });
     });
+
+    $(document).ready(function () {
+            var table = $('#equipmentdisposedTable').DataTable({
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
+            });
+        });
 </script>
 
 {% for message in messages %}

@@ -80,6 +80,7 @@ class deliverySupplyForm(forms.ModelForm):
                                 'delivery_supplyLayerNo', 'delivery_supplyCabinetNo', 'delivery_supplyShelfNo']
 
 
+
 class updateDeliverySupplyForm(forms.ModelForm):
     supplymainstorage_description = forms.CharField(required=True, widget=forms.TextInput(
             attrs={'id': 'deliveryItemname', 'class': 'form-control', 'placeholder': 'Description',}))

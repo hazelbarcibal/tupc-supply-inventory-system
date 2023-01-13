@@ -156,7 +156,7 @@
                                         <tr class="edittr">
                                             <td align="center">{{x.equipmentmainstorage_id}}</td>
                                             <td align="center">{{x.equipmentmainstorage_itemName}}</td>
-                                            <td align="center">{{x.delivery_equipment_quantity}}</td>
+                                            <td align="center">{{x.equipmentmainstorage_quantity}}</td>
                                             <td align="center">
                                                 <button class="btn btn-success editBtn" style="margin-bottom: 10px; font-size: 13px;"
                                                     name="editBtn">REQUEST</button>
@@ -246,15 +246,15 @@
 
                 <div class="col-md-6">
                   <label class="form-label">Quantity:</label>
-                  <input type="number" class="form-control" id="quantity" name="request_equipment_quantity" readonly>
+                  <input type="number" class="form-control" id="quantity1" name="request_equipment_quantity" readonly>
                 </div>
 
-                <div class="col-md-6">
-                    <label class="form-label">Description:</label>
-                    <input type="number" class="form-control" id="description" name="request_equipment_description" readonly>
+                <div class="col-md-12">
+                    <label class="form-label">Description:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
+                    <input type="text" class="form-control" id="description" name="request_equipment_description" required>
                   </div>
 
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <label class="form-label">Request Quantity:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
                   <input type="number" min="1" class="form-control" id="addquantity" name="request_equipment_addquantity"
                     required>
@@ -285,11 +285,11 @@
 
         
         $('#availableEquip tbody').on('click', 'tr', function () {
-            $('#openModal').modal('show');
+            $('#openModal').modal({'backdrop': 'static'});
             $('h5.modal-title').html('Request Equipment: ' + table.row(this).data()[1]);
             $('#editId').val(table.row(this).data()[0]);
             $('#itemname').val(table.row(this).data()[1]);
-            $('#quantity').val(table.row(this).data()[2]);
+            $('#quantity1').val(table.row(this).data()[2]);
            
         });
 
@@ -301,7 +301,7 @@
     <footer class="sticky-footer footer ">
         <div class="container my-auto">
             <div class="copyright text-gray-700 text-center my-auto">
-                <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
+                <span>Copyright &copy; <strong><span>COET-4B 2022-2023</span></strong>. All Rights Reserved.</span>
             </div>
         </div>
     </footer>

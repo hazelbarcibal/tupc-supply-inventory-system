@@ -201,7 +201,7 @@
     $(document).ready(function () {
             $('.editBtn').on('click', function () {
 
-                $('#openModal').modal('show');
+                $('#openModal').modal({'backdrop': 'static'});
                 $tr = $(this).closest('tr');
                 var data = $tr.children("td").map(function () {
                     return $(this).text();
@@ -220,7 +220,7 @@
         $(document).ready(function () {
             $('.editBtn1').on('click', function () {
 
-                $('#openModal1').modal('show');
+                $('#openModal1').modal({'backdrop': 'static'});
                 $tr = $(this).closest('tr');
                 var data = $tr.children("td").map(function () {
                     return $(this).text();
@@ -571,7 +571,7 @@
     <footer class="sticky-footer footer ">
         <div class="container my-auto">
             <div class="copyright text-gray-700 text-center my-auto">
-                <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
+                <span>Copyright &copy; <strong><span>COET-4B 2022-2023</span></strong>. All Rights Reserved.</span>
             </div>
         </div>
     </footer>

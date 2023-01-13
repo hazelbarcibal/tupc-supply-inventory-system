@@ -165,7 +165,7 @@
         });
 
         $('#supplyWithdrawTable tbody').on('click', 'tr', function () {
-            $('#openModal').modal('show');
+            $('#openModal').modal({'backdrop': 'static'});
             $('h5.modal-title').html('Withdraw Item for: ' + table.row(this).data()[1]);
             $('#editId').val(table.row(this).data()[0]);
             $('#department').val(table.row(this).data()[1]);
@@ -425,7 +425,7 @@
     <footer class="sticky-footer footer ">
         <div class="container my-auto">
             <div class="copyright text-gray-700 text-center my-auto">
-                <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
+                <span>Copyright &copy; <strong><span>COET-4B 2022-2023</span></strong>. All Rights Reserved.</span>
             </div>
         </div>
     </footer>

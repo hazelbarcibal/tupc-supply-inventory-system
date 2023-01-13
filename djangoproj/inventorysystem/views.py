@@ -1299,7 +1299,7 @@ def viewDeliveryRecords(request):
         (request.user.is_authenticated and request.user.is_admin):
 
         label = request.user
-        info = deliveryequipment.objects.all()
+        info = requestequipment.objects.all()
         context = {
             'info': info,
             'label': label,

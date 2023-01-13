@@ -367,7 +367,7 @@
                     });
 
                     $('#mainstorage tbody').on('click', 'tr', function () {
-                        $('#openModal2').modal('show');
+                        $('#openModal2').modal({'backdrop': 'static'});
                         $('h5.modal-title').html('Add Item Delivery for: ' + table.row(this).data()[1]);
                         $('#editId2').val(table.row(this).data()[0]);
                         $('#description2').val(table.row(this).data()[1]);
@@ -375,47 +375,6 @@
                     });
 
 
-
-                // $(document).ready(function () {
-                //     $('.editBtn1').on('click', function () {
-
-                //         $('#openModal1').modal('show');
-                //         $tr = $(this).closest('tr');
-                //         var data = $tr.children("td").map(function () {
-                //             return $(this).text();
-                //         }).get();
-
-                //         console.log(data);
-                //         $('h5.modal-title').html('Edit Item Delivery');
-                //         $('#editId1').val(data[0]);
-                //         $('#description1').val(data[1]);
-                //         $('#unit1').val(data[2]);
-                //         $('#mainstoragequantity1').val(data[3]);
-                //     });
-                // });
-                
-
-                // $(document).ready(function () {
-                //     $('.editBtn2').on('click', function () {
-
-                //         $('#openModal2').modal('show');
-                //         $tr = $(this).closest('tr');
-                //         var data = $tr.children("td").map(function () {
-                //             return $(this).text();
-                //         }).get();
-
-                //         console.log(data);
-                //         $('h5.modal-title').html('Edit Item Delivery');
-                //         $('#editId2').val(data[0]);
-                //         $('#description2').val(data[1]);
-                //         $('#unit2').val(data[2]);
-                //         $('#deliveryquantity').val(data[3]);
-                //         $('#deliveryrackno').val(data[4]);
-                //         $('#deliverylayerno').val(data[5]);
-                //         $('#deliverycabinetno').val(data[6]);
-                //         $('#deliveryshelfno').val(data[7]);
-                //     });
-                // });
             </script>
 
 
@@ -503,9 +462,7 @@
 
                                 <div class="col-12">
                                     <a class="btn btn-primary" style="float: right;" id="confirm" onclick="getval()" name="delivery_new" href="#" data-toggle="modal" data-target="#confirmModal">Deliver</a>
-                                    <!-- <button class="btn btn-primary" style="float: right;" id="confirm" onclick="getval()" name="delivery_new" href="#" data-toggle="modal" data-target="#confirmModal">Deliver</button> -->
-                                    <!-- <button type="submit" id="submit" class="btn1" name="delivery_new"
-                                        style="float: right;" value="Submit"> Deliver </button> -->
+
                                 </div>
                             </form>
 

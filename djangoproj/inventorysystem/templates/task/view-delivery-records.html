@@ -192,7 +192,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for x in info2 %}
+                                    {% for x in info %}
                                     <tr class="edittr">
                                         <td>{{x.requestequipment_id}}</td>
                                         <td align="center">{{x.request_equipment_department}}</td>
@@ -379,7 +379,7 @@ $(document).ready(function () {
         });
 
         $('#equipDeliveryTable').on('click', 'tr', function () {
-            $('#openModal1').modal('show');
+            $('#openModal1').modal({'backdrop': 'static'});
             $('h5.modal-title').html('Accept Request for: ' + table.row(this).data()[1]);
             $('#editId1').val(table.row(this).data()[0]);
             $('#department').val(table.row(this).data()[1]);
@@ -451,7 +451,7 @@ $(document).ready(function () {
     $(document).ready(function () {
         $('.emailBtn').on('click', function () {
 
-            $('#openModal2').modal('show');
+            $('#openModal2').modal({'backdrop': 'static'});
             $tr = $(this).closest('tr');
             var data = $tr.children("td").map(function () {
                 return $(this).text();
