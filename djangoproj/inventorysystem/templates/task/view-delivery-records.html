@@ -274,65 +274,65 @@
                 <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
                     {% csrf_token %}
 
-                    <input type="hidden" id="editId1" name="requestequipment_id" value="" readonly>
+                    <input type="hidden" id="editId1" name="acceptequipment_id" value="" readonly>
 
                     <div class="col-md-12">
                         <label class="form-label">Department:</label>
-                        <input type="text" class="form-control" id="department" name="request_equipment_department"
+                        <input type="text" class="form-control" id="department" name="accept_equipment_department"
                             readonly>
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label">Item Name:</label>
-                        <input type="text" class="form-control" id="itemname1" name="request_equipment_itemname">
+                        <input type="text" class="form-control" id="itemname1" name="accept_equipment_itemname">
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label">Requested Quantity:</label>
                         <input type="number" min="1" class="form-control" id="requestquantity"
-                            name="request_equipment_quantity" readonly>
+                            name="accept_equipment_quantity" readonly>
                     </div>
 
                     <div class="col-md-12">
                         <label class="form-label">Description:</label>
-                        <input type="text" class="form-control" id="description1" name="request_equipment_description"
+                        <input type="text" class="form-control" id="description1" name="accept_equipment_description"
                             required>
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label">Brand:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
-                        <input type="text" min="1" class="form-control" id="brand" name="request_equipment_brand"
+                        <input type="text" min="1" class="form-control" id="brand" name="accept_equipment_brand"
                             required>
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label">Accept Quantity:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
                         <input type="number" min="1" class="form-control" id="acceptquantity"
-                            name="request_equipment_acceptquantity" required>
+                            name="accept_equipment_acceptquantity" required>
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label">Unit Cost/Amount:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
                         <input type="number" min="1" class="form-control" id="unitcost"
-                            name="request_equipment_unitcost">
+                            name="accept_equipment_unitcost">
                     </div>
                     
                     <div class="col-md-6">
                         <label class="form-label">Unit:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
-                        <input type="text" min="1" class="form-control" id="unit" name="request_equipment_unit"
+                        <input type="text" min="1" class="form-control" id="unit" name="accept_equipment_unit"
                             required>
                     </div>
                     
                     <div class="col-md-12">
                         <label class="form-label">Inventory Item No./ <br> Property No.:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
-                        <input type="text" min="1" class="form-control" id="iin" name="request_equipment_iin"
+                        <input type="text" min="1" class="form-control" id="iin" name="accept_equipment_iin"
                             required>
                     </div>
 
                     <div class="col-md-12">
                         <label class="form-label">Date Requested:</label>
                         <input type="text" class="form-control" id="daterequested"
-                            name="request_equipment_daterequested" readonly>
+                            name="accept_equipment_daterequested" readonly>
                     </div>
 
                     <div class="modal-footer">

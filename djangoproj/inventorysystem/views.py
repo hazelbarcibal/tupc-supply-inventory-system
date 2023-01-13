@@ -1096,22 +1096,26 @@ def equipmentDeliver(request):
                 if  request.POST.get('request_equipment_itemname') == "":
                      messages.info(request, 'Please input data before submiting')
                 else:
-                    if equipmentmainstorage.objects.filter(equipmentmainstorage_department = request.POST.get('request_equipment_department')).filter(equipmentmainstorage_itemName = request.POST.get('request_equipment_itemname')).exists() == False:
+                    if equipmentmainstorage.objects.filter(equipmentmainstorage_department = request.POST.get('request_equipment_department')).filter(equipmentmainstorage_itemName = request.POST.get('request_equipment_itemname')).exists() == True:
+                        messages.info(request, 'itemname already exists in the department ' + request.POST.get('request_equipment_department'))
+
+                    elif int(request.POST.get('request_equipment_quantity')) <= int(0):
+                        messages.info(request, 'invalid quantity')
+
+                    elif equipmentmainstorage.objects.filter(equipmentmainstorage_department = request.POST.get('request_equipment_department')).filter(equipmentmainstorage_itemName = request.POST.get('request_equipment_itemname')).exists() == False:
                         deliver_equip = equipmentmainstorage()
                         deliver_equip.equipmentmainstorage_department = request.POST.get('request_equipment_department')
                         deliver_equip.equipmentmainstorage_itemName = request.POST.get('request_equipment_itemname')
                         deliver_equip.equipmentmainstorage_quantity = request.POST.get('request_equipment_quantity')
                         deliver_equip.save()
-                        history_deliver = deliveryequipment()
-                        history_deliver.delivery_equipment_itemname = request.POST.get('request_equipment_itemname')
-                        history_deliver.delivery_equipment_description = ""
-                        history_deliver.delivery_equipment_brand = ""
-                        history_deliver.delivery_equipment_quantity = request.POST.get('request_equipment_quantity')
-                        history_deliver.save()
+                        # history_deliver = deliveryequipment()
+                        # history_deliver.delivery_equipment_itemname = request.POST.get('request_equipment_itemname')
+                        # history_deliver.delivery_equipment_description = ""
+                        # history_deliver.delivery_equipment_brand = ""
+                        # history_deliver.delivery_equipment_quantity = request.POST.get('request_equipment_quantity')
+                        # history_deliver.save()
                         messages.success(request, 'successfully add the equipment!')
 
-                    if equipmentmainstorage.objects.filter(equipmentmainstorage_department = request.POST.get('request_equipment_department')).filter(equipmentmainstorage_itemName = request.POST.get('request_equipment_itemname')).exists() == True:
-                        messages.info(request, 'itemname already exists in the department ' + request.POST.get('request_equipment_department'))
         #     form = deliveryEquipmentForm(request.POST)
 
         #     if 'delivery_dep' in request.POST:
@@ -1297,12 +1301,170 @@ def equipmentDeliver(request):
 def viewDeliveryRecords(request):
     if (request.user.is_authenticated and request.user.is_superuser) or \
         (request.user.is_authenticated and request.user.is_admin):
+        
 
         label = request.user
         info = requestequipment.objects.all()
+        info4 = equipment_email.objects.all()
+        if request.method == 'POST':
+            if 'delivery_dep' in request.POST:
+
+                request_id = request.POST.get('acceptequipment_id')
+                request_department = request.POST.get('accept_equipment_department')
+                request_itemname = request.POST.get('accept_equipment_itemname')
+                request_quantity = request.POST.get('accept_equipment_quantity')
+                request_description = request.POST.get('accept_equipment_description')
+                request_brand = request.POST.get('accept_equipment_brand')
+                request_acceptquantity = request.POST.get('accept_equipment_acceptquantity')
+                getdata = requestequipment.objects.get(requestequipment_id=request_id).requestequipment_id
+
+
+
+                if custodian_slip.objects.filter(custodianslip_inventoryitemno = request.POST.get('accept_equipment_iin')).exists() == True or receiptform_equipment.objects.filter(receiptformequipment_propertyno = request.POST.get('accept_equipment_iin')).exists() == True:
+                        messages.info(request, 'Property No. or inventory item no is already exists')
+
+                elif int(request_acceptquantity) > int(request_quantity):
+
+                    messages.info(request, 'Request quantity is less than to accept quantity.')
+                    return redirect('inventorysystem-equipmentDeliver')
+
+                elif int(request_acceptquantity) < int(request_quantity) or int(request_acceptquantity) == int(request_quantity):
+                        accept = acceptEquipmentRequests()
+                        accept.arequest_equipment_id = getdata
+                        accept.arequest_equipment_itemname = request_itemname
+                        accept.arequest_equipment_issued_to = request_department
+                        accept.arequest_equipment_description = request_description
+                        accept.arequest_equipment_brand = request_brand
+                        accept.arequest_equipment_quantity = request_acceptquantity
+                        accept.arequest_equipment_status = "Ready for pick-up"
+                        accept.arequest_equipment_remaining = 0
+                        accept.arequest_equipment_property_no = 0
+                        accept.arequest_equipment_dateaccepted = datetime.date.today()
+                        accept.arequest_equipment_daterequested = request.POST.get('accept_equipment_daterequested')
+                        requestequipment.objects.filter(requestequipment_id = getdata).delete()
+                        accept.save()
+
+                        delivery_record1 = deliveryequipment()
+                        delivery_record1.delivery_equipment_itemname = request_itemname
+                        delivery_record1.delivery_equipment_description = request_description
+                        delivery_record1.delivery_equipment_brand = request_brand
+                        delivery_record1.delivery_equipment_quantity = request_acceptquantity
+                        delivery_record1.delivery_equipment_remaining = request_acceptquantity
+                        delivery_record1.save()
+                        
+                        status = statusEquipmentRequest()
+                        status.statusEquipmentRequests_id = getdata
+                        status.status_equipment_itemname = request_itemname
+                        status.status_equipment_description = request_description
+                        status.status_equipment_brand = request_brand
+                        status.status_equipment_quantity = request_quantity
+                        status.status_equipment_acceptquantity = request_acceptquantity
+                        status.status_equipment_department = request_department
+                        status.status_equipment_status = "Ready for pick-up"
+                        status.status_equipment_remaining = 0
+                        status.status_equipment_dateaccepted = datetime.date.today()
+                        status.status_equipment_daterequested = request.POST.get('accept_equipment_daterequested')
+                        statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata).delete()
+                        status.save()
+
+                        if int(request.POST.get('accept_equipment_unitcost')) < int(50000) :
+
+                                # if custodian_slip.objects.filter(custodianslip_inventoryitemno = request.POST.get('request_equipment_iin')).exists() == True:
+                                #     messages.info(request, 'Inventory item no already exists')
+                                # elif custodian_slip.objects.filter(custodianslip_inventoryitemno = request.POST.get('request_equipment_iin')).exists() == False:
+                                    saveform2 = custodian_slip()
+                                    saveform2.custodianslip_itemname = request_itemname
+                                    saveform2.custodianslip_description = request_description
+                                    saveform2.custodianslip_department = request_department
+                                    saveform2.custodianslip_unit = request.POST.get('accept_equipment_unit')
+                                    saveform2.custodianslip_quantity = request_acceptquantity
+                                    saveform2.custodianslip_inventoryitemno = request.POST.get('accept_equipment_iin')
+                                    saveform2.custodianslip_unitcost = request.POST.get('accept_equipment_unitcost')
+                                    saveform2.custodianslip_totalcost = int(request_acceptquantity) * int(request.POST.get('accept_equipment_unitcost'))
+                                    saveform2.current_date = datetime.date.today()
+                                    saveform2.save()
+
+                        elif int(request.POST.get('accept_equipment_unitcost')) >= int(50000):
+                                if equipment_are_totalamount.objects.filter(areform_totalamount_department = request_department).filter(current_date = datetime.date.today()).exists() == False:
+                                    # if receiptform_equipment.objects.filter(receiptformequipment_propertyno = request.POST.get('request_equipment_iin')).exists() == True:
+                                    #     messages.info(request, 'Property No. already exists')
+                                    # elif receiptform_equipment.objects.filter(receiptformequipment_propertyno = request.POST.get('request_equipment_iin')).exists() == False:
+                                        saveform = receiptform_equipment()
+                                        saveform.receiptformequipment_itemname = request_itemname
+                                        saveform.receiptformequipment_department = request_department
+                                        saveform.receiptformequipment_description = request_description
+                                        saveform.receiptformequipment_unit = request.POST.get('accept_equipment_unit')
+                                        saveform.receiptformequipment_quantity = request_acceptquantity
+                                        saveform.receiptformequipment_propertyno = request.POST.get('accept_equipment_iin')
+                                        saveform.receiptformequipment_amount = request.POST.get('accept_equipment_unitcost')
+                                        saveform.current_date = datetime.date.today()
+                                        savetotal = equipment_are_totalamount()
+                                        savetotal.areform_totalamount_department = request_department
+                                        savetotal.current_date = datetime.date.today()
+                                        savetotal.areform_totalamount = int(request.POST.get('accept_equipment_unitcost')) * int(request_acceptquantity)
+                                        savetotal.save()
+                                        saveform.save()
+
+                                elif equipment_are_totalamount.objects.filter(areform_totalamount_department = request_department).filter(current_date = datetime.date.today()).exists() == True:
+                                    # if receiptform_equipment.objects.filter(receiptformequipment_propertyno = request.POST.get('request_equipment_iin')).exists() == True:
+                                    #     messages.info(request, 'Property No. already exists')
+                                    # elif receiptform_equipment.objects.filter(receiptformequipment_propertyno = request.POST.get('request_equipment_iin')).exists() == False:
+                                        saveform = receiptform_equipment()
+                                        saveform.receiptformequipment_itemname = request_itemname
+                                        saveform.receiptformequipment_department = request_department
+                                        saveform.receiptformequipment_description = request_description
+                                        saveform.receiptformequipment_unit = request.POST.get('accept_equipment_unit')
+                                        saveform.receiptformequipment_quantity = request_acceptquantity
+                                        saveform.receiptformequipment_propertyno = request.POST.get('accept_equipment_iin')
+                                        saveform.receiptformequipment_amount = request.POST.get('accept_equipment_unitcost')
+                                        saveform.current_date = datetime.date.today()
+                                        saveform.save()
+                                        savetotal = equipment_are_totalamount()
+                                        savetotal.areform_totalamount_department = request_department
+                                        savetotal.current_date = datetime.date.today()
+                                        totalamount = int(request.POST.get('accept_equipment_unitcost')) * int(request_acceptquantity)
+                                        savetotal.areform_totalamount = int(equipment_are_totalamount.objects.get(areform_totalamount_department = request_department, current_date = datetime.date.today()).areform_totalamount) + totalamount
+                                        equipment_are_totalamount.objects.filter(areform_totalamount_department = request_department).filter(current_date = datetime.date.today()).delete()
+                                        savetotal.save()
+
+
+                        if equipment_email.objects.filter(emailequipment_department = request_department).filter(current_date = datetime.date.today()).exists() == True:
+                            emaildept = equipment_email()
+                            emaildept.emailequipment_id = equipment_email.objects.get(emailequipment_department = request_department).emailequipment_id
+                            emaildept.emailequipment_department = request_department
+                            emailqty = equipment_email.objects.get(emailequipment_department = request_department).emailequipment_acceptedquantity
+                            emaildept.emailequipment_acceptedquantity = int(emailqty) + int(1)
+                            emaildept.current_date = datetime.date.today()
+                            equipment_email.objects.filter(emailequipment_department = request_department).delete()
+                            emaildept.save()
+                            messages.success(request, 'request accepted')
+
+                        elif equipment_email.objects.filter(emailequipment_department = request_department).filter(current_date = datetime.date.today()).exists() == False:
+                            emaildept1 = equipment_email()
+                            emaildept1.emailequipment_department = request_department
+                            emaildept1.emailequipment_acceptedquantity = 1
+                            emaildept1.current_date = datetime.date.today()
+                            emaildept1.save()
+                            messages.success(request, 'request accepted')
+
+                        return redirect('inventorysystem-viewDeliveryRecords')
+
+            elif 'emailBtn1' in request.POST:
+
+                subject = "SUPPLY DEPARTMENT ADMIN"
+                message = "Good day! \n\nYour request has been accepted. Please pick up the item/s as soon as possible. Thankyou. \n\nKind regards,\nSupply Admin"
+                depinfo = str(CustomUser.objects.get(department=str(request.POST.get('email_equipment_department'))).email)
+                print(depinfo)
+                recipient = depinfo
+                send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
+                equipment_email.objects.filter(emailequipment_department = request.POST.get('email_equipment_department')).filter(current_date = request.POST.get('email_equipment_date')).delete()
+                messages.success(request, 'successfully sent')
+
+
         context = {
             'info': info,
             'label': label,
+            'info4': info4,
         }
         return render(request, 'task/view-delivery-records.html', context)
     else:
