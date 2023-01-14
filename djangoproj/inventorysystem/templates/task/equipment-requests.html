@@ -117,7 +117,7 @@
                                 <h1 class="h3 mb-0 text-gray-900">Equipments Request</h1>
                                 <div class="btn-group btn-group-sm" role="group">
                                     <a type="button" href="{% url 'inventorysystem-equipmentWithdraw' %}"
-                                        class="btn btn-primary">Withdraw
+                                        class="btn btn-primary">Release
                                         Request</a>
                                 </div>
                             </div>
@@ -277,60 +277,64 @@
                     <input type="hidden" id="editId1" name="acceptequipment_id" value="" readonly>
 
                     <div class="col-md-12">
-                        <label class="form-label">Department:</label>
+                        <label style="font-size: 14px;" class="form-label">Department:</label>
                         <input type="text" class="form-control" id="department" name="accept_equipment_department"
                             readonly>
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label">Item Name:</label>
+                        <label style="font-size: 14px;" class="form-label">Item Name:</label>
                         <input type="text" class="form-control" id="itemname1" name="accept_equipment_itemname">
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label">Requested Quantity:</label>
+                        <label style="font-size: 14px;" class="form-label">Requested Quantity:</label>
                         <input type="number" min="1" class="form-control" id="requestquantity"
                             name="accept_equipment_quantity" readonly>
                     </div>
 
                     <div class="col-md-12">
-                        <label class="form-label">Description:</label>
+                        <label style="font-size: 14px;" class="form-label">Description:</label>
                         <input type="text" class="form-control" id="description1" name="accept_equipment_description"
                             required>
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label">Brand:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
+                        <label style="font-size: 14px;" class="form-label">Brand:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
                         <input type="text" min="1" class="form-control" id="brand" name="accept_equipment_brand"
                             required>
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label">Accept Quantity:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
+                        <label style="font-size: 14px;" class="form-label">Accept Quantity:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
                         <input type="number" min="1" class="form-control" id="acceptquantity"
                             name="accept_equipment_acceptquantity" required>
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label">Unit Cost/Amount:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
+                        <label style="font-size: 14px;" class="form-label">Unit Cost/Amount per Equipment:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
                         <input type="number" min="1" class="form-control" id="unitcost"
                             name="accept_equipment_unitcost">
                     </div>
                     
                     <div class="col-md-6">
-                        <label class="form-label">Unit:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
-                        <input type="text" min="1" class="form-control" id="unit" name="accept_equipment_unit"
+                        <label style="font-size: 14px;" class="form-label">Unit:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
+                        <input list="acceptunit" type="text" min="1" class="form-control" id="unit" name="accept_equipment_unit"
                             required>
+                            <datalist id="acceptunit">
+                                <option id="1" value="Unit"></option>
+                                <option id="2" value="Set"></option>
+                            </datalist>
                     </div>
                     
                     <div class="col-md-12">
-                        <label class="form-label">Inventory Item No./ <br> Property No.:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
+                        <label style="font-size: 14px;" class="form-label">Inventory Item No./ <br> Property No.:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
                         <input type="text" min="1" class="form-control" id="iin" name="accept_equipment_iin"
                             required>
                     </div>
 
                     <div class="col-md-12">
-                        <label class="form-label">Date Requested:</label>
+                        <label style="font-size: 14px;" class="form-label">Date Requested:</label>
                         <input type="text" class="form-control" id="daterequested"
                             name="accept_equipment_daterequested" readonly>
                     </div>
@@ -443,7 +447,81 @@ $(document).ready(function () {
             </div>
         </div>
     </div>
-</div>
+    </div>
+<br>
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="container">
+            <div class="container" style="margin-bottom: 0;">
+                <div class="container" style="margin-bottom: 0;">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-900">Equipments Record</h1>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!------------------- Content Row ------------------->
+    <div class="row">
+
+        <div class="col-xl-12 col-md-12 mb-4">
+
+            <div class="row">
+                <div class="container">
+                    <div class="container">
+                        <div class="container mb-4">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <form action="{% url 'export_pdf_equipdelivery'%}">
+                                    <button class="btn btn-sm btn-primary shadow-sm">Convert to PDF</button>
+                                </form>
+                                <form action="{% url 'export_excel'%}">
+                                    <button class="btn btn-sm btn-primary shadow-sm">Export to XLS</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="container">
+                <div class="kahon">
+                    <table id="equipmentDeliveryTable" class="table table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">Item Name</th>
+                                <th style="text-align: center;">Description</th>
+                                <th style="text-align: center;">Brand</th>
+                                <th style="text-align: center;">Delivery Quantity</th>
+                                <th style="text-align: center;">Date</th>
+                                <th style="text-align: center;">Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for x in info1 %}
+                            <tr class="edittr">
+                                <td align="center">{{x.delivery_equipment_itemname}}</td>
+                                <td align="center">{{x.delivery_equipment_description}}</td>
+                                <td align="center">{{x.delivery_equipment_brand}}</td>
+                                <td align="center">{{x.delivery_equipment_quantity}}</td>
+                                <td align="center">{{x.current_date}}</td>
+                                <td align="center">{{x.current_time}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
 
 
 <script type="text/javascript">
@@ -513,6 +591,14 @@ $(document).ready(function () {
         });
         $(document).ready(function () {
             var table = $('#emailEquipmentTable').DataTable({
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true
+            });
+        });
+        $(document).ready(function () {
+            var table = $('#equipmentDeliveryTable').DataTable({
                 rowReorder: {
                     selector: 'td:nth-child(2)'
                 },

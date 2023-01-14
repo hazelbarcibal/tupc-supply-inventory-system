@@ -220,6 +220,7 @@
                             <table id="returnTable" class="table table-striped" style="width:100%">
                                 <thead>
                                     <tr>
+                                        <th style="text-align: center;">Reason of Return</th>
                                         <th style="text-align: center;">Property No.</th>
                                         <th style="text-align: center;">Item Name</th>
                                         <th style="text-align: center;">Description</th>
@@ -230,13 +231,13 @@
                                         <th style="text-align: center;">Serial No.</th>
                                         <th style="text-align: center;">Certified Correct</th>
                                         <th style="text-align: center;">Date Return</th>
-                                        <th style="text-align: center;">Return Reason</th>
                                         <th style="text-align: center;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for x in info %}
                                     <tr class="edittr">
+                                        <td align="center">{{x.return_reason}}</td>
                                         <td align="center">{{x.return_equipment_property_no}}</td>
                                         <td align="center">{{x.return_equipment_itemname}}</td>
                                         <td align="center">{{x.return_equipment_description}}</td>
@@ -246,7 +247,6 @@
                                         <td align="center">{{x.return_equipment_model_no}}</td>
                                         <td align="center">{{x.return_equipment_serial_no}}</td>
                                         <td align="center">{{x.return_equipment_certifiedcorrect}}</td>
-                                        <td align="center">{{x.return_reason}}</td>
                                         <td align="center">{{x.dispose_equipment_date}}</td>
                                         <td><a class="btn btn-success editBtn" name="editBtn" style="font-size: 13px;">DISPOSE</a></td>
                                     </tr>

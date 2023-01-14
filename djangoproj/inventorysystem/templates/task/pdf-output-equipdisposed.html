@@ -50,7 +50,7 @@
         <table>
           <thead>
             <tr>
-              <th >
+              <th > 
                 <div >
                   <img style="width: 60px; height: 60px;" src="../../static/img/TUP LOGO.png" class="img-fluid" >
                 </div>              </th>
@@ -73,7 +73,7 @@
             <tr>
               <th style="width: 10%; ">OSP
               </th>
-              <th style="width: 90%; "> Delivery Records: Equipment
+              <th style="width: 90%; ">  Disposed Equipment Record
               </th>
 
             </tr>
@@ -85,23 +85,29 @@
     <table class="Table-Content">
       <thead class="thead_1">
         <tr>
+          <th>Property No.</th>
           <th>Item Name</th>
           <th>Description</th>
           <th>Brand</th>
-          <th>Delivery Quantity</th>
-          <th>Date</th>
-          <th>Time</th>
+          <th>Model No.</th>
+          <th>Serial No.</th>
+          <th>Receipt No.</th>
+          <th>Amount</th>
+          <th>Date Disposed</th>
         </tr>
       </thead>
       <tbody>
-        {% for y in Equipdelivery %}
+        {% for y in EquipReturn%}
         <tr>
-          <td>{{y.delivery_equipment_itemname}}</td>
-          <td>{{y.delivery_equipment_description}}</td>
-          <td>{{y.delivery_equipment_brand}}</td>
-          <td>{{y.delivery_equipment_quantity}}</td>
-          <td>{{y.current_date}}</td>
-          <td>{{y.current_time}}</td>
+          <td>{{y.disposed_equipment_property_no}}</td>
+          <td>{{y.disposed_equipment_itemname}}</td>
+          <td>{{y.disposed_equipment_description}}</td>
+          <td>{{y.disposed_equipment_brand}}</td>
+          <td>{{y.disposed_equipment_model_no}}</td>
+          <td>{{y.disposed_equipment_serial_no}}</td>
+          <td>{{y.disposed_equipment_receiptno}}</td>
+          <td>{{y.disposed_equipment_amount}}</td>
+          <td>{{y.disposed_date}}</td>
         </tr>
         {% endfor %}
       </tbody>

@@ -96,19 +96,29 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{% url 'inventorysystem-equipmentDeliver' %}">Limit Equipment</a>
-                        <a class="collapse-item" href="{% url 'inventorysystem-viewDeliveryRecords' %}">Requested Equipment</a>
-                        <a class="collapse-item" href="{% url 'inventorysystem-equipmentWithdraw' %}">Release Equipments</a>
-                        <a class="collapse-item" href="{% url 'inventorysystem-equipmentReturn' %}">Returned Equipments</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-equipmentrequests' %}">Requested Equipment</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-equipmentWithdraw' %}">Release Equipment</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-equipmentReturn' %}">Returned Equipment</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Nav Item  -->
+            <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'inventorysystem-storageMapping' %}">
-                    <i class='bx bx-map'></i>
-                    <span>Storage Location</span></a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse"
+                    aria-expanded="true" aria-controls="collapse">
+                    <i class='bx bx-devices'></i>
+                    <span>Storage Location</span>
+                </a>
+                <div id="collapse" class="collapse" aria-labelledby="heading"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{% url 'inventorysystem-storagelocationSupplies' %}">Supplies</a>
+                        <a class="collapse-item" href="{% url 'inventorysystem-storagelocationEquipment' %}">Equipments</a>
+                    </div>
+                </div>
             </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider">

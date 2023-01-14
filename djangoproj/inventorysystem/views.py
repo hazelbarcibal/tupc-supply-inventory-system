@@ -1085,7 +1085,6 @@ def equipmentDeliver(request):
 
         label = request.user
         info = equipmentmainstorage.objects.all()
-        info1 = deliveryequipment.objects.all()
         info3 = equipmentmainstorage.objects.filter(equipmentmainstorage_quantity = 0).delete()
         # info1 = deliveryequipment.objects.all()
         # info2 = requestequipment.objects.all()
@@ -1278,12 +1277,8 @@ def equipmentDeliver(request):
         #         messages.success(request, 'successfully sent')
 
         context = {
-            # 'form': form,
             'info': info,
-            'info1': info1,
-            # 'info2': info2,
             'info3': info3,
-            # 'info4': info4,
             'label': label,
 
         }
@@ -1298,13 +1293,14 @@ def equipmentDeliver(request):
 #------------------- ADMIN VIEW REQUEST EQUIPMENTS -----------------------------
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
-def viewDeliveryRecords(request):
+def equipmentRequests(request):
     if (request.user.is_authenticated and request.user.is_superuser) or \
         (request.user.is_authenticated and request.user.is_admin):
         
 
         label = request.user
         info = requestequipment.objects.all()
+        info1 = deliveryequipment.objects.all()
         info4 = equipment_email.objects.all()
         if request.method == 'POST':
             if 'delivery_dep' in request.POST:
@@ -1447,7 +1443,7 @@ def viewDeliveryRecords(request):
                             emaildept1.save()
                             messages.success(request, 'request accepted')
 
-                        return redirect('inventorysystem-viewDeliveryRecords')
+                        return redirect('inventorysystem-equipmentrequests')
 
             elif 'emailBtn1' in request.POST:
 
@@ -1463,10 +1459,11 @@ def viewDeliveryRecords(request):
 
         context = {
             'info': info,
+            'info1': info1,
             'label': label,
             'info4': info4,
         }
-        return render(request, 'task/view-delivery-records.html', context)
+        return render(request, 'task/equipment-requests.html', context)
     else:
         return redirect('inventorysystem-usersLogin') 
 
@@ -1525,7 +1522,7 @@ def depRequestEquipment(request):
                     messages.info(request, "invalid quantity")
         context = {
             'info1': info1,
-            'info': info2,
+            'info2': info2,
         }
         return render(request, 'task/dep-request-equipment.html', context)
     else:
@@ -1775,15 +1772,13 @@ def equipmentReturn(request):
 #------------------- STORAGE MAPPING -----------------------------
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
-def storageMapping(request):
+def storagelocationSupplies(request):
     if (request.user.is_authenticated and request.user.is_superuser) or \
         (request.user.is_authenticated and request.user.is_admin):
 
         label = request.user
         info = supplymainstorage.objects.all()
         info3 = supply_storagemapping_history.objects.all()
-        info1 = equipment_disposal.objects.all()
-        info2 = equipment_disposed.objects.all()
 
         if request.method == 'POST':
 
@@ -1811,6 +1806,30 @@ def storageMapping(request):
                 return redirect('inventorysystem-storageMapping')
 
 
+
+        context = {
+            'info': info,
+            'info3': info3,
+            'label': label,
+        }
+
+        return render(request, 'task/storage-location-supply.html', context)
+    else:
+        return redirect('inventorysystem-usersLogin')
+
+#------------------- STORAGE MAPPING -----------------------------
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required(login_url='inventorysystem-usersLogin')
+def storagelocationEquipment(request):
+    if (request.user.is_authenticated and request.user.is_superuser) or \
+        (request.user.is_authenticated and request.user.is_admin):
+
+        label = request.user
+        info1 = equipment_disposal.objects.all()
+        info2 = equipment_disposed.objects.all()
+
+        if request.method == 'POST':
+
             if 'storageequipment_disposed' in request.POST:
                 if equipment_disposed.objects.filter(disposed_equipment_receiptno = request.POST.get('disposed_receiptno')).exists() == False:
                     disposed = equipment_disposed()
@@ -1825,25 +1844,21 @@ def storageMapping(request):
                     disposed.save()
                     equipment_disposal.objects.filter(dispose_equipment_property_no = request.POST.get('disposed_propertyno')).delete()
                     messages.success(request, 'Successfully disposed')
-                    return redirect('inventorysystem-storageMapping')
+                    return redirect('inventorysystem-storagelocationEquipment')
 
                 elif equipment_disposed.objects.filter(disposed_equipment_property_no = request.POST.get('disposed_propertyno')).exists() == True:
                     messages.info(request, 'Receipt No. Already Exists')
-                    return redirect('inventorysystem-storageMapping')
+                    return redirect('inventorysystem-storagelocationEquipment')
 
         context = {
-            'info': info,
             'info1': info1,
-            'info3': info3,
             'label': label,
             'info2': info2,
         }
 
-        return render(request, 'task/storage-mapping.html', context)
+        return render(request, 'task/storage-location-equipments.html', context)
     else:
         return redirect('inventorysystem-usersLogin')
-
-
 #------------------- EXPORT EXCEL FILE -----------------------------
 def export_excel(request):
     response=HttpResponse(content_type='application/ms-excel')
@@ -1855,16 +1870,19 @@ def export_excel(request):
     ws2 = wb.add_sheet('Supply Withdraw')
     ws3 = wb.add_sheet('Equipment Withdraw')
     ws4 = wb.add_sheet('Returned Equipment')
+    ws5 = wb.add_sheet('Disposed Equipment')
     row_num = 0
     row_num1 = 0
     row_num2 = 0
     row_num3 = 0
     row_num4 = 0
+    row_num5 = 0
     supply_font = xlwt.XFStyle()
     equipment_font = xlwt.XFStyle()
     wsupply_font = xlwt.XFStyle()
     wequipment_font = xlwt.XFStyle()
     equipreturn_font = xlwt.XFStyle()
+    equipdisposed_font = xlwt.XFStyle()
     
 
 #supply delivery
@@ -1889,7 +1907,7 @@ def export_excel(request):
 #equipment delivery
     equipment_font.font.bold = True
     equipmentdelivery = ['Itemname', 'Description', 'Brand',
-                'Quantity', 'Remaining Quantity', 'Date', 'Time']
+                'Quantity', 'Date', 'Time']
 
     for col_num1 in range(len(equipmentdelivery)):
         ws1.write(row_num1,col_num1, equipmentdelivery[col_num1], equipment_font)
@@ -1898,7 +1916,7 @@ def export_excel(request):
 
     rows1 =deliveryequipment.objects.all().values_list(
         'delivery_equipment_itemname', 'delivery_equipment_description', 'delivery_equipment_brand',
-                'delivery_equipment_quantity', 'delivery_equipment_remaining', 'current_date', 'current_time')
+                'delivery_equipment_quantity', 'current_date', 'current_time')
 
     for row in rows1:
         row_num1+= 1
@@ -1969,6 +1987,30 @@ def export_excel(request):
 
         for col_num4 in range(len(row)):
             ws4.write(row_num4, col_num4, str(row[col_num4]), font_style)
+
+
+#disposed equipment
+    equipdisposed_font.font.bold = True
+    equipdisposed = ['Property No.', 'Item Name', 'Description', 
+                'Brand', 'Model No.', 'Serial No.', 'Receipt No.', 
+                'Amount', 'Date Disposed']
+
+    for col_num5 in range(len(equipdisposed)):
+        ws5.write(row_num5,col_num5, equipdisposed[col_num5], equipdisposed_font)
+
+    font_style = xlwt.XFStyle()
+
+    rows5 = equipment_disposed.objects.all().values_list(
+        'disposed_equipment_property_no', 'disposed_equipment_itemname', 
+        'disposed_equipment_description', 'disposed_equipment_brand', 
+        'disposed_equipment_model_no', 'disposed_equipment_serial_no', 
+        'disposed_equipment_receiptno', 'disposed_equipment_amount','disposed_date')
+
+    for row in rows5:
+        row_num5+= 1
+
+        for col_num5 in range(len(row)):
+            ws5.write(row_num4, col_num5, str(row[col_num5]), font_style)
 
     wb.save(response)
     return response
@@ -2067,6 +2109,27 @@ def export_pdf_equipreturn(request):
 
 
     html_string = render_to_string('task/pdf-output-equipreturn.html' ,{'EquipReturn': supply})
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
+    result = html.write_pdf(presentational_hints=True)
+
+    with tempfile.NamedTemporaryFile(delete=False) as output:
+        output.write(result)
+        output.flush()
+        output = open(output.name, 'rb')
+        response.write(output.read())
+
+    
+    return response
+
+def export_pdf_equipdisposed(request):
+    response=HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'inline; attachment; filename=Supply Inventory' + \
+        str(datetime.datetime.now())+'.pdf'
+    supply = equipment_disposed.objects.all()
+    response['Content-Transfer-Enconding'] = 'binary'
+
+
+    html_string = render_to_string('task/pdf-output-equipdisposed.html' ,{'EquipReturn': supply})
     html = HTML(string=html_string, base_url=request.build_absolute_uri())
     result = html.write_pdf(presentational_hints=True)
 
