@@ -188,7 +188,8 @@
                                         {{user_form.email}}
                                     </div>
                                     <div class="mt-5">
-                                        <button class="btn btn-primary profile-button" type="submit">Manage Account</button>
+                                        <button class="btn btn-primary profile-button" type="submit">Update</button>
+                                        <a class="btn btn-primary profile-button" href="{% url 'inventorysystem-passwordChange' %}">Password Reset</a>
                                     </div>
                                 </form>
                             </div>
@@ -234,6 +235,8 @@
     }
 
 </script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
 
 {% for message in messages %}

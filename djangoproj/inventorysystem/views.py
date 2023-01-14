@@ -52,6 +52,9 @@ def validateInfo2(request):
         data2['error_message'] = "There is an existing serial no. in the record. Please try again."
     return JsonResponse(data2)
 
+#password_reset_form
+
+
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')
@@ -191,7 +194,6 @@ def equipmentAreform(request):
         return redirect('inventorysystem-usersLogin')
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
-@login_required(login_url='inventorysystem-usersLogin')
 def index(request):
     return render(request, 'task/index.html')  
 
@@ -237,7 +239,7 @@ def password_reset_request(request):
 					email_template_name = "task/password_message.txt"
 					c = {
 					"email":user.email,
-					'domain':'127.0.0.1:8000',
+					'domain':'www.tupcsupplyinventorysystem.online', #127.0.0.1:8000
 					'site_name': 'TUPC Supply Inventory System',
 					"uid": urlsafe_base64_encode(force_bytes(user.pk)),
 					"user": user,
@@ -353,7 +355,7 @@ def deptRegister(request):
                     form.save()
                     messages.success(request, 'Account was created for ' + dept)
                     subject = 'Account Registration'
-                    message = "Good day! \nYour account has been successfully registered " + dept + "! \nYou can now access your account by logging in to the website. \n\nUsername: " + username \
+                    message = "Good day! \nYour account has been successfully registered " + dept + "! \nYou can now access your account by logging in to the website: \nhttps://www.tupcsupplyinventorysystem.online \n\nUsername: " + username \
                         + "\nEmail address: " + email + "\nPassword: " + password1 + "\n\nThank you!" 
                     recipient = email 
                     send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
@@ -394,7 +396,7 @@ def adminRegister(request):
                     form.save()
                     messages.success(request, 'Account was created for ' + username)
                     subject = 'Account Registration'
-                    message = "Good day! \nYour account has been successfully registered " + username + "! \nYou can now access your account by logging in to the website. \n\nUsername: " + username \
+                    message = "Good day! \nYour account has been successfully registered " + username + "! \nYou can now access your account by logging in to the website: \nhttps://www.tupcsupplyinventorysystem.online \n\nUsername: " + username \
                         + "\nEmail address: " + email + "\nPassword: " + password1 + "\n\nThank you!"
                     recipient = email 
                     send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
@@ -431,7 +433,7 @@ def adminProfileUpdate(request):
                     # profile_form.save()
                     messages.success(request, 'Your profile is successfully updated.')
                     subject = 'Update Profile'
-                    message = "Good day "+ username + "! \nYour account has been successfully updated! \nYou can now access your account by logging in to the website. Thank you!" 
+                    message = "Good day "+ username + "! \nYour account has been successfully updated! \nYou can now access your account by logging in to the website: \nhttps://www.tupcsupplyinventorysystem.online \n\nThank you!" 
                     recipient = email 
                     send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
                     return redirect(to='inventorysystem-adminProfileUpdate')
@@ -475,7 +477,7 @@ def deptProfileUpdate(request):
                     # profile_form.save()
                     messages.success(request, 'Your profile is successfully updated.')
                     subject = 'Update Profile'
-                    message = "Good day "+ username + "! \nYour account has been successfully updated! \nYou can now access your account by logging in to the website. Thank you!" 
+                    message = "Good day "+ username + "! \nYour account has been successfully updated! \nYou can now access your account by logging in to the website: \nhttps://www.tupcsupplyinventorysystem.online \n\nThank you!" 
                     recipient = email 
                     send_mail(subject, message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
                     return redirect(to='inventorysystem-adminProfileUpdate')
@@ -862,7 +864,7 @@ def viewRequestSupply(request):
             elif 'emailBtn1' in request.POST:
 
                 subject = "SUPPLY DEPARTMENT ADMIN"
-                message = "Good day! \n\nYour request has been accepted. Please pick up the item/s as soon as possible. Thankyou. \n\nKind regards,\nSupply Admin"
+                message = "Good day! \n\nYour request has been accepted. Please pick up the item/s as soon as possible. \n\nYou can see your prior transactions by logging in to the website: \nhttps://www.tupcsupplyinventorysystem.online \n\nThank you. \n\nKind regards,\nSupply Admin"
                 depinfo = str(CustomUser.objects.get(department=str(request.POST.get('email_supply_department'))).email)
                 print(depinfo)
                 recipient = depinfo
@@ -1014,7 +1016,7 @@ def depRequestSupply(request):
 
                     messages.success(request, 'Request Successful for itemname ')
                     subject = str(request.user)
-                    message = "Good day!\n\nI have requested item in supply. Please see the details in the website. Thank you!\n\nKind regards,\n"+ str(request.user)
+                    message = "Good day!\n\nI have requested item in supply. Please see the details in the website: \nhttps://www.tupcsupplyinventorysystem.online \n\nThank you! \n\nKind regards,\n"+ str(request.user)
                     depinfo = str(CustomUser.objects.get(department=str(request.user)).email)
                     print(depinfo)
                     recipient = settings.EMAIL_HOST_USER
@@ -1479,7 +1481,7 @@ def equipmentRequests(request):
             elif 'emailBtn1' in request.POST:
 
                 subject = "SUPPLY DEPARTMENT ADMIN"
-                message = "Good day! \n\nYour request has been accepted. Please pick up the item/s as soon as possible. Thankyou. \n\nKind regards,\nSupply Admin"
+                message = "Good day! \n\nYour request has been accepted. Please pick up the item/s as soon as possible. \n\nYou can see your prior transactions by logging in to the website: \nhttps://www.tupcsupplyinventorysystem.online \n\nThank you. \n\nKind regards,\nSupply Admin"
                 depinfo = str(CustomUser.objects.get(department=str(request.POST.get('email_equipment_department'))).email)
                 print(depinfo)
                 recipient = depinfo
@@ -1535,7 +1537,7 @@ def depRequestEquipment(request):
                         status.status_equipment_daterequested = datetime.date.today()
                         messages.success(request, 'Request Successful for itemname ')
                         subject = str(request.user)
-                        message = "Good day!\n\nI have requested item in supply. Please see the details in the website. Thank you!\n\nKind regards,\n"+ str(request.user)
+                        message = "Good day!\n\nI have requested item in supply. Please see the details in the website: \nhttps://www.tupcsupplyinventorysystem.online \n\nThank you! \n\nKind regards,\n"+ str(request.user)
                         depinfo = str(CustomUser.objects.get(department=str(request.user)).email)
                         print(depinfo)
                         recipient = settings.EMAIL_HOST_USER
