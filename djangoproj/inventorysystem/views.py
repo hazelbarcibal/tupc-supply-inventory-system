@@ -1,6 +1,7 @@
 from .forms import *
 from .models import *
 from django.shortcuts import render, redirect, HttpResponse
+from django.http import JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
@@ -21,6 +22,36 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from weasyprint import HTML , CSS 
 import tempfile
+
+
+# For Create Qr Validations
+def validateInfo(request):
+    propertyNo = request.GET.get('arequest_equipment_property_no', None)
+    data = {
+        'is_taken': withdrawequipment.objects.filter(withdraw_equipment_property_no = propertyNo).exists()
+    }
+    if data['is_taken']:
+        data['error_message'] = "There is an existing property in the record. Please try again."
+    return JsonResponse(data)
+
+def validateInfo1(request):
+    modelNo = request.GET.get('arequest_equipment_model_no', None)
+    data1 = {
+        'is_taken': withdrawequipment.objects.filter(withdraw_equipment_model_no = modelNo).exists()
+    }
+    if data1['is_taken']:
+        data1['error_message'] = "There is an existing model no. in the record. Please try again."
+    return JsonResponse(data1)
+
+def validateInfo2(request):
+    serialNo = request.GET.get('arequest_equipment_serial_no', None)
+    data2 = {
+        'is_taken': withdrawequipment.objects.filter(withdraw_equipment_serial_no = serialNo).exists()
+    }
+    if data2['is_taken']:
+        data2['error_message'] = "There is an existing serial no. in the record. Please try again."
+    return JsonResponse(data2)
+
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required(login_url='inventorysystem-usersLogin')

@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
+from django.conf.urls import url
 
 urlpatterns = [
     path('', views.index, name='inventorysystem-index'),
@@ -41,6 +42,10 @@ urlpatterns = [
     path('equipment-return/', views.equipmentReturn, name='inventorysystem-equipmentReturn'),
     path('equipment-icsform/', views.equipmentIcsform, name='inventorysystem-equipment-icsform'),
     path('equipment-areform/', views.equipmentAreform, name='inventorysystem-equipment-areform'),
+
+    url(r'^validateInfo/$', views.validateInfo, name='inventorysystem-validateInfo'),
+    url(r'^validateInfo1/$', views.validateInfo1, name='inventorysystem-validateInfo1'),
+    url(r'^validateInfo2/$', views.validateInfo2, name='inventorysystem-validateInfo2'),
 #------------ MAPPING x EXPORT ----------------------
     path('supplies-storage-location/', views.storagelocationSupplies, name='inventorysystem-storagelocationSupplies'),
     path('equipments-storage-location/', views.storagelocationEquipment, name='inventorysystem-storagelocationEquipment'),

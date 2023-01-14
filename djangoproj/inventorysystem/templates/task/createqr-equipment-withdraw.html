@@ -9,30 +9,6 @@
 
 
 <style>
-    .btn1 {
-        background-color: #ad413a;
-        border: 1px solid black;
-        border-radius: 5px;
-        color: white;
-        padding: 10px 24px;
-        cursor: pointer;
-        width: 8em;
-    }
-
-    .btn {
-        background-color: #ad413a;
-        border: 1px solid black;
-        color: white;
-        padding: 10px 24px;
-        cursor: pointer;
-        float: left;
-    }
-
-    .btn:hover {
-        text-decoration: none;
-        background: #9c2e26;
-        color: white;
-    }
 
     .form-holder {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -118,7 +94,7 @@
                         aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="{% url 'inventorysystem-adminProfileUpdate' %}">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Update Profile
+                            Manage Account
                         </a>
 
                         <div class="dropdown-divider"></div>
@@ -210,52 +186,58 @@
                                 </div>
                                 
                                 <div class="col-md-4">
-                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                                        class="form-label">Property No: </label>
+                                    <label class="form-label">Property No: </label>
+                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span>
                                     {{form.arequest_equipment_property_no}}
                                 </div>
                                 <div class="col-md-4">
-                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                                        class="form-label">Year Acquired: </label>
+                                    <label class="form-label">Year Acquired: </label>
+                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span>
                                     {{form.arequest_equipment_yearacquired}}
                                 </div>
                                 <div class="col-md-4">
-                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                                        class="form-label">Model No: </label>
+                                    <label class="form-label">Model No: </label>
+                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span>
                                     {{form.arequest_equipment_model_no}}
                                 </div>
                                 <div class="col-md-4">
-                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                                        class="form-label">Serial No: </label>
+                                    <label class="form-label">Serial No: </label>
+                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span>
                                     {{form.arequest_equipment_serial_no}}
                                 </div>
                                 <div class="col-md-4">
-                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                                        class="form-label">Certified Correct: </label>
+                                    <label class="form-label">Certified Correct: </label>
+                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span>
                                     {{form.arequest_equipment_certifiedcorrect}}
                                 </div>
                                 
 
                                 <div class="col-md-4">
-                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span><label
-                                        class="form-label">QR
-                                        Size: </label>
-                                    <select id="qrSize" class="form-select" required
+                                    <label class="form-label">QR Size: </label>
+                                    <span style="color: red; font-size: 18px; font-weight: bold;">* </span>
+                                    <select id="qrSize" class="sizeOptions form-select" required
                                         style="border: solid #3E3E3E 1.5px;">
-                                        <option id="0">150x150</option>
-                                        <option id="1">250x250</option>
-                                        <option id="2">350x350</option>
-                                        <option id="3">450x450</option>
+                                        <!-- <option id="1">150x150</option>
+                                        <option id="2">250x250</option>
+                                        <option id="3">350x350</option>
+                                        <option id="4">450x450</option> -->
+                                        <option value="100" selected>100 x 100</option>
+                                        <option value="200">200 x 200</option>
+                                        <option value="300">300 x 300</option>
                                     </select>
                                 </div>
-                                <div class="col-12">
-                                    <button id="submit" style="width: 100%;" disabled style="float: right;" type="submit"
+
+                                <div class="col-md-12">
+                                    <a class="btn btn-primary" style="width: 100%;" name="createqr" id="createBtn">Create QR</a>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button id="formSubmit" hidden style="width: 100%;" style="float: right;" type="submit"
                                         class="btn btn-success">Release</button>
+                                    <a style="width: 100%;" onclick="pressBtn()" id="download_link" class="btn btn-success">Release</a>
                                 </div>
                             </form>
-                            <div class="row" style="width: 101%; padding-left: 12px; padding-top: 10px;">
-                                <button class="btn" name = "createqr" id="createBtn" onclick="create()">Create QR</button>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -271,11 +253,8 @@
                     <div class="container">
                         <div class="container" style="text-align: center; color: rgb(0, 0, 0);">
                             <p>
-                            <h4><i style="color: rgb(0, 0, 0);">--- QR will appear below ---</i></h4>
+                                <h4><i style="color: rgb(0, 0, 0);">--- QR will appear below ---</i></h4>
                             </p>
-                            <p><small><i style="color: rgb(0, 0, 0);">To save the QR, kindly right click on the image
-                                        and click 'Save
-                                        image'</i></small></p>
                         </div>
                         <hr style="width:35%; margin: auto; color: black; border: 1px solid;" align="center">
                     </div>
@@ -288,7 +267,7 @@
 
                 <div class="col-xl-12 col-md-12 mb-4">
                     <div class="container">
-                        <div id="qrimage" align='center'></div>
+                        <div class="qrimage" align='center'></div>
                     </div>
                 </div>
 
@@ -316,51 +295,9 @@
 <!-- End of Content Wrapper -->
 
 
-
-
-
-<script type="text/javascript">
-
-    function create() {
-        var qrSizeResult = document.getElementById("qrSize").value;
-        var data =
-            'Property No: ' +
-            document.getElementById("propertyNo").value + ' ' +
-            'Issued to: ' +
-            document.getElementById("issuedTo").value + '\n' +
-            'Item name: ' +
-            document.getElementById("itemname").value + '\n' +
-            'Description: ' +
-            document.getElementById("description").value + '\n' +
-            'Brand: ' +
-            document.getElementById("brand").value + '\n' +
-            'Quantity: ' +
-            document.getElementById("quantity").value + '\n' +
-            'Year Acquired: ' +
-            document.getElementById("yrAcquired").value + '\n' +
-            'Serial No: ' +
-            document.getElementById("serialNo").value + '\n' +
-            'Model No: ' +
-            document.getElementById("modelNo").value + '\n' +
-            'Certified Correct: ' +
-            document.getElementById("certified").value + '\n' +
-            'Date & Time: ' +
-            document.getElementById("DateAccepted").value
-            ;
-
-        if (document.getElementById('propertyNo').value === '' || document.getElementById('issuedTo').value === ''
-            || document.getElementById('yrAcquired').value === '' || document.getElementById('serialNo').value === ''
-            || document.getElementById('modelNo').value === '' || document.getElementById('certified').value === '') {
-            alert('Some fields are empty. Please enter details to generate QR code.');
-
-        } else {
-            document.getElementById("submit").disabled = false;
-            document.getElementById("qrimage").innerHTML = "<img src='https://chart.googleapis.com/chart?chs=" + encodeURIComponent(qrSizeResult) + "&cht=qr&chl=" + encodeURIComponent(data) + "'/>";
-        }
-    }
-
-</script>
-
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="{% static 'js/createQR.js' %}"></script>
+<!--- QR Code CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 {% endblock %}

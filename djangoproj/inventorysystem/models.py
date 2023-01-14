@@ -205,7 +205,7 @@ class acceptEquipmentRequests(models.Model):
     arequest_equipment_description = models.CharField(max_length=255, verbose_name='arequest_equipment_description')
     arequest_equipment_brand = models.CharField(max_length=50, verbose_name='arequest_equipment_brand')
     arequest_equipment_quantity = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='arequest_equipment_quantity')
-    arequest_equipment_remaining = models.DecimalField(max_digits=6,decimal_places=0, verbose_name='arequest_equipment_remaining')
+    arequest_equipment_remaining = models.DecimalField(null=True, max_digits=6,decimal_places=0, verbose_name='arequest_equipment_remaining')
     arequest_equipment_status = models.CharField(max_length=50, verbose_name='arequest_equipment_status')
     arequest_equipment_yearacquired = models.CharField(max_length=50, verbose_name='arequest_yearacquired')
     arequest_equipment_issued_to = models.CharField(max_length=50, verbose_name='arequest_equipment_issued_to')
