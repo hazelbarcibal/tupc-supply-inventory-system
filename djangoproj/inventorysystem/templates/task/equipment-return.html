@@ -176,7 +176,7 @@
                                 <textarea required rows="6" cols="60" name="returnequipment" id="propertyNum"
                                     onchange="disableFunction()"></textarea>
                                 <br>
-                                <input style=" width: 45%;" type="text" name="" class="form-control" placeholder="Reason" id="returnReason" required>
+                                <input style=" width: 45%;" type="text" name="returnReason" class="form-control" placeholder="Reason" id="returnReason" required>
                                 <br>
                                 <input type="hidden" name="property" id="property" readonly>
                                 <span><button onclick="getVal();" id="" type="submit" name = "returnBtn"
@@ -355,16 +355,16 @@ $(document).ready(function () {
         $('#openModal').modal({'backdrop': 'static'});
         $('h5.modal-title').html('Dispose Equipment: ' + table.row(this).data()[1]);
         $('#editId').val(table.row(this).data()[0]);
-        $('#propertyNo').val(table.row(this).data()[0]);
-        $('#itemname').val(table.row(this).data()[1]);
-        $('#description').val(table.row(this).data()[2]);
-        $('#brand').val(table.row(this).data()[3]);
-        $('#yearacquired').val(table.row(this).data()[4]);
-        $('#issuedto').val(table.row(this).data()[5]);
-        $('#modelno').val(table.row(this).data()[6]);
-        $('#serialno').val(table.row(this).data()[7]);
-        $('#certifiedcorrect').val(table.row(this).data()[8]);
-        $('#datereturn').val(table.row(this).data()[9]);
+        $('#propertyNo').val(table.row(this).data()[1]);
+        $('#itemname').val(table.row(this).data()[2]);
+        $('#description').val(table.row(this).data()[3]);
+        $('#brand').val(table.row(this).data()[4]);
+        $('#yearacquired').val(table.row(this).data()[5]);
+        $('#issuedto').val(table.row(this).data()[6]);
+        $('#modelno').val(table.row(this).data()[7]);
+        $('#serialno').val(table.row(this).data()[8]);
+        $('#certifiedcorrect').val(table.row(this).data()[9]);
+        $('#datereturn').val(table.row(this).data()[10]);
         // $('#location').val(table.row(this).data()[10]);
     });
 });

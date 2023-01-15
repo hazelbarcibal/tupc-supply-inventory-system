@@ -1523,14 +1523,14 @@ def depRequestEquipment(request):
                     if statusEquipmentRequest.objects.filter(status_equipment_itemname = request.POST.get('request_equipment_itemname')).filter(status_equipment_department = request.user).exists() == False:
                         requesting = requestequipment()
                         requesting.request_equipment_itemname = request.POST.get('request_equipment_itemname')
-                        requesting.request_equipment_quantity = request.POST.get('request_equipment_quantity')
+                        requesting.request_equipment_quantity = request.POST.get('request_equipment_addquantity')
                         requesting.request_equipment_department = str(request.user)
                         requesting.request_equipment_description = request.POST.get('request_equipment_description')
                         requesting.request_equipment_status = "pending"
                         requesting.request_equipment_daterequested = datetime.date.today()
                         status = statusEquipmentRequest()
                         status.status_equipment_itemname = request.POST.get('request_equipment_itemname')
-                        status.status_equipment_quantity = request.POST.get('request_equipment_quantity')
+                        status.status_equipment_quantity = request.POST.get('request_equipment_addquantity')
                         status.status_equipment_department = str(request.user)
                         status.status_equipment_description = request.POST.get('request_equipment_description')
                         status.status_equipment_status = "pending"
@@ -1656,6 +1656,14 @@ def createqrequipmentWithdraw(request, pk):
                     statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata2).delete()         
                     acceptEquipmentRequests.objects.filter(arequest_equipment_id = data1).delete()
                     statusEquipmentRequest.objects.filter(statusEquipmentRequests_id = getdata2).delete()
+                    update = equipmentmainstorage()
+                    update.equipmentmainstorage_department = request.POST.get('arequest_equipment_issued_to')
+                    update.equipmentmainstorage_itemName = request.POST.get('arequest_equipment_itemname')
+                    update.equipmentmainstorage_description = request.POST.get('arequest_equipment_description')
+                    update.equipmentmainstorage_brand = request.POST.get('arequest_equipment_brand')
+                    update.equipmentmainstorage_quantity = int(equipmentmainstorage.objects.get(equipmentmainstorage_department = request.POST.get('arequest_equipment_issued_to'), equipmentmainstorage_itemName = request.POST.get('arequest_equipment_itemname')).equipmentmainstorage_quantity) - int(1)
+                    equipmentmainstorage.objects.filter(equipmentmainstorage_department = request.POST.get('arequest_equipment_issued_to')).filter(equipmentmainstorage_itemName = request.POST.get('arequest_equipment_itemname')).delete()
+                    update.save()
                     accept.save()
                     messages.success(request, 'successfully withdraw')
                     return redirect('inventorysystem-equipmentWithdraw')
@@ -1733,6 +1741,7 @@ def equipmentReturn(request):
                     return1.return_equipment_model_no = getdata.withdraw_equipment_model_no
                     return1.return_equipment_serial_no = getdata.withdraw_equipment_serial_no
                     return1.return_equipment_certifiedcorrect = getdata.withdraw_equipment_certifiedcorrect
+                    return1.return_reason = request.POST.get('returnReason')
                     return1.save()
                     
                     changestats = withdrawequipment()
