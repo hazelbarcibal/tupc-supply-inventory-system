@@ -28,6 +28,20 @@ class department_form(models.Model):
     dep_form = models.FileField(null = True, upload_to='media')
 
 
+
+#---------- DEPARTMENT LIST TABLE ---------------
+
+class deptOffice(models.Model):
+    dept_office = models.CharField(max_length=250)
+   
+    def __str__(self):
+        return self.dept_office
+     
+    class Meta:
+        db_table = ('deptOffice')
+
+
+
 #-------------- SUPPLY MODELS -------------------
 class deliverysupply(models.Model):
 

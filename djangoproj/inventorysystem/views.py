@@ -338,10 +338,12 @@ def deptRegister(request):
             form = DeptRegisterForm(request.POST)
             if form.is_valid():
                 role = request.POST.get('deptRole')
-                dept = request.POST.get('department')
+                # dept = request.POST.get('department')
+                dept = form.cleaned_data.get('department')
                 username = request.POST.get('username')
                 email = request.POST.get('email')
                 password1 = request.POST.get('password1')
+                
 
                 if dept == '':
                     messages.info(request, 'Please add a department office.')
@@ -349,10 +351,13 @@ def deptRegister(request):
                 elif CustomUser.objects.filter(department = dept).exists() == True:
                     messages.info(request, 'There is already an existing account for ' + dept)
 
-                elif role == 'department':
+                elif CustomUser.objects.filter(department = dept).exists() == False and role == 'department':
                     form.instance.is_department = True
-
+                    saveToDept = deptOffice()
+                    saveToDept.dept_office = dept
+                    
                     form.save()
+                    saveToDept.save()
                     messages.success(request, 'Account was created for ' + dept)
                     subject = 'Account Registration'
                     message = "Good day! \nYour account has been successfully registered " + dept + "! \nYou can now access your account by logging in to the website: \nhttps://www.tupcsupplyinventorysystem.online \n\nUsername: " + username \
@@ -660,6 +665,7 @@ def statusLimit(request):
         label = request.user
         info = supplymainstorage.objects.all()
         info1 = limitrecords.objects.all()
+        dept = deptOffice.objects.all
         if request.method == 'POST':
             description = request.POST.get('non-existing_description')
             unit = request.POST.get('non-existing_unit')
@@ -749,6 +755,7 @@ def statusLimit(request):
             'info': info,
             'info1': info1,
             'label': label,
+            'dept': dept,
         }
         return render(request, 'task/status-limit.html', context)
     else:
@@ -1093,7 +1100,7 @@ def suppliesWithdraw(request):
                 supply_createform_inputs.objects.all().filter(createformsupply_inputs_department = withdraw_department).delete()
                 accept.save()
 
-                messages.success(request, 'successfully withdraw')
+                messages.success(request, 'successfully withdrawn')
                 return redirect('inventorysystem-suppliesWithdraw')
 
             elif supply_email.objects.filter(emailsupply_department = withdraw_department).filter(current_date = acceptSupplyRequests.objects.get(acceptSupplyRequests_id = getdata1).arequest_supply_daterequested).exists() == True:
@@ -1118,6 +1125,7 @@ def equipmentDeliver(request):
 
         label = request.user
         info = equipmentmainstorage.objects.all()
+        dept = deptOffice.objects.all()
         info3 = equipmentmainstorage.objects.filter(equipmentmainstorage_quantity = 0).delete()
         # info1 = deliveryequipment.objects.all()
         # info2 = requestequipment.objects.all()
@@ -1313,6 +1321,7 @@ def equipmentDeliver(request):
             'info': info,
             'info3': info3,
             'label': label,
+            'dept': dept,
 
         }
         return render(request, 'task/equipment-delivery.html', context)
@@ -1575,6 +1584,7 @@ def equipmentWithdraw(request):
         info1 = withdrawequipment.objects.all()
         info2 = custodian_slip.objects.all()
         info3 = receiptform_equipment.objects.all()
+        dept1 = deptOffice.objects.all()
 
         if 'create_form1' in request.POST:
             if request.POST.get('datepicker_ics') == '':
@@ -1602,6 +1612,7 @@ def equipmentWithdraw(request):
             'info2': info2,
             'info3': info3,
             'label': label,
+            'dept1': dept1,
         }
         return render(request, 'task/equipment-withdraw.html', context)
     else:

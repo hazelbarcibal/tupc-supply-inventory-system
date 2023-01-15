@@ -179,8 +179,13 @@
                                         <div class="col-xl-12 col-md-12 m-0">
                                             <form action="" method="post">
                                               {% csrf_token %}
-                                              <input type = "text" required placeholder="Department" list="department1" name="dept_office1" id="dept_office1" class="form-control" style="width: 20%; margin-bottom: 5px; margin-right: 0%;" >
-                                                <datalist id="department1">
+                                                <!-- <input type = "text" required placeholder="Department" list="department1" name="dept_office1" id="dept_office1" class="form-control" style="width: 20%; margin-bottom: 5px; margin-right: 0%;" > -->
+                                                <select name="dept_office1" id="dept_office1" class="form-select" required style="width: 20%; margin-bottom: 5px; margin-right: 0%;">
+                                                    {% for dept1 in dept1 %}
+                                                        <option value="{{ dept1.dept_office}}">{{ dept1.dept_office}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <!-- <datalist id="department1">
                                                     <option id="1" value="OCS_CASHIER_SERVICES"></option>
                                                     <option id="2" value="OES_EXTENSION_SERVICES"></option>
                                                     <option id="3" value="OGS_GUIDANCE_SERVICES"></option>
@@ -215,10 +220,11 @@
                                                     <option id="30" value="OCL_CAMPUS_LIBRARY"></option>
                                                     <option id="31" value="OCP_CAMPUS_PLANNING"></option>
                                                     <option id="32" value="OCR_CAMPUS_REGISTRAR"></option>
-                                                </datalist>
+                                                </datalist> -->
                                               <input type = "date" name="datepicker_ics" id="datepicker1" class="form-control" style="width: 20%; margin-bottom: 5px;" >
-                                              <span><button type="submit" name="create_form1" align="right"
-                                                class="btn btn-primary" onclick="getVal1();">CREATE FORM</button></span>
+                                                <span><button type="submit" name="create_form1" align="right"
+                                                    class="btn btn-primary" onclick="getVal1();">CREATE FORM</button>
+                                                </span>
                                             </form>
                                         </div>
                                         <h3 align="center">Inventory Custodian Slip</h3>
@@ -277,8 +283,13 @@
                                         <div class="col-xl-12 col-md-12 m-0">
                                             <form action="" method="post">
                                               {% csrf_token %}
-                                              <input type = "text" required placeholder="Department" list="department" name="dept_office2" id="dept_office2" class="form-control" style="width: 20%; margin-bottom: 5px; margin-right: 0%;" >
-                                                <datalist id="department">
+                                                <!-- <input type = "text" required placeholder="Department" list="department" name="dept_office2" id="dept_office2" class="form-control" style="width: 20%; margin-bottom: 5px; margin-right: 0%;" > -->
+                                                <select name="dept_office1" id="dept_office1" class="form-select" required style="width: 20%; margin-bottom: 5px; margin-right: 0%;">
+                                                    {% for dept1 in dept1 %}
+                                                        <option value="{{ dept1.dept_office}}">{{ dept1.dept_office}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <!-- <datalist id="department">
                                                     <option id="1" value="OCS_CASHIER_SERVICES"></option>
                                                     <option id="2" value="OES_EXTENSION_SERVICES"></option>
                                                     <option id="3" value="OGS_GUIDANCE_SERVICES"></option>
@@ -313,7 +324,7 @@
                                                     <option id="30" value="OCL_CAMPUS_LIBRARY"></option>
                                                     <option id="31" value="OCP_CAMPUS_PLANNING"></option>
                                                     <option id="32" value="OCR_CAMPUS_REGISTRAR"></option>
-                                                </datalist>
+                                                </datalist> -->
                                               <input type = "date" required name="datepicker_er" id="datepicker2" class="form-control" style="width: 20%; margin-bottom: 5px; margin-right: 0%;" >
                                               <span><button type="submit" name="create_form2" align="right"
                                                 class="btn btn-primary" onclick="getVal2();">CREATE FORM</button></span>

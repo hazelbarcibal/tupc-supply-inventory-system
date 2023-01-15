@@ -30,6 +30,14 @@
         background-color: black;
         border-radius: 5px;
     }
+
+    .col-md-12 select {
+        border: solid #3E3E3E 1.5px;
+    }
+
+    .col-md-12 input {
+        border: solid #3E3E3E 1.5px;
+    }
 </style>
 
 <div id="content-wrapper" class="d-flex flex-column">
@@ -231,9 +239,14 @@
                                                 <br>
                                                 <div class="col-md-12" style="text-align: left;">
                                                     <label>Department:</label>
-                                                    <input list="requestDepartment" type='text' name="non_existing_equipment_department"
-                                                        class="form-control" placeholder="Department" id="Department" required>
-                                                        <datalist id="requestDepartment">
+                                                    <!-- <input list="requestDepartment" type='text' name="non_existing_equipment_department"
+                                                        class="form-control" placeholder="Department" id="Department" required> -->
+                                                    <select name="non_existing_equipment_department" id="Department" class="form-select" required>
+                                                        {% for dept in dept %}
+                                                            <option value="{{ dept.dept_office}}">{{ dept.dept_office}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                        <!-- <datalist id="requestDepartment">
                                                             <option id="1" value="OCS_CASHIER_SERVICES"></option>
                                                             <option id="2" value="OES_EXTENSION_SERVICES"></option>
                                                             <option id="3" value="OGS_GUIDANCE_SERVICES"></option>
@@ -268,7 +281,7 @@
                                                             <option id="30" value="OCL_CAMPUS_LIBRARY"></option>
                                                             <option id="31" value="OCP_CAMPUS_PLANNING"></option>
                                                             <option id="32" value="OCR_CAMPUS_REGISTRAR"></option>
-                                                        </datalist>
+                                                        </datalist> -->
                                                 </div>
                                                 <br>
                                                 

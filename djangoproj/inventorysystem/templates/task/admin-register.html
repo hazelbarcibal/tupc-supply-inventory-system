@@ -18,6 +18,22 @@
         padding-top: 10px;
         padding-left: 45px;
     }
+
+    div.kahon {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        background: rgb(255, 255, 255) !important;
+        padding: 32px 25px;
+        height: inherit;
+        width: 80%;
+    }
+
+    .col-md-12 input {
+        border: solid #3E3E3E 1.5px;
+    }
+
+    .labels {
+    font-size: 11px
+}
 </style>
 
 
@@ -129,7 +145,7 @@
             <!------------------- Content Row ------------------->
             <div class="row">
 
-                <div class="col-xl-6 col-md-6 mb-4">
+                <!-- <div class="col-xl-6 col-md-6 mb-4">
                     <div class="container">
                         <div class="container">
                             <form action="" method="post">
@@ -181,7 +197,76 @@
                             <img src="{% static 'img/add-user.svg' %}" alt="add-admin-user">
                         </div>
                     </div>
+                </div> -->
+
+
+                <div class="container col-md-8 rounded kahon mb-5 mt-3">
+                    <div class="row">
+                        <div class="col-md-4 border-right">
+                            <div class="d-flex flex-column align-items-center text-center p-2">
+                                <br>
+                                <img class="mt-5" width="300px" src="{% static 'img/admin-register.svg' %}">
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="container-fluid">
+                                <div class="d-flex justify-content-between align-items-center mb-3 ml-3">
+                                    <h4 class="text-right">Admin User Registration</h4>
+                                </div>
+                               
+                                <div class="row">
+                                    <div class="container" align="left">
+                                        <form action="" method="post">
+                                            {% csrf_token %}
+            
+                                            <div class="col-md-12">
+                                                <label class="labels">Username:</label>
+                                                {{form.username}}
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="labels">Email:</label>
+                                                {{form.email}}
+                                            </div>
+            
+                                            <div class="col-md-12">   
+                                                <label class="labels">Password:</label>                                             
+                                                {{form.password1}}
+                                            </div>
+            
+                                            <div class="col-md-12 mb-3">  
+                                                <label class="labels">Confirm Password:</label>                       
+                                                {{form.password2}}
+                                            </div>
+            
+                                            <input type="hidden" name="adminRole" id="adminRole" value="admin" readonly>
+            
+                                            
+                                            <div class="col-md-12 mb-3 ml-5">
+                                                <input class="form-check-input" onclick="myFunction()" type="checkbox" id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                    Show password
+                                                </label>
+                                            </div>
+                                            
+                                            <div class="col-12">
+                                                <input type="submit" style="width: 100%;" onclick="getVal()" class="btn btn-success" value="Register">
+                                            </div>
+                                            <br>
+                                        </form>
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>
+    
+
+
+
+
 
 
             </div>

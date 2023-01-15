@@ -157,7 +157,7 @@ function pressBtn() {
         let userValue = issuedTo.value + '_' + propertyNo.value;
         // userValue = inputFormatter(userValue);
         downloadBtn.download = `${userValue}`;
-        setTimeout('getstatus()', 10000);
+        setTimeout('getstatus()', 6000);
         document.getElementById('download_link').style.pointerEvents="none";
         document.getElementById('download_link').style.cursor="default";
 

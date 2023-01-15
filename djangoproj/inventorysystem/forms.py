@@ -8,12 +8,30 @@ class UploadFileForm(forms.Form):
         file = forms.FileField()
 
 
+
 class DeptRegisterForm(UserCreationForm): 
-    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Username', 'name': 'username'}))
-    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
-    password1 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Password', 'id': 'regpass'}))
-    password2 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Retype Password', 'id': 'regpass'}))
-    department = forms.CharField(required=False, widget=forms.TextInput(attrs={'list': 'department', 'placeholder': 'Department', 'pattern': '^[A-Z]+(?:_[A-Z]+)*$', 'autocomplete': 'on'}))
+
+    offices = [
+        ('OCS_CASHIER_SERVICES', 'OCS_CASHIER_SERVICES'), ('OES_EXTENSION_SERVICES', 'OES_EXTENSION_SERVICES'), ('OGS_GUIDANCE_SERVICES', 'OGS_GUIDANCE_SERVICES'),
+        ('OHR_HUMAN_RESOURCES', 'OHR_HUMAN_RESOURCES'), ('OHS_HEALTH_SERVICES', 'OHS_HEALTH_SERVICES'), ('OIT_INFORMATION_TECHNOLOGY', 'OIT_INFORMATION_TECHNOLOGY'),
+        ('OSP_JOB_PLACEMENT', 'OSP_JOB_PLACEMENT'), ('OPR_PROCUREMENT', 'OPR_PROCUREMENT'), ('ORE_RESEARCH_AND_EXTENSION', 'ORE_RESEARCH_AND_EXTENSION'),
+        ('ORS_RESEARCH_SERVICES', 'ORS_RESEARCH_SERVICES'), ('OSA_STUDENT_AFFAIRS', 'OSA_STUDENT_AFFAIRS'), ('OSH_SECURITY_HOUSE', 'OSH_SECURITY_HOUSE'),
+        ('DID_INDUSTRIAL_EDUCATION', 'DID_INDUSTRIAL_EDUCATION'), ('DES_ENGINEERING_TECHNOLOGY', 'DES_ENGINEERING_TECHNOLOGY'), ('DLA_LIBERAL_ARTS', 'DLA_LIBERAL_ARTS'),
+        ('DMS_MATH_AND_SCIENCE', 'DMS_MATH_AND_SCIENCE'), ('DPECS_PHYSICAL_EDUCATION_CULTURAL_SPORTS', 'DPECS_PHYSICAL_EDUCATION_CULTURAL_SPORTS'), 
+        ('BETEEAP_EXPANDED_TERTIARY_EDUCATION_EQUIVALENCY_AND_ACCREDITATION', 'BETEEAP_EXPANDED_TERTIARY_EDUCATION_EQUIVALENCY_AND_ACCREDITATION'),
+        ('GAD_GENDER_AND_DEVELOPMENT', 'GAD_GENDER_AND_DEVELOPMENT'), ('IDO_INFRASTRUCTURE_DEVELOPMENT_OFFICE', 'IDO_INFRASTRUCTURE_DEVELOPMENT_OFFICE'), 
+        ('NSTP_NATIONAL_SERVICE_TRAINING_PROGRAM', 'NSTP_NATIONAL_SERVICE_TRAINING_PROGRAM'),
+        ('OAA_ACADEMIC_AFFAIRS', 'OAA_ACADEMIC_AFFAIRS'), ('OAD_ADMISSION', 'OAD_ADMISSION'), ('OAL_ALUMNI', 'OAL_ALUMNI'),
+        ('OAS_ADMIN_SERVICES', 'OAS_ADMIN_SERVICES'), ('OAX_AUXILIARY', 'OAX_AUXILIARY'), ('BA_BIDS_AND_AWARDS', 'BA_BIDS_AND_AWARDS'),
+        ('OBD_BUDGET_DEVELOPMENT', 'OBD_BUDGET_DEVELOPMENT'), ('OCD_CAMPUS_DIRECTOR', 'OCD_CAMPUS_DIRECTOR'), ('OCL_CAMPUS_LIBRARY', 'OCL_CAMPUS_LIBRARY'),
+        ('OCP_CAMPUS_PLANNING', 'OCP_CAMPUS_PLANNING'), ('OCR_CAMPUS_REGISTRAR', 'OCR_CAMPUS_REGISTRAR'),
+    ]
+
+    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Username', 'name': 'username', 'class': 'form-control'}))
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'form-control' }))
+    password1 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Password', 'id': 'regpass', 'class': 'form-control'}))
+    password2 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Confirm Password', 'id': 'regpass', 'class': 'form-control'}))
+    department = forms.ChoiceField(choices=offices, required=False, widget=forms.Select(attrs={'placeholder': 'Department', 'class': 'form-select'}))
 
     class Meta:
         model = CustomUser
@@ -21,10 +39,10 @@ class DeptRegisterForm(UserCreationForm):
 
 
 class AdminRegisterForm(UserCreationForm):
-    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Username'}))
-    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
-    password1 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Password', 'id': 'regpass'}))
-    password2 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Retype Password', 'id': 'regpass'}))
+    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Username', 'class': 'form-control'}))
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'form-control'}))
+    password1 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Password', 'id': 'regpass', 'class': 'form-control'}))
+    password2 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Confirm Password', 'class': 'form-control', 'id': 'regpass'}))
 
     class Meta:
         model = CustomUser
