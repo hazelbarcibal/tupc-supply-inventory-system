@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<title> Supplies Withdraw </title>
+<title> Release Supplies  </title>
 <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
@@ -144,6 +144,10 @@
             responsive: true,
             select: false,
             "columnDefs": [
+                {
+                "targets": [0],
+                "visible": false,
+                },
                 {
                 "targets": [5],
                 "visible": false,
@@ -295,7 +299,7 @@
                     <div class="container" style="margin-bottom: 0;">
                         <div class="container" style="margin-bottom: 0;">
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                <h1 class="h3 mb-0 text-gray-900">Withdraw Supplies</h1>
+                                <h1 class="h3 mb-0 text-gray-900">Release Supplies</h1>
                             </div>
 
                         </div>
@@ -343,7 +347,7 @@
                                         <td align="center">{{x.arequest_supply_status}}</td>
                                         <td align="center">
                                             <button class="btn btn-success editBtn" style="margin-bottom: 10px;"
-                                                name="editBtn">WITHDRAW</button>
+                                                name="editBtn">RELEASE</button>
                                         </td>
                                     </tr>
                                     {% endfor %}

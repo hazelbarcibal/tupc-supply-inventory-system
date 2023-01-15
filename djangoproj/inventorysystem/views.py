@@ -2063,7 +2063,7 @@ def export_excel(request):
         row_num5+= 1
 
         for col_num5 in range(len(row)):
-            ws5.write(row_num4, col_num5, str(row[col_num5]), font_style)
+            ws5.write(row_num5, col_num5, str(row[col_num5]), font_style)
 
     wb.save(response)
     return response

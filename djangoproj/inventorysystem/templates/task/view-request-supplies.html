@@ -177,6 +177,10 @@
             select: false,
             "columnDefs": [
                 {
+                "targets": [0],
+                "visible": false,
+                },
+                {
                 "targets": [5],
                 "visible": false,
                 },
@@ -325,7 +329,7 @@
                                 <h1 class="h3 mb-0 text-gray-900">Requested Supplies</h1>
                                 <div style="float: right;" class="btn-group btn-group-sm" role="group">
                                     <a type="button" href="{% url 'inventorysystem-suppliesWithdraw' %}"
-                                        class="btn btn-primary" >Withdraw Request</a>
+                                        class="btn btn-primary" >Release Request</a>
                                 </div>
     
                             </div>
@@ -486,6 +490,15 @@
                         },
                         responsive: true,
                         select: false,
+                        "columnDefs": [
+                            {
+                            "targets": [0],
+                            "visible": false,
+                            },
+    
+                            
+                            
+                        ]
                     });
 
                     $('#emailSupplyTable tbody').on('click', 'tr', function () {

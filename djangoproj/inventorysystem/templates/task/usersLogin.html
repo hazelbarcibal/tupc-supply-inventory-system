@@ -10,8 +10,11 @@
   <link
     href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
     rel="stylesheet">
-  <link rel="icon" href="{% static 'img/TUP LOGO.png'%}" type="image/x-icon">
-  <link rel="stylesheet" href="{% static 'css/login-style.css' %}" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="icon" href="{% static 'img/TUP LOGO.png'%}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/login-style.css' %}" />
 
   <title>Supply Inventory | Log-in</title>
 </head>
@@ -19,108 +22,84 @@
 
 <body>
   <div class="container">
-    <div class="overlay">
-
-
-      <div class="forms-container">
-        <div class="signin-signup">
+    <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="panel panel-login">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-xs-6">
+              <a href="#" class="active" id="login-form-link">ADMIN</a>
+            </div>
+            <div class="col-xs-6">
+              <a href="#" id="register-form-link">DEPARTMENT</a>
+            </div>
+          </div>
+          <hr>
+        </div>
+        <div class="panel-body">
 
           <!-- Admin login form -->
-          <form action="" method="post" class="sign-in-form" id="login">
-            {% csrf_token %}
-            <div class="overlay-form">
+                <form action="" method="post" class="sign-in-form" id="login-form" style="display: block;">
+                  {% csrf_token %}
+                  <div class="overlay-form">
 
-              <h2 class="title">Admin Sign-in</h2>
+                    <h2 class="title">Admin Sign-in</h2>
+                    <br>
+                    <div class="input-field">
+                      <i class="fas fa-user"></i>
+                      <input type="text" id="lg-username" name="logname" placeholder="Username" required />
+                    </div>
+                    <div class="input-field">
+                      <i class="fas fa-lock"></i>
+                      <input type="password" id="logpass1" name="logpass1" placeholder="Password" required />
+                    </div>
+                    <div class="col-md-12" style="text-align: left; margin: 0; padding: 0;">
+                      <input type="checkbox" onclick="showpass1()" class="custom-control-input" id="customControlInline">
+                      <label class="custom-control-label" for="customControlInline"
+                        style=" padding-left: 5px;">Show password</label>
+                    </div>
+                    <input type="submit" name="submit" value="Login" class="btn solid" />
+                    <br>
+                    <a class="link" href="{% url 'inventorysystem-passwordChange' %}" >Forgot password?</a>
+                  </div>
+                </form>
 
-              <div class="input-field">
-                <i class="fas fa-user"></i>
-                <input type="text" id="lg-username" name="logname" placeholder="Username" required />
-              </div>
-              <div class="input-field">
-                <i class="fas fa-lock"></i>
-                <input type="password" id="logpass1" name="logpass1" placeholder="Password" required />
-              </div>
-              <div class="col-md-12" style="text-align: left; margin: 0; padding: 0;">
-                <input type="checkbox" onclick="showpass1()" class="custom-control-input" id="customControlInline">
-                <label class="custom-control-label" for="customControlInline"
-                  style="color: #ffff; padding-left: 5px;">Show password</label>
-              </div>
-              <input type="submit" name="submit" value="Login" class="btn solid" />
-              <br>
-              <a class="link" href="{% url 'inventorysystem-passwordChange' %}" style="color: #fff;">Forgot password?</a>
-            </div>
-
-
-
-          </form>
-
-
-
-          <!--- Department login form-->
-          <form action="" method="post" class="sign-up-form" id="signup">
-            {% csrf_token %}
-            <div class="overlay-form">
-              <h2 class="title">Department Sign-in</h2>
-              <div class="input-field">
-                <i class="fas fa-user"></i>
-                <input type="text" id="sg-username" name="logusername" placeholder="Username" required />
-              </div>
-              <!-- <div class="input-field">
-                <i class="fas fa-envelope"></i>
-                <input type="email" id="sg-email" name="email2" placeholder="Email" required />
-              </div> -->
-              <div class="input-field">
-                <i class="fas fa-lock"></i>
-                <input type="password" id="logpass2" name="logpass2" placeholder="Password" required />
-              </div>
-              <div class="col-md-12" style="text-align: left;">
-                <input type="checkbox" onclick="showpass2()" class="custom-control-input" id="customControlInline">
-                <label class="custom-control-label" for="customControlInline"
-                  style="color: #ffff; padding-left: 5px;">Show password</label>
-              </div>
-              <input type="submit" name="submit1" class="btn" value="Login" />
-              <br>
-              <a class="link" href="{% url 'inventorysystem-passwordChange' %}" style="color: #fff;">Forgot password?</a>
-            </div>
+              <!--- Department login form-->
+              <form action="" method="post" class="sign-up-form" id="register-form"  role="form" style="display: none;">
+                {% csrf_token %}
+                <div class="overlay-form">
+                  <h2 class="title">Department Sign-in</h2>
+                  <br>
+                  <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="sg-username" name="logusername" placeholder="Username" required />
+                  </div>
+                  <!-- <div class="input-field">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="sg-email" name="email2" placeholder="Email" required />
+                  </div> -->
+                  <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="logpass2" name="logpass2" placeholder="Password" required />
+                  </div>
+                  <div class="col-md-12" style="text-align: left;">
+                    <input type="checkbox" onclick="showpass2()" class="custom-control-input" id="customControlInline">
+                    <label class="custom-control-label" for="customControlInline"
+                      style="padding-left: 5px;">Show password</label>
+                  </div>
+                  <input type="submit" name="submit1" class="btn" value="Login" />
+                  <br>
+                  <a class="link" href="{% url 'inventorysystem-passwordChange' %}" >Forgot password?</a>
+                </div>
 
 
-          </form>
-        </div>
-      </div>
-
-
-      <!-- Panel animation -->
-      <div class="panels-container">
-        <div class="panel left-panel">
-          <div class="content">
-            <h3>Part of Faculty?</h3>
-            <p>
-              hit that sign-in button to sign-in to your account!
-            </p>
-            <button class="btn transparent" id="sign-up-btn" style="color: rgb(255, 255, 255);">
-              Sign-in
-            </button>
-          </div>
-          <img src="{% static '/img/department.svg' %}" class="image" alt="department" />
-        </div>
-
-
-        <div class="panel right-panel">
-          <div class="content">
-            <h3>Part of Administration?</h3>
-            <p>
-              hit that sign-in button to log back in!
-            </p>
-            <button class="btn transparent" id="sign-in-btn" style="color: #fff;">
-              Sign in
-            </button>
-          </div>
-          <img src="{% static 'img/admin.svg' %}" class="image" alt="mobile" />
+              </form>
         </div>
       </div>
     </div>
+    </div>
   </div>
-  </div>
+
 
 
 
@@ -138,6 +117,28 @@
 </script>
 {% endif %}
 {% endfor %}
+
+
+<script type="text/javascript">
+  $(function() {
+
+    $('#login-form-link').click(function(e) {
+    $("#login-form").delay(100).fadeIn(100);
+    $("#register-form").fadeOut(100);
+    $('#register-form-link').removeClass('active');
+    $(this).addClass('active');
+    e.preventDefault();
+    });
+    $('#register-form-link').click(function(e) {
+    $("#register-form").delay(100).fadeIn(100);
+    $("#login-form").fadeOut(100);
+    $('#login-form-link').removeClass('active');
+    $(this).addClass('active');
+    e.preventDefault();
+    });
+
+});
+</script>
 
 <script type="text/javascript">
   function showpass1() {
