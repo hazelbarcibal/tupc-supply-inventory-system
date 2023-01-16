@@ -2301,3 +2301,10 @@ def export_pdf_equipment_icscreateform(request):
                 response.write(output.read())
 
             return response
+
+def Helpcenter(request):
+     return render(request, 'task/helpcenter.html',)
+
+
+def Helpcenterdep(request):
+     return render(request, 'task/helpcenterdep.html',)
