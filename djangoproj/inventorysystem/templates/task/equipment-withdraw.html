@@ -284,7 +284,7 @@
                                             <form action="" method="post">
                                               {% csrf_token %}
                                                 <!-- <input type = "text" required placeholder="Department" list="department" name="dept_office2" id="dept_office2" class="form-control" style="width: 20%; margin-bottom: 5px; margin-right: 0%;" > -->
-                                                <select name="dept_office1" id="dept_office1" class="form-select" required style="width: 20%; margin-bottom: 5px; margin-right: 0%;">
+                                                <select name="dept_office2" id="dept_office2" class="form-select" required style="width: 20%; margin-bottom: 5px; margin-right: 0%;">
                                                     {% for dept1 in dept1 %}
                                                         <option value="{{ dept1.dept_office}}">{{ dept1.dept_office}}</option>
                                                     {% endfor %}

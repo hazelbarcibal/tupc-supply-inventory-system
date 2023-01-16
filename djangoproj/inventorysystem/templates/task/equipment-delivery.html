@@ -193,9 +193,9 @@
                                                     <td align="center">{{x.equipmentmainstorage_quantity}}</td>
                                                     <td align="center">
                                                         <button class="btn btn-success editBtn" style="margin-bottom: 10px; font-size: 13px;"
-                                                            name="editBtn">ADD</button>
+                                                            name="editBtn" >ADD</button>
                                                         <button class="btn btn-success editBtn1" style="margin-bottom: 10px; font-size: 13px;"
-                                                            name="editBtn1">DEDUCT</button>
+                                                            name="editBtn1"> DEDUCT</button>
                                                     </td>
                                                 </tr>
                                                 {% endfor %}
@@ -371,28 +371,28 @@
 
                     <div class="col-md-12">
                         <label class="form-label">Department:</label>
-                        <input type="text" class="form-control" id="department2" name="limit_department" readonly>
+                        <input type="text" class="form-control" id="department2" name="adding_department" readonly>
                     </div>
 
                     <div class="col-md-12">
                         <label class="form-label">Item Name:</label>
-                        <input type="text" class="form-control" id="itemname2" name="limit_itemname" readonly>
+                        <input type="text" class="form-control" id="itemname2" name="adding_itemname" readonly>
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label">Quantity:</label>
-                        <input type="number" min="1" class="form-control" id="quantity2" name="limit_quantity" readonly>
+                        <input type="number" min="1" class="form-control" id="quantity2" name="adding_quantity" readonly>
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label">Add Quantity:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
-                        <input type="number" min="1" class="form-control" id="addquantity" name="limit_addquantity"
+                        <input type="number" min="1" class="form-control" id="addquantity" name="adding_addquantity"
                             required>
                     </div>
 
                     <div class="modal-footer">
                         <div class="col-12">
-                            <button style="float: right; " type="submit" name="update_limit"
+                            <button style="float: right; " type="submit" name="adding_limit"
                                 class="btn btn-primary">ADD</button>
                         </div>
                     </div>
@@ -421,28 +421,28 @@
 
                     <div class="col-md-12">
                         <label class="form-label">Department:</label>
-                        <input type="text" class="form-control" id="department1" name="deduct_department" readonly>
+                        <input type="text" class="form-control" id="department1" name="deduct_equipment_department" readonly>
                     </div>
 
                     <div class="col-md-12">
                         <label class="form-label">Item Name:</label>
-                        <input type="text" class="form-control" id="itemname1" name="deduct_itemname" readonly>
+                        <input type="text" class="form-control" id="itemname1" name="deduct_equipment_itemname" readonly>
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label">Quantity:</label>
-                        <input type="number" min="1" class="form-control" id="quantity1" name="deduct_quantity" readonly>
+                        <input type="number" min="1" class="form-control" id="quantity1" name="deduct_equipment_quantity" readonly>
                     </div>
 
                     <div class="col-md-6">
                        <label class="form-label">Deduct Quantity:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
-                        <input type="number" min="1" class="form-control" id="addquantity" name="deduct_addquantity"
+                        <input type="number" min="1" class="form-control" id="addquantity" name="deduct_equipment_addquantity"
                             required>
                     </div>
 
                     <div class="modal-footer">
                         <div class="col-12">
-                            <button style="float: right; " type="submit" name="deduct"
+                            <button style="float: right; " type="submit" name="deduct_limit"
                                 class="btn btn-primary">DEDUCT</button>
                         </div>
                     </div>

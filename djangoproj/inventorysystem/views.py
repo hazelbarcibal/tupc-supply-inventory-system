@@ -1156,6 +1156,38 @@ def equipmentDeliver(request):
                         # history_deliver.save()
                         messages.success(request, 'successfully add the equipment!')
 
+            if 'adding_limit' in request.POST:
+
+                if int(request.POST.get('adding_quantity')) < int(request.POST.get('adding_addquantity')):
+                     messages.info(request, 'invalid quantity')
+
+                elif int(request.POST.get('adding_quantity')) >= int(request.POST.get('adding_addquantity')):
+                        deliver_equip1 = equipmentmainstorage()
+                        deliver_equip1.equipmentmainstorage_department = request.POST.get('adding_department')
+                        deliver_equip1.equipmentmainstorage_itemName = request.POST.get('adding_itemname')
+                        deliver_equip1.equipmentmainstorage_quantity = int(request.POST.get('adding_quantity')) + int(request.POST.get('adding_addquantity'))
+                        equipmentmainstorage.objects.filter(equipmentmainstorage_department = request.POST.get('adding_department')).filter(equipmentmainstorage_itemName = request.POST.get('adding_itemname')).delete()
+                        deliver_equip1.save()
+                        messages.success(request, 'successfully add the equipment!')
+
+
+            if 'deduct_limit' in request.POST:
+
+                if int(request.POST.get('deduct_equipment_addquantity')) > int(request.POST.get('deduct_equipment_quantity')):
+                     messages.info(request, 'invalid quantity')
+
+                elif int(request.POST.get('deduct_equipment_addquantity')) <= int(request.POST.get('deduct_equipment_quantity')):
+                        deliver_equip2 = equipmentmainstorage()
+                        deliver_equip2.equipmentmainstorage_department = request.POST.get('deduct_equipment_department')
+                        deliver_equip2.equipmentmainstorage_itemName = request.POST.get('deduct_equipment_itemname')
+                        deliver_equip2.equipmentmainstorage_quantity = int(request.POST.get('deduct_equipment_quantity')) - int(request.POST.get('deduct_equipment_addquantity'))
+                        equipmentmainstorage.objects.filter(equipmentmainstorage_department = request.POST.get('deduct_equipment_department')).filter(equipmentmainstorage_itemName = request.POST.get('deduct_equipment_itemname')).delete()
+                        deliver_equip2.save()
+                        messages.success(request, 'successfully deduct the equipment quantity!')
+
+
+            
+
         #     form = deliveryEquipmentForm(request.POST)
 
         #     if 'delivery_dep' in request.POST:
@@ -1856,7 +1888,7 @@ def storagelocationSupplies(request):
                 supplymainstorage.objects.filter(supplymainstorage_description = request.POST.get('supplyItemName')).delete()
                 locsave.save()
                 messages.success(request, 'Successfully updated storage mapping for item ' + item)
-                return redirect('inventorysystem-storageMapping')
+                return redirect('inventorysystem-storagelocationSupplies')
 
 
 
