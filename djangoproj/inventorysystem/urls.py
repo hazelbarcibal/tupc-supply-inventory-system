@@ -63,6 +63,9 @@ urlpatterns = [
     path('upload-supply-pdf/', views.uploadsupplypdf, name='upload-supply-pdf'),
 
     path('dep-withdrawn-items/', views.depWithdrawnItems, name='inventorysystem-depWithdrawnItems'),
+    
+    path('helpcenter/', views.Helpcenter, name='inventorysystem-helpcenter'),
+    path('helpcenterdep/', views.Helpcenterdep, name='inventorysystem-helpcenterdep'),
 ]
 
 
