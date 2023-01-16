@@ -181,6 +181,7 @@
                                                     <th style="text-align: center;">Department</th>
                                                     <th style="text-align: center;">Item Name</th>
                                                     <th style="text-align: center;">Quantity</th>
+                                                    <th style="text-align: center;">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -190,6 +191,12 @@
                                                     <td align="center">{{x.equipmentmainstorage_department}}</td>
                                                     <td align="center">{{x.equipmentmainstorage_itemName}}</td>
                                                     <td align="center">{{x.equipmentmainstorage_quantity}}</td>
+                                                    <td align="center">
+                                                        <button class="btn btn-success editBtn" style="margin-bottom: 10px; font-size: 13px;"
+                                                            name="editBtn">ADD</button>
+                                                        <button class="btn btn-success editBtn1" style="margin-bottom: 10px; font-size: 13px;"
+                                                            name="editBtn1">DEDUCT</button>
+                                                    </td>
                                                 </tr>
                                                 {% endfor %}
                                             </tbody>
@@ -231,6 +238,14 @@
                                                 <br>
                                                 <div class="col-md-12" style="text-align: left;">
                                                     <label>Department:</label>
+                                                    <select name="non_existing_equipment_department" id="Department" class="form-select" required>
+                                                        {% for dept in dept %}
+                                                            <option value="{{ dept.dept_office}}">{{ dept.dept_office}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <!-- <div class="col-md-12" style="text-align: left;">
+                                                    <label>Department:</label>
                                                     <input list="requestDepartment" type='text' name="non_existing_equipment_department"
                                                         class="form-control" placeholder="Department" id="Department" required>
                                                         <datalist id="requestDepartment">
@@ -269,7 +284,7 @@
                                                             <option id="31" value="OCP_CAMPUS_PLANNING"></option>
                                                             <option id="32" value="OCR_CAMPUS_REGISTRAR"></option>
                                                         </datalist>
-                                                </div>
+                                                </div> -->
                                                 <br>
                                                 
                                                 <div class="col-12" style="text-align: left;">
@@ -337,6 +352,146 @@
     </div>
     <!-- End of Main Content -->
 
+    <!----- UPDATE  MODAL ----->
+<div class="modal fade" id="openModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!----- UPDATE STATUS FORM ---->
+                <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <input type="hidden" id="editId" name="limit_id" value="" readonly>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Department:</label>
+                        <input type="text" class="form-control" id="department2" name="limit_department" readonly>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Item Name:</label>
+                        <input type="text" class="form-control" id="itemname2" name="limit_itemname" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Quantity:</label>
+                        <input type="number" min="1" class="form-control" id="quantity2" name="limit_quantity" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Add Quantity:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
+                        <input type="number" min="1" class="form-control" id="addquantity" name="limit_addquantity"
+                            required>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="col-12">
+                            <button style="float: right; " type="submit" name="update_limit"
+                                class="btn btn-primary">ADD</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!----- DEDUCT  MODAL ----->
+<div class="modal fade" id="openModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!----- UPDATE STATUS FORM ---->
+                <form action="" method="POST" class="row g-3" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <input type="hidden" id="editId1" name="deduct_id" value="" readonly>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Department:</label>
+                        <input type="text" class="form-control" id="department1" name="deduct_department" readonly>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Item Name:</label>
+                        <input type="text" class="form-control" id="itemname1" name="deduct_itemname" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Quantity:</label>
+                        <input type="number" min="1" class="form-control" id="quantity1" name="deduct_quantity" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                       <label class="form-label">Deduct Quantity:</label><span style="color: red; font-size: 18px; font-weight: bold;">* </span>
+                        <input type="number" min="1" class="form-control" id="addquantity" name="deduct_addquantity"
+                            required>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="col-12">
+                            <button style="float: right; " type="submit" name="deduct"
+                                class="btn btn-primary">DEDUCT</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.editBtn').on('click', function () {
+
+            $('#openModal').modal({'backdrop': 'static'});
+            $tr = $(this).closest('tr');
+            var data = $tr.children("td").map(function () {
+                return $(this).text();
+            }).get();
+
+            console.log(data);
+            $('h5.modal-title').html('Add Limit');
+            $('#editId').val(data[0]);
+            $('#department2').val(data[0]);
+            $('#itemname2').val(data[1]);
+            $('#quantity2').val(data[2]);
+        });
+    });
+
+    $(document).ready(function () {
+        $('.editBtn1').on('click', function () {
+
+            $('#openModal1').modal({'backdrop': 'static'});
+            $tr = $(this).closest('tr');
+            var data = $tr.children("td").map(function () {
+                return $(this).text();
+            }).get();
+
+            console.log(data);
+            $('h5.modal-title').html('Deduct Limit');
+            $('#editId1').val(data[0]);
+            $('#department1').val(data[0]);
+            $('#itemname1').val(data[1]);
+            $('#quantity1').val(data[2]);
+
+        });
+    });
+    
+</script>
+
     <!------------------------------------ Footer ------------------------------------->
     <footer class="sticky-footer footer ">
         <div class="container my-auto">
@@ -361,7 +516,15 @@
             rowReorder: {
                 selector: 'td:nth-child(2)'
             },
-            responsive: true
+            responsive: true,
+            select: false,
+                "columnDefs": [
+                    {
+                    "targets": [0],
+                    "visible": false,
+                    },
+     
+                ]
         });
     });
 
