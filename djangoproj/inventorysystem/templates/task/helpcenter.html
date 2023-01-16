@@ -1,0 +1,754 @@
+{% extends 'task/dashboard.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<title> Help Center </title>
+<link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/rowreorder/1.2.8/js/dataTables.rowReorder.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://kit.fontawesome.com/63519495ef.js" crossorigin="anonymous"></script>
+
+
+<style>
+    .btn1 {
+        background-color: #ad413a;
+        border: 1px solid black;
+        border-radius: 5px;
+        color: white;
+        padding: 10px 24px;
+        cursor: pointer;
+        text-decoration: none;
+
+    }
+
+    .col-md-12 input {
+        border: solid #3E3E3E 1.5px;
+    }
+
+
+    .col-md-6 input {
+        border: solid #3E3E3E 1.5px;
+    }
+
+    .btn1:hover {
+        text-decoration: none;
+        background: #9c2e26;
+        color: white;
+    }
+
+    .btn1-group button {
+        background-color: #ad413a;
+        border: 1px solid black;
+        color: white;
+        padding: 10px 24px;
+        cursor: pointer;
+        float: right;
+        border-radius: 5px;
+    }
+
+
+    .btn1-group button:not(:last-child) {
+        border-right: none;
+        /* Prevent double borders */
+    }
+
+    /* Clear floats (clearfix hack) */
+    .btn1-group:after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    /* Add a background color on hover */
+    .btn1-group button:hover {
+        background-color: #4d0d09;
+    }
+
+    .kahon {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 10px;
+        background: rgb(255, 255, 255);
+        padding: 32px 25px;
+
+    }
+
+    hr {
+        border: 1px solid;
+        background-color: black;
+        border-radius: 5px;
+    }
+</style>
+
+
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!---------------------------- Main Content ----------------------------------->
+
+    <div id="content" class="main-content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-dark topnav topbar mb-4 static-top shadow">
+
+            <!-- Sidebar Toggle (Topbar) -->
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+            </button>
+
+
+            <!-- Topbar Navbar -->
+            <ul class="navbar-nav ml-auto">
+
+                <div class="topbar-divider d-none d-sm-block"></div>
+
+                <!-- Nav Item - User Information -->
+                <li class="nav-item dropdown no-arrow">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small">Welcome, {{label.username}}!</span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-100 small"></span>
+                        <img class="img-profile rounded-circle"
+                            src="{% static 'img/sb-dashboard/undraw_profile.svg' %}">
+                    </a>
+                    <!-- Dropdown - User Information -->
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="{% url 'inventorysystem-adminProfileUpdate' %}">
+                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Manage Account
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Logout
+                        </a>
+                    </div>
+                </li>
+
+            </ul>
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="{% url 'inventorysystem-logout' %}">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!----------------------------------- Begin Page Content ----------------------------->
+
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="container">
+                    <div class="container" style="margin-bottom: 0;">
+                        <div class="container" style="margin-bottom: 0;">
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-900">Supply Inventory System Help Center</h1>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-content"   >
+                    <div class="modal-header">
+                      <h3 align="center"></h3>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button><br>
+                  
+                    </div>
+                    <div class="container">
+                        <div class="modal-body">
+                            <h3 align="center">How can we help you? <p></p> Choose help topics</h3>
+                            <h5>Supplies</h5>
+                            <button type="button" class="btn" data-toggle="collapse" data-target="#demo">See more..</button>            
+                            <div id="demo" class="collapse">
+                              <button type="button" class="btn" data-toggle="collapse" data-target="#suply1">Delivery For Supplies</button><br>
+                              <div align="center" style="background-color: white; padding-left: 10px;" id="suply1" class="collapse">
+                                <hr>
+                                <h6 >Recording Delivery on Supply</h6>
+                                <button type="button" class="btn" data-toggle="collapse" data-target="#delivery"> View Image</button>
+                                <div align="center" id="delivery" class="collapse">
+                                    <i><img src="{% static 'usermanual picture/delivery.png' %}"
+                                        style="width:50%; height:50%; "></img></i>
+                                </div>
+                                <br>
+                                -For the admin to records all upcoming supplies deliveries the admins must follow the process below
+                                <li>Click the “Supplies” dropdown button in your navigation bar</li>
+                                <button type="button" class="btn" data-toggle="collapse" data-target="#delivery1">View Image</button>
+                                <div align="center" id="delivery1" class="collapse">
+                                    <i><img src="{% static 'usermanual picture/delivery1.png' %}"
+                                        style="width:20%; height:20%; "></img></i>
+                                </div>
+                                <br>
+                                <li>Click the “Delivery” button</li><br>
+                                <button type="button" class="btn" data-toggle="collapse" data-target="#delivery2">View Image</button>
+                                <div align="center" id="delivery2" class="collapse">
+                                    <i><img src="{% static 'usermanual picture/delivery2.png' %}"
+                                        style="width:50%; height:50%; "></img></i>
+                                </div><br>
+                                -The admin need to identify if the supply is already recorded or not<br>
+                                
+                                <br>
+                                
+                                
+                                
+                                
+                                <button type="button" class="btn" data-toggle="collapse" data-target="#newsupply"><h6 >For Recording New Supplies</h6></button>
+                                <div id="newsupply" class="collapse">
+                                    <hr>
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#deliverynew">View Image</button>
+                                    <div align="center" id="deliverynew" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/deliverynew.png' %}"
+                                            style="width:50%; height:50%; "></img></i>
+                                    </div>
+                                    <li>Input all the information needed in recording</li>
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#deliverynew1">View Image</button>
+                                    <div align="center"  id="deliverynew1" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/deliverynew1.png' %}"
+                                            style="width:50%; height:50%; "></img></i>
+                                    </div>
+                                    <li>Then Click the “Deliver” button </li>
+                                    <hr>
+                                </div><br>
+                                <button align="center" type="button" class="btn" data-toggle="collapse" data-target="#exissupply"><h6>For Recording Existing/Already Recorded Supplies</h6></button>
+                                <div  id="exissupply" class="collapse">
+                                    <hr>
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#deliveryexist">View Image</button>
+                                    <div align="center"  id="deliveryexist" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/deliveryexist.png' %}"
+                                            style="width:50%; height:50%; "></img></i>
+                                    </div>
+                                    <li>Choose the item/supply </li>
+                                    <li>Click the Green Button “+ADD”  </li>
+                                    <br>
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#deliveryexist1">View Image</button>
+                                    <div align="center"  id="deliveryexist1" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/deliveryexist1.png' %}"
+                                            style="width:30%; height:30%; "></img></i>
+                                    </div>
+                                    <li>Input the quantity that you want to add</li>
+                                    <li>Then  click the “ADD” button</li>
+                                    <br>
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#deliveryexist2">View Image</button>
+                                    <div align="center" id="deliveryexist2" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/deliveryexist2.png' %}"
+                                            style="width:50%; height:50%; "></img></i>
+                                    </div>
+                                    
+                                    
+                                    <hr>
+                                </div>
+                                <hr>
+                            </div>
+                              <button type="button" class="btn" data-toggle="collapse" data-target="#reqsup">Requested Supplies</button><br>
+                              <div align="center" style="background-color: white; padding-left: 10px;" id="reqsup" class="collapse">
+                                <hr>
+                                <h6>The admin can view or accept all the request of other department </h6>
+                                <button type="button" class="btn" data-toggle="collapse" data-target="#viewreq">View Image</button>
+                                    <div align="center" id="viewreq" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/viewreq.png' %}"
+                                            style="width:50%; height:50%; "></img></i>
+                                    </div><br>
+                                    <li>Select the “Requested Supplies” under the Supplies section in your Navigation bar</li>
+                                <button type="button" class="btn" data-toggle="collapse" data-target="#viewreq1">View Image</button>
+                                <div align="center" id="viewreq1" class="collapse">
+                                    <i><img src="{% static 'usermanual picture/viewreq1.png' %}"
+                                        style="width:50%; height:50%; "></img></i>
+                                </div><br>
+                                <li>Select the item you want to accept by clicking the green button “ACCEPT”</li>
+                                <button type="button" class="btn" data-toggle="collapse" data-target="#viewreq2">View Image</button>
+                                <div align="center" id="viewreq2" class="collapse">
+                                    <i><img src="{% static 'usermanual picture/viewreq2.png' %}"
+                                        style="width:40%; height:40%; "></img></i>
+                                </div><br>
+                                <li>Input all the information needed in accepting an request</li>
+                                <li>Then click the submit button “Accept Request”</li>
+                                <button type="button" class="btn" data-toggle="collapse" data-target="#viewreq3">View Image</button>
+                                <div align="center" id="viewreq3" class="collapse">
+                                    <i><img src="{% static 'usermanual picture/viewreq3.png' %}"
+                                        style="width20%; height:20%; "></img></i>
+                                </div><br>
+                                <button type="button" class="btn" data-toggle="collapse" data-target="#viewreq4">View Image</button>
+                                <div align="center" id="viewreq4" class="collapse">
+                                    <i><img src="{% static 'usermanual picture/viewreq4.png' %}"
+                                        style="width:50%; height:50%; "></img></i>
+                                </div><br>
+                                <h6>To notify the other department on the status of their request you need to email them</h6>
+                                <li>Select an request</li>
+                                <li>Click the green button “EMAIL”</li>
+                                <li>Click “Email”</li>
+                                
+                                
+                                
+                                
+                                
+                                <hr>
+                            </div>
+                              <button type="button" class="btn" data-toggle="collapse" data-target="#withdrawsup">Withdraw Supplies</button><br>
+                              <div align="center" style="background-color: white; padding-left: 10px;" id="withdrawsup" class="collapse">
+                                <hr>
+                                <button type="button" class="btn" data-toggle="collapse" data-target="#withdraw">View Image</button>
+                                <div align="center" id="withdraw" class="collapse">
+                                    <i><img src="{% static 'usermanual picture/withdraw.png' %}"
+                                        style="width:50%; height:50%; "></img></i>
+                                </div><br>
+                                -After accepting the request and notify other departments and the representative of that department is ready to pick up the supply  you may now withdraw the supplies
+                                <li>Select the “Withdraw Supplies” under the Supplies section in your Navigation bar</li>
+                                <button type="button" class="btn" data-toggle="collapse" data-target="#withdraw1">View Image</button>
+                                <div align="center" id="withdraw1" class="collapse">
+                                    <i><img src="{% static 'usermanual picture/withdraw1.png' %}"
+                                        style="width:50%; height:50%; "></img></i>
+                                </div><br>
+                                <li>Select an request</li>
+                                <li>Click the green button “WITHDRAW”</li>
+                                <button type="button" class="btn" data-toggle="collapse" data-target="#withdraw2">View Image</button>
+                                <div align="center" id="withdraw2" class="collapse">
+                                    <i><img src="{% static 'usermanual picture/withdraw2.png' %}"
+                                        style="width:30%; height:30%; "></img></i>
+                                </div><br>
+                                <li>Click the button “ok” if all the information are correct</li>
+                                <button type="button" class="btn" data-toggle="collapse" data-target="#withdraw3">View Image</button>
+                                <div align="center" id="withdraw3" class="collapse">
+                                    <i><img src="{% static 'usermanual picture/withdraw3.png' %}"
+                                        style="width:30%; height:30%; "></img></i>
+                                </div><br>
+                                
+                                
+                               
+                                <hr>
+                            </div>
+                              <button  type="button" class="btn" data-toggle="collapse" data-target="#limitsup">Limit Supplies</button> <br>
+                              <div align="center" style="background-color: white; padding-left: 10px;" id="limitsup" class="collapse">
+                                <hr>
+                                <button type="button" class="btn" data-toggle="collapse" data-target="#limit">View Image</button>
+                                <div align="center" id="limit" class="collapse">
+                                    <i><img src="{% static 'usermanual picture/limit.png' %}"
+                                        style="width:50%; height:50%; "></img></i>
+                                </div><br>
+                                -The Admin can limit the amount of supplies for each departments request 
+                                <li>Click the “Li   mit Supplies” under the supplies on your navigation bar
+                                </li>
+                                                                     
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#newlimit"><h6 >For  New Limit</h6></button><br>
+                                <div id="newlimit" class="collapse">
+                                    <hr>
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#limit1">View Image</button>
+                                    <div align="center" id="limit1" class="collapse">
+                                    <i><img src="{% static 'usermanual picture/limit1.png' %}"
+                                        style="width:50%; height:50%; "></img></i>
+                                    </div><br>
+                                        <li>input all information needed in creating an limit</li>
+                                        <li>After inputting all the information needed click the “submit” button </li>
+                                        <button type="button" class="btn" data-toggle="collapse" data-target="#limit2">View Image</button>
+                                        <div align="center" id="limit2" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/limit2.png' %}"
+                                        style="width:30%; height:30%; "></img></i>
+                                        </div><br>
+                                    <hr>
+                                </div>
+                                <button align="center" type="button" class="btn" data-toggle="collapse" data-target="#updatelimit"><h6>Updating limit</h6></button>
+                                <div id="updatelimit"  class="collapse">
+                                    <hr>
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#limit3">View Image</button>
+                                        <div align="center" id="limit3" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/limit3.png' %}"
+                                        style="width:70%; height:70%; "></img></i>
+                                        </div><br>
+                                    <li>Choose an limit</li>
+                                    <li>Click the "green button" ADD or DEDUCT</li>
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#limit4">View Image</button>
+                                        <div align="center" id="limit4" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/limit4.png' %}"
+                                        style="width:30%; height:30%; "></img></i>
+                                        </div><br>
+                                    <li>Input the quantity that you want to add or deduct</li>
+                                    <li>then Click the submit button "ADD" "DEDUCT</li>
+                                    <hr>
+                                </div>
+                                <hr>
+                            </div>
+                            </div><br>
+                            
+                            
+                
+                            <h5>Equipment</h5>
+                            <button type="button" class="btn " data-toggle="collapse" data-target="#euqipinfo">See more..</button>
+                            <div id="euqipinfo"  class="collapse">
+                                <hr>
+                                <button type="button" class="btn " data-toggle="collapse" data-target="#recordequip">Limit in Equipment</button><br>
+                                <div align="center" style="background-color: white; padding-left: 10px;" id="recordequip" class="collapse">
+                                    <hr>
+                                    -The Admin can limit the amount of Equipment for each departments                            
+                                         <li>Click the “Limit Equipment" under the equipment on your navigation bar</li>    
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#equiplimit">View Image</button>
+                                        
+                                    <div align="center" id="equiplimit" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/equiplimit.png' %}"
+                                        style="width:50%; height:50%; "></img></i>
+                                        </div><br>
+                                        
+                                        <li>input all information needed in creating an limit</li>    
+                                        <button type="button" class="btn" data-toggle="collapse" data-target="#equiplimit1">View Image</button>
+                                        <div align="center" id="equiplimit1" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/equiplimit1.png' %}"
+                                        style="width:30%; height:30%; "></img></i>
+                                        </div><br>
+                                        <li>After inputting all the information needed click the “ADD” button</li>
+                                        <li>click "confirm" button to proceed</li>  
+                                        <button type="button" class="btn" data-toggle="collapse" data-target="#equiplimit2">View Image</button>
+                                        <div align="center" id="equiplimit2" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/equiplimit2.png' %}"
+                                        style="width:30%; height:30%; "></img></i>
+                                        </div><br>
+                                       
+                                    
+                                         
+                                  
+                                    <hr>
+                                </div>
+                                <button type="button" class="btn " data-toggle="collapse" data-target="#viewequip">Requested Equipment</button><br>
+                                <div  align="center" style="background-color: white; padding-left: 10px;"id="viewequip" class="collapse">   
+                                    <hr>
+                                        li>Select the “Requested Equipment” under the Equipment section in your Navigation bar</li>
+                                        -The admin can see all the departments request 
+                                        -To accept upcoming request
+                                        <button type="button" class="btn" data-toggle="collapse" data-target="#equiprequest">View Image</button>
+                                        <div align="center" id="equiprequest" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/equiprequest.png' %}"
+                                        style="width:50%; height:50%; "></img></i>
+                                        </div><br>
+                                        <li>select an request by clicking the green button "ACCEPT"</li>
+                                        
+                                        <button type="button" class="btn" data-toggle="collapse" data-target="#equiprequest1">View Image</button>
+                                        <div align="center" id="equiprequest1" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/equiprequest1.png' %}"
+                                        style="width:40%; height:40%; "></img></i>
+                                        </div><br>
+                                        <li>Input all the information needed accepting an request</li>
+                                        <li>click the submit button "accept request"</li>
+                                        <button type="button" class="btn" data-toggle="collapse" data-target="#equiprequest2">View Image</button>
+                                        <div align="center" id="equiprequest2" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/equiprequest2.png' %}"
+                                        style="width:50%; height:50%; "></img></i>
+                                        </div><br>
+                                        -To inform other department about the status of their request the admin may notify them via sending an email
+                                        <li>click the green button "email"</li>
+                                        <li>click the submit button "email"</li>
+                                        <button type="button" class="btn" data-toggle="collapse" data-target="#equiprequest3">View Image</button>
+                                        <div align="center" id="equiprequest3" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/equiprequest3.png' %}"
+                                        style="width:50%; height:50%; "></img></i>
+                                        </div><br>
+                                        
+                                        
+                                        
+                                        <hr>
+                                        <button type="button" class="btn " data-toggle="collapse" data-target="#ISC">Inventory Custodian Slip</button><br>
+                                        <div id="ISC" class="collapse">
+                                            <button type="button" class="btn" data-toggle="collapse" data-target="#ics">View Image</button>
+                                            <div align="center" id="ics" class="collapse">
+                                            <i><img src="{% static 'usermanual picture/ics.png' %}"
+                                            style="width:50%; height:50%; "></img></i>
+                                            </div><br>
+                                            -Before withdrawing the equipment, ICS or ARE are a must upon transaction.<p></p>
+                                            Fill inputs such as department and date <p></p>
+                                            when the equipment is accepted.
+                                            <li>Click “Create Form” button</li>
+                                            <button type="button" class="btn" data-toggle="collapse" data-target="#ics1">View Image</button>
+                                            <div align="center" id="ics1" class="collapse">
+                                            <i><img src="{% static 'usermanual picture/ics1.png' %}"
+                                            style="width:50%; height:50%; "></img></i>
+                                            </div><br>
+                                            Complete the necessary information in creating the form
+                                            <li>Click “Save” button</li>
+                                            <li>Click “Create Form” Button</li>
+                                        </div>
+                                        <button type="button" class="btn " data-toggle="collapse" data-target="#AR">Acknowledgement Receipt</button><br>
+                                        <div id="AR" class="collapse">
+                                        <hr>
+                                        <button type="button" class="btn" data-toggle="collapse" data-target="#ar">View Image</button>
+                                            <div align="center" id="ar" class="collapse">
+                                            <i><img src="{% static 'usermanual picture/ar.png' %}"
+                                            style="width:50%; height:50%; "></img></i>
+                                            </div><br>
+                                            -Fill inputs such as department and date when the equipment is accepted.
+                                            <li>Click “Create Form” button</li>
+                                            -Complete the necessary information in creating the form
+                                        <button type="button" class="btn" data-toggle="collapse" data-target="#ar1">View Image</button>
+                                        <div align="center" id="ar1" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/ar1.png' %}"
+                                        style="width:50%; height:50%; "></img></i>
+                                        </div><br>
+                                    <li>Click “Save” button</li>
+                                        <li>Click “Create Form” Button</li>
+                                        <hr>
+                                        </div>
+                                        -The admin can view here all the records in  equipments. Also the admin can save/convert the record in pdf or xls format by clicking on the two blue button “Convert to PDF” and “Export to XLS”
+                                        
+                                    <hr>
+                                </div>
+                                <button type="button" class="btn " data-toggle="collapse" data-target="#withdrawequip">Releasing of Equipment</button><br>
+                                <div align="center" style="background-color: white; padding-left: 10px;" id="withdrawequip" class="collapse">
+                                    <hr>
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#equipwithdraw">View Image</button>
+                                        <div align="center" id="equipwithdraw" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/equipwithdraw.png' %}"
+                                        style="width:50%; height:50%; "></img></i>
+                                        </div><br>
+                                        -After the equipment is delivered and the arrival of the representative of the department who requested it, the admin may/can now Release the equipment.<p></p>
+                                        <li>Select the Release Equipments” under the Equipment section in your Navigation bar</li>
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#equipwithdraw1">View Image</button>
+                                    <div align="center" id="equipwithdraw1" class="collapse">
+                                    <i><img src="{% static 'usermanual picture/equipwithdraw1.png' %}"
+                                    style="width:50%; height:50%; "></img></i>
+                                    </div><br>
+                                    <li>Click on the Green button Release</li>
+                                    <li>Input all the information needed in Release an Equipment</li>
+                                    <li>Then click the submit button “Create QR”</li>
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#equipwithdraw2">View Image</button>
+                                        <div align="center" id="equipwithdraw2" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/equipwithdraw2.png' %}"
+                                        style="width:50%; height:50%; "></img></i>
+                                        </div><br>
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#equipwithdraw3">View Image</button>
+                                    <div align="center" id="equipwithdraw3" class="collapse">
+                                    <i><img src="{% static 'usermanual picture/equipwithdraw3.png' %}"
+                                    style="width:30%; height:30%; "></img></i>
+                                    </div><br>
+                                    <li>Save it to your computer</li>
+                                    <li>After saving the QR code</li>
+                                    <li>You may now Release the equipment </li>
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#equipwithdraw4">View Image</button>
+                                    <div align="center" id="equipwithdraw4" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/equipwithdraw4.png' %}"
+                                        style="width:30%; height:30%; "></img></i>
+                                        </div><br>
+                                    <hr>
+                                </div>
+                                    <button type="button" class="btn " data-toggle="collapse" data-target="#returnEquip">Returning of Equipment</button><br>
+                                    <div align="center" style="background-color: white; padding-left: 10px;" id="returnEquip" class="collapse">
+                                    <hr>
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#returnequip">View Image</button>
+                                    <div align="center" id="returnequip" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/returnequip.png' %}"
+                                        style="width:50%; height:50%; "></img></i>
+                                        </div><br>
+                                        <li>Select the “Delivery” under the Equipment section in your Navigation bar</li>
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#returnequip1">View Image</button>
+                                    <div align="center" id="returnequip1" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/returnequip1.png' %}"
+                                        style="width:50%; height:50%; "></img></i>
+                                        </div><br>
+                                        <li>
+                                            The admin will scan the QR attache in the equipment 
+                                        </li>
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#returnequip2">View Image</button>
+                                    <div align="center" id="returnequip2" class="collapse">
+                                        <i><img src="{% static 'usermanual picture/returnequip2.png' %}"
+                                        style="width:50%; height:50%; "></img></i>
+                                        </div><br>
+                                        <li>
+                                            And the click the return button
+                                        </li>
+                                        <li>
+                                            The equipment will show below after returning it 
+                                        </li>
+                                        <li>
+                                            The admin can dispose it by clicking the green button “DISPOSE”
+        
+                                        </li>
+                                    
+                                    
+                                    <hr>
+                                    </div>
+                                <hr>
+                            </div><br>
+                            <h5>Storage Location</h5>
+                            <button type="button" class="btn " data-toggle="collapse" data-target="#storagempping">See more..</button>
+                            <div align="center" style="background-color: white; padding-left: 10px;" id="storagempping" class="collapse">
+                            <button type="button" class="btn" data-toggle="collapse" data-target="#mapping">View Image</button>
+                            <div align="center" id="mapping" class="collapse">
+                                <i><img src="{% static 'usermanual picture/mapping.png' %}"
+                                style="width:50%; height:50%; "></img></i>
+                                </div><br>
+                                <li>Select the “Storage Location  in your Navigation menu</li>
+                                -All supply and their location will be shown in the storage Location <p></p>
+                            <button type="button" class="btn" data-toggle="collapse" data-target="#mapping1">View Image</button>
+                            <div align="center" id="mapping1" class="collapse">
+                                <i><img src="{% static 'usermanual picture/mapping1.png' %}"
+                                style="width:50%; height:50%; "></img></i>
+                                </div><br>
+                                -The admin can update the location of each supply in the storage Location   
+                                <li>
+                                    Select an supply and then click the green button “UPDATE”
+        
+                                </li>
+                            <button type="button" class="btn" data-toggle="collapse" data-target="#mapping2">View Image</button>
+                            <div align="center" id="mapping2" class="collapse">
+                                <i><img src="{% static 'usermanual picture/mapping2.png' %}"
+                                style="width:50%; height:50%; "></img></i>
+                                </div><br>
+                                <li>
+                                    Input all the information needed 
+                                </li>
+                                <li>
+                                    Click the submit button “UPDATE”
+                                </li>
+                            <button type="button" class="btn" data-toggle="collapse" data-target="#mapping3">View Image</button>
+                            <div align="center" id="mapping3" class="collapse">
+                                <i><img src="{% static 'usermanual picture/mapping3.png' %}"
+                                style="width:50%; height:50%; "></img></i>
+                                </div><br>
+                            
+                            
+                            
+                            </div><br>
+                            <h5>Add Admin Account</h5>
+                            <button type="button" class="btn " data-toggle="collapse" data-target="#adminaccnt">See more..</button>
+                            <div  align="center" style="background-color: white; padding-left: 10px;" id="adminaccnt" class="collapse">
+                              <hr>
+                            <button type="button" class="btn" data-toggle="collapse" data-target="#adminuser">View Image</button>
+                            <div align="center" id="adminuser" class="collapse">
+                                <i><img src="{% static 'usermanual picture/adminuser.png' %}"
+                                style="width:50%; height:50%; "></img></i>
+                                </div><br>
+                                -After you login and have access to the website you may now create your own or staff account by registering it.
+                                <li>
+                                    Click the “Add Admin Account” in your Navigation Bar
+                                </li>
+                            <button type="button" class="btn" data-toggle="collapse" data-target="#adminuser1">View Image</button>
+                            <div align="center" id="adminuser1" class="collapse">
+                                <i><img src="{% static 'usermanual picture/adminuser1.png' %}"
+                                style="width:50%; height:50%; "></img></i>
+                                </div><br>
+                                <li>
+                                    Fill in the details needed (Username, Email, Password)
+                                </li>
+                                <li>
+                                    Retype your password
+                                </li>
+                                <li>
+                                    Click the “REGISTER” Button
+                                </li>
+                            <button type="button" class="btn" data-toggle="collapse" data-target="#adminuser2">View Image</button>
+                             <div align="center" id="adminuser2" class="collapse">
+                            <i><img src="{% static 'usermanual picture/adminuser2.png' %}"
+                            style="width:30%; height:30%; "></img></i>
+                            </div><br>
+
+                            -After you click the register button you must have this notification
+                                <li>
+                                    Press Ok then you can now logout and login your new account
+                                </li>
+                              
+                                
+                                
+                              <hr>
+                            
+                            </div><br>
+                            <h5>Add Department Account</h5>
+                            <button type="button" class="btn " data-toggle="collapse" data-target="#depaccnt">See more..</button>
+                            <div align="center" style="background-color: white; padding-left: 10px;" id="depaccnt" class="collapse">
+                              <hr>
+                              <button type="button" class="btn" data-toggle="collapse" data-target="#depuser">View Image</button>
+                              <div align="center" id="depuser" class="collapse">
+                              <i><img src="{% static 'usermanual picture/depuser.png' %}"
+                              style="width:50%; height:50%; "></img></i>
+                              </div><br>
+                              -To allow the other departments to have limited access offered by TUP supply inventory system, the admin should register their account by registering it.
+                              <li>
+                                Click the “Add Department Account” in your Navigation Bar
+                              </li>
+                              <button type="button" class="btn" data-toggle="collapse" data-target="#depuser1">View Image</button>
+                              <div align="center" id="depuser1" class="collapse">
+                              <i><img src="{% static 'usermanual picture/depuser1.png' %}"
+                              style="width:50%; height:50%; "></img></i>
+                              </div><br>
+                              <li>
+                                Fill in the details needed (Username, Email, Department Name, Password)
+                              </li>
+                              <li>
+                                Retype your password
+                              </li>
+                              <li>
+                                Click the “REGISTER” Button
+                              </li>
+                              <button type="button" class="btn" data-toggle="collapse" data-target="#depuser2">View Image</button>
+                              <div align="center" id="depuser2" class="collapse">
+                              <i><img src="{% static 'usermanual picture/depuser2.png' %}"
+                              style="width:30%; height:30%; "></img></i>
+                              </div><br>
+                              -Every department will receive an email confirmation from the email address that the supply admin has registered, meaning that their account is now accessible.
+                              <hr>
+                            </div><br>
+                        </div>
+                    </div>
+                    
+                   
+                  </div>
+              
+                </div>
+              </div>
+
+           
+
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+ 
+
+
+
+        
+
+
+   
+    <footer class="sticky-footer footer ">
+        <div class="container my-auto">
+            <div class="copyright text-gray-700 text-center my-auto">
+                <span>Copyright &copy; <strong><span>COET-4A 2022-2023</span></strong>. All Rights Reserved.</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+
+</div>
+
+
+</div>
+
+
+
+{% endblock %}
