@@ -31,7 +31,7 @@ class DeptRegisterForm(UserCreationForm):
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'form-control' }))
     password1 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Password', 'id': 'regpass', 'class': 'form-control'}))
     password2 = forms.CharField(required=True, widget=forms.TextInput(attrs={'type': 'password', 'placeholder': 'Confirm Password', 'id': 'regpass', 'class': 'form-control'}))
-    department = forms.ChoiceField(choices=offices, required=False, widget=forms.Select(attrs={'placeholder': 'Department', 'class': 'form-select'}))
+    department = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Department', 'class': 'form-control', 'list': 'department'}))
 
     class Meta:
         model = CustomUser
